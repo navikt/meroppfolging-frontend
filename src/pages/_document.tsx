@@ -1,14 +1,40 @@
-import { Html, Head, Main, NextScript } from 'next/document'
-import { ReactElement } from 'react'
+import Document, { Html, Head, Main, NextScript, DocumentInitialProps, DocumentContext } from 'next/document'
+import { DecoratorComponents, fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr'
 
-export default function Document(): ReactElement {
-  return (
-    <Html lang="en">
-      <Head />
-      <body>
-        <Main />
-        <NextScript />
-      </body>
-    </Html>
-  )
+interface DocumentProps {
+  Decorator: DecoratorComponents
 }
+
+class MyDocument extends Document<DocumentProps> {
+  static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps & DocumentProps> {
+    const initialProps = await Document.getInitialProps(ctx)
+
+    const Decorator = await fetchDecoratorReact({
+      env: 'dev',
+      params: { language: 'nb', context: 'privatperson' },
+    })
+
+    return { ...initialProps, Decorator }
+  }
+
+  render(): JSX.Element {
+    const { Decorator } = this.props
+
+    return (
+      <Html lang="no">
+        <Head>
+          <Decorator.Styles />
+        </Head>
+        <body>
+          <Decorator.Header />
+          <Main />
+          <Decorator.Footer />
+          <Decorator.Scripts />
+          <NextScript />
+        </body>
+      </Html>
+    )
+  }
+}
+
+export default MyDocument
