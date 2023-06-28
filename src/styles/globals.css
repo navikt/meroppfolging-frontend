@@ -2,3 +2,9 @@
 @import '@navikt/ds-css';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+body > #__next {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0%;
+}
