@@ -15,3 +15,4 @@ export const browserEnv = publicEnvSchema.parse({
 } satisfies Record<keyof PublicEnv, string | undefined>)
 
 export const isLocal = process.env.NODE_ENV !== 'production'
+
