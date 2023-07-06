@@ -13,3 +13,6 @@ export const publicEnvSchema = z.object({
 export const browserEnv = publicEnvSchema.parse({
   cdnPublicPath: process.env.NEXT_PUBLIC_ASSET_PREFIX,
 } satisfies Record<keyof PublicEnv, string | undefined>)
+
+export const isLocal = process.env.NODE_ENV !== 'production'
+
