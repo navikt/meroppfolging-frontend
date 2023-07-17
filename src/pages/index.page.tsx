@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 
-import { withAuthenticatedPage } from '@/auth/withAuthentication'
+import { withAuthenticatedPage } from '@/auth'
 import { trpc } from '@/utils/trpc'
 
 function Home(): ReactElement {
