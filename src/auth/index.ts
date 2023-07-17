@@ -30,7 +30,7 @@ export function withAuthenticatedPage(handler: PageHandler = defaultPageHandler)
 
     const redirect = {
       redirect: {
-        destination: `/oauth2/login?redirect=/${BASE_PATH}/${context.resolvedUrl}`,
+        destination: `/oauth2/login?redirect=${BASE_PATH}/${context.resolvedUrl}`,
         permanent: false,
       },
     }
