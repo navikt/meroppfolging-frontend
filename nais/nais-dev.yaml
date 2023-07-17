@@ -44,8 +44,6 @@ spec:
   env:
     - name: DECORATOR_ENV
       value: 'dev'
-    - name: RUNTIME_ENVIRONMENT
-      value: dev
   accessPolicy:
     outbound:
       rules:
