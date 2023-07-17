@@ -1,9 +1,32 @@
-import { initTRPC } from '@trpc/server'
-// Avoid exporting the entire t-object
-// since it's not very descriptive.
-// For instance, the use of a t variable
-// is common in i18n libraries.
-const t = initTRPC.create()
-// Base router and procedure helpers
+import { inferAsyncReturnType, initTRPC } from '@trpc/server'
+import { CreateNextContextOptions } from '@trpc/server/adapters/next'
+
+import { authenticateIdportenToken } from '@/auth'
+
+interface CreateContextOptions {
+  authorization?: string
+}
+export function createContext(opts: CreateNextContextOptions): CreateContextOptions {
+  const authHeader = opts.req.headers['authorization']
+
+  return {
+    authorization: authHeader,
+  }
+}
+type Context = inferAsyncReturnType<typeof createContext>
+
+const t = initTRPC.context<Context>().create()
+
+const authenticate = t.middleware(async (opts) => {
+  const authHeader = opts.ctx.authorization
+
+  await authenticateIdportenToken(authHeader)
+
+  return opts.next({
+    ctx: opts.ctx,
+  })
+})
+
 export const router = t.router
-export const procedure = t.procedure
+export const publicProcedure = t.procedure
+export const authenticatedProcedure = t.procedure.use(authenticate)
