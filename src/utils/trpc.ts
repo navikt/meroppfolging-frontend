@@ -1,12 +1,13 @@
 import { httpBatchLink } from '@trpc/client'
 import { createTRPCNext } from '@trpc/next'
+import { createTRPCMsw } from 'msw-trpc'
 
 import type { AppRouter } from '../server/routers/_app'
 
 import { BASE_PATH } from '@/constants/paths'
 
 export const trpc = createTRPCNext<AppRouter>({
-  config(opts) {
+  config() {
     return {
       links: [
         httpBatchLink({
@@ -24,3 +25,5 @@ export const trpc = createTRPCNext<AppRouter>({
    **/
   ssr: false,
 })
+
+export const trpcMsw = createTRPCMsw<AppRouter>()
