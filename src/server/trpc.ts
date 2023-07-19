@@ -20,10 +20,10 @@ const t = initTRPC.context<Context>().create()
 const authenticate = t.middleware(async (opts) => {
   const authHeader = opts.ctx.authorization
 
-  await authenticateIdportenToken(authHeader)
+  const authorization = await authenticateIdportenToken(authHeader)
 
   return opts.next({
-    ctx: opts.ctx,
+    ctx: { ...opts.ctx, authorization },
   })
 })
 
