@@ -1,14 +1,12 @@
-import { NextApiRequest } from 'next'
-
 import { StartRegisteringDTO, startRegisteringSchema } from './schemas/registreringSchema'
 
 import { getServerEnv } from '@/constants/envs'
 import { exchangeIdportenTokenForVeilarbregisteringTokenx } from '@/auth/tokenUtils'
 import { serverRequst } from '@/libs/axios'
 
-export async function getStartRegistrering(req: NextApiRequest): Promise<StartRegisteringDTO> {
+export async function getStartRegistrering(auth: string): Promise<StartRegisteringDTO> {
   const url = getServerEnv().VEIARBLREGISTRERING_START_REGISTERING_API_URL
-  const tokenx = await exchangeIdportenTokenForVeilarbregisteringTokenx(req)
+  const tokenx = await exchangeIdportenTokenForVeilarbregisteringTokenx(auth)
 
   const response = await serverRequst<StartRegisteringDTO>(url, tokenx)
 
