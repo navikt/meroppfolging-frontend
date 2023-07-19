@@ -43,9 +43,13 @@ spec:
     - 'https://www.ekstern.dev.nav.no/syk/mer-oppfolging-wip'
   env:
     - name: DECORATOR_ENV
-      value: 'dev'
+      value: dev
+    - name: VEIARBLREGISTRERING_START_REGISTERING_API_URL
+      value: http://veilarbregistrering.paw/veilarbregistrering/api/startregistrering/
   accessPolicy:
     outbound:
       rules:
         - application: nav-dekoratoren
           namespace: personbruker
+        - application: veilarbregistrering
+          namespace: paw
