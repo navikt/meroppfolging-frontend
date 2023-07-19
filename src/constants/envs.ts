@@ -10,6 +10,7 @@ export const publicEnvSchema = z.object({
     z.literal('production'),
   ]),
   NEXT_PUBLIC_ASSET_PREFIX: z.string().optional(),
+  NEXT_PUBLIC_API_MOCKING: z.string(),
 })
 
 export type ServerEnv = z.infer<typeof serverEnvSchema>
@@ -35,6 +36,7 @@ export const serverEnvSchema = z.object({
 export const browserEnv = publicEnvSchema.parse({
   NEXT_PUBLIC_RUNTIME_ENVIRONMENT: process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT,
   NEXT_PUBLIC_ASSET_PREFIX: process.env.NEXT_PUBLIC_ASSET_PREFIX,
+  NEXT_PUBLIC_API_MOCKING: process.env.NEXT_PUBLIC_API_MOCKING,
 } satisfies Record<keyof PublicEnv, string | undefined>)
 
 const getRawServerConfig = (): Partial<unknown> =>

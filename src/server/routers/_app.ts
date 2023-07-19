@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 import { authenticatedProcedure, publicProcedure, router } from '../trpc'
+import { getStartRegistrering } from '../services/registeringService'
 
 export const appRouter = router({
   hello: publicProcedure
@@ -14,10 +15,13 @@ export const appRouter = router({
         greeting: `hello ${opts.input.text}`,
       }
     }),
-  sykmeldt: authenticatedProcedure.query(() => {
+  sykmeldt: authenticatedProcedure.query(({ ctx }) => {
     return {
-      sykmeldt: 'sykmeldt',
+      sykmeldt: ctx.authorization,
     }
+  }),
+  startRegistering: authenticatedProcedure.query(async ({ ctx }) => {
+    return getStartRegistrering(ctx.authorization)
   }),
 })
 
