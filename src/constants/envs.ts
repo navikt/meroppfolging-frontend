@@ -52,7 +52,7 @@ const getRawServerConfig = (): Partial<unknown> =>
     IDPORTEN_WELL_KNOWN_URL: process.env.IDPORTEN_WELL_KNOWN_URL,
     IDPORTEN_CLIENT_ID: process.env.IDPORTEN_CLIENT_ID,
     NAIS_CLUSTER_NAME: process.env.NAIS_CLUSTER_NAME,
-  } satisfies Record<keyof ServerEnv, string | undefined>)
+  }) satisfies Record<keyof ServerEnv, string | undefined>
 
 export function getServerEnv(): ServerEnv & PublicEnv {
   try {

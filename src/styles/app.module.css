@@ -1,0 +1,13 @@
+.mainWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-width: 640px;
+  max-width: 740px;
+}

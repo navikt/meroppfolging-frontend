@@ -4,7 +4,7 @@ import { CreateNextContextOptions } from '@trpc/server/adapters/next'
 import { authenticateIdportenToken } from '@/auth'
 
 interface CreateContextOptions {
-  authorization?: string
+  authorization: string | undefined
 }
 export function createContext(opts: CreateNextContextOptions): CreateContextOptions {
   const authHeader = opts.req.headers['authorization']

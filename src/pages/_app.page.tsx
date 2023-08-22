@@ -4,6 +4,8 @@ import { ReactElement, useState } from 'react'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
+import styles from '../styles/app.module.css'
+
 import { trpc } from '@/utils/trpc'
 import { server } from '@/mocks/server'
 
@@ -17,9 +19,11 @@ function App({ Component, pageProps }: AppProps): ReactElement {
   const [queryClient] = useState(() => new QueryClient())
   return (
     <QueryClientProvider client={queryClient}>
-      <main tabIndex={-1} id="maincontent">
-        <Component {...pageProps} />
-      </main>
+      <section className={styles.mainWrapper}>
+        <main className={styles.main} tabIndex={-1} id="maincontent">
+          <Component {...pageProps} />
+        </main>
+      </section>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   )

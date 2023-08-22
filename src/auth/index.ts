@@ -1,4 +1,4 @@
-import { GetServerSidePropsContext, NextApiRequest, NextApiResponse, GetServerSidePropsResult } from 'next'
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { validateIdportenToken } from '@navikt/next-auth-wonderwall'
 import { logger } from '@navikt/next-logger'
 import { TRPCError } from '@trpc/server'
