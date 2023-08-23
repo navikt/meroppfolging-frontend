@@ -4,12 +4,12 @@ import { useForm } from 'react-hook-form'
 import NestedRadioGroup from '../FormComponents/NestedRadioGroup'
 import FormPanel from '../FormComponents/FormPanel'
 
-import { SporsmalId } from '@/types/merOppfolgingForm'
+import { QuestionId } from '@/types/merOppfolgingForm'
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
 
 const questionTitle = 'Er det noe annet enn helsen din som NAV bør ta hensyn til?'
 const questionDescription = 'For eksempel språk, lesing og skriving eller familiesituasjon'
-const name = SporsmalId.andreForhold
+const name = QuestionId.andreForhold
 
 function AndreForhold(): React.ReactElement {
   const { formState } = useMerOppfolgingFormContext()

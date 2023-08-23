@@ -1,15 +1,15 @@
 import { useForm } from 'react-hook-form'
 
-import FormPanel from '../FormComponents/FormPanel'
 import NestedRadioGroup from '../FormComponents/NestedRadioGroup'
+import FormPanel from '../FormComponents/FormPanel'
 
-import { SporsmalId } from '@/types/merOppfolgingForm'
+import { QuestionId } from '@/types/merOppfolgingForm'
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
 
-const questionTitle = 'Er utdanningen din godkjent i Norge?'
-const name = SporsmalId.utdanningGodkjent
+const questionTitle = 'Hva er din høyeste fullførte utdanning?'
+const name = QuestionId.utdanning
 
-function UtdanningGodkjent(): React.ReactElement {
+function Utdanning(): React.ReactElement {
   const { formState } = useMerOppfolgingFormContext()
 
   const methods = useForm({
@@ -25,4 +25,4 @@ function UtdanningGodkjent(): React.ReactElement {
   )
 }
 
-export default UtdanningGodkjent
+export default Utdanning

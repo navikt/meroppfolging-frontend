@@ -1,34 +1,35 @@
 import ErrorPage from 'next/error'
 
-import FremtidigSituasjon from './SubForms/FremtidigSituasjon'
-import Utdanning from './SubForms/Utdanning'
-import TilbakeIArbeid from './SubForms/TilbakeIArbeid'
-import AndreForhold from './SubForms/AndreForhold'
-import UtdanningGodkjent from './SubForms/UtdanningGodkjent'
-import UtdanningBestatt from './SubForms/UtdanningBestatt'
-import Oppsummering from './Oppsummering'
-import SkalTilbakeIArbeid from './SkalTilbakeIArbeid'
+import Summary from '../Summary/Summary'
 
-import { FormPage, SporsmalId } from '@/types/merOppfolgingForm'
+import FremtidigSituasjon from './Forms/FremtidigSituasjon'
+import Utdanning from './Forms/Utdanning'
+import TilbakeIArbeid from './Forms/TilbakeIArbeid'
+import AndreForhold from './Forms/AndreForhold'
+import UtdanningGodkjent from './Forms/UtdanningGodkjent'
+import UtdanningBestatt from './Forms/UtdanningBestatt'
+import SkalTilbakeIArbeid from './BackToWork'
+
+import { FormPage, FormSummaryPages, QuestionId } from '@/types/merOppfolgingForm'
 import useCurrentForm from '@/hooks/useCurrentForm'
 
 function RenderPage({ currentForm }: { currentForm: FormPage }): React.ReactElement {
   switch (currentForm) {
-    case SporsmalId.fremtidigSituasjon:
+    case QuestionId.fremtidigSituasjon:
       return <FremtidigSituasjon />
-    case SporsmalId.tilbakeIArbeid:
+    case QuestionId.tilbakeIArbeid:
       return <TilbakeIArbeid />
-    case SporsmalId.utdanning:
+    case QuestionId.utdanning:
       return <Utdanning />
-    case SporsmalId.utdanningGodkjent:
+    case QuestionId.utdanningGodkjent:
       return <UtdanningGodkjent />
-    case SporsmalId.utdanningBestatt:
+    case QuestionId.utdanningBestatt:
       return <UtdanningBestatt />
-    case SporsmalId.andreForhold:
+    case QuestionId.andreForhold:
       return <AndreForhold />
-    case 'Oppsummering':
-      return <Oppsummering />
-    case 'SkalTilbakeIArbeid':
+    case FormSummaryPages.summary:
+      return <Summary />
+    case FormSummaryPages.backToWork:
       return <SkalTilbakeIArbeid />
   }
 }

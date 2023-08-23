@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 
 import { isFormPage } from '@/utils/tsUtils'
-import { formPage } from '@/components/MerOppfolgingForm/utils/formValues'
+import { formPage } from '@/domain/formPages'
 import { FormPage } from '@/types/merOppfolgingForm'
 
 function useCurrentForm(): FormPage {

@@ -1,11 +1,11 @@
 import { Radio, RadioGroup } from '@navikt/ds-react'
 import { useController } from 'react-hook-form'
 
-import { defaultFormValues, merOppfolgingRadioAlt } from '../utils/formValues'
+import { defaultFormValues } from '../../../domain/formValues'
 
-import { MerOppfolgingFormState } from '@/types/merOppfolgingForm'
+import { merOppfolgingRadioAlt } from '@/domain/radioValues'
 
-function GetRadioAlternatives<T extends keyof typeof merOppfolgingRadioAlt>(name: T): React.ReactElement[] {
+function RadioAlternatives(name: keyof typeof merOppfolgingRadioAlt): React.ReactElement[] {
   const radioGroupAlts = merOppfolgingRadioAlt[name]
 
   const RadioAlternatives = Object.entries(radioGroupAlts).map(([key, value]) => {
@@ -24,7 +24,7 @@ function NestedRadioGroup({
   legend,
   description,
 }: {
-  name: keyof MerOppfolgingFormState
+  name: keyof typeof merOppfolgingRadioAlt
   legend: string
   description?: string
 }): React.ReactElement {
@@ -35,11 +35,9 @@ function NestedRadioGroup({
   })
 
   return (
-    <>
-      <RadioGroup {...field} legend={legend} description={description} error={fieldState.error?.message}>
-        {GetRadioAlternatives(name)}
-      </RadioGroup>
-    </>
+    <RadioGroup {...field} legend={legend} description={description} error={fieldState.error?.message}>
+      {RadioAlternatives(name)}
+    </RadioGroup>
   )
 }
 

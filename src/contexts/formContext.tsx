@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useReducer } from 'react'
 
-import { defaultFormValues, INITIAL_FORM_PAGE } from '@/components/MerOppfolgingForm/utils/formValues'
-import { FormAction, formReducer } from '@/components/MerOppfolgingForm/utils/formReducer'
+import { defaultFormValues } from '@/domain/formValues'
+import { INITIAL_FORM_PAGE } from '@/domain/formPages'
+import { FormAction, formReducer } from '@/components/MerOppfolgingForm/formReducer'
 import { FormPage, MerOppfolgingFormState } from '@/types/merOppfolgingForm'
 import useCurrentForm from '@/hooks/useCurrentForm'
-import { getFormNavigation } from '@/components/MerOppfolgingForm/utils/formStateMachine'
+import { getFormNavigation } from '@/components/MerOppfolgingForm/formStateMachine'
 
 type FormContext = {
   formState: MerOppfolgingFormState

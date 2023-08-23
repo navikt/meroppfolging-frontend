@@ -1,9 +1,8 @@
-import { formPage } from '../components/MerOppfolgingForm/utils/formValues'
+import { formPage } from '@/domain/formPages'
+import { QuestionId } from '@/types/merOppfolgingForm'
 
-import { SporsmalId } from '@/types/merOppfolgingForm'
-
-export function isSporsmalId(value: string): value is SporsmalId {
-  return value in SporsmalId
+export function isQuestionId(value: string): value is QuestionId {
+  return value in QuestionId
 }
 
 export function isFormPage(value: string | string[] | undefined): value is keyof typeof formPage {
