@@ -3,13 +3,13 @@ import { useForm } from 'react-hook-form'
 import NestedRadioGroup from '../FormComponents/NestedRadioGroup'
 import FormPanel from '../FormComponents/FormPanel'
 
-import { SporsmalId } from '@/types/merOppfolgingForm'
+import { QuestionId } from '@/types/merOppfolgingForm'
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
 
-const questionTitle = 'Tror du at du kommer tilbake i jobb før du har vært sykmeldt i 52 uker?'
-const name = SporsmalId.tilbakeIArbeid
+const questionTitle = 'Hva tenker du om din fremtidige situasjon?'
+const name = QuestionId.fremtidigSituasjon
 
-function TilbakeIArbeid(): React.ReactElement {
+function FremtidigSituasjon(): React.ReactElement {
   const { formState } = useMerOppfolgingFormContext()
 
   const methods = useForm({
@@ -24,4 +24,4 @@ function TilbakeIArbeid(): React.ReactElement {
   )
 }
 
-export default TilbakeIArbeid
+export default FremtidigSituasjon

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Back } from '@navikt/ds-icons'
 
-import { getFormUrlObject } from '../utils/utils'
+import { getFormUrlObject } from '../../../utils/utils'
 
 import { FormPage } from '@/types/merOppfolgingForm'
 

@@ -1,18 +1,46 @@
-import { invert } from 'remeda'
+import { QuestionId } from '@/types/merOppfolgingForm'
 
-import {
-  AndreForholdValues,
-  FormPage,
-  FremtidigSituasjonValues,
-  MerOppfolgingFormState,
-  SporsmalId,
-  TilbakeIArbeidValues,
-  UtdanningBestattValues,
-  UtdanningGodkjentValues,
-  UtdanningValues,
-} from '@/types/merOppfolgingForm'
+export enum FremtidigSituasjonValues {
+  SAMME_ARBEIDSGIVER = 'SAMME_ARBEIDSGIVER',
+  SAMME_ARBEIDSGIVER_NY_STILLING = 'SAMME_ARBEIDSGIVER_NY_STILLING',
+  NY_ARBEIDSGIVER = 'NY_ARBEIDSGIVER',
+  USIKKER = 'USIKKER',
+  INGEN_PASSER = 'INGEN_PASSER',
+}
 
-const fremtidigSituasjonAlt = {
+export enum UtdanningValues {
+  INGEN_UTDANNING = 'INGEN_UTDANNING',
+  GRUNNSKOLE = 'GRUNNSKOLE',
+  VIDEREGAENDE_GRUNNUTDANNING = 'VIDEREGAENDE_GRUNNUTDANNING',
+  VIDEREGAENDE_FAGBREV_SVENNEBREV = 'VIDEREGAENDE_FAGBREV_SVENNEBREV',
+  HOYERE_UTDANNING_1_TIL_4 = 'HOYERE_UTDANNING_1_TIL_4',
+  HOYERE_UTDANNING_5_ELLER_MER = 'HOYERE_UTDANNING_5_ELLER_MER',
+}
+
+export enum UtdanningGodkjentValues {
+  JA = 'JA',
+  NEI = 'NEI',
+  VET_IKKE = 'VET_IKKE',
+}
+
+export enum UtdanningBestattValues {
+  JA = 'JA',
+  NEI = 'NEI',
+}
+
+export enum AndreForholdValues {
+  JA = 'JA',
+  NEI = 'NEI',
+}
+
+export enum TilbakeIArbeidValues {
+  JA_FULL_STILLING = 'JA_FULL_STILLING',
+  JA_REDUSERT_STILLING = 'JA_REDUSERT_STILLING',
+  USIKKER = 'USIKKER',
+  NEI = 'NEI',
+}
+
+export const fremtidigSituasjonAlt = {
   [FremtidigSituasjonValues.SAMME_ARBEIDSGIVER]: 'Jeg skal tilbake til jobben jeg har',
   [FremtidigSituasjonValues.SAMME_ARBEIDSGIVER_NY_STILLING]:
     'Jeg skal tilbake til arbeidsgiveren min, men i ny stilling',
@@ -21,7 +49,7 @@ const fremtidigSituasjonAlt = {
   [FremtidigSituasjonValues.INGEN_PASSER]: 'Ingen av disse alternativene passer',
 } as const satisfies Record<FremtidigSituasjonValues, string>
 
-const utdanningAlt = {
+export const utdanningAlt = {
   [UtdanningValues.INGEN_UTDANNING]: 'Ingen utdanning',
   [UtdanningValues.GRUNNSKOLE]: 'Grunnskole',
   [UtdanningValues.VIDEREGAENDE_GRUNNUTDANNING]: 'Videregående grunnutdanning (1 til 2 år)',
@@ -30,23 +58,23 @@ const utdanningAlt = {
   [UtdanningValues.HOYERE_UTDANNING_5_ELLER_MER]: 'Høyere utdanning (5 år eller mer)',
 } as const satisfies Record<UtdanningValues, string>
 
-const utdanningGodkjentAlt = {
+export const utdanningGodkjentAlt = {
   [UtdanningGodkjentValues.JA]: 'Ja',
   [UtdanningGodkjentValues.NEI]: 'Nei',
   [UtdanningGodkjentValues.VET_IKKE]: 'Vet ikke',
 } as const satisfies Record<UtdanningGodkjentValues, string>
 
-const utdanningBestattAlt = {
+export const utdanningBestattAlt = {
   [UtdanningBestattValues.JA]: 'Ja',
   [UtdanningBestattValues.NEI]: 'Nei',
 } as const satisfies Record<UtdanningBestattValues, string>
 
-const andreForholdAlt = {
+export const andreForholdAlt = {
   [AndreForholdValues.JA]: 'Ja',
   [AndreForholdValues.NEI]: 'Nei',
 } as const satisfies Record<AndreForholdValues, string>
 
-const tilbakeIArbeidAlt = {
+export const tilbakeIArbeidAlt = {
   [TilbakeIArbeidValues.JA_FULL_STILLING]: 'Ja, i full stilling',
   [TilbakeIArbeidValues.JA_REDUSERT_STILLING]: 'Ja, i redusert stilling',
   [TilbakeIArbeidValues.USIKKER]: 'Usikker',
@@ -54,36 +82,10 @@ const tilbakeIArbeidAlt = {
 } as const satisfies Record<TilbakeIArbeidValues, string>
 
 export const merOppfolgingRadioAlt = {
-  [SporsmalId.fremtidigSituasjon]: fremtidigSituasjonAlt,
-  [SporsmalId.utdanning]: utdanningAlt,
-  [SporsmalId.utdanningGodkjent]: utdanningGodkjentAlt,
-  [SporsmalId.utdanningBestatt]: utdanningBestattAlt,
-  [SporsmalId.andreForhold]: andreForholdAlt,
-  [SporsmalId.tilbakeIArbeid]: tilbakeIArbeidAlt,
-} as const satisfies Record<SporsmalId, Record<string, string>>
-
-export const merOppfolgingFormAlt = { ...merOppfolgingRadioAlt } as const
-
-export const defaultFormValues: MerOppfolgingFormState = {
-  [SporsmalId.fremtidigSituasjon]: null,
-  [SporsmalId.utdanning]: null,
-  [SporsmalId.utdanningGodkjent]: null,
-  [SporsmalId.utdanningBestatt]: null,
-  [SporsmalId.andreForhold]: null,
-  [SporsmalId.tilbakeIArbeid]: null,
-}
-
-export const formPage = {
-  ['0']: SporsmalId.fremtidigSituasjon,
-  ['1']: SporsmalId.utdanning,
-  ['2']: SporsmalId.utdanningGodkjent,
-  ['3']: SporsmalId.utdanningBestatt,
-  ['4']: SporsmalId.andreForhold,
-  ['5']: SporsmalId.tilbakeIArbeid,
-  ['6']: 'Oppsummering',
-  ['7']: 'SkalTilbakeIArbeid',
-} as const satisfies Record<string, FormPage>
-
-export const formPageInverted = invert(formPage)
-
-export const INITIAL_FORM_PAGE = SporsmalId.fremtidigSituasjon
+  [QuestionId.fremtidigSituasjon]: fremtidigSituasjonAlt,
+  [QuestionId.utdanning]: utdanningAlt,
+  [QuestionId.utdanningGodkjent]: utdanningGodkjentAlt,
+  [QuestionId.utdanningBestatt]: utdanningBestattAlt,
+  [QuestionId.andreForhold]: andreForholdAlt,
+  [QuestionId.tilbakeIArbeid]: tilbakeIArbeidAlt,
+} as const

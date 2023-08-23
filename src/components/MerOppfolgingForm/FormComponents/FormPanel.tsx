@@ -3,18 +3,18 @@ import { FormProvider, UseFormReturn } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { equals, pick } from 'remeda'
 
-import { getFormNavigation } from '../utils/formStateMachine'
-import { getFormUrlObject } from '../utils/utils'
-import { isSporsmalId } from '../../../utils/tsUtils'
+import { getFormNavigation } from '../formStateMachine'
+import { getFormUrlObject } from '../../../utils/utils'
+import { isQuestionId } from '../../../utils/tsUtils'
 
 import FormBack from './FormBack'
 
-// import { RHFDevTool } from '@/libs/ReactHookFormsDevTools'
+import { RHFDevTool } from '@/libs/ReactHookFormsDevTools'
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
 import { MerOppfolgingFormState } from '@/types/merOppfolgingForm'
 
 function hasFormValuesChanged(subForm: Partial<MerOppfolgingFormState>, form: MerOppfolgingFormState): boolean {
-  return !equals(pick(form, Object.keys(subForm).filter(isSporsmalId)), form)
+  return !equals(pick(form, Object.keys(subForm).filter(isQuestionId)), subForm)
 }
 
 function FormPanel<T extends Partial<MerOppfolgingFormState>>({
@@ -40,6 +40,8 @@ function FormPanel<T extends Partial<MerOppfolgingFormState>>({
           const { next } = getFormNavigation(currentForm, { ...formState, ...data }).currentForm
           if (next !== null) {
             router.push(getFormUrlObject(next))
+          } else {
+            throw new Error('Missing next form. Should not happen.')
           }
         })}
       >
@@ -56,7 +58,7 @@ function FormPanel<T extends Partial<MerOppfolgingFormState>>({
         </Panel>
 
         <Button>Neste</Button>
-        {/* <RHFDevTool control={methods.control} /> */}
+        <RHFDevTool control={methods.control} />
       </form>
     </FormProvider>
   )

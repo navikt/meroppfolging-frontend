@@ -1,8 +1,7 @@
 import { pick } from 'remeda'
 
-import { isSporsmalId } from '../../../utils/tsUtils'
-
-import { defaultFormValues } from './formValues'
+import { isQuestionId } from '../../utils/tsUtils'
+import { defaultFormValues } from '../../domain/formValues'
 
 import { FormPage, MerOppfolgingFormState } from '@/types/merOppfolgingForm'
 
@@ -21,6 +20,6 @@ export function formReducer(state: MerOppfolgingFormState, action: FormAction): 
 }
 
 function pickValues(values: FormPage[], state: MerOppfolgingFormState): MerOppfolgingFormState {
-  const formArray = values.filter(isSporsmalId)
+  const formArray = values.filter(isQuestionId)
   return { ...defaultFormValues, ...pick(state, formArray) }
 }
