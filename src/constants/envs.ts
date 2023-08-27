@@ -16,7 +16,8 @@ export const publicEnvSchema = z.object({
 export type ServerEnv = z.infer<typeof serverEnvSchema>
 export const serverEnvSchema = z.object({
   // Provided by nais-*.yaml
-  VEIARBLREGISTRERING_START_REGISTERING_API_URL: z.string(),
+  VEIARBLREGISTRERING_START_REGISTRATION_API_URL: z.string(),
+  VEIARBLREGISTRERING_COMPLETE_REGISTRATION_API_URL: z.string(),
 
   // Provided my nais
   TOKEN_X_WELL_KNOWN_URL: z.string(),
@@ -42,7 +43,8 @@ export const browserEnv = publicEnvSchema.parse({
 const getRawServerConfig = (): Partial<unknown> =>
   ({
     // Provided by nais-*.yml
-    VEIARBLREGISTRERING_START_REGISTERING_API_URL: process.env.VEIARBLREGISTRERING_START_REGISTERING_API_URL,
+    VEIARBLREGISTRERING_START_REGISTRATION_API_URL: process.env.VEIARBLREGISTRERING_START_REGISTRATION_API_URL,
+    VEIARBLREGISTRERING_COMPLETE_REGISTRATION_API_URL: process.env.VEIARBLREGISTRERING_COMPLETE_REGISTRATION_API_URL,
 
     // Provided by nais
     TOKEN_X_WELL_KNOWN_URL: process.env.TOKEN_X_WELL_KNOWN_URL,

@@ -6,8 +6,8 @@ import FormPanel from '../FormComponents/FormPanel'
 
 import { QuestionId } from '@/types/merOppfolgingForm'
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
+import { formQuestionTexts } from '@/domain/formValues'
 
-const questionTitle = 'Er det noe annet enn helsen din som NAV bør ta hensyn til?'
 const questionDescription = 'For eksempel språk, lesing og skriving eller familiesituasjon'
 const name = QuestionId.andreForhold
 
@@ -23,7 +23,7 @@ function AndreForhold(): React.ReactElement {
   return (
     <FormPanel title="Andre utfordringer knyttet til arbeid" methods={methods}>
       <>
-        <NestedRadioGroup name={name} legend={questionTitle} description={questionDescription} />
+        <NestedRadioGroup name={name} legend={formQuestionTexts[name]} description={questionDescription} />
         <Alert variant="info">Svarer du ja, kan du fortelle mer til NAV-veilederen som tar kontakt med deg.</Alert>
       </>
     </FormPanel>

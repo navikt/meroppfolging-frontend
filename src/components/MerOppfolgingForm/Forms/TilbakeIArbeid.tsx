@@ -5,8 +5,8 @@ import FormPanel from '../FormComponents/FormPanel'
 
 import { QuestionId } from '@/types/merOppfolgingForm'
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
+import { formQuestionTexts } from '@/domain/formValues'
 
-const questionTitle = 'Tror du at du kommer tilbake i jobb før du har vært sykmeldt i 52 uker?'
 const name = QuestionId.tilbakeIArbeid
 
 function TilbakeIArbeid(): React.ReactElement {
@@ -19,7 +19,7 @@ function TilbakeIArbeid(): React.ReactElement {
   })
   return (
     <FormPanel title="Arbeidssituasjon" methods={methods}>
-      <NestedRadioGroup name={name} legend={questionTitle} />
+      <NestedRadioGroup name={name} legend={formQuestionTexts[name]} />
     </FormPanel>
   )
 }

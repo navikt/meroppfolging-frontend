@@ -44,8 +44,10 @@ spec:
   env:
     - name: DECORATOR_ENV
       value: dev
-    - name: VEIARBLREGISTRERING_START_REGISTERING_API_URL
+    - name: VEIARBLREGISTRERING_START_REGISTRATION_API_URL
       value: http://veilarbregistrering.paw/veilarbregistrering/api/startregistrering/
+    - name: VEIARBLREGISTRERING_COMPLETE_REGISTRATION_API_URL
+      value: http://veilarbregistrering.paw/veilarbregistrering/api/fullfoersykmeldtregistrering/
   accessPolicy:
     outbound:
       rules:

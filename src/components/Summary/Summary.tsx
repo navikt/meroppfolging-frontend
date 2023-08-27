@@ -1,4 +1,4 @@
-import { GuidePanel, Heading, Ingress, Table } from '@navikt/ds-react'
+import { Button, GuidePanel, Heading, Ingress, Table } from '@navikt/ds-react'
 import Image from 'next/image'
 import { filter, keys, pipe } from 'remeda'
 import Link from 'next/link'
@@ -6,6 +6,7 @@ import Link from 'next/link'
 import FormBack from '../MerOppfolgingForm/FormComponents/FormBack'
 
 import summaryAvatar from './summary-avatar.svg'
+import { completeRegistrationRequestMapper } from './completeRegistrationRequestMapper'
 
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
 import { MerOppfolgingFormState } from '@/types/merOppfolgingForm'
@@ -13,6 +14,7 @@ import { summaryTexts } from '@/components/Summary/summaryTexts'
 import { isQuestionId } from '@/utils/tsUtils'
 import { createFormValueState } from '@/domain/formValues'
 import { getFormUrlObject } from '@/utils/utils'
+import { trpc } from '@/utils/trpc'
 
 function SummaryTable({ state }: { state: MerOppfolgingFormState }): React.ReactElement {
   const formValueState = createFormValueState(state)
@@ -46,6 +48,13 @@ function SummaryTable({ state }: { state: MerOppfolgingFormState }): React.React
 
 function Summary(): React.ReactElement {
   const { formState, previousForm } = useMerOppfolgingFormContext()
+  const mutation = trpc.completeRegistration.useMutation()
+
+  const handleSubmit = (): void => {
+    const formRequest = completeRegistrationRequestMapper(formState)
+
+    mutation.mutate(formRequest)
+  }
 
   return (
     <>
@@ -57,6 +66,9 @@ function Summary(): React.ReactElement {
       <GuidePanel poster illustration={<Image src={summaryAvatar} alt="" />}>
         <SummaryTable state={formState} />
       </GuidePanel>
+      <Button className="w-fit" onClick={handleSubmit} disabled={mutation.isLoading}>
+        Fullfør
+      </Button>
     </>
   )
 }

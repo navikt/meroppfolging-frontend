@@ -5,8 +5,8 @@ import FormPanel from '../FormComponents/FormPanel'
 
 import { QuestionId } from '@/types/merOppfolgingForm'
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
+import { formQuestionTexts } from '@/domain/formValues'
 
-const questionTitle = 'Hva tenker du om din fremtidige situasjon?'
 const name = QuestionId.fremtidigSituasjon
 
 function FremtidigSituasjon(): React.ReactElement {
@@ -19,7 +19,7 @@ function FremtidigSituasjon(): React.ReactElement {
   })
   return (
     <FormPanel title="Arbeidssituasjon" methods={methods}>
-      <NestedRadioGroup name={name} legend={questionTitle} />
+      <NestedRadioGroup name={name} legend={formQuestionTexts[name]} />
     </FormPanel>
   )
 }

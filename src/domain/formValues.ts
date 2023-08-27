@@ -11,6 +11,15 @@ export const defaultFormValues: MerOppfolgingFormState = {
   [QuestionId.tilbakeIArbeid]: null,
 }
 
+export const formQuestionTexts = {
+  [QuestionId.fremtidigSituasjon]: 'Hva tenker du om din fremtidige situasjon?',
+  [QuestionId.utdanning]: 'Hva er din høyeste fullførte utdanning?',
+  [QuestionId.utdanningGodkjent]: 'Er utdanningen din godkjent i Norge?',
+  [QuestionId.utdanningBestatt]: 'Er utdanningen din bestått?',
+  [QuestionId.andreForhold]: 'Er det noe annet enn helsen din som NAV bør ta hensyn til?',
+  [QuestionId.tilbakeIArbeid]: 'Tror du at du kommer tilbake i jobb før du har vært sykmeldt i 52 uker?',
+} as const satisfies Record<QuestionId, string>
+
 export const merOppfolgingFormAlt = { ...merOppfolgingRadioAlt } as const
 
 export function createFormValueState(state: MerOppfolgingFormState) {

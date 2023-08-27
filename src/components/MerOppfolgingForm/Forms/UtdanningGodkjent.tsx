@@ -5,8 +5,8 @@ import NestedRadioGroup from '../FormComponents/NestedRadioGroup'
 
 import { QuestionId } from '@/types/merOppfolgingForm'
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
+import { formQuestionTexts } from '@/domain/formValues'
 
-const questionTitle = 'Er utdanningen din godkjent i Norge?'
 const name = QuestionId.utdanningGodkjent
 
 function UtdanningGodkjent(): React.ReactElement {
@@ -20,7 +20,7 @@ function UtdanningGodkjent(): React.ReactElement {
 
   return (
     <FormPanel title="Utdanning" methods={methods}>
-      <NestedRadioGroup name={name} legend={questionTitle} />
+      <NestedRadioGroup name={name} legend={formQuestionTexts[name]} />
     </FormPanel>
   )
 }
