@@ -5,8 +5,8 @@ import FormPanel from '../FormComponents/FormPanel'
 
 import { QuestionId } from '@/types/merOppfolgingForm'
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
+import { formQuestionTexts } from '@/domain/formValues'
 
-const questionTitle = 'Hva er din høyeste fullførte utdanning?'
 const name = QuestionId.utdanning
 
 function Utdanning(): React.ReactElement {
@@ -20,7 +20,7 @@ function Utdanning(): React.ReactElement {
 
   return (
     <FormPanel title="Utdanning" methods={methods}>
-      <NestedRadioGroup name={name} legend={questionTitle} />
+      <NestedRadioGroup name={name} legend={formQuestionTexts[name]} />
     </FormPanel>
   )
 }

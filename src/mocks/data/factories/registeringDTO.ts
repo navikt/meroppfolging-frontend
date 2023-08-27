@@ -1,6 +1,6 @@
-import { StartRegisteringDTO } from '@/server/services/schemas/registreringSchema'
+import { StartRegistrationDTO } from '@/server/services/schemas/registreringSchema'
 
-export function createStartRegisterinDTO(overrides?: Partial<StartRegisteringDTO>): StartRegisteringDTO {
+export function createStartRegisterinDTO(overrides?: Partial<StartRegistrationDTO>): StartRegistrationDTO {
   return {
     registreringType: 'SYKMELDT_REGISTRERING',
     ...overrides,

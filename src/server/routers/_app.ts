@@ -1,5 +1,6 @@
 import { authenticatedProcedure, router } from '../trpc'
-import { getStartRegistrering } from '../services/registeringService'
+import { completeRegistration, getStartRegistration } from '../services/registeringService'
+import { completeRegistrationSchema } from '../services/schemas/registreringSchema'
 
 export const appRouter = router({
   sykmeldt: authenticatedProcedure.query(({ ctx }) => {
@@ -7,8 +8,12 @@ export const appRouter = router({
       sykmeldt: ctx.authorization,
     }
   }),
-  startRegistering: authenticatedProcedure.query(async ({ ctx }) => {
-    return getStartRegistrering(ctx.authorization)
+  startRegistration: authenticatedProcedure.query(async ({ ctx }) => {
+    return getStartRegistration(ctx.authorization)
+  }),
+  completeRegistration: authenticatedProcedure.input(completeRegistrationSchema).mutation(async ({ ctx, input }) => {
+    completeRegistration(ctx.authorization, input)
+    return {}
   }),
 })
 
