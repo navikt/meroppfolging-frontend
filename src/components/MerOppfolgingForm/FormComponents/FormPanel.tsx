@@ -9,7 +9,7 @@ import { isQuestionId } from '../../../utils/tsUtils'
 
 import FormBack from './FormBack'
 
-import { RHFDevTool } from '@/libs/ReactHookFormsDevTools'
+// import { RHFDevTool } from '@/libs/ReactHookFormsDevTools'
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
 import { MerOppfolgingFormState, QuestionId } from '@/types/merOppfolgingForm'
 import { formQuestionTitles } from '@/domain/formValues'
@@ -58,7 +58,7 @@ function FormPanel<T extends Partial<MerOppfolgingFormState>>({
         </Panel>
 
         <Button>Neste</Button>
-        <RHFDevTool control={methods.control} />
+        {/* <RHFDevTool control={methods.control} /> */}
       </form>
     </FormProvider>
   )
