@@ -7,19 +7,19 @@ import { QuestionId } from '@/types/merOppfolgingForm'
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
 import { formQuestionTexts } from '@/domain/formValues'
 
-const name = QuestionId.tilbakeIArbeid
+const formPage = QuestionId.tilbakeIArbeid
 
 function TilbakeIArbeid(): React.ReactElement {
   const { formState } = useMerOppfolgingFormContext()
 
   const methods = useForm({
     defaultValues: {
-      [name]: formState[name],
+      [formPage]: formState[formPage],
     },
   })
   return (
-    <FormPanel title="Arbeidssituasjon" methods={methods}>
-      <NestedRadioGroup name={name} legend={formQuestionTexts[name]} />
+    <FormPanel formPage={formPage} methods={methods}>
+      <NestedRadioGroup name={formPage} legend={formQuestionTexts[formPage]} />
     </FormPanel>
   )
 }

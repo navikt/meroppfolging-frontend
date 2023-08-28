@@ -11,33 +11,35 @@ import FormBack from './FormBack'
 
 import { RHFDevTool } from '@/libs/ReactHookFormsDevTools'
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
-import { MerOppfolgingFormState } from '@/types/merOppfolgingForm'
+import { MerOppfolgingFormState, QuestionId } from '@/types/merOppfolgingForm'
+import { formQuestionTitles } from '@/domain/formValues'
 
 function hasFormValuesChanged(subForm: Partial<MerOppfolgingFormState>, form: MerOppfolgingFormState): boolean {
   return !equals(pick(form, Object.keys(subForm).filter(isQuestionId)), subForm)
 }
 
 function FormPanel<T extends Partial<MerOppfolgingFormState>>({
-  title,
+  formPage,
   methods,
   children,
 }: {
-  title: string
+  formPage: QuestionId
   methods: UseFormReturn<T>
   children: React.ReactElement
 }): React.ReactElement {
   const router = useRouter()
-  const { currentForm, history, formState, formDispatch, previousForm } = useMerOppfolgingFormContext()
+  const { formState, formDispatch } = useMerOppfolgingFormContext()
+  const { previous, history } = getFormNavigation(formPage, formState)
 
   return (
     <FormProvider {...methods}>
       <form
-        onSubmit={methods.handleSubmit((data) => {
-          if (hasFormValuesChanged(data, formState)) {
-            formDispatch({ type: 'updateForm', value: data, history: history })
+        onSubmit={methods.handleSubmit((value) => {
+          if (hasFormValuesChanged(value, formState)) {
+            formDispatch({ type: 'updateForm', value, history })
           }
 
-          const { next } = getFormNavigation(currentForm, { ...formState, ...data }).currentForm
+          const { next } = getFormNavigation(formPage, { ...formState, ...value })
           if (next !== null) {
             router.push(getFormUrlObject(next))
           } else {
@@ -45,14 +47,12 @@ function FormPanel<T extends Partial<MerOppfolgingFormState>>({
           }
         })}
       >
-        <FormBack formPage={previousForm} />
+        <FormBack formPage={previous} />
 
         <Panel className="bg-gray-100">
-          {title && (
-            <Heading size="medium" spacing level="1">
-              {title}
-            </Heading>
-          )}
+          <Heading size="medium" spacing level="1">
+            {formQuestionTitles[formPage]}
+          </Heading>
 
           {children}
         </Panel>

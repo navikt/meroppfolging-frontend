@@ -7,20 +7,20 @@ import { QuestionId } from '@/types/merOppfolgingForm'
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
 import { formQuestionTexts } from '@/domain/formValues'
 
-const name = QuestionId.utdanningGodkjent
+const formPage = QuestionId.utdanningGodkjent
 
 function UtdanningGodkjent(): React.ReactElement {
   const { formState } = useMerOppfolgingFormContext()
 
   const methods = useForm({
     defaultValues: {
-      [name]: formState[name],
+      [formPage]: formState[formPage],
     },
   })
 
   return (
-    <FormPanel title="Utdanning" methods={methods}>
-      <NestedRadioGroup name={name} legend={formQuestionTexts[name]} />
+    <FormPanel formPage={formPage} methods={methods}>
+      <NestedRadioGroup name={formPage} legend={formQuestionTexts[formPage]} />
     </FormPanel>
   )
 }

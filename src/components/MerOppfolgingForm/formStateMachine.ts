@@ -86,7 +86,9 @@ export const nextNavigationMap = {
 }
 
 export type FormNavigation = {
-  currentForm: { name: FormPage; previous: FormPage | null; next: FormPage | null }
+  current: FormPage
+  previous: FormPage | null
+  next: FormPage | null
   history: FormPage[]
 }
 
@@ -94,24 +96,24 @@ export function getFormNavigation(currentForm: FormPage, form: MerOppfolgingForm
   const navState = createNavigationState(form)
 
   const initalNav: FormNavigation = {
-    currentForm: { name: INITIAL_FORM_PAGE, previous: null, next: navState(INITIAL_FORM_PAGE) },
+    current: INITIAL_FORM_PAGE,
+    previous: null,
+    next: navState(INITIAL_FORM_PAGE),
     history: [INITIAL_FORM_PAGE],
   }
 
   function getHistory(formNav: FormNavigation): FormNavigation {
-    if (formNav.currentForm.name === currentForm || !formNav.currentForm.next) {
+    if (formNav.current === currentForm || !formNav.next) {
       return formNav
     }
 
-    const next = formNav.currentForm.next
+    const next = formNav.next
     const nextFormPage = isQuestionId(next) ? navState(next) : null
     const newFormNav = {
-      currentForm: {
-        name: next,
-        previous: formNav.currentForm.name,
-        next: nextFormPage,
-      },
-      history: [...formNav.history, formNav.currentForm.next],
+      current: next,
+      previous: formNav.current,
+      next: nextFormPage,
+      history: [...formNav.history, formNav.next],
     }
     return getHistory(newFormNav)
   }
