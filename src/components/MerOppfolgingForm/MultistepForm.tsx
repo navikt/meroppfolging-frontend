@@ -1,4 +1,6 @@
-import ErrorPage from 'next/error'
+'use client'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 import Summary from '../Summary/Summary'
 
@@ -9,9 +11,13 @@ import AndreForhold from './Forms/AndreForhold'
 import UtdanningGodkjent from './Forms/UtdanningGodkjent'
 import UtdanningBestatt from './Forms/UtdanningBestatt'
 import SkalTilbakeIArbeid from './BackToWork'
+import { getFormNavigation } from './formStateMachine'
 
-import { FormPage, FormSummaryPages, QuestionId } from '@/types/merOppfolgingForm'
+import { FormPage, FormSummaryPages, MerOppfolgingFormState, QuestionId } from '@/types/merOppfolgingForm'
 import useCurrentForm from '@/hooks/useCurrentForm'
+import { INITIAL_FORM_PAGE } from '@/domain/formPages'
+import { getFormUrlObject } from '@/utils/utils'
+import { useMerOppfolgingFormContext } from '@/contexts/formContext'
 
 function RenderPage({ currentForm }: { currentForm: FormPage }): React.ReactElement {
   switch (currentForm) {
@@ -34,12 +40,29 @@ function RenderPage({ currentForm }: { currentForm: FormPage }): React.ReactElem
   }
 }
 
-function MultistepForm(): React.ReactElement {
-  const currentForm = useCurrentForm()
+function validFormState(form: FormPage, state: MerOppfolgingFormState): boolean {
+  const navigation = getFormNavigation(form, state)
+  return form === navigation.current
+}
 
-  if (currentForm) {
-    return <RenderPage currentForm={currentForm} />
-  } else return <ErrorPage statusCode={404} />
+function MultistepForm(): React.ReactElement {
+  const { replace } = useRouter()
+  const currentForm = useCurrentForm()
+  const { formState } = useMerOppfolgingFormContext()
+
+  const isValidFormPageParam = currentForm !== null
+  const validFormPageParam = isValidFormPageParam ? currentForm : INITIAL_FORM_PAGE
+
+  const isValidFormState = validFormState(validFormPageParam, formState)
+  const formPage = isValidFormState ? validFormPageParam : INITIAL_FORM_PAGE
+
+  useEffect(() => {
+    if (!isValidFormPageParam || !isValidFormState) {
+      replace(getFormUrlObject(INITIAL_FORM_PAGE), undefined, { shallow: true })
+    }
+  }, [isValidFormPageParam, isValidFormState, replace])
+
+  return <RenderPage currentForm={formPage} />
 }
 
 export default MultistepForm

@@ -11,6 +11,15 @@ export const defaultFormValues: MerOppfolgingFormState = {
   [QuestionId.tilbakeIArbeid]: null,
 }
 
+export const formQuestionTitles = {
+  [QuestionId.fremtidigSituasjon]: 'Arbeidssituasjon',
+  [QuestionId.utdanning]: 'Utdanning',
+  [QuestionId.utdanningGodkjent]: 'Utdanning',
+  [QuestionId.utdanningBestatt]: 'Utdanning',
+  [QuestionId.andreForhold]: 'Andre utfordringer knyttet til arbeid',
+  [QuestionId.tilbakeIArbeid]: 'Arbeidssituasjon',
+} as const satisfies Record<QuestionId, string>
+
 export const formQuestionTexts = {
   [QuestionId.fremtidigSituasjon]: 'Hva tenker du om din fremtidige situasjon?',
   [QuestionId.utdanning]: 'Hva er din høyeste fullførte utdanning?',
