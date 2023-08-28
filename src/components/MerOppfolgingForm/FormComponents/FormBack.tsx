@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Back } from '@navikt/ds-icons'
+import { ChevronLeftIcon } from '@navikt/aksel-icons'
 
 import { getFormUrlObject } from '../../../utils/utils'
 
@@ -12,7 +12,8 @@ function FormBack({ formPage }: { formPage: FormPage | null }): React.ReactEleme
 
   return (
     <Link href={getFormUrlObject(formPage)} className="navds-link">
-      <Back aria-hidden="true" /> Tilbake
+      <ChevronLeftIcon aria-hidden fontSize="1.5rem" />
+      Tilbake
     </Link>
   )
 }
