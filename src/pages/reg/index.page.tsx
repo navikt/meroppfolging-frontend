@@ -1,9 +1,11 @@
 import { ReactElement } from 'react'
 
 import { withAuthenticatedPage } from '@/auth'
+import { trpc } from '@/utils/trpc'
 
 function Form(): ReactElement {
-  return <div>hi</div>
+  const { data } = trpc.startRegistration.useQuery()
+  return <div>{data?.registreringType}</div>
 }
 
 export const getServerSideProps = withAuthenticatedPage()

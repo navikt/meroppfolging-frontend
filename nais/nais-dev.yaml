@@ -18,6 +18,7 @@ spec:
     enabled: true
     sidecar:
       enabled: true
+      level: Level4
   liveness:
     path: syk/mer-oppfolging-wip/api/isAlive
     initialDelay: 20
