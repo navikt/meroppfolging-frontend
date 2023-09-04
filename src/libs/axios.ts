@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { nanoid } from 'nanoid'
 
 const AUTHORIZATION_HEADER = 'Authorization'
 
@@ -16,7 +17,12 @@ type AxiosServerRequstParams = {
 export async function serverRequst<T>(opt: AxiosServerRequstParams): Promise<T> {
   return axios(opt.url, {
     method: opt.method || 'get',
-    headers: { [AUTHORIZATION_HEADER]: `Bearer ${opt.accessToken}` },
+    headers: {
+      [AUTHORIZATION_HEADER]: `Bearer ${opt.accessToken}`,
+      'Nav-Consumer-Id': 'meroppfolging-frontend',
+      'Nav-Call-Id': nanoid(),
+      'Content-Type': 'application/json',
+    },
     ...(opt.method === 'post' && { data: opt.data }),
   })
     .then((response) => response.data)
