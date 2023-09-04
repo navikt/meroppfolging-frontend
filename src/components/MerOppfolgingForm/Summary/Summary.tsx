@@ -2,16 +2,17 @@ import { Button, GuidePanel, Heading, Ingress, Table } from '@navikt/ds-react'
 import Image from 'next/image'
 import { filter, keys, pipe } from 'remeda'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
-import FormBack from '../MerOppfolgingForm/FormComponents/FormBack'
-import { getFormNavigation } from '../MerOppfolgingForm/formStateMachine'
+import FormBack from '../FormComponents/FormBack'
+import { getFormNavigation } from '../formStateMachine'
 
 import summaryAvatar from './summary-avatar.svg'
 import { completeRegistrationRequestMapper } from './completeRegistrationRequestMapper'
 
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
 import { FormSummaryPages, MerOppfolgingFormState } from '@/types/merOppfolgingForm'
-import { summaryTexts } from '@/components/Summary/summaryTexts'
+import { summaryTexts } from '@/components/MerOppfolgingForm/Summary/summaryTexts'
 import { isQuestionId } from '@/utils/tsUtils'
 import { createFormValueState } from '@/domain/formValues'
 import { getFormUrlObject } from '@/utils/utils'
@@ -50,6 +51,7 @@ function SummaryTable({ state }: { state: MerOppfolgingFormState }): React.React
 function Summary(): React.ReactElement {
   const { formState } = useMerOppfolgingFormContext()
   const { previous } = getFormNavigation(FormSummaryPages.summary, formState)
+  const { push } = useRouter()
 
   const mutation = trpc.completeRegistration.useMutation()
 
@@ -57,6 +59,8 @@ function Summary(): React.ReactElement {
     const formRequest = completeRegistrationRequestMapper(formState)
 
     mutation.mutate(formRequest)
+
+    push('/reg/kvittering')
   }
 
   return (
@@ -65,7 +69,7 @@ function Summary(): React.ReactElement {
       <Heading size="medium" level="1" spacing>
         Er opplysningene riktige?
       </Heading>
-      <Ingress className="mbm">Her er opplysningene vi har registrert om deg.</Ingress>
+      <Ingress>Her er opplysningene vi har registrert om deg.</Ingress>
       <GuidePanel poster illustration={<Image src={summaryAvatar} alt="" />}>
         <SummaryTable state={formState} />
       </GuidePanel>

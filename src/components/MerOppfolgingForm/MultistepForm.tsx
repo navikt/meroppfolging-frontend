@@ -2,15 +2,14 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
-import Summary from '../Summary/Summary'
-
+import Summary from './Summary/Summary'
 import FremtidigSituasjon from './Forms/FremtidigSituasjon'
 import Utdanning from './Forms/Utdanning'
 import TilbakeIArbeid from './Forms/TilbakeIArbeid'
 import AndreForhold from './Forms/AndreForhold'
 import UtdanningGodkjent from './Forms/UtdanningGodkjent'
 import UtdanningBestatt from './Forms/UtdanningBestatt'
-import SkalTilbakeIArbeid from './BackToWork'
+import SkalTilbakeIArbeid from './BackToWork/BackToWork'
 import { getFormNavigation } from './formStateMachine'
 
 import { FormPage, FormSummaryPages, MerOppfolgingFormState, QuestionId } from '@/types/merOppfolgingForm'
@@ -42,6 +41,9 @@ function RenderPage({ currentForm }: { currentForm: FormPage }): React.ReactElem
 
 function validFormState(form: FormPage, state: MerOppfolgingFormState): boolean {
   const navigation = getFormNavigation(form, state)
+  if (navigation.current === FormSummaryPages.backToWork && form === FormSummaryPages.summary) {
+    return true
+  }
   return form === navigation.current
 }
 
