@@ -31,7 +31,7 @@
     "axios": "^1.4.0",
     "msw": "^1.2.3",
     "msw-trpc": "^1.3.4",
-    "next": "13.4.19",
+    "next": "13.4.12",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.4",
@@ -48,7 +48,7 @@
     "@navikt/aksel-stylelint": "^5.0.2",
     "@navikt/eslint-config-teamsykmelding": "^3.0.0",
     "eslint": "8.47.0",
-    "eslint-config-next": "13.4.19",
+    "eslint-config-next": "13.4.12",
     "stylelint": "^15.10.3",
     "vitest": "^0.34.2"
   },
