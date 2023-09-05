@@ -1,8 +1,6 @@
 import axios from 'axios'
 import { nanoid } from 'nanoid'
 
-const AUTHORIZATION_HEADER = 'Authorization'
-
 type AxiosServerRequstParams = {
   url: string
   accessToken: string
@@ -18,10 +16,10 @@ export async function serverRequst<T>(opt: AxiosServerRequstParams): Promise<T> 
   return axios(opt.url, {
     method: opt.method || 'get',
     headers: {
-      [AUTHORIZATION_HEADER]: `Bearer ${opt.accessToken}`,
       'Nav-Consumer-Id': 'meroppfolging-frontend',
       'Nav-Call-Id': nanoid(),
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${opt.accessToken}`,
     },
     ...(opt.method === 'post' && { data: opt.data }),
   })
@@ -31,8 +29,6 @@ export async function serverRequst<T>(opt: AxiosServerRequstParams): Promise<T> 
         throw new Error(`Users access to API on path ${opt.url} has expired`)
       }
 
-      throw new Error(
-        `Unknown error from API, responded with ${error.status} ${error.statusText} when fetching ${opt.url}`,
-      )
+      throw new Error(`Unknown error from API, responded with error: ${error} when fetching ${opt.url}`)
     })
 }

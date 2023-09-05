@@ -23,7 +23,7 @@ export async function getStartRegistration(auth: string): Promise<StartRegistrat
   throw new Error(`Failed to parse response from ${url}: ${JSON.stringify(result.error)}`)
 }
 
-export async function completeRegistration(auth: string, data: CompleteRegistrationRequest): Promise<void> {
+export async function postCompleteRegistration(auth: string, data: CompleteRegistrationRequest): Promise<void> {
   const url = getServerEnv().VEIARBLREGISTRERING_COMPLETE_REGISTRATION_API_URL
   const tokenx = await exchangeIdportenTokenForVeilarbregisteringTokenx(auth)
 
