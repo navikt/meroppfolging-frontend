@@ -17,8 +17,15 @@ import {
 import { QuestionId } from '@/types/merOppfolgingForm'
 import { formQuestionTexts } from '@/domain/formValues'
 
+export enum RegisttrationTypes {
+  SYKMELDT_REGISTRERING = 'SYKMELDT_REGISTRERING',
+  ORDINAER_REGISTRERING = 'ORDINAER_REGISTRERING',
+  ALLEREDE_REGISTRERT = 'ALLEREDE_REGISTRERT',
+}
+
 export const startRegistrationSchema = z.object({
-  registreringType: z.string(),
+  //Identify the types of registration
+  registreringType: z.nativeEnum(RegisttrationTypes).or(z.string()),
 })
 export type StartRegistrationDTO = z.infer<typeof startRegistrationSchema>
 

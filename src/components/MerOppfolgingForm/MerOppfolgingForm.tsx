@@ -18,7 +18,7 @@ import { INITIAL_FORM_PAGE } from '@/domain/formPages'
 import { getFormUrlObject } from '@/utils/utils'
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
 
-function RenderPage({ currentForm }: { currentForm: FormPage }): React.ReactElement {
+function RenderForm({ currentForm }: { currentForm: FormPage }): React.ReactElement {
   switch (currentForm) {
     case QuestionId.fremtidigSituasjon:
       return <FremtidigSituasjon />
@@ -47,7 +47,7 @@ function validFormState(form: FormPage, state: MerOppfolgingFormState): boolean 
   return form === navigation.current
 }
 
-function MultistepForm(): React.ReactElement {
+function MerOppfolgingForm(): React.ReactElement {
   const { replace } = useRouter()
   const currentForm = useCurrentForm()
   const { formState } = useMerOppfolgingFormContext()
@@ -64,7 +64,7 @@ function MultistepForm(): React.ReactElement {
     }
   }, [isValidFormPageParam, isValidFormState, replace])
 
-  return <RenderPage currentForm={formPage} />
+  return <RenderForm currentForm={formPage} />
 }
 
-export default MultistepForm
+export default MerOppfolgingForm
