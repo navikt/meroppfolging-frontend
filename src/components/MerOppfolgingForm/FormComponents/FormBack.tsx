@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import { ChevronLeftIcon } from '@navikt/aksel-icons'
 
-import { getFormUrlObject } from '../../../utils/utils'
-
+import { getFormUrlObject } from '@/utils/utils'
 import { FormPage } from '@/types/merOppfolgingForm'
 
 function FormBack({ formPage }: { formPage: FormPage | null }): React.ReactElement {

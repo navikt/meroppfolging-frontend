@@ -1,5 +1,5 @@
 import { authenticatedProcedure, router } from '../trpc'
-import { postCompleteRegistration, getStartRegistration } from '../services/registeringService'
+import { getStartRegistration, postCompleteRegistration } from '../services/registeringService'
 import { completeRegistrationSchema } from '../services/schemas/registreringSchema'
 
 export const appRouter = router({

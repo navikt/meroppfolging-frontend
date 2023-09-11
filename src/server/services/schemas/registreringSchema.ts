@@ -1,18 +1,18 @@
 import { z } from 'zod'
 
 import {
-  AndreForholdValues,
-  FremtidigSituasjonValues,
-  TilbakeIArbeidValues,
-  UtdanningBestattValues,
-  UtdanningGodkjentValues,
-  UtdanningValues,
   andreForholdAlt,
+  AndreForholdValues,
   fremtidigSituasjonAlt,
+  FremtidigSituasjonValues,
   tilbakeIArbeidAlt,
+  TilbakeIArbeidValues,
   utdanningAlt,
   utdanningBestattAlt,
+  UtdanningBestattValues,
   utdanningGodkjentAlt,
+  UtdanningGodkjentValues,
+  UtdanningValues,
 } from '@/domain/radioValues'
 import { QuestionId } from '@/types/merOppfolgingForm'
 import { formQuestionTexts } from '@/domain/formValues'

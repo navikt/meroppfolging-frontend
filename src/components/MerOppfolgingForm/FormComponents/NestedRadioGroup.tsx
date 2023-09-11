@@ -1,22 +1,19 @@
 import { Radio, RadioGroup } from '@navikt/ds-react'
 import { useController } from 'react-hook-form'
 
-import { defaultFormValues } from '../../../domain/formValues'
-
+import { defaultFormValues } from '@/domain/formValues'
 import { merOppfolgingRadioAlt } from '@/domain/radioValues'
 
 function RadioAlternatives(name: keyof typeof merOppfolgingRadioAlt): React.ReactElement[] {
   const radioGroupAlts = merOppfolgingRadioAlt[name]
 
-  const RadioAlternatives = Object.entries(radioGroupAlts).map(([key, value]) => {
+  return Object.entries(radioGroupAlts).map(([key, value]) => {
     return (
       <Radio key={key} value={key}>
         {value}
       </Radio>
     )
   })
-
-  return RadioAlternatives
 }
 
 function NestedRadioGroup({

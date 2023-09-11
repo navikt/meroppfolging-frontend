@@ -2,8 +2,7 @@ import { httpBatchLink } from '@trpc/client'
 import { createTRPCNext } from '@trpc/next'
 import { createTRPCMsw } from 'msw-trpc'
 
-import type { AppRouter } from '../server/routers/_app'
-
+import type { AppRouter } from '@/server/routers/_app'
 import { BASE_PATH } from '@/constants/paths'
 
 export const trpc = createTRPCNext<AppRouter>({

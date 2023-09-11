@@ -4,11 +4,11 @@ import { useRouter } from 'next/router'
 import { equals, pick } from 'remeda'
 
 import { getFormNavigation } from '../formStateMachine'
-import { getFormUrlObject } from '../../../utils/utils'
-import { isQuestionId } from '../../../utils/tsUtils'
 
 import FormBack from './FormBack'
 
+import { getFormUrlObject } from '@/utils/utils'
+import { isQuestionId } from '@/utils/tsUtils'
 // import { RHFDevTool } from '@/libs/ReactHookFormsDevTools'
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
 import { MerOppfolgingFormState, QuestionId } from '@/types/merOppfolgingForm'

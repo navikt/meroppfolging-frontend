@@ -1,4 +1,4 @@
-import Document, { Html, Head, Main, NextScript, DocumentInitialProps, DocumentContext } from 'next/document'
+import Document, { DocumentContext, DocumentInitialProps, Head, Html, Main, NextScript } from 'next/document'
 import { DecoratorComponents, fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr'
 
 interface DocumentProps {

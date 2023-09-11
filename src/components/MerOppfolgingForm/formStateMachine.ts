@@ -118,7 +118,5 @@ export function getFormNavigation(currentForm: FormPage, form: MerOppfolgingForm
     return getHistory(newFormNav)
   }
 
-  const formNav = getHistory(initalNav)
-
-  return formNav
+  return getHistory(initalNav)
 }
