@@ -1,3 +1,11 @@
 {
-    "extends": ["@navikt/eslint-config-teamsykmelding", "next/core-web-vitals"]
+  "extends": ["@navikt/eslint-config-teamsykmelding", "next/core-web-vitals"],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
+  }
 }
