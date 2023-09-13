@@ -3,10 +3,11 @@ import { BodyLong, Button, GuidePanel, Heading } from '@navikt/ds-react'
 import Link from 'next/link'
 
 import { withAuthenticatedPage } from '@/auth'
+import { Column } from '@/components/Containers/column'
 
 function Receipt(): ReactElement {
   return (
-    <>
+    <Column>
       <Heading level="1" spacing size="medium">
         Du kan nå få mer veiledning
       </Heading>
@@ -23,7 +24,7 @@ function Receipt(): ReactElement {
         <Button as="a">Les mer</Button>
       </Link>
       <Link href="#">Skal ikke søke nå</Link>
-    </>
+    </Column>
   )
 }
 

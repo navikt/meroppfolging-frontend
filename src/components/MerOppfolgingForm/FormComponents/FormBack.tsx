@@ -1,8 +1,8 @@
-import Link from 'next/link'
+import NextLink from 'next/link'
 import { ChevronLeftIcon } from '@navikt/aksel-icons'
+import { Link } from '@navikt/ds-react'
 
-import { getFormUrlObject } from '../../../utils/utils'
-
+import { getFormUrlObject } from '@/utils/utils'
 import { FormPage } from '@/types/merOppfolgingForm'
 
 function FormBack({ formPage }: { formPage: FormPage | null }): React.ReactElement {
@@ -11,10 +11,12 @@ function FormBack({ formPage }: { formPage: FormPage | null }): React.ReactEleme
   }
 
   return (
-    <Link href={getFormUrlObject(formPage)} className="navds-link">
-      <ChevronLeftIcon aria-hidden fontSize="1.5rem" />
-      Tilbake
-    </Link>
+    <NextLink href={getFormUrlObject(formPage)} passHref>
+      <Link>
+        <ChevronLeftIcon aria-hidden fontSize="1.5rem" />
+        Tilbake
+      </Link>
+    </NextLink>
   )
 }
 

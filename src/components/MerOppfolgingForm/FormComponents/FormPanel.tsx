@@ -4,15 +4,16 @@ import { useRouter } from 'next/router'
 import { equals, pick } from 'remeda'
 
 import { getFormNavigation } from '../formStateMachine'
-import { getFormUrlObject } from '../../../utils/utils'
-import { isQuestionId } from '../../../utils/tsUtils'
 
 import FormBack from './FormBack'
 
+import { getFormUrlObject } from '@/utils/utils'
+import { isQuestionId } from '@/utils/tsUtils'
 // import { RHFDevTool } from '@/libs/ReactHookFormsDevTools'
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
 import { MerOppfolgingFormState, QuestionId } from '@/types/merOppfolgingForm'
 import { formQuestionTitles } from '@/domain/formValues'
+import { Column } from '@/components/Containers/column'
 
 function hasFormValuesChanged(subForm: Partial<MerOppfolgingFormState>, form: MerOppfolgingFormState): boolean {
   return !equals(pick(form, Object.keys(subForm).filter(isQuestionId)), subForm)
@@ -49,15 +50,17 @@ function FormPanel<T extends Partial<MerOppfolgingFormState>>({
       >
         <FormBack formPage={previous} />
 
-        <Panel className="bg-gray-100">
-          <Heading size="medium" spacing level="1">
-            {formQuestionTitles[formPage]}
-          </Heading>
+        <Column>
+          <Panel className="bg-gray-100">
+            <Heading size="medium" spacing level="1">
+              {formQuestionTitles[formPage]}
+            </Heading>
 
-          {children}
-        </Panel>
+            {children}
+          </Panel>
 
-        <Button>Neste</Button>
+          <Button>Neste</Button>
+        </Column>
         {/* <RHFDevTool control={methods.control} /> */}
       </form>
     </FormProvider>
