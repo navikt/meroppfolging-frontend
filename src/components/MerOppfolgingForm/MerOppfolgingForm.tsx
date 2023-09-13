@@ -17,6 +17,7 @@ import useCurrentForm from '@/hooks/useCurrentForm'
 import { INITIAL_FORM_PAGE } from '@/domain/formPages'
 import { getFormUrlObject } from '@/utils/utils'
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
+import { Column } from '@/components/Containers/column'
 
 function RenderForm({ currentForm }: { currentForm: FormPage }): React.ReactElement {
   switch (currentForm) {
@@ -64,7 +65,11 @@ function MerOppfolgingForm(): React.ReactElement {
     }
   }, [isValidFormPageParam, isValidFormState, replace])
 
-  return <RenderForm currentForm={formPage} />
+  return (
+    <Column>
+      <RenderForm currentForm={formPage} />
+    </Column>
+  )
 }
 
 export default MerOppfolgingForm

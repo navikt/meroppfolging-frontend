@@ -66,10 +66,12 @@ function Summary(): React.ReactElement {
   return (
     <>
       <FormBack formPage={previous} />
-      <Heading size="medium" level="1" spacing>
-        Er opplysningene riktige?
-      </Heading>
-      <Ingress>Her er opplysningene vi har registrert om deg.</Ingress>
+      <div>
+        <Heading size="medium" level="1" spacing>
+          Er opplysningene riktige?
+        </Heading>
+        <Ingress>Her er opplysningene vi har registrert om deg.</Ingress>
+      </div>
       <GuidePanel poster illustration={<Image src={summaryAvatar} alt="" />}>
         <SummaryTable state={formState} />
       </GuidePanel>
