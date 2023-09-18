@@ -40,7 +40,7 @@ function RenderForm({ currentForm }: { currentForm: FormPage }): React.ReactElem
   }
 }
 
-function validFormState(form: FormPage, state: MerOppfolgingFormState): boolean {
+function isValidMerOppfolgingFormState(form: FormPage, state: MerOppfolgingFormState): boolean {
   const navigation = getFormNavigation(form, state)
   if (navigation.current === FormSummaryPages.backToWork && form === FormSummaryPages.summary) {
     return true
@@ -56,7 +56,7 @@ function MerOppfolgingForm(): React.ReactElement {
   const isValidFormPageParam = currentForm !== null
   const validFormPageParam = isValidFormPageParam ? currentForm : INITIAL_FORM_PAGE
 
-  const isValidFormState = validFormState(validFormPageParam, formState)
+  const isValidFormState = isValidMerOppfolgingFormState(validFormPageParam, formState)
   const formPage = isValidFormState ? validFormPageParam : INITIAL_FORM_PAGE
 
   useEffect(() => {

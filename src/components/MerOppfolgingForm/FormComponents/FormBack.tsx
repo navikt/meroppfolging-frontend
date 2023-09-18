@@ -12,7 +12,7 @@ function FormBack({ formPage }: { formPage: FormPage | null }): React.ReactEleme
 
   return (
     <NextLink href={getFormUrlObject(formPage)} passHref>
-      <Link>
+      <Link as="span">
         <ChevronLeftIcon aria-hidden fontSize="1.5rem" />
         Tilbake
       </Link>
