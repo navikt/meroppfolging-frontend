@@ -9,8 +9,8 @@ export const formPage = {
   ['3']: QuestionId.utdanningBestatt,
   ['4']: QuestionId.andreForhold,
   ['5']: QuestionId.tilbakeIArbeid,
-  ['6']: FormSummaryPages.summary,
-  ['7']: FormSummaryPages.backToWork,
+  ['oppsummering']: FormSummaryPages.summary,
+  ['tilbake-i-arbeid']: FormSummaryPages.backToWork,
 } as const satisfies Record<string, FormPage>
 
 export const formPageInverted = invert(formPage)

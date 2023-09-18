@@ -14,39 +14,9 @@ import {
   UtdanningValues,
 } from '@/domain/radioValues'
 import { isQuestionId } from '@/utils/tsUtils'
+import { last } from 'remeda'
 
-function createNavigationState(state: MerOppfolgingFormState) {
-  return (form: keyof MerOppfolgingFormState) => {
-    switch (form) {
-      case QuestionId.fremtidigSituasjon: {
-        const value = state[form]
-        return value ? nextNavigationMap[form][value] : null
-      }
-      case QuestionId.tilbakeIArbeid: {
-        const value = state[form]
-        return value ? nextNavigationMap[form][value] : null
-      }
-      case QuestionId.utdanning: {
-        const value = state[form]
-        return value ? nextNavigationMap[form][value] : null
-      }
-      case QuestionId.utdanningGodkjent: {
-        const value = state[form]
-        return value ? nextNavigationMap[form][value] : null
-      }
-      case QuestionId.utdanningBestatt: {
-        const value = state[form]
-        return value ? nextNavigationMap[form][value] : null
-      }
-      case QuestionId.andreForhold: {
-        const value = state[form]
-        return value ? nextNavigationMap[form][value] : null
-      }
-    }
-  }
-}
-
-export const nextNavigationMap = {
+const nextNavigationMap = {
   [QuestionId.fremtidigSituasjon]: {
     [FremtidigSituasjonValues.SAMME_ARBEIDSGIVER]: QuestionId.tilbakeIArbeid,
     [FremtidigSituasjonValues.SAMME_ARBEIDSGIVER_NY_STILLING]: QuestionId.tilbakeIArbeid,
@@ -85,6 +55,43 @@ export const nextNavigationMap = {
   [K in keyof MerOppfolgingForm]: { [NK in MerOppfolgingForm[K]]: FormPage }
 }
 
+function createNavigationState(state: MerOppfolgingFormState) {
+  return (page: FormPage) => {
+    switch (page) {
+      case QuestionId.fremtidigSituasjon: {
+        const value = state[page]
+        return value ? nextNavigationMap[page][value] : null
+      }
+      case QuestionId.tilbakeIArbeid: {
+        const value = state[page]
+        return value ? nextNavigationMap[page][value] : null
+      }
+      case QuestionId.utdanning: {
+        const value = state[page]
+        return value ? nextNavigationMap[page][value] : null
+      }
+      case QuestionId.utdanningGodkjent: {
+        const value = state[page]
+        return value ? nextNavigationMap[page][value] : null
+      }
+      case QuestionId.utdanningBestatt: {
+        const value = state[page]
+        return value ? nextNavigationMap[page][value] : null
+      }
+      case QuestionId.andreForhold: {
+        const value = state[page]
+        return value ? nextNavigationMap[page][value] : null
+      }
+      case FormSummaryPages.backToWork: {
+        return FormSummaryPages.summary
+      }
+      case FormSummaryPages.summary: {
+        return null
+      }
+    }
+  }
+}
+
 export type FormNavigation = {
   current: FormPage
   previous: FormPage | null
@@ -95,30 +102,34 @@ export type FormNavigation = {
 export function getFormNavigation(currentForm: FormPage, form: MerOppfolgingFormState): FormNavigation {
   const navState = createNavigationState(form)
 
-  const initalNav: FormNavigation = {
+  const initialNav: FormNavigation = {
     current: INITIAL_FORM_PAGE,
     previous: null,
     next: navState(INITIAL_FORM_PAGE),
     history: [INITIAL_FORM_PAGE],
   }
 
-  function getHistory(formNav: FormNavigation): FormNavigation {
+  function buildFormNavigation(formNav: FormNavigation): FormNavigation {
     if (formNav.current === currentForm || !formNav.next) {
       return formNav
     }
 
     const next = formNav.next
-    const nextFormPage = isQuestionId(next) ? navState(next) : null
+    const nextFormPage = navState(next)
     const newFormNav = {
       current: next,
       previous: formNav.current,
       next: nextFormPage,
       history: [...formNav.history, formNav.next],
     }
-    return getHistory(newFormNav)
+    return buildFormNavigation(newFormNav)
   }
 
-  const formNav = getHistory(initalNav)
+  const formNav = buildFormNavigation(initialNav)
+
+  if (!formNav.history.includes(currentForm)) {
+    return { ...initialNav, next: null }
+  }
 
   return formNav
 }
