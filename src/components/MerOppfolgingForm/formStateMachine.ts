@@ -13,8 +13,6 @@ import {
   UtdanningGodkjentValues,
   UtdanningValues,
 } from '@/domain/radioValues'
-import { isQuestionId } from '@/utils/tsUtils'
-import { last } from 'remeda'
 
 const nextNavigationMap = {
   [QuestionId.fremtidigSituasjon]: {
