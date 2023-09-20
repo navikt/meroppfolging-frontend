@@ -14,10 +14,11 @@ import { getFormNavigation } from './formStateMachine'
 
 import { FormPage, FormSummaryPages, MerOppfolgingFormState, QuestionId } from '@/types/merOppfolgingForm'
 import useCurrentForm from '@/hooks/useCurrentForm'
-import { INITIAL_FORM_PAGE } from '@/domain/formPages'
+import { FORM_NAME, INITIAL_FORM_PAGE } from '@/domain/formPages'
 import { getFormUrlObject } from '@/utils/utils'
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
 import { Column } from '@/components/Containers/column'
+import { useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
 
 function RenderForm({ currentForm }: { currentForm: FormPage }): React.ReactElement {
   switch (currentForm) {
@@ -64,6 +65,8 @@ function MerOppfolgingForm(): React.ReactElement {
       replace(getFormUrlObject(INITIAL_FORM_PAGE), undefined, { shallow: true })
     }
   }, [isValidFormPageParam, isValidFormState, replace])
+
+  useLogAmplitudeEvent({ eventName: 'skjema åpnet', data: { skjemanavn: FORM_NAME } })
 
   return (
     <Column>

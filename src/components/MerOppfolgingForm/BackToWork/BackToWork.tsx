@@ -4,9 +4,18 @@ import { useRouter } from 'next/router'
 import { FormSummaryPages } from '@/types/merOppfolgingForm'
 import { getFormUrlObject } from '@/utils/utils'
 import { Column } from '@/components/Containers/column'
+import { logAmplitudeEvent, useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
+import { FORM_NAME } from '@/domain/formPages'
+
+const uenigText = 'Uenig, jeg trenger mer veiledning'
+const enigText = 'Enig'
 
 function BackToWork(): React.ReactElement {
   const { push } = useRouter()
+  useLogAmplitudeEvent({
+    eventName: 'skjema steg startet',
+    data: { skjemanavn: FORM_NAME, steg: FormSummaryPages.backToWork },
+  })
 
   return (
     <>
@@ -45,12 +54,28 @@ function BackToWork(): React.ReactElement {
           <Button
             className="w-full"
             variant="secondary"
-            onClick={() => push(getFormUrlObject(FormSummaryPages.summary))}
+            onClick={() => {
+              logAmplitudeEvent({
+                eventName: 'navigere',
+                data: { destinasjon: 'Oppsummering', lenketekst: uenigText },
+              })
+              push(getFormUrlObject(FormSummaryPages.summary))
+            }}
           >
-            Uenig, jeg trenger mer veiledning
+            {uenigText}
           </Button>
-          <Button className="w-full" variant="secondary">
-            Enig
+          <Button
+            className="w-full"
+            variant="secondary"
+            onClick={() => {
+              logAmplitudeEvent({
+                eventName: 'skjema avbrutt',
+                data: { skjemanavn: FORM_NAME, steg: 'Tilbake tilbake i arbeid' },
+              })
+              push('https://www.nav.no')
+            }}
+          >
+            {enigText}
           </Button>
         </section>
       </Column>

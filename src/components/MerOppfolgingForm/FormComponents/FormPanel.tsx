@@ -14,9 +14,24 @@ import { useMerOppfolgingFormContext } from '@/contexts/formContext'
 import { MerOppfolgingFormState, QuestionId } from '@/types/merOppfolgingForm'
 import { formQuestionTitles } from '@/domain/formValues'
 import { Column } from '@/components/Containers/column'
+import { logAmplitudeEvent, useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
+import { FORM_NAME } from '@/domain/formPages'
 
 function hasFormValuesChanged(subForm: Partial<MerOppfolgingFormState>, form: MerOppfolgingFormState): boolean {
   return !equals(pick(form, Object.keys(subForm).filter(isQuestionId)), subForm)
+}
+
+function logAmplitudeEventOnNext(formPage: QuestionId, formState: Partial<MerOppfolgingFormState>): void {
+  logAmplitudeEvent({ eventName: 'skjema steg fullført', data: { skjemanavn: FORM_NAME, steg: formPage } })
+  logAmplitudeEvent({
+    eventName: 'skjema steg spørsmål besvart',
+    data: {
+      skjemanavn: FORM_NAME,
+      steg: formPage,
+      spørsmål: Object.keys(formState).toString(),
+      svar: Object.values(formState).toString(),
+    },
+  })
 }
 
 function FormPanel<T extends Partial<MerOppfolgingFormState>>({
@@ -32,6 +47,8 @@ function FormPanel<T extends Partial<MerOppfolgingFormState>>({
   const { formState, formDispatch } = useMerOppfolgingFormContext()
   const { previous, history } = getFormNavigation(formPage, formState)
 
+  useLogAmplitudeEvent({ eventName: 'skjema steg startet', data: { skjemanavn: FORM_NAME, steg: formPage } })
+
   return (
     <FormProvider {...methods}>
       <form
@@ -43,6 +60,7 @@ function FormPanel<T extends Partial<MerOppfolgingFormState>>({
           const { next } = getFormNavigation(formPage, { ...formState, ...value })
           if (next !== null) {
             router.push(getFormUrlObject(next))
+            logAmplitudeEventOnNext(formPage, value)
           } else {
             throw new Error('Missing next form. Should not happen.')
           }
