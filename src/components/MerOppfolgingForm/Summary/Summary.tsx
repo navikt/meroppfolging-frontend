@@ -17,6 +17,8 @@ import { isQuestionId } from '@/utils/tsUtils'
 import { createFormValueState } from '@/domain/formValues'
 import { getFormUrlObject } from '@/utils/utils'
 import { trpc } from '@/utils/trpc'
+import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
+import { FORM_NAME } from '@/domain/formPages'
 
 function SummaryTable({ state }: { state: MerOppfolgingFormState }): React.ReactElement {
   const formValueState = createFormValueState(state)
@@ -53,14 +55,23 @@ function Summary(): React.ReactElement {
   const { previous } = getFormNavigation(FormSummaryPages.summary, formState)
   const { push } = useRouter()
 
-  const mutation = trpc.completeRegistration.useMutation()
+  const mutation = trpc.completeRegistration.useMutation({
+    onMutate: () => {
+      logAmplitudeEvent({ eventName: 'skjema innsending startet', data: { skjemanavn: FORM_NAME } })
+    },
+    onError: () => {
+      logAmplitudeEvent({ eventName: 'skjema innsending feilet', data: { skjemanavn: FORM_NAME } })
+    },
+    onSuccess: () => {
+      logAmplitudeEvent({ eventName: 'skjema fullført', data: { skjemanavn: FORM_NAME } })
+      push('/reg/kvittering')
+    },
+  })
 
   const handleSubmit = (): void => {
     const formRequest = completeRegistrationRequestMapper(formState)
 
     mutation.mutate(formRequest)
-
-    push('/reg/kvittering')
   }
 
   return (

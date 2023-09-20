@@ -16,3 +16,4 @@ export const formPage = {
 export const formPageInverted = invert(formPage)
 
 export const INITIAL_FORM_PAGE = QuestionId.fremtidigSituasjon
+export const FORM_NAME = 'mer-oppfolging'
