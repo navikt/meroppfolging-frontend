@@ -6,6 +6,7 @@ import { getFormUrlObject } from '@/utils/utils'
 import { Column } from '@/components/Containers/column'
 import { logAmplitudeEvent, useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
 import { FORM_NAME } from '@/domain/formPages'
+import { SSPS_URL } from '@/constants/paths'
 
 const uenigText = 'Uenig, jeg trenger mer veiledning'
 const enigText = 'Enig'
@@ -68,11 +69,14 @@ function BackToWork(): React.ReactElement {
             className="w-full"
             variant="secondary"
             onClick={() => {
-              logAmplitudeEvent({
-                eventName: 'skjema avbrutt',
-                data: { skjemanavn: FORM_NAME, steg: 'Tilbake tilbake i arbeid' },
-              })
-              push('https://www.nav.no')
+              logAmplitudeEvent(
+                {
+                  eventName: 'skjema avbrutt',
+                  data: { skjemanavn: FORM_NAME, steg: FormSummaryPages.backToWork },
+                },
+                { handling: 'Bruker klikker enig-knapp; det ikke er behov for mer oppfølging' },
+              )
+              push(SSPS_URL)
             }}
           >
             {enigText}

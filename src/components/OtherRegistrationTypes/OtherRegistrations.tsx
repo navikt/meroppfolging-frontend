@@ -2,8 +2,11 @@ import { BodyLong, GuidePanel, Heading } from '@navikt/ds-react'
 import Link from 'next/link'
 
 import { CONTACT_NAV_URL, NAV_PHONE_NUMBER } from '@/constants/paths'
+import { useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
 
 function OtherRegistrations(): React.ReactElement {
+  useLogAmplitudeEvent({ eventName: 'besøk' }, { side: 'Annen type registrert-side' })
+
   return (
     <GuidePanel poster>
       <Heading spacing size="large" level="1">

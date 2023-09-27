@@ -5,7 +5,7 @@ import { Link } from '@navikt/ds-react'
 import { getFormUrlObject } from '@/utils/utils'
 import { FormPage } from '@/types/merOppfolgingForm'
 
-function FormBack({ formPage }: { formPage: FormPage | null }): React.ReactElement {
+function FormBackLink({ formPage }: { formPage: FormPage | null }): React.ReactElement {
   if (formPage === null) {
     return <></>
   }
@@ -20,4 +20,4 @@ function FormBack({ formPage }: { formPage: FormPage | null }): React.ReactEleme
   )
 }
 
-export default FormBack
+export default FormBackLink

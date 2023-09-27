@@ -5,7 +5,8 @@ import { equals, pick } from 'remeda'
 
 import { getFormNavigation } from '../formStateMachine'
 
-import FormBack from './FormBack'
+import FormBackLink from './FormBackLink'
+import FormCancelLink from './FormCancelLink'
 
 import { getFormUrlObject } from '@/utils/utils'
 import { isQuestionId } from '@/utils/tsUtils'
@@ -66,7 +67,7 @@ function FormPanel<T extends Partial<MerOppfolgingFormState>>({
           }
         })}
       >
-        <FormBack formPage={previous} />
+        <FormBackLink formPage={previous} />
 
         <Column>
           <Panel className="bg-gray-100">
@@ -78,6 +79,7 @@ function FormPanel<T extends Partial<MerOppfolgingFormState>>({
           </Panel>
 
           <Button>Neste</Button>
+          <FormCancelLink />
         </Column>
         {/* <RHFDevTool control={methods.control} /> */}
       </form>

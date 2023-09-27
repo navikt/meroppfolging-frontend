@@ -4,6 +4,12 @@ import Link from 'next/link'
 
 import { withAuthenticatedPage } from '@/auth'
 import { Column } from '@/components/Containers/column'
+import { AKTIVITETSPLAN_URL, DITT_NAV } from '@/constants/paths'
+import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
+
+const linkText = 'Lenke til aktivitetsplanen.'
+const lesMerText = 'Les mer'
+const skalIkkeText = 'Skal ikke søke nå'
 
 function Receipt(): ReactElement {
   return (
@@ -11,6 +17,24 @@ function Receipt(): ReactElement {
       <Heading level="1" spacing size="medium">
         Du kan nå få mer veiledning
       </Heading>
+      <BodyLong>
+        Du kan nå legge til aktiviteter i aktivitetsplanen din.
+        {` `}
+        <Link
+          onClick={() =>
+            logAmplitudeEvent(
+              {
+                eventName: 'navigere',
+                data: { lenketekst: linkText, destinasjon: 'aktivitetsplanen' },
+              },
+              { fra: 'kvittering-side' },
+            )
+          }
+          href={AKTIVITETSPLAN_URL}
+        >
+          {linkText}
+        </Link>
+      </BodyLong>
       <GuidePanel poster>
         <Heading level="2" spacing size="medium">
           Videre støtte etter sykepenger
@@ -20,10 +44,35 @@ function Receipt(): ReactElement {
           søknad.
         </BodyLong>
       </GuidePanel>
-      <Link href="#" passHref legacyBehavior>
-        <Button as="a">Les mer</Button>
+      <Link
+        onClick={() =>
+          logAmplitudeEvent(
+            {
+              eventName: 'navigere',
+              data: { lenketekst: lesMerText, destinasjon: 'aktivitetsplanen' },
+            },
+            { fra: 'kvittering-side' },
+          )
+        }
+        href={DITT_NAV}
+        passHref
+      >
+        <Button>{lesMerText}</Button>
       </Link>
-      <Link href="#">Skal ikke søke nå</Link>
+      <Link
+        onClick={() =>
+          logAmplitudeEvent(
+            {
+              eventName: 'navigere',
+              data: { lenketekst: skalIkkeText, destinasjon: 'aktivitetsplanen' },
+            },
+            { fra: 'kvittering-side' },
+          )
+        }
+        href={DITT_NAV}
+      >
+        {skalIkkeText}
+      </Link>
     </Column>
   )
 }
