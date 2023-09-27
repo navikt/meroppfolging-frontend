@@ -4,7 +4,7 @@ import { filter, keys, pipe } from 'remeda'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import FormBack from '../FormComponents/FormBack'
+import FormBackLink from '../FormComponents/FormBackLink'
 import { getFormNavigation } from '../formStateMachine'
 
 import summaryAvatar from './summary-avatar.svg'
@@ -64,7 +64,6 @@ function Summary(): React.ReactElement {
     },
     onSuccess: () => {
       logAmplitudeEvent({ eventName: 'skjema fullført', data: { skjemanavn: FORM_NAME } })
-      push('/reg/kvittering')
     },
   })
 
@@ -72,11 +71,12 @@ function Summary(): React.ReactElement {
     const formRequest = completeRegistrationRequestMapper(formState)
 
     mutation.mutate(formRequest)
+    push('/reg/kvittering')
   }
 
   return (
     <>
-      <FormBack formPage={previous} />
+      <FormBackLink formPage={previous} />
       <div>
         <Heading size="medium" level="1" spacing>
           Er opplysningene riktige?
