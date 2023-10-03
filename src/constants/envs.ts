@@ -11,6 +11,7 @@ export const publicEnvSchema = z.object({
   ]),
   NEXT_PUBLIC_ASSET_PREFIX: z.string().optional(),
   NEXT_PUBLIC_API_MOCKING: z.string(),
+  NEXT_PUBLIC_TELEMETRY_URL: z.string().optional(),
 })
 
 export type ServerEnv = z.infer<typeof serverEnvSchema>
@@ -37,6 +38,7 @@ export const browserEnv = publicEnvSchema.parse({
   NEXT_PUBLIC_RUNTIME_ENVIRONMENT: process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT,
   NEXT_PUBLIC_ASSET_PREFIX: process.env.NEXT_PUBLIC_ASSET_PREFIX,
   NEXT_PUBLIC_API_MOCKING: process.env.NEXT_PUBLIC_API_MOCKING,
+  NEXT_PUBLIC_TELEMETRY_URL: process.env.NEXT_PUBLIC_TELEMETRY_URL,
 } satisfies Record<keyof PublicEnv, string | undefined>)
 
 const getRawServerConfig = (): Partial<unknown> =>
@@ -74,4 +76,5 @@ export function getServerEnv(): ServerEnv & PublicEnv {
   }
 }
 
-export const isLocal = process.env.NODE_ENV !== 'production'
+export const isLocalOrDemo =
+  process.env.NODE_ENV !== 'production' || browserEnv.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === 'demo'

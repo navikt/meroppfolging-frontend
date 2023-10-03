@@ -6,6 +6,7 @@ const nextConfig = {
   output: 'standalone',
   basePath: '/syk/mer-oppfolging-wip',
   assetPrefix: process.env.NEXT_PUBLIC_ASSET_PREFIX || '',
+  productionBrowserSourceMaps: true,
 }
 
 module.exports = nextConfig
