@@ -3,7 +3,7 @@ import { validateIdportenToken } from '@navikt/next-auth-wonderwall'
 import { logger } from '@navikt/next-logger'
 import { TRPCError } from '@trpc/server'
 
-import { isLocal } from '@/constants/envs'
+import { isLocalOrDemo } from '@/constants/envs'
 import { BASE_PATH } from '@/constants/paths'
 
 type PageHandler = (context: GetServerSidePropsContext) => Promise<GetServerSidePropsResult<Record<string, unknown>>>
@@ -23,7 +23,7 @@ export function withAuthenticatedPage(handler: PageHandler = defaultPageHandler)
   return async function withBearerTokenHandler(
     context: GetServerSidePropsContext,
   ): Promise<ReturnType<NonNullable<typeof handler>>> {
-    if (isLocal) {
+    if (isLocalOrDemo) {
       return handler(context)
     }
     const request = context.req
