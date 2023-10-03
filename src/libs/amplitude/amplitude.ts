@@ -3,8 +3,10 @@ import { getAmplitudeInstance } from '@navikt/nav-dekoratoren-moduler'
 
 import { AmplitudeTaxonomyEvents } from './events'
 
-import { browserEnv } from '@/constants/envs'
+import { isLocalOrDemo } from '@/constants/envs'
 const logger = getAmplitudeInstance('dekoratoren')
+
+const infoProperties = { team: 'eSyfo', app: 'meroppfolging-frontend' }
 
 function taxonomyToAmplitudeEvent(
   event: AmplitudeTaxonomyEvents,
@@ -13,7 +15,11 @@ function taxonomyToAmplitudeEvent(
   eventType: string
   eventProperties: Record<string, unknown>
 } {
-  const properties = { ...('data' in event ? event.data : {}), ...extraData }
+  const properties = {
+    ...('data' in event ? event.data : {}),
+    ...infoProperties,
+    ...extraData,
+  }
 
   return {
     eventType: event.eventName,
@@ -43,11 +49,11 @@ export async function logAmplitudeEvent(
 ): Promise<void> {
   const { eventType, eventProperties } = taxonomyToAmplitudeEvent(event, extraData)
 
-  if (browserEnv.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === 'local') {
-    console.log('Amplitude event: ' + eventType)
-    if (eventProperties) {
-      console.log(eventProperties)
-    }
+  if (isLocalOrDemo) {
+    // console.log('Amplitude event: ' + eventType)
+    // if (eventProperties) {
+    //   console.log(eventProperties)
+    // }
 
     return
   }

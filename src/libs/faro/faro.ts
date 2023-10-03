@@ -9,7 +9,7 @@ export const initFaro = (): Faro | null => {
   return initializeFaro({
     url: browserEnv.NEXT_PUBLIC_TELEMETRY_URL,
     app: {
-      name: 'oppfolgingsplan-frontend',
+      name: 'meroppfolging-frontend',
       version: browserEnv.NEXT_PUBLIC_RUNTIME_ENVIRONMENT,
     },
     instrumentations: [

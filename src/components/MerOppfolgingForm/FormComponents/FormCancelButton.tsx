@@ -14,7 +14,13 @@ function FormCancelLink(): React.ReactElement {
 
   return (
     <>
-      <Button variant="secondary" onClick={() => ref.current?.showModal()}>
+      <Button
+        variant="secondary"
+        onClick={(event) => {
+          event.preventDefault()
+          ref.current?.showModal()
+        }}
+      >
         Avbryt registreringen
       </Button>
 
@@ -25,7 +31,8 @@ function FormCancelLink(): React.ReactElement {
         <Modal.Footer>
           <Button
             type="button"
-            onClick={() => {
+            onClick={(event) => {
+              event.preventDefault()
               logAmplitudeEvent({
                 eventName: 'skjema avbrutt',
                 data: { skjemanavn: FORM_NAME, steg: currentForm || 'ukjent' },
