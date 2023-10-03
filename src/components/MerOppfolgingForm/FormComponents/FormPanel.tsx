@@ -6,7 +6,7 @@ import { equals, pick } from 'remeda'
 import { getFormNavigation } from '../formStateMachine'
 
 import FormBackLink from './FormBackLink'
-import FormCancelLink from './FormCancelLink'
+import FormCancelLink from './FormCancelButton'
 
 import { getFormUrlObject } from '@/utils/utils'
 import { isQuestionId } from '@/utils/tsUtils'
@@ -60,8 +60,8 @@ function FormPanel<T extends Partial<MerOppfolgingFormState>>({
 
           const { next } = getFormNavigation(formPage, { ...formState, ...value })
           if (next !== null) {
-            router.push(getFormUrlObject(next))
             logAmplitudeEventOnNext(formPage, value)
+            router.push(getFormUrlObject(next))
           } else {
             throw new Error('Missing next form. Should not happen.')
           }

@@ -15,7 +15,7 @@ function AlreadyRegistred(): React.ReactElement {
         Du er allerede registrert
       </Heading>
       <BodyLong>
-        Du ha allerede registrert og har tilgang til aktivitetsplanen.
+        Du er allerede registrert og har tilgang til aktivitetsplanen.
         {` `}
         <Link
           onClick={() =>
