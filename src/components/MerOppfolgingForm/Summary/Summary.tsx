@@ -3,12 +3,14 @@ import Image from 'next/image'
 import { filter, keys, pipe } from 'remeda'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 import FormBackLink from '../FormComponents/FormBackLink'
 import { getFormNavigation } from '../formStateMachine'
 
 import summaryAvatar from './summary-avatar.svg'
 import { completeRegistrationRequestMapper } from './completeRegistrationRequestMapper'
+import ErrorMessage from './ErrorMessage'
 
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
 import { FormSummaryPages, MerOppfolgingFormState } from '@/types/merOppfolgingForm'
@@ -55,15 +57,19 @@ function Summary(): React.ReactElement {
   const { previous } = getFormNavigation(FormSummaryPages.summary, formState)
   const { push } = useRouter()
 
+  const [displayErrorMessage, setDisplayErrorMessage] = useState(false)
+
   const mutation = trpc.completeRegistration.useMutation({
     onMutate: () => {
       logAmplitudeEvent({ eventName: 'skjema innsending startet', data: { skjemanavn: FORM_NAME } })
     },
     onError: () => {
       logAmplitudeEvent({ eventName: 'skjema innsending feilet', data: { skjemanavn: FORM_NAME } })
+      setDisplayErrorMessage(true)
     },
     onSuccess: () => {
       logAmplitudeEvent({ eventName: 'skjema fullført', data: { skjemanavn: FORM_NAME } })
+      push('/reg/kvittering')
     },
   })
 
@@ -71,7 +77,6 @@ function Summary(): React.ReactElement {
     const formRequest = completeRegistrationRequestMapper(formState)
 
     mutation.mutate(formRequest)
-    push('/reg/kvittering')
   }
 
   return (
@@ -86,7 +91,8 @@ function Summary(): React.ReactElement {
       <GuidePanel poster illustration={<Image src={summaryAvatar} alt="" />}>
         <SummaryTable state={formState} />
       </GuidePanel>
-      <Button className="w-fit" onClick={handleSubmit} disabled={mutation.isLoading}>
+      {displayErrorMessage && <ErrorMessage />}
+      <Button className="w-fit" onClick={handleSubmit} loading={mutation.isLoading}>
         Fullfør
       </Button>
     </>
