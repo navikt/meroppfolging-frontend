@@ -1,6 +1,6 @@
 import { BodyLong, GuidePanel, Heading } from '@navikt/ds-react'
 
-function Vedlikehold(): React.ReactElement {
+function OngoingMaintenance(): React.ReactElement {
   return (
     <>
       <GuidePanel poster>
@@ -16,4 +16,4 @@ function Vedlikehold(): React.ReactElement {
   )
 }
 
-export default Vedlikehold
+export default OngoingMaintenance
