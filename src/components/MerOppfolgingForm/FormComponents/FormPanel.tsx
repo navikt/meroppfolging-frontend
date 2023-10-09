@@ -70,7 +70,7 @@ function FormPanel<T extends Partial<MerOppfolgingFormState>>({
         <FormBackLink formPage={previous} />
 
         <Column>
-          <Panel className="bg-gray-100">
+          <Panel className="bg-bg-subtle border-border-default">
             <Heading size="medium" spacing level="1">
               {formQuestionTitles[formPage]}
             </Heading>
@@ -78,7 +78,7 @@ function FormPanel<T extends Partial<MerOppfolgingFormState>>({
             {children}
           </Panel>
 
-          <Button>Neste</Button>
+          <Button className="w-fit">Neste</Button>
           <FormCancelLink />
         </Column>
         {/* <RHFDevTool control={methods.control} /> */}

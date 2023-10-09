@@ -57,7 +57,7 @@ function Receipt(): ReactElement {
         href={DITT_NAV}
         passHref
       >
-        <Button>{lesMerText}</Button>
+        <Button className="w-fit">{lesMerText}</Button>
       </Link>
       <Link
         onClick={() =>
