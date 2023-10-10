@@ -7,4 +7,7 @@ import { createContext } from '@/server/trpc'
 export default createNextApiHandler({
   router: appRouter,
   createContext,
+  batching: {
+    enabled: false,
+  },
 })
