@@ -20,13 +20,13 @@ spec:
     sidecar:
       enabled: false
   liveness:
-    path: syk/mer-oppfolging-wip/api/isAlive
+    path: syk/mer-oppfolging/api/isAlive
     initialDelay: 20
     timeout: 5
     periodSeconds: 5
     failureThreshold: 30
   readiness:
-    path: syk/mer-oppfolging-wip/api/isReady
+    path: syk/mer-oppfolging/api/isReady
     initialDelay: 20
     periodSeconds: 5
     timeout: 5
