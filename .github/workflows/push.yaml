@@ -11,4 +11,4 @@ jobs:
     secrets: inherit
     with:
       app: meroppfolging-frontend
-      base-path: /syk/mer-oppfolging
+      base-path: /syk/meroppfolging
