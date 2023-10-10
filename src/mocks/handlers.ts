@@ -7,6 +7,9 @@ export const handlers = [
     return res(ctx.status(200), ctx.data(registreringSykmeldtDTO))
   }),
   trpcMsw.completeRegistration.mutation((_req, res, ctx) => {
-    return res(ctx.status(200))
+    return res(ctx.status(200), ctx.data())
+  }),
+  trpcMsw.featureToggles.query((_req, res, ctx) => {
+    return res(ctx.status(200), ctx.data([]))
   }),
 ]
