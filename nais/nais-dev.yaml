@@ -49,6 +49,8 @@ spec:
       value: http://veilarbregistrering.paw/veilarbregistrering/api/startregistrering/
     - name: VEIARBLREGISTRERING_COMPLETE_REGISTRATION_API_URL
       value: http://veilarbregistrering.paw/veilarbregistrering/api/fullfoersykmeldtregistrering/
+  envFrom:
+    - secret: meroppfolging-frontend-unleash-secrets
   accessPolicy:
     outbound:
       rules:
@@ -56,3 +58,5 @@ spec:
           namespace: personbruker
         - application: veilarbregistrering
           namespace: paw
+      external:
+        - host: team-esyfo-unleash-api.nav.cloud.nais.io

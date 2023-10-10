@@ -20,13 +20,16 @@ export const serverEnvSchema = z.object({
   VEIARBLREGISTRERING_START_REGISTRATION_API_URL: z.string(),
   VEIARBLREGISTRERING_COMPLETE_REGISTRATION_API_URL: z.string(),
 
-  // Provided my nais
+  // Provided by nais
   TOKEN_X_WELL_KNOWN_URL: z.string(),
   TOKEN_X_CLIENT_ID: z.string(),
   TOKEN_X_PRIVATE_JWK: z.string(),
   IDPORTEN_WELL_KNOWN_URL: z.string(),
   IDPORTEN_CLIENT_ID: z.string(),
   NAIS_CLUSTER_NAME: z.string(),
+  // Provided by unleash
+  UNLEASH_SERVER_API_URL: z.string(),
+  UNLEASH_SERVER_API_TOKEN: z.string(),
 })
 
 /**
@@ -54,6 +57,9 @@ const getRawServerConfig = (): Partial<unknown> =>
     IDPORTEN_WELL_KNOWN_URL: process.env.IDPORTEN_WELL_KNOWN_URL,
     IDPORTEN_CLIENT_ID: process.env.IDPORTEN_CLIENT_ID,
     NAIS_CLUSTER_NAME: process.env.NAIS_CLUSTER_NAME,
+    // Provided by unleash
+    UNLEASH_SERVER_API_URL: process.env.UNLEASH_SERVER_API_URL,
+    UNLEASH_SERVER_API_TOKEN: process.env.UNLEASH_SERVER_API_TOKEN,
   }) satisfies Record<keyof ServerEnv, string | undefined>
 
 export function getServerEnv(): ServerEnv & PublicEnv {
