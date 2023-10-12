@@ -16,6 +16,7 @@ function FormCancelLink(): React.ReactElement {
     <>
       <Button
         variant="secondary"
+        className="w-fit"
         onClick={(event) => {
           event.preventDefault()
           ref.current?.showModal()
