@@ -1,14 +1,16 @@
-import { initialize } from 'unleash-client'
-import { FeatureInterface } from 'unleash-client/lib/feature'
+import { logger } from '@navikt/next-logger'
+import { IToggle, evaluateFlags } from '@unleash/nextjs'
 
-import { getServerEnv } from '@/constants/envs'
+import { getAndValidateDefinitions, getFallbackToggles } from '@/libs/unleash/utils'
 
-const unleash = initialize({
-  url: `${getServerEnv().UNLEASH_SERVER_API_URL}/api`,
-  appName: 'meroppfolging-frontend',
-  customHeaders: { Authorization: getServerEnv().UNLEASH_SERVER_API_TOKEN },
-})
+export async function getFeatureToggles(): Promise<IToggle[]> {
+  try {
+    const definitions = await getAndValidateDefinitions()
+    const { toggles } = evaluateFlags(definitions)
 
-export function getFeatureToggles(): FeatureInterface[] {
-  return unleash.getFeatureToggleDefinitions()
+    return toggles
+  } catch (e) {
+    logger.error(`Failed to get feature toggles from unleash: ${e}. Falling back to default toggles.`)
+    return getFallbackToggles()
+  }
 }
