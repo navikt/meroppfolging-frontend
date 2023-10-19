@@ -5,29 +5,10 @@ import open from 'open'
 import userEvent from '@testing-library/user-event'
 
 import { MerOppfolgingFormProvider } from '@/contexts/formContext'
-import { createTRPCNext } from '@trpc/next'
-import { AppRouter } from '@/server/routers/_app'
-import { httpBatchLink } from '@trpc/client'
-import { BASE_PATH } from '@/constants/paths'
 import { trpc } from '@/utils/trpc'
+import { ToggleProvider } from '@/contexts/toggleContext'
 
 type CustomRenderReturnType = { user: ReturnType<typeof userEvent.setup>; render: ReturnType<typeof render> }
-
-const trpcSomething = createTRPCNext<AppRouter>({
-  config() {
-    return {
-      links: [
-        httpBatchLink({
-          url: `${BASE_PATH}/api/trpc`,
-        }),
-      ],
-    }
-  },
-  /**
-   * @link https://trpc.io/docs/ssr
-   **/
-  ssr: false,
-})
 
 const AllTheProviders = ({ children }: { children: ReactNode }): ReactElement => {
   const queryClient = new QueryClient({
@@ -38,15 +19,19 @@ const AllTheProviders = ({ children }: { children: ReactNode }): ReactElement =>
     },
   })
 
-  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  return (
+    <ToggleProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </ToggleProvider>
+  )
 }
 
-const AllWithTRPC = trpcSomething.withTRPC(AllTheProviders)
+const ProvidersWithTRPC = trpc.withTRPC(AllTheProviders)
 
 const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>): CustomRenderReturnType => {
   return {
     user: userEvent.setup({ delay: null }),
-    render: render(ui, { wrapper: AllWithTRPC, ...options }),
+    render: render(ui, { wrapper: ProvidersWithTRPC, ...options }),
   }
 }
 
