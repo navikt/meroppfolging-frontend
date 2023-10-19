@@ -1,7 +1,7 @@
 import { registreringSykmeldtDTO } from './data/fixtures/registeringDTO'
 
 import { trpcMsw } from '@/utils/trpc'
-import { disabledFeatureToggles } from '@/mocks/data/fixtures/featureToggles'
+import { disabledFeatureToggles, enabledFeatureToggles } from '@/mocks/data/fixtures/featureToggles'
 
 export const handlers = [
   trpcMsw.startRegistration.query((_req, res, ctx) => {
