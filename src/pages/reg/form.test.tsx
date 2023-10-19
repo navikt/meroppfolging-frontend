@@ -12,6 +12,8 @@ describe('FormPage', () => {
   describe('router mock should return', () => {
     it('Should render form ', async () => {
       render(<Page />)
+
+      // expect(await screen.findByText('Hva tenker du om din fremtidige situasjon?')).toBeInTheDocument()
     })
   })
 })
