@@ -1,0 +1,62 @@
+apiVersion: 'nais.io/v1alpha1'
+kind: 'Application'
+metadata:
+  name: meroppfolging-frontend
+  namespace: team-esyfo
+  labels:
+    team: team-esyfo
+spec:
+  image: {{image}}
+  replicas:
+    min: 2
+    max: 4
+    cpuThresholdPercentage: 90
+  port: 3000
+  tokenx:
+    enabled: true
+  idporten:
+    enabled: true
+    sidecar:
+      enabled: true
+      level: Level4
+  liveness:
+    path: syk/meroppfolging/api/isAlive
+    initialDelay: 20
+    timeout: 5
+    periodSeconds: 5
+    failureThreshold: 30
+  readiness:
+    path: syk/meroppfolging/api/isReady
+    initialDelay: 20
+    periodSeconds: 5
+    timeout: 5
+  prometheus:
+    enabled: true
+    path: actuator/metrics
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+  ingresses:
+    - 'https://www.nav.no/syk/meroppfolging'
+  env:
+    - name: DECORATOR_ENV
+      value: prod
+    - name: VEIARBLREGISTRERING_START_REGISTRATION_API_URL
+      value: http://veilarbregistrering.paw/veilarbregistrering/api/startregistrering/
+    - name: VEIARBLREGISTRERING_COMPLETE_REGISTRATION_API_URL
+      value: http://veilarbregistrering.paw/veilarbregistrering/api/fullfoersykmeldtregistrering/
+  envFrom:
+    - secret: meroppfolging-frontend-unleash-secrets
+  accessPolicy:
+    outbound:
+      rules:
+        - application: nav-dekoratoren
+          namespace: personbruker
+        - application: veilarbregistrering
+          namespace: paw
+      external:
+        - host: team-esyfo-unleash-api.nav.cloud.nais.io
