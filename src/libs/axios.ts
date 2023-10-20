@@ -1,3 +1,4 @@
+import { logger } from '@navikt/next-logger'
 import axios from 'axios'
 import { nanoid } from 'nanoid'
 
@@ -26,9 +27,10 @@ export async function serverRequst<T>(opt: AxiosServerRequstParams): Promise<T> 
     .then((response) => response.data)
     .catch((error) => {
       if (error.status === 401) {
-        throw new Error(`Users access to API on path ${opt.url} has expired`)
+        logger.error(`Users access to API on path ${opt.url} has expired`)
+        throw new Error(`Users access has expired`)
       }
-
-      throw new Error(`Unknown error from API, responded with error: ${error} when fetching ${opt.url}`)
+      logger.error(`Unknown error from API, responded with error: ${error} when fetching ${opt.url}`)
+      throw new Error(`Unknown error from API.`)
     })
 }

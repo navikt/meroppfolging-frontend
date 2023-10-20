@@ -1,3 +1,5 @@
+import { logger } from '@navikt/next-logger'
+
 import {
   CompleteRegistrationRequest,
   StartRegistrationDTO,
@@ -27,5 +29,10 @@ export async function postCompleteRegistration(auth: string, data: CompleteRegis
   const url = getServerEnv().VEIARBLREGISTRERING_COMPLETE_REGISTRATION_API_URL
   const tokenx = await exchangeIdportenTokenForVeilarbregisteringTokenx(auth)
 
-  await serverRequst({ url, accessToken: tokenx, method: 'post', data })
+  try {
+    await serverRequst({ url, accessToken: tokenx, method: 'post', data })
+  } catch (e) {
+    logger.error(`Failed to complete registration: ${e}. Payload: ${JSON.stringify(data)}`)
+    throw new Error(`Failed to complete registration: ${e}`)
+  }
 }
