@@ -60,7 +60,8 @@
     "eslint-config-next": "13.4.12",
     "path": "^0.12.7",
     "stylelint": "^15.10.3",
-    "vitest": "^0.34.2"
+    "vitest": "^0.34.2",
+    "vitest-dom": "^0.1.1"
   },
   "stylelint": {
     "extends": [

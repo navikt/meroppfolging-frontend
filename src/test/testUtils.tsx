@@ -5,6 +5,8 @@ import open from 'open'
 import userEvent from '@testing-library/user-event'
 
 import { MerOppfolgingFormProvider } from '@/contexts/formContext'
+import { trpc } from '@/utils/trpc'
+import { ToggleProvider } from '@/contexts/toggleContext'
 
 type CustomRenderReturnType = { user: ReturnType<typeof userEvent.setup>; render: ReturnType<typeof render> }
 
@@ -17,13 +19,19 @@ const AllTheProviders = ({ children }: { children: ReactNode }): ReactElement =>
     },
   })
 
-  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  return (
+    <ToggleProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </ToggleProvider>
+  )
 }
+
+const ProvidersWithTRPC = trpc.withTRPC(AllTheProviders)
 
 const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>): CustomRenderReturnType => {
   return {
     user: userEvent.setup({ delay: null }),
-    render: render(ui, { wrapper: AllTheProviders, ...options }),
+    render: render(ui, { wrapper: ProvidersWithTRPC, ...options }),
   }
 }
 
