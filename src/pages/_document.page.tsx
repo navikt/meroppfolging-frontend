@@ -25,9 +25,11 @@ class MyDocument extends Document<DocumentProps> {
         <Head>
           <Decorator.Styles />
         </Head>
-        <body className="h-screen">
+        <body className="h-screen flex flex-col">
           <Decorator.Header />
-          <Main />
+          <div className="flex-grow">
+            <Main />
+          </div>
           <Decorator.Footer />
           <Decorator.Scripts />
           <NextScript />
