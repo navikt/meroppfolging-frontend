@@ -4,6 +4,7 @@ import { filter, keys, pipe } from 'remeda'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { logger } from '@navikt/next-logger'
 
 import FormBackLink from '../FormComponents/FormBackLink'
 import { getFormNavigation } from '../formStateMachine'
@@ -65,6 +66,7 @@ function Summary(): React.ReactElement {
     },
     onError: () => {
       logAmplitudeEvent({ eventName: 'skjema innsending feilet', data: { skjemanavn: FORM_NAME } })
+      logger.error(`Client: Error completing registration. Payload: ${JSON.stringify(formState)}`)
       setDisplayErrorMessage(true)
     },
     onSuccess: () => {
