@@ -38,7 +38,7 @@ export function getFallbackToggles(): IToggle[] {
 
 export function getUnleashEnvironment(): 'development' | 'production' {
   switch (browserEnv.NEXT_PUBLIC_RUNTIME_ENVIRONMENT) {
-    case 'production':
+    case 'prod':
       return 'production'
     default:
       return 'development'

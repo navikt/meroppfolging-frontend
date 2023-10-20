@@ -7,7 +7,7 @@ export const publicEnvSchema = z.object({
     z.literal('test'),
     z.literal('demo'),
     z.literal('dev'),
-    z.literal('production'),
+    z.literal('prod'),
   ]),
   NEXT_PUBLIC_ASSET_PREFIX: z.string().optional(),
   NEXT_PUBLIC_API_MOCKING: z.string(),
