@@ -1,8 +1,21 @@
 import Document, { Html, Head, Main, NextScript, DocumentInitialProps, DocumentContext } from 'next/document'
 import { DecoratorComponents, fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr'
 
+import { browserEnv } from '@/constants/envs'
+
 interface DocumentProps {
   Decorator: DecoratorComponents
+}
+
+function createDecoratorEnv(): 'dev' | 'prod' {
+  switch (browserEnv.NEXT_PUBLIC_RUNTIME_ENVIRONMENT) {
+    case 'local':
+    case 'test':
+    case 'dev':
+      return 'dev'
+    default:
+      return 'prod'
+  }
 }
 
 class MyDocument extends Document<DocumentProps> {
@@ -10,7 +23,7 @@ class MyDocument extends Document<DocumentProps> {
     const initialProps = await Document.getInitialProps(ctx)
 
     const Decorator = await fetchDecoratorReact({
-      env: 'dev',
+      env: createDecoratorEnv(),
       params: { language: 'nb', context: 'privatperson' },
     })
 
