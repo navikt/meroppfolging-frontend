@@ -16,12 +16,12 @@ export function completeRegistrationRequestMapper(form: MerOppfolgingFormState):
     [QuestionId.utdanningGodkjent]: form[QuestionId.utdanningGodkjent] || INGEN_SVAR,
     [QuestionId.utdanningBestatt]: form[QuestionId.utdanningBestatt] || INGEN_SVAR,
     [QuestionId.andreForhold]: form[QuestionId.andreForhold] || INGEN_SVAR,
-    [QuestionId.fremtidigSituasjon]: form[QuestionId.fremtidigSituasjon] || INGEN_SVAR,
-    [QuestionId.tilbakeIArbeid]: form[QuestionId.tilbakeIArbeid] || INGEN_SVAR,
+    [QuestionId.fremtidigSituasjon]: form[QuestionId.fremtidigSituasjon] || undefined,
+    [QuestionId.tilbakeIArbeid]: form[QuestionId.tilbakeIArbeid] || undefined,
     sisteStilling: INGEN_SVAR,
   }
 
-  const validTeksterForBesvarelse: CompleteRegistrationRequest['teksterForBesvarelse'] = [
+  const validTeksterForBesvarelse = [
     {
       sporsmalId: QuestionId.utdanning,
       sporsmal: formQuestionTexts[QuestionId.utdanning],
@@ -52,16 +52,25 @@ export function completeRegistrationRequestMapper(form: MerOppfolgingFormState):
         : IKKE_BESVART,
     },
     {
-      sporsmalId: QuestionId.tilbakeIArbeid,
-      sporsmal: formQuestionTexts[QuestionId.tilbakeIArbeid],
-      svar: form[QuestionId.tilbakeIArbeid] ? tilbakeIArbeidAlt[form[QuestionId.tilbakeIArbeid]] : IKKE_BESVART,
-    },
-    {
       sporsmalId: 'sisteStilling',
       sporsmal: 'Hva er din siste jobb?',
       svar: 'Ikke oppgitt',
     },
-  ]
+  ] as const
 
-  return { besvarelse: validBesvarelse, teksterForBesvarelse: validTeksterForBesvarelse }
+  if (form[QuestionId.tilbakeIArbeid]) {
+    return {
+      besvarelse: validBesvarelse,
+      teksterForBesvarelse: [
+        ...validTeksterForBesvarelse,
+        {
+          sporsmalId: QuestionId.tilbakeIArbeid,
+          sporsmal: formQuestionTexts[QuestionId.tilbakeIArbeid],
+          svar: tilbakeIArbeidAlt[form[QuestionId.tilbakeIArbeid]],
+        },
+      ],
+    }
+  }
+
+  return { besvarelse: validBesvarelse, teksterForBesvarelse: [...validTeksterForBesvarelse] }
 }
