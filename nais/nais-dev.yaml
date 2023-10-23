@@ -43,8 +43,6 @@ spec:
   ingresses:
     - 'https://www.ekstern.dev.nav.no/syk/meroppfolging'
   env:
-    - name: DECORATOR_ENV
-      value: dev
     - name: VEIARBLREGISTRERING_START_REGISTRATION_API_URL
       value: http://veilarbregistrering.paw/veilarbregistrering/api/startregistrering/
     - name: VEIARBLREGISTRERING_COMPLETE_REGISTRATION_API_URL

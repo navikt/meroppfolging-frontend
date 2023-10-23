@@ -43,8 +43,6 @@ spec:
   ingresses:
     - {{ingress}}
   env:
-    - name: DECORATOR_ENV
-      value: prod
     - name: VEIARBLREGISTRERING_START_REGISTRATION_API_URL
       value: http://veilarbregistrering.paw/veilarbregistrering/api/startregistrering/
     - name: VEIARBLREGISTRERING_COMPLETE_REGISTRATION_API_URL
