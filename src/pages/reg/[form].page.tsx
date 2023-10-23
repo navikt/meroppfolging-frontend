@@ -1,4 +1,5 @@
 import { ReactElement } from 'react'
+import { Loader } from '@navikt/ds-react'
 
 import { withAuthenticatedPage } from '@/auth'
 import MerOppfolgingForm from '@/components/MerOppfolgingForm/MerOppfolgingForm'
@@ -14,7 +15,7 @@ function Page(): ReactElement {
   const startRegistration = trpc.startRegistration.useQuery()
 
   if (startRegistration.isLoading) {
-    return <div>loading</div>
+    return <Loader size="3xlarge" title="Laster..." className="self-center py-24" />
   }
   if (startRegistration.isError) {
     return <div>error</div>
