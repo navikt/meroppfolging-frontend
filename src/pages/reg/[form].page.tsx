@@ -1,5 +1,6 @@
 import { ReactElement } from 'react'
 import { Loader } from '@navikt/ds-react'
+import { logger } from '@navikt/next-logger'
 
 import { withAuthenticatedPage } from '@/auth'
 import MerOppfolgingForm from '@/components/MerOppfolgingForm/MerOppfolgingForm'
@@ -9,6 +10,7 @@ import { RegisttrationTypes } from '@/server/services/schemas/registreringSchema
 import OtherRegistrationTypes from '@/components/OtherRegistrationTypes/OtherRegistrationTypes'
 import { useToggle } from '@/contexts/toggleContext'
 import OngoingMaintenance from '@/components/Maintenance/OngoingMaintenance'
+import ErrorMessage from '@/components/MerOppfolgingForm/Summary/ErrorMessage'
 
 function Page(): ReactElement {
   const disableMerOppfolgingRegistreringToggle = useToggle('disableMerOppfolgingRegistering')
@@ -18,7 +20,8 @@ function Page(): ReactElement {
     return <Loader size="3xlarge" title="Laster..." className="self-center py-24" />
   }
   if (startRegistration.isError) {
-    return <div>error</div>
+    logger.error('Error while fetching startRegistration', startRegistration.error)
+    return <ErrorMessage />
   }
 
   if (disableMerOppfolgingRegistreringToggle.enabled) {
