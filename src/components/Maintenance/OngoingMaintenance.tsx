@@ -1,6 +1,10 @@
 import { BodyLong, GuidePanel, Heading } from '@navikt/ds-react'
 
+import { useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
+
 function OngoingMaintenance(): React.ReactElement {
+  useLogAmplitudeEvent({ eventName: 'guidepanel vist', data: { komponent: 'Vedlikehold-side' } })
+
   return (
     <>
       <GuidePanel poster>

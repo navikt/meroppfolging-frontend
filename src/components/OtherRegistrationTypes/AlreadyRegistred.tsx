@@ -7,7 +7,7 @@ import { logAmplitudeEvent, useLogAmplitudeEvent } from '@/libs/amplitude/amplit
 const linkText = 'Lenke til aktivitetsplanen.'
 
 function AlreadyRegistred(): React.ReactElement {
-  useLogAmplitudeEvent({ eventName: 'besøk' }, { side: 'allerede registrert-side' })
+  useLogAmplitudeEvent({ eventName: 'guidepanel vist', data: { komponent: 'allerede registrert-side' } })
 
   return (
     <GuidePanel poster>
