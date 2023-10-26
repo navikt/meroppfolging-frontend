@@ -13,7 +13,7 @@ import OngoingMaintenance from '@/components/Maintenance/OngoingMaintenance'
 import { useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
 
-function ErrorMessageWithAmplitude(): React.ReactElement {
+function StartRegistrationErrorMessage(): React.ReactElement {
   useLogAmplitudeEvent({ eventName: 'alert vist', data: { variant: 'error', tekst: 'Beklager, teknisk feil' } })
 
   return <ErrorMessage />
@@ -28,7 +28,7 @@ function Page(): ReactElement {
   }
   if (startRegistration.isError) {
     logger.error('Error while fetching startRegistration', startRegistration.error)
-    return <ErrorMessageWithAmplitude />
+    return <StartRegistrationErrorMessage />
   }
 
   if (disableMerOppfolgingRegistreringToggle.enabled) {
