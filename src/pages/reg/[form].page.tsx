@@ -10,7 +10,14 @@ import { RegisttrationTypes } from '@/server/services/schemas/registreringSchema
 import OtherRegistrationTypes from '@/components/OtherRegistrationTypes/OtherRegistrationTypes'
 import { useToggle } from '@/contexts/toggleContext'
 import OngoingMaintenance from '@/components/Maintenance/OngoingMaintenance'
-import ErrorMessageWithAmplitude from '@/components/ErrorMessage/ErrorMessageWithAmplitude'
+import { useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
+import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
+
+function ErrorMessageWithAmplitude(): React.ReactElement {
+  useLogAmplitudeEvent({ eventName: 'alert vist', data: { variant: 'error', tekst: 'Beklager, teknisk feil' } })
+
+  return <ErrorMessage />
+}
 
 function Page(): ReactElement {
   const disableMerOppfolgingRegistreringToggle = useToggle('disableMerOppfolgingRegistering')
