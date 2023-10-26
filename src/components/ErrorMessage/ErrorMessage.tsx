@@ -1,11 +1,7 @@
 import { Alert, BodyLong, Heading } from '@navikt/ds-react'
 import Link from 'next/link'
 
-import { useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
-
 function ErrorMessage(): React.ReactElement {
-  useLogAmplitudeEvent({ eventName: 'alert vist', data: { variant: 'error', tekst: 'Beklager, teknisk feil' } })
-
   return (
     <Alert variant="error">
       <Heading size="medium" spacing level="1">

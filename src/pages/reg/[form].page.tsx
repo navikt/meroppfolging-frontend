@@ -10,7 +10,7 @@ import { RegisttrationTypes } from '@/server/services/schemas/registreringSchema
 import OtherRegistrationTypes from '@/components/OtherRegistrationTypes/OtherRegistrationTypes'
 import { useToggle } from '@/contexts/toggleContext'
 import OngoingMaintenance from '@/components/Maintenance/OngoingMaintenance'
-import ErrorMessage from '@/components/MerOppfolgingForm/Summary/ErrorMessage'
+import ErrorMessageWithAmplitude from '@/components/ErrorMessage/ErrorMessageWithAmplitude'
 
 function Page(): ReactElement {
   const disableMerOppfolgingRegistreringToggle = useToggle('disableMerOppfolgingRegistering')
@@ -21,7 +21,7 @@ function Page(): ReactElement {
   }
   if (startRegistration.isError) {
     logger.error('Error while fetching startRegistration', startRegistration.error)
-    return <ErrorMessage />
+    return <ErrorMessageWithAmplitude />
   }
 
   if (disableMerOppfolgingRegistreringToggle.enabled) {
