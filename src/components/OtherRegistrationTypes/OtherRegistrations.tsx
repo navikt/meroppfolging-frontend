@@ -5,7 +5,7 @@ import { CONTACT_NAV_URL, NAV_PHONE_NUMBER } from '@/constants/paths'
 import { useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
 
 function OtherRegistrations(): React.ReactElement {
-  useLogAmplitudeEvent({ eventName: 'besøk' }, { side: 'Annen type registrert-side' })
+  useLogAmplitudeEvent({ eventName: 'guidepanel vist', data: { komponent: 'Annen type registrert-side' } })
 
   return (
     <GuidePanel poster>

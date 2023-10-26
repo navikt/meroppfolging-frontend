@@ -10,7 +10,14 @@ import { RegisttrationTypes } from '@/server/services/schemas/registreringSchema
 import OtherRegistrationTypes from '@/components/OtherRegistrationTypes/OtherRegistrationTypes'
 import { useToggle } from '@/contexts/toggleContext'
 import OngoingMaintenance from '@/components/Maintenance/OngoingMaintenance'
-import ErrorMessage from '@/components/MerOppfolgingForm/Summary/ErrorMessage'
+import { useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
+import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
+
+function StartRegistrationErrorMessage(): React.ReactElement {
+  useLogAmplitudeEvent({ eventName: 'alert vist', data: { variant: 'error', tekst: 'Beklager, teknisk feil' } })
+
+  return <ErrorMessage />
+}
 
 function Page(): ReactElement {
   const disableMerOppfolgingRegistreringToggle = useToggle('disableMerOppfolgingRegistering')
@@ -21,7 +28,7 @@ function Page(): ReactElement {
   }
   if (startRegistration.isError) {
     logger.error('Error while fetching startRegistration', startRegistration.error)
-    return <ErrorMessage />
+    return <StartRegistrationErrorMessage />
   }
 
   if (disableMerOppfolgingRegistreringToggle.enabled) {

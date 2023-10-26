@@ -11,7 +11,7 @@ import { getFormNavigation } from '../formStateMachine'
 
 import summaryAvatar from './summary-avatar.svg'
 import { completeRegistrationRequestMapper } from './completeRegistrationRequestMapper'
-import ErrorMessage from './ErrorMessage'
+import ErrorMessage from '../../ErrorMessage/ErrorMessage'
 
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
 import { FormSummaryPages, MerOppfolgingFormState } from '@/types/merOppfolgingForm'
