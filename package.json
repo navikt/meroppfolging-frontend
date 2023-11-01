@@ -10,7 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "vitest --passWithNoTests"
+    "test": "vitest"
   },
   "dependencies": {
     "@grafana/faro-web-sdk": "^1.2.1",
