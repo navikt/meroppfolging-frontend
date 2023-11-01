@@ -19,7 +19,7 @@ function StartRegistrationErrorMessage(): React.ReactElement {
   return <ErrorMessage />
 }
 
-function Page(): ReactElement {
+function FormPage(): ReactElement {
   const disableMerOppfolgingRegistreringToggle = useToggle('disableMerOppfolgingRegistering')
   const startRegistration = trpc.startRegistration.useQuery()
 
@@ -50,4 +50,4 @@ function Page(): ReactElement {
 
 export const getServerSideProps = withAuthenticatedPage()
 
-export default Page
+export default FormPage

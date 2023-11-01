@@ -11,7 +11,7 @@ const linkText = 'Lenke til aktivitetsplanen.'
 const lesMerText = 'Les mer'
 const skalIkkeText = 'Skal ikke søke nå'
 
-function Receipt(): ReactElement {
+function ReceiptPage(): ReactElement {
   return (
     <Column>
       <Heading level="1" spacing size="medium">
@@ -79,4 +79,4 @@ function Receipt(): ReactElement {
 
 export const getServerSideProps = withAuthenticatedPage()
 
-export default Receipt
+export default ReceiptPage
