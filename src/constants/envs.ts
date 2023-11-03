@@ -13,6 +13,8 @@ export const publicEnvSchema = z.object({
   NEXT_PUBLIC_API_MOCKING: z.string(),
   NEXT_PUBLIC_TELEMETRY_URL: z.string().optional(),
   NEXT_PUBLIC_BASE_PATH: z.string(),
+  NEXT_PUBLIC_AKTIVITETSPLAN_URL: z.string(),
+  NEXT_PUBLIC_ARBEIDSRETTET_DIALOG_URL: z.string(),
 })
 
 export type ServerEnv = z.infer<typeof serverEnvSchema>
@@ -44,6 +46,8 @@ export const browserEnv = publicEnvSchema.parse({
   NEXT_PUBLIC_API_MOCKING: process.env.NEXT_PUBLIC_API_MOCKING,
   NEXT_PUBLIC_TELEMETRY_URL: process.env.NEXT_PUBLIC_TELEMETRY_URL,
   NEXT_PUBLIC_BASE_PATH: process.env.NEXT_PUBLIC_BASE_PATH,
+  NEXT_PUBLIC_AKTIVITETSPLAN_URL: process.env.NEXT_PUBLIC_AKTIVITETSPLAN_URL,
+  NEXT_PUBLIC_ARBEIDSRETTET_DIALOG_URL: process.env.NEXT_PUBLIC_ARBEIDSRETTET_DIALOG_URL,
 } satisfies Record<keyof PublicEnv, string | undefined>)
 
 const getRawServerConfig = (): Partial<unknown> =>

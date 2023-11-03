@@ -1,10 +1,11 @@
 import { BodyLong, GuidePanel, Heading } from '@navikt/ds-react'
 import Link from 'next/link'
 
-import { AKTIVITETSPLAN_URL, CONTACT_NAV_URL, NAV_PHONE_NUMBER } from '@/constants/paths'
 import { logAmplitudeEvent, useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
+import { browserEnv } from '@/constants/envs'
 
-const linkText = 'Lenke til aktivitetsplanen.'
+const dialogLinkText = 'Min dialog med veileder'
+const aktivitetsplanLinkText = 'aktivitetsplanen din'
 
 function AlreadyRegistred(): React.ReactElement {
   useLogAmplitudeEvent({ eventName: 'guidepanel vist', data: { komponent: 'allerede registrert-side' } })
@@ -12,29 +13,41 @@ function AlreadyRegistred(): React.ReactElement {
   return (
     <GuidePanel poster>
       <Heading spacing size="large" level="1">
-        Du er allerede registrert
+        Du har allerede en aktivitetsplan
       </Heading>
       <BodyLong>
-        Du er allerede registrert og har tilgang til aktivitetsplanen.
-        {` `}
+        Har du ikke hørt noe fra veilederen din? Du kan ta direkte kontakt med veilederen din i{` `}
         <Link
           onClick={() =>
             logAmplitudeEvent(
               {
                 eventName: 'navigere',
-                data: { lenketekst: linkText, destinasjon: 'aktivitetsplanen' },
+                data: { lenketekst: dialogLinkText, destinasjon: 'arbeidsrettet-dialog' },
               },
               { fra: 'allerede registrert-side' },
             )
           }
-          href={AKTIVITETSPLAN_URL}
+          href={browserEnv.NEXT_PUBLIC_ARBEIDSRETTET_DIALOG_URL}
         >
-          {linkText}
+          {dialogLinkText}.
         </Link>
       </BodyLong>
-      <BodyLong>Ønsker du mer informasjon må du ta kontakt med NAV.</BodyLong>
       <BodyLong>
-        <Link href={CONTACT_NAV_URL}>Send melding til veilederen din</Link> eller ring oss på <b>{NAV_PHONE_NUMBER}</b>
+        Du kan også se på{` `}
+        <Link
+          onClick={() =>
+            logAmplitudeEvent(
+              {
+                eventName: 'navigere',
+                data: { lenketekst: aktivitetsplanLinkText, destinasjon: 'aktivitetsplanen' },
+              },
+              { fra: 'allerede registrert-side' },
+            )
+          }
+          href={browserEnv.NEXT_PUBLIC_AKTIVITETSPLAN_URL}
+        >
+          {aktivitetsplanLinkText}.
+        </Link>
       </BodyLong>
     </GuidePanel>
   )
