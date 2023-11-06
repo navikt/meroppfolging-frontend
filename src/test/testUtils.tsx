@@ -23,7 +23,9 @@ const AllTheProviders = ({ children }: { children: ReactNode }): ReactElement =>
   return (
     <MemoryRouterProvider>
       <ToggleProvider>
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        <MerOppfolgingFormProvider>
+          <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        </MerOppfolgingFormProvider>
       </ToggleProvider>
     </MemoryRouterProvider>
   )
@@ -50,16 +52,3 @@ const customScreen = {
 
 export { customScreen as screen }
 export { customRender as render }
-
-export function renderWithFormContext(
-  ui: ReactElement,
-  options?: Omit<RenderOptions, 'wrapper'>,
-): CustomRenderReturnType {
-  return {
-    user: userEvent.setup({ delay: null }),
-    ...render(<MerOppfolgingFormProvider>{ui}</MerOppfolgingFormProvider>, {
-      wrapper: ProvidersWithTRPC,
-      ...options,
-    }),
-  }
-}
