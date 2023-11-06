@@ -4,8 +4,9 @@ import Link from 'next/link'
 
 import { withAuthenticatedPage } from '@/auth'
 import { Column } from '@/components/Containers/column'
-import { AKTIVITETSPLAN_URL, DITT_NAV } from '@/constants/paths'
+import { DITT_NAV } from '@/constants/paths'
 import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
+import { browserEnv } from '@/constants/envs'
 
 const linkText = 'Lenke til aktivitetsplanen.'
 const lesMerText = 'Les mer'
@@ -30,7 +31,7 @@ function ReceiptPage(): ReactElement {
               { fra: 'kvittering-side' },
             )
           }
-          href={AKTIVITETSPLAN_URL}
+          href={browserEnv.NEXT_PUBLIC_AKTIVITETSPLAN_URL}
         >
           {linkText}
         </Link>
