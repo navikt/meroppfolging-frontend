@@ -16,7 +16,7 @@ function AlreadyRegistred(): React.ReactElement {
         Du har allerede en aktivitetsplan
       </Heading>
       <BodyLong>
-        Har du ikke hørt noe fra veilederen din? Du kan ta direkte kontakt med veilederen din i{` `}
+        Hvis du har behov for mer veiledning må du ta direkte kontakt i{` `}
         <Link
           onClick={() =>
             logAmplitudeEvent(
