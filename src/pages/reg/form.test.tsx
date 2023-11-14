@@ -1,5 +1,7 @@
 import mockRouter from 'next-router-mock'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { act } from '@testing-library/react'
+import { axe } from 'vitest-axe'
 
 import FormPage from '@/pages/reg/[form].page'
 import { render, screen } from '@/test/testUtils'
@@ -10,6 +12,15 @@ import { trpcMsw } from '@/utils/trpc'
 describe('FormPage', () => {
   beforeEach(() => {
     mockRouter.setCurrentUrl('/reg/0')
+  })
+
+  it('should have no a11y violations', async () => {
+    const { container } = render(<FormPage />)
+
+    await act(async () => {
+      const result = await axe(container)
+      expect(result).toHaveNoViolations()
+    })
   })
 
   describe('with feature toggles', () => {
