@@ -4,6 +4,7 @@ import { ReactElement, useEffect, useState } from 'react'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { configureLogger } from '@navikt/next-logger'
+import Head from 'next/head'
 
 import { trpc } from '@/utils/trpc'
 import { server } from '@/mocks/server'
@@ -31,6 +32,9 @@ function App({ Component, pageProps }: AppProps): ReactElement {
 
   return (
     <ErrorBoundary>
+      <Head>
+        <title>Registering av mer oppfølging</title>
+      </Head>
       <QueryClientProvider client={queryClient}>
         <ToggleProvider>
           <section className="flex flex-col items-center p-8">
