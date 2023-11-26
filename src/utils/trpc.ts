@@ -2,9 +2,9 @@ import { httpLink } from '@trpc/client'
 import { createTRPCNext } from '@trpc/next'
 import { createTRPCMsw } from 'msw-trpc'
 
-import type { AppRouter } from '../server/routers/_app'
-
 import { BASE_PATH } from '@/constants/paths'
+
+import type { AppRouter } from '../server/routers/_app'
 
 export const trpc = createTRPCNext<AppRouter>({
   config() {

@@ -1,7 +1,5 @@
 import { describe, it, expect } from 'vitest'
 
-import { getFormNavigation } from '../formStateMachine'
-
 import {
   emptyMerOppfolgingFormState,
   filledMerOppfolgingFormState,
@@ -9,6 +7,8 @@ import {
 } from '@/mocks/data/fixtures/merOppfolgingForm'
 import { INITIAL_FORM_PAGE } from '@/domain/formPages'
 import { QuestionId } from '@/types/merOppfolgingForm'
+
+import { getFormNavigation } from '../formStateMachine'
 
 const initalFormNavigation = {
   current: 'fremtidigSituasjon',

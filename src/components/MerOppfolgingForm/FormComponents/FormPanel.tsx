@@ -3,11 +3,6 @@ import { FormProvider, UseFormReturn } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { equals, pick } from 'remeda'
 
-import { getFormNavigation } from '../formStateMachine'
-
-import FormBackLink from './FormBackLink'
-import FormCancelLink from './FormCancelButton'
-
 import { getFormUrlObject } from '@/utils/utils'
 import { isQuestionId } from '@/utils/tsUtils'
 // import { RHFDevTool } from '@/libs/ReactHookFormsDevTools'
@@ -17,6 +12,11 @@ import { formQuestionTitles } from '@/domain/formValues'
 import { Column } from '@/components/Containers/column'
 import { logAmplitudeEvent, useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
 import { FORM_NAME } from '@/domain/formPages'
+
+import { getFormNavigation } from '../formStateMachine'
+
+import FormBackLink from './FormBackLink'
+import FormCancelLink from './FormCancelButton'
 
 function hasFormValuesChanged(subForm: Partial<MerOppfolgingFormState>, form: MerOppfolgingFormState): boolean {
   return !equals(pick(form, Object.keys(subForm).filter(isQuestionId)), subForm)

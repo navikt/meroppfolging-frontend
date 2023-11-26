@@ -3,18 +3,18 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { logger } from '@navikt/next-logger'
 
+import { useMerOppfolgingFormContext } from '@/contexts/formContext'
+import { FormSummaryPages } from '@/types/merOppfolgingForm'
+import { trpc } from '@/utils/trpc'
+import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
+import { FORM_NAME } from '@/domain/formPages'
+
 import FormBackLink from '../FormComponents/FormBackLink'
 import { getFormNavigation } from '../formStateMachine'
 import ErrorMessage from '../../ErrorMessage/ErrorMessage'
 
 import { completeRegistrationRequestMapper } from './completeRegistrationRequestMapper'
 import SummaryTable from './SummaryTable'
-
-import { useMerOppfolgingFormContext } from '@/contexts/formContext'
-import { FormSummaryPages } from '@/types/merOppfolgingForm'
-import { trpc } from '@/utils/trpc'
-import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
-import { FORM_NAME } from '@/domain/formPages'
 
 function Summary(): React.ReactElement {
   const { formState } = useMerOppfolgingFormContext()
