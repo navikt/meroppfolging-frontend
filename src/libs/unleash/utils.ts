@@ -2,9 +2,9 @@ import { difference } from 'remeda'
 import { logger } from '@navikt/next-logger'
 import { IToggle, getDefinitions } from '@unleash/nextjs'
 
-import { EXPECTED_TOGGLES } from './toggles'
-
 import { browserEnv, getServerEnv } from '@/constants/envs'
+
+import { EXPECTED_TOGGLES } from './toggles'
 
 /**
  * If there are any toggles defined in EXPECTED_TOGGLES that are not returned by Unleash, something is out of sync.

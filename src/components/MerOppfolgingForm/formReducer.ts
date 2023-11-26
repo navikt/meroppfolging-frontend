@@ -1,9 +1,9 @@
 import { pick } from 'remeda'
 
+import { FormPage, MerOppfolgingFormState } from '@/types/merOppfolgingForm'
+
 import { isQuestionId } from '../../utils/tsUtils'
 import { defaultFormValues } from '../../domain/formValues'
-
-import { FormPage, MerOppfolgingFormState } from '@/types/merOppfolgingForm'
 
 export type FormAction = { type: 'updateForm'; value: Partial<MerOppfolgingFormState>; history: FormPage[] }
 

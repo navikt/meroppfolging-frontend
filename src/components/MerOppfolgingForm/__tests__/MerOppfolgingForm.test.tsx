@@ -3,13 +3,13 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { waitFor, within } from '@testing-library/react'
 import { invert } from 'remeda'
 
-import { render, screen } from '../../../test/testUtils'
-import MerOppfolgingForm from '../MerOppfolgingForm'
-import { summaryTexts } from '../Summary/summaryTexts'
-
 import { testServer } from '@/mocks/testServer'
 import { trpcMsw } from '@/utils/trpc'
 import { formPageInverted } from '@/domain/formPages'
+
+import { render, screen } from '../../../test/testUtils'
+import MerOppfolgingForm from '../MerOppfolgingForm'
+import { summaryTexts } from '../Summary/summaryTexts'
 
 const summaryTextsInverted = invert(summaryTexts)
 

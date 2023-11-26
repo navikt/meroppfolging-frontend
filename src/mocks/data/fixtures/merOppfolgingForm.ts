@@ -1,6 +1,6 @@
-import { createMerOppfolgingFormState } from '../factories/merOppfolgingForm'
-
 import { FremtidigSituasjonValues, TilbakeIArbeidValues } from '@/domain/radioValues'
+
+import { createMerOppfolgingFormState } from '../factories/merOppfolgingForm'
 
 export const emptyMerOppfolgingFormState = createMerOppfolgingFormState()
 export const partiallyFilledMerOppfolgingFormState = createMerOppfolgingFormState({

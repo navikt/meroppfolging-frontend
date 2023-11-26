@@ -1,11 +1,11 @@
 import { useForm } from 'react-hook-form'
 
-import NestedRadioGroup from '../FormComponents/NestedRadioGroup'
-import FormPanel from '../FormComponents/FormPanel'
-
 import { QuestionId } from '@/types/merOppfolgingForm'
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
 import { formQuestionTexts } from '@/domain/formValues'
+
+import FormPanel from '../FormComponents/FormPanel'
+import NestedRadioGroup from '../FormComponents/NestedRadioGroup'
 
 const formPage = QuestionId.utdanning
 

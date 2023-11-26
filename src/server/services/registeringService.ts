@@ -1,14 +1,14 @@
 import { logger } from '@navikt/next-logger'
 
+import { getServerEnv } from '@/constants/envs'
+import { exchangeIdportenTokenForVeilarbregisteringTokenx } from '@/auth/tokenUtils'
+import { serverRequst } from '@/libs/axios'
+
 import {
   CompleteRegistrationRequest,
   StartRegistrationDTO,
   startRegistrationSchema,
 } from './schemas/registreringSchema'
-
-import { getServerEnv } from '@/constants/envs'
-import { exchangeIdportenTokenForVeilarbregisteringTokenx } from '@/auth/tokenUtils'
-import { serverRequst } from '@/libs/axios'
 
 export async function getStartRegistration(auth: string): Promise<StartRegistrationDTO> {
   const url = getServerEnv().VEIARBLREGISTRERING_START_REGISTRATION_API_URL

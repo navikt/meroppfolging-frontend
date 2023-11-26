@@ -1,6 +1,6 @@
-import { merOppfolgingRadioAlt } from './radioValues'
-
 import { MerOppfolgingFormState, QuestionId } from '@/types/merOppfolgingForm'
+
+import { merOppfolgingRadioAlt } from './radioValues'
 
 export const defaultFormValues: MerOppfolgingFormState = {
   [QuestionId.fremtidigSituasjon]: null,
