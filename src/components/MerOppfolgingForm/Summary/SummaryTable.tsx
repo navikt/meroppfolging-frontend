@@ -1,4 +1,3 @@
-import { filter, keys, pipe } from 'remeda'
 import Link from 'next/link'
 import { Table } from '@navikt/ds-react'
 
@@ -7,14 +6,13 @@ import { summaryTexts } from '@/components/MerOppfolgingForm/Summary/summaryText
 import { isQuestionId } from '@/utils/tsUtils'
 import { createFormValueState } from '@/domain/formValues'
 import { getFormUrlObject } from '@/utils/utils'
+
 function SummaryTable({ state }: { state: MerOppfolgingFormState }): React.ReactElement {
   const formValueState = createFormValueState(state)
 
-  const keysWithValue = pipe(
-    keys(state),
-    filter(isQuestionId),
-    filter((key) => !!state[key]),
-  )
+  const keysWithValue = Object.keys(state)
+    .filter(isQuestionId)
+    .filter((key) => !!state[key])
 
   const Rows = keysWithValue.map((key) => {
     return (
