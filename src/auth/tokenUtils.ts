@@ -13,3 +13,15 @@ export async function exchangeIdportenTokenForVeilarbregisteringTokenx(auth: str
 
   return tokenxGrant
 }
+
+export async function exchangeIdportenTokenForEsyfoVarselTokenx(auth: string): Promise<string> {
+  const ESYFO_VARSEL_CLIENT_ID = `${getServerEnv().NAIS_CLUSTER_NAME}:team-esyfo:esyfovarsel`
+
+  const tokenxGrant = await grantTokenXOboToken(auth, ESYFO_VARSEL_CLIENT_ID)
+
+  if (isInvalidTokenSet(tokenxGrant)) {
+    throw new Error(`Failed to exchange idporten token for esyfovarseltokenx: ${tokenxGrant.message}`)
+  }
+
+  return tokenxGrant
+}

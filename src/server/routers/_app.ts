@@ -2,6 +2,7 @@ import { authenticatedProcedure, router } from '../trpc'
 import { postCompleteRegistration, getStartRegistration } from '../services/registeringService'
 import { completeRegistrationSchema } from '../services/schemas/registreringSchema'
 import { getFeatureToggles } from '../services/toggleService'
+import { getMaxDate } from '../services/esyfoVarselService'
 
 export const appRouter = router({
   startRegistration: authenticatedProcedure.query(async ({ ctx }) => {
@@ -12,6 +13,9 @@ export const appRouter = router({
   }),
   featureToggles: authenticatedProcedure.query(async () => {
     return getFeatureToggles()
+  }),
+  maxDate: authenticatedProcedure.query(async ({ ctx }) => {
+    return getMaxDate(ctx.authorization)
   }),
 })
 
