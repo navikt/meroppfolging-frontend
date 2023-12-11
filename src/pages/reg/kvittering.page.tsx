@@ -3,10 +3,10 @@ import { BodyLong, Button, GuidePanel, Heading } from '@navikt/ds-react'
 import Link from 'next/link'
 
 import { withAuthenticatedPage } from '@/auth'
-import { Column } from '@/components/Containers/column'
 import { DITT_NAV } from '@/constants/paths'
 import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
 import { browserEnv } from '@/constants/envs'
+import FormPageContainer from '@/components/Containers/FormPageContainer'
 
 const linkText = 'Lenke til aktivitetsplanen.'
 const lesMerText = 'Les mer'
@@ -14,7 +14,7 @@ const skalIkkeText = 'Skal ikke søke nå'
 
 function ReceiptPage(): ReactElement {
   return (
-    <Column>
+    <FormPageContainer className="gap-4">
       <Heading level="1" spacing size="medium">
         Du kan nå få mer veiledning
       </Heading>
@@ -36,6 +36,7 @@ function ReceiptPage(): ReactElement {
           {linkText}
         </Link>
       </BodyLong>
+
       <GuidePanel poster>
         <Heading level="2" spacing size="medium">
           Videre støtte etter sykepenger
@@ -74,7 +75,7 @@ function ReceiptPage(): ReactElement {
       >
         {skalIkkeText}
       </Link>
-    </Column>
+    </FormPageContainer>
   )
 }
 

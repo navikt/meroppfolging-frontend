@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react'
 import { getAmplitudeInstance } from '@navikt/nav-dekoratoren-moduler'
 
+import { isLocalOrDemo } from '@/constants/envs'
+
 import { AmplitudeTaxonomyEvents } from './events'
 
-import { isLocalOrDemo } from '@/constants/envs'
 const logger = getAmplitudeInstance('dekoratoren')
 
 const infoProperties = { team: 'eSyfo', app: 'meroppfolging-frontend' }

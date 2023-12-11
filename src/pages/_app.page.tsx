@@ -33,11 +33,9 @@ function App({ Component, pageProps }: AppProps): ReactElement {
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <ToggleProvider>
-          <section className="flex flex-col items-center p-8">
-            <main className="flex flex-col max-w-4xl w-full" tabIndex={-1} id="maincontent">
-              <Component {...pageProps} />
-            </main>
-          </section>
+          <main tabIndex={-1} id="maincontent">
+            <Component {...pageProps} />
+          </main>
         </ToggleProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>

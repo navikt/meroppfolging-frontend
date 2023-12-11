@@ -1,5 +1,6 @@
 import Document, { Html, Head, Main, NextScript, DocumentInitialProps, DocumentContext } from 'next/document'
 import { DecoratorComponents, fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr'
+import { Page } from '@navikt/ds-react'
 
 import { browserEnv } from '@/constants/envs'
 
@@ -38,12 +39,11 @@ class MyDocument extends Document<DocumentProps> {
         <Head>
           <Decorator.Styles />
         </Head>
-        <body className="h-screen flex flex-col">
-          <Decorator.Header />
-          <div className="grow">
+        <body>
+          <Page contentBlockPadding="none" footer={<Decorator.Footer />}>
+            <Decorator.Header />
             <Main />
-          </div>
-          <Decorator.Footer />
+          </Page>
           <Decorator.Scripts />
           <NextScript />
         </body>
