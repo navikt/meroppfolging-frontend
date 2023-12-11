@@ -12,6 +12,7 @@ import { useToggle } from '@/contexts/toggleContext'
 import OngoingMaintenance from '@/components/Maintenance/OngoingMaintenance'
 import { useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
+import FormPageContainer from '@/components/Containers/FormPageContainer'
 
 function StartRegistrationErrorMessage(): React.ReactElement {
   useLogAmplitudeEvent({ eventName: 'alert vist', data: { variant: 'error', tekst: 'Beklager, teknisk feil' } })
@@ -19,32 +20,47 @@ function StartRegistrationErrorMessage(): React.ReactElement {
   return <ErrorMessage />
 }
 
-function FormPage(): ReactElement {
+function Content(): ReactElement {
   const disableMerOppfolgingRegistreringToggle = useToggle('disableMerOppfolgingRegistering')
   const startRegistration = trpc.startRegistration.useQuery()
-
-  if (startRegistration.isLoading) {
-    return <Loader size="3xlarge" title="Laster..." className="self-center py-24" />
-  }
-  if (startRegistration.isError) {
-    logger.error('Error while fetching startRegistration', startRegistration.error)
-    return <StartRegistrationErrorMessage />
-  }
 
   if (disableMerOppfolgingRegistreringToggle.enabled) {
     return <OngoingMaintenance />
   }
 
-  const { registreringType } = startRegistration.data
+  switch (startRegistration.status) {
+    case 'loading':
+      return <Loader size="3xlarge" title="Laster..." className="self-center py-24" />
 
-  if (registreringType !== RegisttrationTypes.SYKMELDT_REGISTRERING) {
-    return <OtherRegistrationTypes type={registreringType} />
+    case 'error':
+      logger.error('Error while fetching startRegistration', startRegistration.error)
+      return <StartRegistrationErrorMessage />
+
+    case 'success': {
+      const { registreringType } = startRegistration.data
+
+      if (registreringType !== RegisttrationTypes.SYKMELDT_REGISTRERING) {
+        return <OtherRegistrationTypes type={registreringType} />
+      }
+
+      return (
+        <MerOppfolgingFormProvider>
+          <MerOppfolgingForm />
+        </MerOppfolgingFormProvider>
+      )
+    }
+    default: {
+      const exchasutiveCheck: never = startRegistration
+      return exchasutiveCheck
+    }
   }
+}
 
+function FormPage(): ReactElement {
   return (
-    <MerOppfolgingFormProvider>
-      <MerOppfolgingForm />
-    </MerOppfolgingFormProvider>
+    <FormPageContainer>
+      <Content />
+    </FormPageContainer>
   )
 }
 

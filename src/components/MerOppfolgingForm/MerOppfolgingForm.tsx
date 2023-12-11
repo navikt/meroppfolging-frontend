@@ -1,6 +1,14 @@
 'use client'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import { VStack } from '@navikt/ds-react'
+
+import { FormPage, FormSummaryPages, MerOppfolgingFormState, QuestionId } from '@/types/merOppfolgingForm'
+import useCurrentForm from '@/hooks/useCurrentForm'
+import { FORM_NAME, INITIAL_FORM_PAGE } from '@/domain/formPages'
+import { getFormUrlObject } from '@/utils/utils'
+import { useMerOppfolgingFormContext } from '@/contexts/formContext'
+import { useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
 
 import { FormPage, FormSummaryPages, MerOppfolgingFormState, QuestionId } from '@/types/merOppfolgingForm'
 import useCurrentForm from '@/hooks/useCurrentForm'
@@ -69,9 +77,9 @@ function MerOppfolgingForm(): React.ReactElement {
   useLogAmplitudeEvent({ eventName: 'skjema åpnet', data: { skjemanavn: FORM_NAME } })
 
   return (
-    <Column>
+    <VStack className="max-w-4xl w-full" gap="4">
       <RenderForm currentForm={formPage} />
-    </Column>
+    </VStack>
   )
 }
 
