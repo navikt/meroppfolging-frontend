@@ -58,5 +58,6 @@ spec:
           namespace: personbruker
         - application: veilarbregistrering
           namespace: paw
+        - application: esyfovarsel
       external:
         - host: team-esyfo-unleash-api.nav.cloud.nais.io
