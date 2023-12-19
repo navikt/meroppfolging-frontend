@@ -1,14 +1,18 @@
 import { ReactElement } from 'react'
 import { VStack, Heading, BodyLong, Link, Button, GuidePanel, List } from '@navikt/ds-react'
 import { ChevronLeftIcon } from '@navikt/aksel-icons'
+import { useRouter } from 'next/router'
 
 import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
 import FormPageContainer from '@/components/Containers/FormPageContainer'
 import InfoSection from '@/components/SnartSluttPaSykepengene/InfoSection'
 import MaxDateIngress from '@/components/SnartSluttPaSykepengene/MaxDateIngress'
 import ReadMoreSection from '@/components/SnartSluttPaSykepengene/ReadMoreSection'
+import { getFormUrlObject } from '@/utils/utils'
+import { INITIAL_FORM_PAGE } from '@/domain/formPages'
 
 function SnartSlutt(): ReactElement {
+  const { push } = useRouter()
   return (
     <FormPageContainer className="bg-bg-subtle">
       <VStack gap="6" className="max-w-4xl bg-bg-default p-4 md:p-8">
@@ -42,6 +46,7 @@ function SnartSlutt(): ReactElement {
                 eventName: 'skjema spørsmål besvart',
                 data: { skjemanavn: 'Snart slutt på sykepengene', spørsmål: 'Ønsker du mer veiledning?', svar: 'JA' },
               })
+              push(getFormUrlObject(INITIAL_FORM_PAGE))
             }}
           >
             Jeg trenger mer veiledning
