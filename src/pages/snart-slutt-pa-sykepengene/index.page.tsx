@@ -10,6 +10,7 @@ import MaxDateIngress from '@/components/SnartSluttPaSykepengene/MaxDateIngress'
 import ReadMoreSection from '@/components/SnartSluttPaSykepengene/ReadMoreSection'
 import { getFormUrlObject } from '@/utils/utils'
 import { INITIAL_FORM_PAGE } from '@/domain/formPages'
+import { withAuthenticatedPage } from '@/auth'
 
 function SnartSlutt(): ReactElement {
   const { push } = useRouter()
@@ -64,5 +65,7 @@ function SnartSlutt(): ReactElement {
     </FormPageContainer>
   )
 }
+
+export const getServerSideProps = withAuthenticatedPage()
 
 export default SnartSlutt
