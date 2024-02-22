@@ -59,5 +59,6 @@ spec:
         - application: veilarbregistrering
           namespace: paw
         - application: esyfovarsel
+        - application: meroppfolging-backend
       external:
         - host: team-esyfo-unleash-api.nav.cloud.nais.io

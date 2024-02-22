@@ -1,5 +1,5 @@
 import { authenticatedProcedure, router } from '../trpc'
-import { postCompleteRegistration, getStartRegistration } from '../services/registeringService'
+import { postCompleteRegistration, getStartRegistration, getMer } from '../services/registeringService'
 import { completeRegistrationSchema } from '../services/schemas/registreringSchema'
 import { getFeatureToggles } from '../services/toggleService'
 import { getMaxDate } from '../services/esyfoVarselService'
@@ -16,6 +16,9 @@ export const appRouter = router({
   }),
   maxDate: authenticatedProcedure.query(async ({ ctx }) => {
     return getMaxDate(ctx.authorization)
+  }),
+  mer: authenticatedProcedure.query(async ({ ctx }) => {
+    return getMer(ctx.authorization)
   }),
 })
 

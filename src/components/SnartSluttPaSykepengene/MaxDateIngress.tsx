@@ -32,6 +32,8 @@ function MaxDateErrorMessage({ reason }: { reason: string }): ReactElement {
 
 function MaxDateContent(): ReactElement {
   const maxDate = trpc.maxDate.useQuery()
+  const mer = trpc.mer.useQuery()
+  console.log(mer)
 
   switch (maxDate.status) {
     case 'error':

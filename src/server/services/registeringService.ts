@@ -1,7 +1,10 @@
 import { logger } from '@navikt/next-logger'
 
 import { getServerEnv } from '@/constants/envs'
-import { exchangeIdportenTokenForVeilarbregisteringTokenx } from '@/auth/tokenUtils'
+import {
+  exchangeIdportenTokenForMeroppfolgingBackendTokenx,
+  exchangeIdportenTokenForVeilarbregisteringTokenx,
+} from '@/auth/tokenUtils'
 import { serverRequst } from '@/libs/axios'
 
 import {
@@ -34,5 +37,17 @@ export async function postCompleteRegistration(auth: string, data: CompleteRegis
   } catch (e) {
     logger.error(`Failed to complete registration: ${e}. Payload: ${JSON.stringify(data)}`)
     throw new Error(`Failed to complete registration: ${e}`)
+  }
+}
+
+export async function getMer(auth: string): Promise<void> {
+  const url = 'https://meroppfolging-backend.intern.dev.nav.no/api/v1/mer'
+  const tokenx = await exchangeIdportenTokenForMeroppfolgingBackendTokenx(auth)
+
+  try {
+    await serverRequst({ url, accessToken: tokenx })
+  } catch (e) {
+    logger.error(`Failed to complete registration: ${e}}`)
+    throw new Error(`Failed: ${e}`)
   }
 }
