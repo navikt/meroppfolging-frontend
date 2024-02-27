@@ -1,6 +1,7 @@
 import { Alert, BodyLong, Box, Heading, Skeleton } from '@navikt/ds-react'
 import { ReactElement } from 'react'
 import Link from 'next/link'
+import { logger } from '@navikt/next-logger'
 
 import { useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
 import { trpc } from '@/utils/trpc'
@@ -13,6 +14,7 @@ function MaxDateErrorMessage({ reason }: { reason: string }): ReactElement {
     },
     { grunn: reason },
   )
+  logger.error(`Client: could not fetch max date`)
 
   return (
     <Alert variant="error" className="mb-8">
