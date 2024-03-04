@@ -26,6 +26,9 @@ export enum RegisttrationTypes {
 export const startRegistrationSchema = z.object({
   //Identify the types of registration
   registreringType: z.nativeEnum(RegisttrationTypes).or(z.string()),
+  formidlingsgruppe: z.string(),
+  servicegruppe: z.string(),
+  rettighetsgruppe: z.string(),
 })
 export type StartRegistrationDTO = z.infer<typeof startRegistrationSchema>
 
