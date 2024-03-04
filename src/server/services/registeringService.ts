@@ -19,10 +19,11 @@ export async function getStartRegistration(auth: string): Promise<StartRegistrat
   const result = startRegistrationSchema.passthrough().safeParse(response)
 
   if (result.success) {
-    logger.info('Have fetched data from veilarbregistrering')
-    logger.info(
-      `[${result.data.registreringType},${result.data.formidlingsgruppe},${result.data.servicegruppe},${result.data.rettighetsgruppe}]`,
-    )
+    if (result.data.registreringType !== 'ALLEREDE_REGISTRERT') {
+      logger.info(
+        `[${result.data.registreringType},${result.data.formidlingsgruppe},${result.data.servicegruppe},${result.data.rettighetsgruppe}]`,
+      )
+    }
     return result.data
   }
 
