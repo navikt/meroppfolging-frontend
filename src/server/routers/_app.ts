@@ -3,6 +3,7 @@ import { postCompleteRegistration, getStartRegistration } from '../services/regi
 import { completeRegistrationSchema } from '../services/schemas/registreringSchema'
 import { getFeatureToggles } from '../services/toggleService'
 import { getMaxDate } from '../services/esyfoVarselService'
+import { getSykmeldt } from '../services/meroppfolgingService'
 
 export const appRouter = router({
   startRegistration: authenticatedProcedure.query(async ({ ctx }) => {
@@ -16,6 +17,9 @@ export const appRouter = router({
   }),
   maxDate: authenticatedProcedure.query(async ({ ctx }) => {
     return getMaxDate(ctx.authorization)
+  }),
+  sykmeldt: authenticatedProcedure.query(async ({ ctx }) => {
+    return getSykmeldt(ctx.authorization)
   }),
 })
 

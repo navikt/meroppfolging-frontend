@@ -49,6 +49,8 @@ spec:
       value: http://veilarbregistrering.paw/veilarbregistrering/api/fullfoersykmeldtregistrering/
     - name: ESYFOVARSEL_MAX_DATE_API_URL
       value: http://esyfovarsel/api/v1/sykepenger/maxdate
+    - name: MEROPPFOLGING_SYKMELDT_API_URL
+      value: http://meroppfolging-backend/api/v1/sykmelding/sykmeldt
   envFrom:
     - secret: meroppfolging-frontend-unleash-secrets
   accessPolicy:
@@ -59,5 +61,6 @@ spec:
         - application: veilarbregistrering
           namespace: paw
         - application: esyfovarsel
+        - application: meroppfolging-backend
       external:
         - host: team-esyfo-unleash-api.nav.cloud.nais.io

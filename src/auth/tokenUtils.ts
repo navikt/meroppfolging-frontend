@@ -25,3 +25,15 @@ export async function exchangeIdportenTokenForEsyfoVarselTokenx(auth: string): P
 
   return tokenxGrant
 }
+
+export async function exchangeIdportenTokenForMeroppfolgingBackendTokenx(auth: string): Promise<string> {
+  const MEROPPFOLGING_BACKEND_CLIENT_ID = `${getServerEnv().NAIS_CLUSTER_NAME}:team-esyfo:meroppfolging-backend`
+
+  const tokenxGrant = await grantTokenXOboToken(auth, MEROPPFOLGING_BACKEND_CLIENT_ID)
+
+  if (isInvalidTokenSet(tokenxGrant)) {
+    throw new Error(`Failed to exchange idporten token for meroppfolging-backend tokenx: ${tokenxGrant.message}`)
+  }
+
+  return tokenxGrant
+}
