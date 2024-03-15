@@ -7,7 +7,7 @@ import IconContainer from '../Containers/BoxIconContainer'
 function InfoSection(): ReactElement {
   return (
     <>
-      <IconContainer icon={<Buldings3Icon />}>
+      <IconContainer icon={<Buldings3Icon aria-hidden="true" />}>
         <Box>
           <Heading size="medium" level="2">
             Kan du gå tilbake til jobben din?
@@ -25,7 +25,7 @@ function InfoSection(): ReactElement {
           </List>
         </Box>
       </IconContainer>
-      <IconContainer icon={<BaggageIcon />}>
+      <IconContainer icon={<BaggageIcon aria-hidden="true" />}>
         <Box>
           <Heading size="medium" level="2">
             Bør du bytte jobb?
@@ -43,7 +43,7 @@ function InfoSection(): ReactElement {
           </List>
         </Box>
       </IconContainer>
-      <IconContainer icon={<BandageIcon />}>
+      <IconContainer icon={<BandageIcon aria-hidden="true" />}>
         <Box>
           <Heading size="medium" level="2">
             Er du fortsatt syk?
