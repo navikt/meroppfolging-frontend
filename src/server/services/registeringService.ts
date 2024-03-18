@@ -21,7 +21,7 @@ export async function getStartRegistration(auth: string): Promise<StartRegistrat
   if (result.success) {
     if (result.data.registreringType !== 'SYKMELDT_REGISTRERING') {
       logger.info(
-        `[${result.data.registreringType},${result.data.formidlingsgruppe},${result.data.servicegruppe},${result.data.rettighetsgruppe}]`,
+        `veilarbregistrering type [${result.data.registreringType},${result.data.formidlingsgruppe},${result.data.servicegruppe},${result.data.rettighetsgruppe}]`,
       )
     }
     return result.data
