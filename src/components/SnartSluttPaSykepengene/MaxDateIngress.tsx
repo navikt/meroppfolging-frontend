@@ -14,7 +14,7 @@ function MaxDateErrorMessage({ reason }: { reason: string }): ReactElement {
     },
     { grunn: reason },
   )
-  logger.error(`Client: could not fetch max date`)
+  logger.error(`Client: could not fetch max date. Reason: ${reason}`)
 
   return (
     <Alert variant="error" className="mb-8">
