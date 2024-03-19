@@ -4,10 +4,20 @@ import { completeRegistrationSchema } from '../services/schemas/registreringSche
 import { getFeatureToggles } from '../services/toggleService'
 import { getMaxDate } from '../services/esyfoVarselService'
 import { getSykmeldt } from '../services/meroppfolgingService'
+import { logger } from '@navikt/next-logger'
 
 export const appRouter = router({
   startRegistration: authenticatedProcedure.query(async ({ ctx }) => {
-    return getStartRegistration(ctx.authorization)
+    const [registrationType, sykmeldt] = await Promise.all([
+      getStartRegistration(ctx.authorization),
+      getSykmeldt(ctx.authorization),
+    ])
+
+    logger.info(
+      `veilarbregistrering type [${registrationType.registreringType},${registrationType.formidlingsgruppe},${registrationType.servicegruppe},${registrationType.rettighetsgruppe},${sykmeldt}]`,
+    )
+
+    return { registrationType, sykmeldt }
   }),
   completeRegistration: authenticatedProcedure.input(completeRegistrationSchema).mutation(async ({ ctx, input }) => {
     return postCompleteRegistration(ctx.authorization, input)

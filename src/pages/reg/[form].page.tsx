@@ -37,9 +37,10 @@ function Content(): ReactElement {
       return <StartRegistrationErrorMessage />
 
     case 'success': {
-      const { registreringType } = startRegistration.data
+      const { registreringType } = startRegistration.data.registrationType
+      const { sykmeldt } = startRegistration.data
 
-      if (registreringType !== RegisttrationTypes.SYKMELDT_REGISTRERING) {
+      if (registreringType !== RegisttrationTypes.SYKMELDT_REGISTRERING || !sykmeldt) {
         return <OtherRegistrationTypes type={registreringType} />
       }
 
