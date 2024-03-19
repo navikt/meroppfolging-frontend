@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, ReactNode, createContext, useContext, useReducer } from 'react'
+import React, { PropsWithChildren, createContext, useContext, useReducer } from 'react'
 
 import { defaultFormValues } from '@/domain/formValues'
 import { FormAction, formReducer } from '@/components/MerOppfolgingForm/formReducer'
@@ -20,7 +20,7 @@ export function useMerOppfolgingFormContext(): FormContext {
   return useContext(MerOppfolgingFormContext)
 }
 
-export function MerOppfolgingFormProvider({ children }: PropsWithChildren): ReactNode {
+export function MerOppfolgingFormProvider({ children }: PropsWithChildren): JSX.Element {
   const createInitialState = (state: MerOppfolgingFormState): MerOppfolgingFormState => state
   const [formState, formDispatch] = useReducer(formReducer, defaultFormValues, createInitialState)
 
