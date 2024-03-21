@@ -25,7 +25,7 @@ class MyDocument extends Document<DocumentProps> {
 
     const Decorator = await fetchDecoratorReact({
       env: createDecoratorEnv(),
-      params: { language: 'nb', context: 'privatperson' },
+      params: { language: 'nb', context: 'privatperson', logoutWarning: true },
     })
 
     return { ...initialProps, Decorator }
