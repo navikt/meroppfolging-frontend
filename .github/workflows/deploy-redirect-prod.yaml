@@ -10,6 +10,8 @@ jobs:
   deploy:
     name: deploy redirect ingress to prod
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
       - uses: actions/checkout@v3
       - name: Deploy redirect ingress to prod-gcp
