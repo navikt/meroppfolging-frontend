@@ -21,4 +21,3 @@ spec:
                 name: meroppfolging-frontend
                 port:
                   number: 80
----
