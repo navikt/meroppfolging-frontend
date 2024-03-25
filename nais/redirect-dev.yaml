@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: https://www.ekstern.dev.nav.no/syk/meroppfolging/snart-slutt-pa-sykepengene
+  labels:
+    app: meroppfolging-frontend
+    team: team-esyfo
+  name: esyfo-info-frontend-redirect
+  namespace: team-esyfo
+spec:
+  ingressClassName: nais-ingress-external
+  rules:
+    - host: www.ekstern.dev.nav.no
+      http:
+        paths:
+          - path: /syk/info/snart-slutt-pa-sykepengene(/|$)(.*)?
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: meroppfolging-frontend
+                port:
+                  number: 80
+---
