@@ -1,14 +1,14 @@
 import { trpcMsw } from '@/utils/trpc'
 import { disabledFeatureToggles } from '@/mocks/data/fixtures/featureToggles'
 
-import { registreringSykmeldtDTO } from './data/fixtures/registeringDTO'
+import { statusDTO } from './data/fixtures/statusDTO'
 import { maxDateDTO } from './data/fixtures/esyfoVarselDTO'
 
 export const handlers = [
-  trpcMsw.startRegistration.query((_req, res, ctx) => {
-    return res(ctx.status(200), ctx.data(registreringSykmeldtDTO))
+  trpcMsw.sykmeldtStatus.query((_req, res, ctx) => {
+    return res(ctx.status(200), ctx.data(statusDTO))
   }),
-  trpcMsw.completeRegistration.mutation((_req, res, ctx) => {
+  trpcMsw.submitSenOppfolging.mutation((_req, res, ctx) => {
     return res(ctx.status(200), ctx.data())
   }),
   trpcMsw.featureToggles.query((_req, res, ctx) => {
@@ -16,8 +16,5 @@ export const handlers = [
   }),
   trpcMsw.maxDate.query((_req, res, ctx) => {
     return res(ctx.status(200), ctx.data(maxDateDTO))
-  }),
-  trpcMsw.sykmeldt.query((_req, res, ctx) => {
-    return res(ctx.status(200), ctx.data(true))
   }),
 ]

@@ -43,14 +43,10 @@ spec:
   ingresses:
     - 'https://www.ekstern.dev.nav.no/syk/meroppfolging'
   env:
-    - name: VEIARBLREGISTRERING_START_REGISTRATION_API_URL
-      value: http://veilarbregistrering.paw/veilarbregistrering/api/startregistrering/
-    - name: VEIARBLREGISTRERING_COMPLETE_REGISTRATION_API_URL
-      value: http://veilarbregistrering.paw/veilarbregistrering/api/fullfoersykmeldtregistrering/
     - name: ESYFOVARSEL_MAX_DATE_API_URL
       value: http://esyfovarsel/api/v1/sykepenger/maxdate
-    - name: MEROPPFOLGING_SYKMELDT_API_URL
-      value: http://meroppfolging-backend/api/v1/sykmelding/sykmeldt
+    - name: MEROPPFOLGING_BACKEND_URL
+      value: http://meroppfolging-backend
   envFrom:
     - secret: meroppfolging-frontend-unleash-secrets
   accessPolicy:
@@ -58,8 +54,6 @@ spec:
       rules:
         - application: nav-dekoratoren
           namespace: personbruker
-        - application: veilarbregistrering
-          namespace: paw
         - application: esyfovarsel
         - application: meroppfolging-backend
       external:

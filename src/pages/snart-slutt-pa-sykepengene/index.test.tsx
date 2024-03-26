@@ -26,8 +26,8 @@ describe('SnartSlutt', () => {
 
   it('should not render more guidance panel when isSykmeldt is false', async () => {
     testServer.use(
-      trpcMsw.sykmeldt.query(async (_req, res, ctx) => {
-        return res(ctx.status(200), ctx.data(false))
+      trpcMsw.sykmeldtStatus.query(async (_req, res, ctx) => {
+        return res(ctx.status(200), ctx.data({ registrationType: 'SYKMELDT_REGISTRERING', isSykmeldt: false }))
       }),
     )
 

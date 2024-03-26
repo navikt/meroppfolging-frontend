@@ -23,7 +23,7 @@ function Summary(): React.ReactElement {
 
   const [displayErrorMessage, setDisplayErrorMessage] = useState(false)
 
-  const mutation = trpc.completeRegistration.useMutation({
+  const mutation = trpc.submitSenOppfolging.useMutation({
     onMutate: () => {
       logAmplitudeEvent({ eventName: 'skjema innsending startet', data: { skjemanavn: FORM_NAME } })
     },

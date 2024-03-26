@@ -7,8 +7,8 @@ import {
   utdanningBestattAlt,
   utdanningGodkjentAlt,
 } from '@/domain/radioValues'
-import { CompleteRegistrationRequest, IKKE_BESVART, INGEN_SVAR } from '@/server/services/schemas/registreringSchema'
 import { MerOppfolgingFormState, QuestionId } from '@/types/merOppfolgingForm'
+import { CompleteRegistrationRequest, IKKE_BESVART, INGEN_SVAR } from '@/server/services/schemas/meroppfolgingSchema'
 
 export function completeRegistrationRequestMapper(form: MerOppfolgingFormState): CompleteRegistrationRequest {
   const validBesvarelse: CompleteRegistrationRequest['besvarelse'] = {
