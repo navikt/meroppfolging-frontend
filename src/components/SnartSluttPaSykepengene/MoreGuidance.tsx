@@ -10,9 +10,9 @@ import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
 
 function MoreGuidance(): ReactElement | null {
   const { push } = useRouter()
-  const isSykmeldt = trpc.sykmeldt.useQuery()
+  const status = trpc.sykmeldtStatus.useQuery()
 
-  if (isSykmeldt.isError) {
+  if (status.isError) {
     logAmplitudeEvent({
       eventName: 'alert vist',
       data: { variant: 'error', tekst: 'Kunne ikke hente sykmeldt status' },
@@ -20,17 +20,17 @@ function MoreGuidance(): ReactElement | null {
     logger.error(`Client: Could not fetch isSykmeldt`)
   }
 
-  if (isSykmeldt.isSuccess) {
+  if (status.isSuccess) {
     logAmplitudeEvent(
       {
         eventName: 'guidepanel vist',
         data: { komponent: 'SSPS - mer veiledning' },
       },
-      { isSykmeldt: isSykmeldt.data },
+      { isSykmeldt: status.data.isSykmeldt },
     )
   }
 
-  if (isSykmeldt.isSuccess && isSykmeldt.data === true) {
+  if (status.isSuccess && status.data.isSykmeldt === true) {
     return (
       <GuidePanel poster>
         <Heading size="large" level="2" spacing>
