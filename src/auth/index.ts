@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
-import { validateIdportenToken } from '@navikt/next-auth-wonderwall'
 import { logger } from '@navikt/next-logger'
 import { TRPCError } from '@trpc/server'
+import { getToken, validateIdportenToken } from '@navikt/oasis'
 
 import { isLocalOrDemo } from '@/constants/envs'
 import { BASE_PATH } from '@/constants/paths'
@@ -35,16 +35,16 @@ export function withAuthenticatedPage(handler: PageHandler = defaultPageHandler)
       },
     }
 
-    const bearerToken: string | null | undefined = request.headers['authorization']
+    const bearerToken = getToken(request)
     if (!bearerToken) {
       return redirect
     }
 
     const validationResult = await validateIdportenToken(bearerToken)
 
-    if (validationResult !== 'valid') {
+    if (!validationResult.ok) {
       const error = new Error(
-        `Invalid JWT token found (cause: ${validationResult.errorType} ${validationResult.message}, redirecting to login.`,
+        `Invalid JWT token found, cause: ${validationResult.errorType} ${validationResult.error}, redirecting to login.`,
         { cause: validationResult.error },
       )
 
@@ -69,10 +69,10 @@ export async function authenticateIdportenToken(bearerToken?: string): Promise<s
     })
   }
 
-  const validatedToken = await validateIdportenToken(bearerToken)
+  const validationResult = await validateIdportenToken(bearerToken)
 
-  if (validatedToken !== 'valid') {
-    logger.error(`Invalid JWT token found (cause: ${validatedToken.message}`)
+  if (!validationResult.ok) {
+    logger.error(`Invalid JWT token found, cause: ${validationResult.errorType} ${validationResult.error}`)
     throw new TRPCError({
       code: 'UNAUTHORIZED',
       message: 'Access denied',
