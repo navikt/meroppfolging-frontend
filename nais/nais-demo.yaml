@@ -43,12 +43,10 @@ spec:
   ingresses:
     - {{ingress}}
   env:
-    - name: VEIARBLREGISTRERING_START_REGISTRATION_API_URL
-      value: http://veilarbregistrering.paw/veilarbregistrering/api/startregistrering/
-    - name: VEIARBLREGISTRERING_COMPLETE_REGISTRATION_API_URL
-      value: http://veilarbregistrering.paw/veilarbregistrering/api/fullfoersykmeldtregistrering/
     - name: ESYFOVARSEL_MAX_DATE_API_URL
       value: https://esyfovarsel.dev.intern.nav.no
+    - name: MEROPPFOLGING_BACKEND_URL
+      value: http://meroppfolging-backend
   accessPolicy:
     outbound:
       rules:
