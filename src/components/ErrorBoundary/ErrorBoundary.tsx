@@ -1,5 +1,4 @@
 import { Component, ErrorInfo, PropsWithChildren, ReactNode } from 'react'
-import { ContentContainer } from '@navikt/ds-react'
 import { logger } from '@navikt/next-logger'
 
 import ErrorFallback from './ErrorFallback'
@@ -25,12 +24,13 @@ class ErrorBoundary extends Component<PropsWithChildren<unknown>, State> {
   render(): ReactNode {
     if (this.state.hasError) {
       return (
-        <ContentContainer>
-          <ErrorFallback />
-        </ContentContainer>
+        <div className="container mx-auto p-8">
+          <div className="p-8 max-w-prose">
+            <ErrorFallback />
+          </div>
+        </div>
       )
     }
-
     return this.props.children
   }
 }
