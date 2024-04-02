@@ -17,7 +17,7 @@ function MoreGuidance(): ReactElement | null {
       eventName: 'alert vist',
       data: { variant: 'error', tekst: 'Kunne ikke hente sykmeldt status' },
     })
-    logger.error(`Client: Could not fetch isSykmeldt`)
+    logger.error(`Client: Could not fetch sykmeldtStatus`)
   }
 
   if (status.isSuccess) {
