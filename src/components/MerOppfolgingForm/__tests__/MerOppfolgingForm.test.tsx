@@ -66,7 +66,7 @@ describe('MerOppfolgingForm', () => {
     it('with tilbake til jobb and mer veiledning should submit form', async () => {
       const requestResolver = vi.fn()
       testServer.use(
-        trpcMsw.completeRegistration.mutation(async (req, res, ctx) => {
+        trpcMsw.submitSenOppfolging.mutation(async (req, res, ctx) => {
           requestResolver(await req.json())
           return res(ctx.status(200), ctx.data())
         }),
@@ -154,7 +154,7 @@ describe('MerOppfolgingForm', () => {
     it('with trenger ny jobb should submit form', async () => {
       const requestResolver = vi.fn()
       testServer.use(
-        trpcMsw.completeRegistration.mutation(async (req, res, ctx) => {
+        trpcMsw.submitSenOppfolging.mutation(async (req, res, ctx) => {
           requestResolver(await req.json())
           return res(ctx.status(200), ctx.data())
         }),
@@ -261,7 +261,7 @@ describe('MerOppfolgingForm', () => {
     it('with ingen passer should submit form', async () => {
       const requestResolver = vi.fn()
       testServer.use(
-        trpcMsw.completeRegistration.mutation(async (req, res, ctx) => {
+        trpcMsw.submitSenOppfolging.mutation(async (req, res, ctx) => {
           requestResolver(await req.json())
           return res(ctx.status(200), ctx.data())
         }),

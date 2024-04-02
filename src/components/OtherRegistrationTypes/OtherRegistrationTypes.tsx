@@ -1,11 +1,11 @@
-import { RegisttrationTypes } from '@/server/services/schemas/registreringSchema'
+import { RegistrationTypes } from '@/server/services/schemas/meroppfolgingSchema'
 
 import AlreadyRegistred from './AlreadyRegistred'
 import OtherRegistrations from './OtherRegistrations'
 
 function RenderContent({ type }: { type: string }): React.ReactElement {
   switch (type) {
-    case RegisttrationTypes.ALLEREDE_REGISTRERT:
+    case RegistrationTypes.ALLEREDE_REGISTRERT:
       return <AlreadyRegistred />
     default:
       return <OtherRegistrations />
