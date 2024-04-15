@@ -3,7 +3,7 @@ import { completeRegistrationSchema } from '@/server/services/schemas/meroppfolg
 import { authenticatedProcedure, router } from '../trpc'
 import { getFeatureToggles } from '../services/toggleService'
 import { getMaxDate } from '../services/esyfoVarselService'
-import { getStatus, postSubmitSenOppfolging } from '../services/meroppfolgingService'
+import { getStatus, postSubmitSenOppfolging, postVisit } from '../services/meroppfolgingService'
 
 export const appRouter = router({
   sykmeldtStatus: authenticatedProcedure.query(async ({ ctx }) => {
@@ -11,6 +11,9 @@ export const appRouter = router({
   }),
   submitSenOppfolging: authenticatedProcedure.input(completeRegistrationSchema).mutation(async ({ ctx, input }) => {
     return postSubmitSenOppfolging(ctx.authorization, input)
+  }),
+  visit: authenticatedProcedure.mutation(async ({ ctx }) => {
+    return postVisit(ctx.authorization)
   }),
   featureToggles: authenticatedProcedure.query(async () => {
     return getFeatureToggles()
