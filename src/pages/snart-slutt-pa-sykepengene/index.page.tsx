@@ -14,11 +14,11 @@ function SnartSlutt(): ReactElement {
   const visitSenOppfolgingMutation = trpc.visit.useMutation()
 
   useEffect(() => {
-    const hasSubmittedSenOppfolging = sessionStorage.getItem('visit_sen_oppfolging')
+    const hasVisitedSenOppfolging = sessionStorage.getItem('visited_sen_oppfolging')
 
-    if (!hasSubmittedSenOppfolging) {
+    if (!hasVisitedSenOppfolging) {
       visitSenOppfolgingMutation.mutate()
-      sessionStorage.setItem('visit_sen_oppfolging', 'true')
+      sessionStorage.setItem('visited_sen_oppfolging', 'true')
     }
   }, [])
 
