@@ -2,7 +2,7 @@ import { logger } from '@navikt/next-logger'
 
 import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from '@/auth/tokenUtils'
 import { serverRequest } from '@/libs/axios'
-import { getServerEnv, isLocalOrDemo } from '@/constants/envs'
+import { getServerEnv } from '@/constants/envs'
 
 import { CompleteRegistrationRequest, StatusDTO, statusSchema } from './schemas/meroppfolgingSchema'
 
@@ -36,10 +36,6 @@ export async function postSubmitSenOppfolging(auth: string, data: CompleteRegist
 }
 
 export async function postVisit(auth: string): Promise<void> {
-  if (isLocalOrDemo) {
-    return
-  }
-
   const url = getServerEnv().MEROPPFOLGING_BACKEND_URL
   const path = `${url}/api/v1/senoppfolging/visit`
   const tokenx = await exchangeIdportenTokenForMeroppfolgingBackendTokenx(auth)
