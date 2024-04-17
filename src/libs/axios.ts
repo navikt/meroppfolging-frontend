@@ -13,7 +13,7 @@ type AxiosServerRequstParams = {
     }
 )
 
-export async function serverRequst<T>(opt: AxiosServerRequstParams): Promise<T> {
+export async function serverRequest<T>(opt: AxiosServerRequstParams): Promise<T> {
   return axios(opt.url, {
     method: opt.method || 'get',
     headers: {

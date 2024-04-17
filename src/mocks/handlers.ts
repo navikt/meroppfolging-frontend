@@ -17,4 +17,7 @@ export const handlers = [
   trpcMsw.maxDate.query((_req, res, ctx) => {
     return res(ctx.status(200), ctx.data(maxDateDTO))
   }),
+  trpcMsw.visit.mutation((_req, res, ctx) => {
+    return res(ctx.status(200), ctx.data())
+  }),
 ]

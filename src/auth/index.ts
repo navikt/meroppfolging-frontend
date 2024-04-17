@@ -61,6 +61,10 @@ export function withAuthenticatedPage(handler: PageHandler = defaultPageHandler)
  * Used to authenticate tRPC apis.
  */
 export async function authenticateIdportenToken(bearerToken?: string): Promise<string> {
+  if (isLocalOrDemo) {
+    return '123'
+  }
+
   if (!bearerToken) {
     logger.error('Could not find any bearer token on the request. Denying request. This should not happen')
     throw new TRPCError({
