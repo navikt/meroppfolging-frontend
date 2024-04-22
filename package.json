@@ -41,7 +41,7 @@
     "react-hook-form": "^7.51.3",
     "remeda": "^1.61.0",
     "typescript": "5.2.2",
-    "zod": "^3.22.5"
+    "zod": "^3.23.0"
   },
   "devDependencies": {
     "@hookform/devtools": "^4.3.1",
