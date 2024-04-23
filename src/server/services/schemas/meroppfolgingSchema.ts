@@ -23,11 +23,19 @@ export enum RegistrationTypes {
   ALLEREDE_REGISTRERT = 'ALLEREDE_REGISTRERT',
 }
 
+export enum ResponseStatus {
+  NO_RESPONSE = 'NO_RESPONSE',
+  TRENGER_OPPFOLGING = 'TRENGER_OPPFOLGING',
+  TRENGER_IKKE_OPPFOLGING = 'TRENGER_IKKE_OPPFOLGING',
+}
+
 export const statusSchema = z.object({
   registrationType: z.nativeEnum(RegistrationTypes).or(z.string()),
   isSykmeldt: z.boolean(),
+  responseStatus: z.nativeEnum(ResponseStatus).optional(),
 })
 export type StatusDTO = z.infer<typeof statusSchema>
+
 export const INGEN_SVAR = 'INGEN_SVAR'
 export const IKKE_BESVART = 'Ikke besvart'
 const ingenSvarLiteral = z.literal(INGEN_SVAR)
