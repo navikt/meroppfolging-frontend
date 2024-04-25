@@ -54,8 +54,8 @@ function MoreGuidance(): ReactElement | null {
         </Heading>
 
         <BodyLong size="medium" spacing>
-          Vi kan kartlegge mulighetene dine fremover og vi kan hjelpe deg og finne ut om du kan få annen økonomisk
-          støtte når sykepengene tar slutt.
+          Vi kan gi informasjon og veiledning om du har rett til andre økonomiske støtteordninger etter at sykepengene
+          tar slutt.
         </BodyLong>
 
         {status.data.responseStatus === ResponseStatus.NO_RESPONSE ? (

@@ -23,7 +23,7 @@ function BackToWork(): React.ReactElement {
 
   const mutation = trpc.submitSenOppfolging.useMutation({
     onError: () => {
-      logger.error(`Client: ønsker ikke sen oppfølging form submission failed from landing`)
+      logger.error(`Client: ønsker ikke sen oppfølging form submission failed from tilbake i arbeid-side`)
       setDisplayErrorMessage(true)
     },
     onSuccess: () => {

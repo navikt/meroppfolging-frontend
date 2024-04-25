@@ -32,7 +32,7 @@ export enum ResponseStatus {
 export const statusSchema = z.object({
   registrationType: z.nativeEnum(RegistrationTypes).or(z.string()),
   isSykmeldt: z.boolean(),
-  responseStatus: z.nativeEnum(ResponseStatus).optional(),
+  responseStatus: z.nativeEnum(ResponseStatus),
 })
 export type StatusDTO = z.infer<typeof statusSchema>
 
