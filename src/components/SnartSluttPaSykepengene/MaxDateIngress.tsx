@@ -48,11 +48,9 @@ function MaxDateContent(): ReactElement {
     case 'success':
       if (maxDate.data.maxDate && maxDate.data.utbetaltTom) {
         return (
-          <BodyLong size="medium" spacing>
-            Per {maxDate.data.utbetaltTom} er det beregnet at din siste dag med sykepenger er {maxDate.data.maxDate}.
-            Datoen gjelder hvis du er sykmeldt uten opphold. Den vil flytte seg hvis du for eksempel jobber noen
-            perioder, eller hvis du tar ferie. Du kan få sykepenger i maksimalt 52 uker, og for deg vil det si at denne
-            datoen nå nærmer seg.
+          <BodyLong size="medium">
+            Per {maxDate.data.utbetaltTom} er din siste dag med sykepenger beregnet til å være{' '}
+            <b>{maxDate.data.maxDate}</b>.
           </BodyLong>
         )
       } else {
@@ -70,14 +68,11 @@ function MaxDateContent(): ReactElement {
       return exhaustiveCheck
   }
 }
+
 function MaxDateIngress(): ReactElement {
   return (
     <Box>
       <MaxDateContent />
-      <BodyLong size="medium">
-        Hvis du er usikker på om du er tilbake i arbeid innen sykepengene tar slutt, er det viktig at du planlegger
-        framover slik at du ikke risikerer å stå uten inntekt.
-      </BodyLong>
     </Box>
   )
 }

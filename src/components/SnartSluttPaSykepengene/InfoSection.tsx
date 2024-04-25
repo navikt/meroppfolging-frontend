@@ -9,8 +9,8 @@ function InfoSection(): ReactElement {
           Er du fortsatt syk?
         </Heading>
         <BodyShort spacing>
-          Hvis du ikke er frisk nok til å gå tilbake til jobb, kan du søke om arbeidsavklaringspenger (AAP) eller en
-          annen økonomisk støtte.
+          Hvis du ikke er frisk nok til å gå tilbake til jobb, kan du søke om arbeidsavklaringspenger (AAP) eller annen
+          økonomisk støtte.
         </BodyShort>
         <BodyShort spacing>Du må selv søke om dette i god tid før sykepengene tar slutt.</BodyShort>
         <BodyShort>Du kan også ha rettigheter hos forsikringsselskapet eller pensjonskassen din.</BodyShort>
