@@ -4,7 +4,7 @@ import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from '@/auth/token
 import { serverRequest } from '@/libs/axios'
 import { getServerEnv } from '@/constants/envs'
 
-import { CompleteRegistrationRequest, StatusDTO, statusSchema } from './schemas/meroppfolgingSchema'
+import { SenOppfolgingFormRequest, StatusDTO, statusSchema } from './schemas/meroppfolgingSchema'
 
 export async function getStatus(auth: string): Promise<StatusDTO> {
   const url = getServerEnv().MEROPPFOLGING_BACKEND_URL
@@ -22,9 +22,9 @@ export async function getStatus(auth: string): Promise<StatusDTO> {
   throw new Error(`Failed to parse response from ${path}: ${JSON.stringify(result.error)}`)
 }
 
-export async function postSubmitSenOppfolging(auth: string, data: CompleteRegistrationRequest): Promise<void> {
+export async function postSenOppfolging(auth: string, data: SenOppfolgingFormRequest): Promise<void> {
   const url = getServerEnv().MEROPPFOLGING_BACKEND_URL
-  const path = `${url}/api/v1/senoppfolging/submit`
+  const path = `${url}/api/v1/senoppfolging/submitform`
   const tokenx = await exchangeIdportenTokenForMeroppfolgingBackendTokenx(auth)
 
   try {

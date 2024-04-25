@@ -1,3 +1,7 @@
-import { StatusDTO } from '@/server/services/schemas/meroppfolgingSchema'
+import { RegistrationTypes, ResponseStatus, StatusDTO } from '@/server/services/schemas/meroppfolgingSchema'
 
-export const statusDTO: StatusDTO = { registrationType: 'SYKMELDT_REGISTRERING', isSykmeldt: true }
+export const statusDTO: StatusDTO = {
+  registrationType: RegistrationTypes.SYKMELDT_REGISTRERING,
+  isSykmeldt: true,
+  responseStatus: ResponseStatus.NO_RESPONSE,
+}
