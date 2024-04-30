@@ -32,7 +32,7 @@ export enum ResponseStatus {
 export const statusSchema = z.object({
   registrationType: z.nativeEnum(RegistrationTypes).or(z.string()),
   isSykmeldt: z.boolean(),
-  responseStatus: z.nativeEnum(ResponseStatus).optional(),
+  responseStatus: z.nativeEnum(ResponseStatus),
 })
 export type StatusDTO = z.infer<typeof statusSchema>
 
@@ -122,3 +122,20 @@ export const completeRegistrationSchema = z.object({
   teksterForBesvarelse: z.union([teksterForBesvarelseSchema, teksterForBesvarelseWithTilbakeIArbeidSchema]),
 })
 export type CompleteRegistrationRequest = z.infer<typeof completeRegistrationSchema>
+
+const formAnswerSchema = z.object({
+  questionType: z.string(),
+  questionText: z.string(),
+  answerType: z.string(),
+  answerText: z.string(),
+})
+export type FormAnswerRequest = z.infer<typeof formAnswerSchema>
+
+const senOppfolgingFormV1Schema = z.array(formAnswerSchema)
+export type SenOppfolgingFormV1Request = z.infer<typeof senOppfolgingFormV1Schema>
+
+export const senOppfolgingFormRequestSchema = z.object({
+  senOppfolgingRegistrering: completeRegistrationSchema.optional(),
+  senOppfolgingFormV1: senOppfolgingFormV1Schema,
+})
+export type SenOppfolgingFormRequest = z.infer<typeof senOppfolgingFormRequestSchema>
