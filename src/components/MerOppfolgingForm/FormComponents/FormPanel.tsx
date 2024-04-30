@@ -3,7 +3,7 @@ import { FormProvider, UseFormReturn } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { equals, pick } from 'remeda'
 
-import { getFormUrl } from '@/utils/utils'
+import { getFormUrlObject } from '@/utils/utils'
 import { isQuestionId } from '@/utils/tsUtils'
 // import { RHFDevTool } from '@/libs/ReactHookFormsDevTools'
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
@@ -61,7 +61,7 @@ function FormPanel<T extends Partial<MerOppfolgingFormState>>({
           const { next } = getFormNavigation(formPage, { ...formState, ...value })
           if (next !== null) {
             logAmplitudeEventOnNext(formPage, value)
-            router.push(getFormUrl(next))
+            router.push(getFormUrlObject(next))
           } else {
             throw new Error('Missing next form. Should not happen.')
           }

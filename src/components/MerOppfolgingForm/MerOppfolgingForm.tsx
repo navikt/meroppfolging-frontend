@@ -6,9 +6,9 @@ import { VStack } from '@navikt/ds-react'
 import { FormPage, FormSummaryPages, MerOppfolgingFormState, QuestionId } from '@/types/merOppfolgingForm'
 import useCurrentForm from '@/hooks/useCurrentForm'
 import { FORM_NAME, INITIAL_FORM_PAGE } from '@/domain/formPages'
+import { getFormUrlObject } from '@/utils/utils'
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
 import { useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
-import { getFormUrl } from '@/utils/utils'
 
 import Summary from './Summary/Summary'
 import FremtidigSituasjon from './Forms/FremtidigSituasjon'
@@ -62,7 +62,7 @@ function MerOppfolgingForm(): React.ReactElement {
 
   useEffect(() => {
     if (!isValidFormPageParam || !isValidFormState) {
-      replace(getFormUrl(INITIAL_FORM_PAGE), undefined, { shallow: true })
+      replace(getFormUrlObject(INITIAL_FORM_PAGE), undefined, { shallow: true })
     }
   }, [isValidFormPageParam, isValidFormState, replace])
 

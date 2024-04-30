@@ -1,42 +1,18 @@
 import { Alert, BodyLong, Button, GuidePanel, Heading } from '@navikt/ds-react'
 import { useRouter } from 'next/router'
-import { logger } from '@navikt/next-logger'
-import React, { useState } from 'react'
 
 import { FormSummaryPages } from '@/types/merOppfolgingForm'
+import { getFormUrlObject } from '@/utils/utils'
 import { Column } from '@/components/Containers/column'
 import { logAmplitudeEvent, useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
 import { FORM_NAME } from '@/domain/formPages'
-import { getFormUrl } from '@/utils/utils'
-import { createOnskerIkkeSenOppfolgingFormRequest } from '@/components/MerOppfolgingForm/requestUtils'
-import { OnskerOppfolgingOrigins } from '@/domain/OnskerOppfolging'
-import { trpc } from '@/utils/trpc'
-import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
+import { SSPS_URL } from '@/constants/paths'
 
 const uenigText = 'Uenig, jeg trenger mer veiledning'
 const enigText = 'Enig'
 
 function BackToWork(): React.ReactElement {
   const { push } = useRouter()
-  const [displayErrorMessage, setDisplayErrorMessage] = useState(false)
-  const [hasResponded, setHasResponded] = useState(false)
-
-  const mutation = trpc.submitSenOppfolging.useMutation({
-    onError: () => {
-      logger.error(`Client: ønsker ikke sen oppfølging form submission failed from tilbake i arbeid-side`)
-      setDisplayErrorMessage(true)
-    },
-    onSuccess: () => {
-      setDisplayErrorMessage(false)
-      setHasResponded(true)
-    },
-  })
-
-  const handleSubmit = (): void => {
-    const formRequest = createOnskerIkkeSenOppfolgingFormRequest(OnskerOppfolgingOrigins.form)
-    mutation.mutate(formRequest)
-  }
-
   useLogAmplitudeEvent({
     eventName: 'skjema steg startet',
     data: { skjemanavn: FORM_NAME, steg: FormSummaryPages.backToWork },
@@ -71,45 +47,41 @@ function BackToWork(): React.ReactElement {
       </GuidePanel>
 
       <Column className="gap-4">
-        {displayErrorMessage && <ErrorMessage />}
         <Heading level="2" size="small">
           Er du enig i NAV sin vurdering over?
         </Heading>
 
-        {!hasResponded ? (
-          <section className="flex gap-4">
-            <Button
-              onClick={() => {
-                logAmplitudeEvent({
-                  eventName: 'navigere',
-                  data: { destinasjon: 'Oppsummering', lenketekst: uenigText },
-                })
-                push(getFormUrl(FormSummaryPages.summary))
-              }}
-            >
-              {uenigText}
-            </Button>
-            <Button
-              onClick={() => {
-                logAmplitudeEvent({
-                  eventName: 'skjema spørsmål besvart',
-                  data: {
-                    skjemanavn: 'Er du enig i NAV sin vurdering over?',
-                    spørsmål: 'Er du enig i NAV sin vurdering over?',
-                    svar: 'Enig',
-                  },
-                })
-                handleSubmit()
-              }}
-              variant="secondary"
-              className="min-w-28"
-            >
-              {enigText}
-            </Button>
-          </section>
-        ) : (
-          <Alert variant="success">Takk! Du har svart at du er enig i NAV sin vurdering.</Alert>
-        )}
+        <section className="flex gap-4">
+          <Button
+            className="w-full"
+            variant="secondary"
+            onClick={() => {
+              logAmplitudeEvent({
+                eventName: 'navigere',
+                data: { destinasjon: 'Oppsummering', lenketekst: uenigText },
+              })
+              push(getFormUrlObject(FormSummaryPages.summary))
+            }}
+          >
+            {uenigText}
+          </Button>
+          <Button
+            className="w-full"
+            variant="secondary"
+            onClick={() => {
+              logAmplitudeEvent(
+                {
+                  eventName: 'skjema avbrutt',
+                  data: { skjemanavn: FORM_NAME, steg: FormSummaryPages.backToWork },
+                },
+                { handling: 'Bruker klikker enig-knapp; det ikke er behov for mer oppfølging' },
+              )
+              push(SSPS_URL)
+            }}
+          >
+            {enigText}
+          </Button>
+        </section>
       </Column>
     </>
   )

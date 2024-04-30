@@ -1,5 +1,5 @@
 import { formPage } from '@/domain/formPages'
-import { QuestionId } from '@/types/merOppfolgingForm'
+import { FormSummaryPages, QuestionId } from '@/types/merOppfolgingForm'
 
 export function isQuestionId(value: string): value is QuestionId {
   return value in QuestionId
@@ -11,6 +11,6 @@ export function isFormPageParam(value: string | string[] | undefined | null): va
   return Object.keys(formPage).includes(value)
 }
 
-export function notNull<T>(val: T | null): val is T {
-  return val !== null
+export function isSummaryPage(value: string): value is FormSummaryPages {
+  return value in FormSummaryPages
 }
