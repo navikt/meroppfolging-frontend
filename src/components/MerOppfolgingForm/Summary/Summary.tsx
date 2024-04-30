@@ -8,12 +8,12 @@ import { FormSummaryPages } from '@/types/merOppfolgingForm'
 import { trpc } from '@/utils/trpc'
 import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
 import { FORM_NAME } from '@/domain/formPages'
-import { createSenOppfolgingFormRequest } from '@/components/MerOppfolgingForm/requestUtils'
 
 import FormBackLink from '../FormComponents/FormBackLink'
 import { getFormNavigation } from '../formStateMachine'
 import ErrorMessage from '../../ErrorMessage/ErrorMessage'
 
+import { completeRegistrationRequestMapper } from './completeRegistrationRequestMapper'
 import SummaryTable from './SummaryTable'
 
 function Summary(): React.ReactElement {
@@ -39,7 +39,8 @@ function Summary(): React.ReactElement {
   })
 
   const handleSubmit = (): void => {
-    const formRequest = createSenOppfolgingFormRequest(formState)
+    const formRequest = completeRegistrationRequestMapper(formState)
+
     mutation.mutate(formRequest)
   }
 
