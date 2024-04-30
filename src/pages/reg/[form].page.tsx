@@ -12,7 +12,6 @@ import OngoingMaintenance from '@/components/Maintenance/OngoingMaintenance'
 import { useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
 import FormPageContainer from '@/components/Containers/FormPageContainer'
-import { RegistrationTypes } from '@/server/services/schemas/meroppfolgingSchema'
 
 function StatusErrorMessage(): React.ReactElement {
   useLogAmplitudeEvent({ eventName: 'alert vist', data: { variant: 'error', tekst: 'Beklager, teknisk feil' } })
@@ -40,7 +39,7 @@ function Content(): ReactElement {
       const registreringType = sykmeldtStatus.data.registrationType
       const sykmeldt = sykmeldtStatus.data.isSykmeldt
 
-      if (registreringType !== RegistrationTypes.SYKMELDT_REGISTRERING || !sykmeldt) {
+      if (!sykmeldt) {
         return <OtherRegistrationTypes type={registreringType} />
       }
 

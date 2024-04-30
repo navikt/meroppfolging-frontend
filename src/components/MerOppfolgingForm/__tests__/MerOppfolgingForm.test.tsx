@@ -33,10 +33,7 @@ describe('MerOppfolgingForm', () => {
     it('initial form path ', async () => {
       render(<MerOppfolgingForm />)
 
-      expect(mockRouter).toMatchObject({
-        pathname: '/reg/[form]',
-        query: { form: '0' },
-      })
+      expect(mockRouter.asPath).toBe('/reg/0')
     })
 
     it('initial form path when form path query is invalid ', async () => {
@@ -44,10 +41,7 @@ describe('MerOppfolgingForm', () => {
 
       render(<MerOppfolgingForm />)
 
-      expect(mockRouter).toMatchObject({
-        pathname: '/reg/[form]',
-        query: { form: '0' },
-      })
+      expect(mockRouter.asPath).toBe('/reg/0')
     })
 
     it('initial form path when path query is valid form but missing form state data', async () => {
@@ -55,10 +49,7 @@ describe('MerOppfolgingForm', () => {
 
       render(<MerOppfolgingForm />)
 
-      expect(mockRouter).toMatchObject({
-        pathname: '/reg/[form]',
-        query: { form: '0' },
-      })
+      expect(mockRouter.asPath).toBe('/reg/0')
     })
   })
 
@@ -101,52 +92,63 @@ describe('MerOppfolgingForm', () => {
 
       await waitFor(() =>
         expect(requestResolver).toBeCalledWith({
-          besvarelse: {
-            utdanning: 'INGEN_SVAR',
-            utdanningGodkjent: 'INGEN_SVAR',
-            utdanningBestatt: 'INGEN_SVAR',
-            andreForhold: 'INGEN_SVAR',
-            fremtidigSituasjon: 'SAMME_ARBEIDSGIVER',
-            tilbakeIArbeid: 'JA_FULL_STILLING',
-            sisteStilling: 'INGEN_SVAR',
-          },
-          teksterForBesvarelse: [
+          senOppfolgingFormV1: [
             {
-              sporsmalId: 'utdanning',
-              sporsmal: 'Hva er din høyeste fullførte utdanning?',
-              svar: 'Ikke besvart',
-            },
-            {
-              sporsmalId: 'utdanningGodkjent',
-              sporsmal: 'Er utdanningen din godkjent i Norge?',
-              svar: 'Ikke besvart',
-            },
-            {
-              sporsmalId: 'utdanningBestatt',
-              sporsmal: 'Er utdanningen din bestått?',
-              svar: 'Ikke besvart',
-            },
-            {
-              sporsmalId: 'andreForhold',
-              sporsmal: 'Er det noe annet enn helsen din som NAV bør ta hensyn til?',
-              svar: 'Ikke besvart',
-            },
-            {
-              sporsmalId: 'fremtidigSituasjon',
-              sporsmal: 'Hva tenker du om din fremtidige situasjon?',
-              svar: 'Jeg skal tilbake til jobben jeg har',
-            },
-            {
-              sporsmalId: 'sisteStilling',
-              sporsmal: 'Hva er din siste jobb?',
-              svar: 'Ikke oppgitt',
-            },
-            {
-              sporsmalId: 'tilbakeIArbeid',
-              sporsmal: 'Tror du at du kommer tilbake i jobb før du har vært sykmeldt i 52 uker?',
-              svar: 'Ja, i full stilling',
+              answerText: 'Ja',
+              answerType: 'JA',
+              questionText: 'Trenger du mer oppfølging fra oss?',
+              questionType: 'ONSKER_OPPFOLGING',
             },
           ],
+
+          senOppfolgingRegistrering: {
+            besvarelse: {
+              utdanning: 'INGEN_SVAR',
+              utdanningGodkjent: 'INGEN_SVAR',
+              utdanningBestatt: 'INGEN_SVAR',
+              andreForhold: 'INGEN_SVAR',
+              fremtidigSituasjon: 'SAMME_ARBEIDSGIVER',
+              tilbakeIArbeid: 'JA_FULL_STILLING',
+              sisteStilling: 'INGEN_SVAR',
+            },
+            teksterForBesvarelse: [
+              {
+                sporsmalId: 'utdanning',
+                sporsmal: 'Hva er din høyeste fullførte utdanning?',
+                svar: 'Ikke besvart',
+              },
+              {
+                sporsmalId: 'utdanningGodkjent',
+                sporsmal: 'Er utdanningen din godkjent i Norge?',
+                svar: 'Ikke besvart',
+              },
+              {
+                sporsmalId: 'utdanningBestatt',
+                sporsmal: 'Er utdanningen din bestått?',
+                svar: 'Ikke besvart',
+              },
+              {
+                sporsmalId: 'andreForhold',
+                sporsmal: 'Er det noe annet enn helsen din som NAV bør ta hensyn til?',
+                svar: 'Ikke besvart',
+              },
+              {
+                sporsmalId: 'fremtidigSituasjon',
+                sporsmal: 'Hva tenker du om din fremtidige situasjon?',
+                svar: 'Jeg skal tilbake til jobben jeg har',
+              },
+              {
+                sporsmalId: 'sisteStilling',
+                sporsmal: 'Hva er din siste jobb?',
+                svar: 'Ikke oppgitt',
+              },
+              {
+                sporsmalId: 'tilbakeIArbeid',
+                sporsmal: 'Tror du at du kommer tilbake i jobb før du har vært sykmeldt i 52 uker?',
+                svar: 'Ja, i full stilling',
+              },
+            ],
+          },
         }),
       )
     })
@@ -214,46 +216,56 @@ describe('MerOppfolgingForm', () => {
 
       await waitFor(() =>
         expect(requestResolver).toBeCalledWith({
-          besvarelse: {
-            utdanning: 'GRUNNSKOLE',
-            utdanningGodkjent: 'JA',
-            utdanningBestatt: 'JA',
-            andreForhold: 'JA',
-            fremtidigSituasjon: 'NY_ARBEIDSGIVER',
-            sisteStilling: 'INGEN_SVAR',
-          },
-          teksterForBesvarelse: [
+          senOppfolgingFormV1: [
             {
-              sporsmalId: 'utdanning',
-              sporsmal: 'Hva er din høyeste fullførte utdanning?',
-              svar: 'Grunnskole',
-            },
-            {
-              sporsmalId: 'utdanningGodkjent',
-              sporsmal: 'Er utdanningen din godkjent i Norge?',
-              svar: 'Ja',
-            },
-            {
-              sporsmalId: 'utdanningBestatt',
-              sporsmal: 'Er utdanningen din bestått?',
-              svar: 'Ja',
-            },
-            {
-              sporsmalId: 'andreForhold',
-              sporsmal: 'Er det noe annet enn helsen din som NAV bør ta hensyn til?',
-              svar: 'Ja',
-            },
-            {
-              sporsmalId: 'fremtidigSituasjon',
-              sporsmal: 'Hva tenker du om din fremtidige situasjon?',
-              svar: 'Jeg trenger ny jobb',
-            },
-            {
-              sporsmalId: 'sisteStilling',
-              sporsmal: 'Hva er din siste jobb?',
-              svar: 'Ikke oppgitt',
+              answerText: 'Ja',
+              answerType: 'JA',
+              questionText: 'Trenger du mer oppfølging fra oss?',
+              questionType: 'ONSKER_OPPFOLGING',
             },
           ],
+          senOppfolgingRegistrering: {
+            besvarelse: {
+              utdanning: 'GRUNNSKOLE',
+              utdanningGodkjent: 'JA',
+              utdanningBestatt: 'JA',
+              andreForhold: 'JA',
+              fremtidigSituasjon: 'NY_ARBEIDSGIVER',
+              sisteStilling: 'INGEN_SVAR',
+            },
+            teksterForBesvarelse: [
+              {
+                sporsmalId: 'utdanning',
+                sporsmal: 'Hva er din høyeste fullførte utdanning?',
+                svar: 'Grunnskole',
+              },
+              {
+                sporsmalId: 'utdanningGodkjent',
+                sporsmal: 'Er utdanningen din godkjent i Norge?',
+                svar: 'Ja',
+              },
+              {
+                sporsmalId: 'utdanningBestatt',
+                sporsmal: 'Er utdanningen din bestått?',
+                svar: 'Ja',
+              },
+              {
+                sporsmalId: 'andreForhold',
+                sporsmal: 'Er det noe annet enn helsen din som NAV bør ta hensyn til?',
+                svar: 'Ja',
+              },
+              {
+                sporsmalId: 'fremtidigSituasjon',
+                sporsmal: 'Hva tenker du om din fremtidige situasjon?',
+                svar: 'Jeg trenger ny jobb',
+              },
+              {
+                sporsmalId: 'sisteStilling',
+                sporsmal: 'Hva er din siste jobb?',
+                svar: 'Ikke oppgitt',
+              },
+            ],
+          },
         }),
       )
     })
@@ -285,46 +297,56 @@ describe('MerOppfolgingForm', () => {
 
       await waitFor(() =>
         expect(requestResolver).toBeCalledWith({
-          besvarelse: {
-            utdanning: 'INGEN_SVAR',
-            utdanningGodkjent: 'INGEN_SVAR',
-            utdanningBestatt: 'INGEN_SVAR',
-            andreForhold: 'INGEN_SVAR',
-            fremtidigSituasjon: 'INGEN_PASSER',
-            sisteStilling: 'INGEN_SVAR',
-          },
-          teksterForBesvarelse: [
+          senOppfolgingFormV1: [
             {
-              sporsmalId: 'utdanning',
-              sporsmal: 'Hva er din høyeste fullførte utdanning?',
-              svar: 'Ikke besvart',
-            },
-            {
-              sporsmalId: 'utdanningGodkjent',
-              sporsmal: 'Er utdanningen din godkjent i Norge?',
-              svar: 'Ikke besvart',
-            },
-            {
-              sporsmalId: 'utdanningBestatt',
-              sporsmal: 'Er utdanningen din bestått?',
-              svar: 'Ikke besvart',
-            },
-            {
-              sporsmalId: 'andreForhold',
-              sporsmal: 'Er det noe annet enn helsen din som NAV bør ta hensyn til?',
-              svar: 'Ikke besvart',
-            },
-            {
-              sporsmalId: 'fremtidigSituasjon',
-              sporsmal: 'Hva tenker du om din fremtidige situasjon?',
-              svar: 'Ingen av disse alternativene passer',
-            },
-            {
-              sporsmalId: 'sisteStilling',
-              sporsmal: 'Hva er din siste jobb?',
-              svar: 'Ikke oppgitt',
+              answerText: 'Ja',
+              answerType: 'JA',
+              questionText: 'Trenger du mer oppfølging fra oss?',
+              questionType: 'ONSKER_OPPFOLGING',
             },
           ],
+          senOppfolgingRegistrering: {
+            besvarelse: {
+              utdanning: 'INGEN_SVAR',
+              utdanningGodkjent: 'INGEN_SVAR',
+              utdanningBestatt: 'INGEN_SVAR',
+              andreForhold: 'INGEN_SVAR',
+              fremtidigSituasjon: 'INGEN_PASSER',
+              sisteStilling: 'INGEN_SVAR',
+            },
+            teksterForBesvarelse: [
+              {
+                sporsmalId: 'utdanning',
+                sporsmal: 'Hva er din høyeste fullførte utdanning?',
+                svar: 'Ikke besvart',
+              },
+              {
+                sporsmalId: 'utdanningGodkjent',
+                sporsmal: 'Er utdanningen din godkjent i Norge?',
+                svar: 'Ikke besvart',
+              },
+              {
+                sporsmalId: 'utdanningBestatt',
+                sporsmal: 'Er utdanningen din bestått?',
+                svar: 'Ikke besvart',
+              },
+              {
+                sporsmalId: 'andreForhold',
+                sporsmal: 'Er det noe annet enn helsen din som NAV bør ta hensyn til?',
+                svar: 'Ikke besvart',
+              },
+              {
+                sporsmalId: 'fremtidigSituasjon',
+                sporsmal: 'Hva tenker du om din fremtidige situasjon?',
+                svar: 'Ingen av disse alternativene passer',
+              },
+              {
+                sporsmalId: 'sisteStilling',
+                sporsmal: 'Hva er din siste jobb?',
+                svar: 'Ikke oppgitt',
+              },
+            ],
+          },
         }),
       )
     })

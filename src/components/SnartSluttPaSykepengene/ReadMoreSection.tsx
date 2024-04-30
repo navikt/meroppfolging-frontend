@@ -5,8 +5,8 @@ function ReadMoreSection(): ReactElement {
   return (
     <>
       <Box>
-        <Heading size="large" level="2" spacing>
-          Her kan du lese mer
+        <Heading size="medium" level="2" spacing>
+          Aktuell informasjon
         </Heading>
         <List>
           <List.Item>
@@ -39,7 +39,7 @@ function ReadMoreSection(): ReactElement {
         </List>
       </Box>
       <Box>
-        <Heading size="large" level="2" spacing>
+        <Heading size="medium" level="2" spacing>
           Er du usikker?
         </Heading>
         <BodyLong size="medium">
