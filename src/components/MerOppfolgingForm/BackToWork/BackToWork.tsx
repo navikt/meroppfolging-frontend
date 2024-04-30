@@ -90,6 +90,7 @@ function BackToWork(): React.ReactElement {
               {uenigText}
             </Button>
             <Button
+              disabled={mutation.isLoading}
               onClick={() => {
                 logAmplitudeEvent({
                   eventName: 'skjema spørsmål besvart',
