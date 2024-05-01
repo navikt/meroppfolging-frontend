@@ -11,19 +11,25 @@ import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
 import { ResponseStatus } from '@/server/services/schemas/meroppfolgingSchema'
 import { createOnskerIkkeSenOppfolgingFormRequest } from '@/components/MerOppfolgingForm/requestUtils'
 import { OnskerOppfolgingOrigins } from '@/domain/OnskerOppfolging'
-import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
+import ErrorMessage from '@/components/AlertMessages/ErrorMessage'
 import ResponseStatusInfoBox from '@/components/SnartSluttPaSykepengene/ResponseStatusInfoBox'
 import ReadMoreSection from '@/components/SnartSluttPaSykepengene/ReadMoreSection'
+import AlreadySubmittedMessage from '@/components/AlertMessages/AlreadySubmittedMessage'
 
 function MoreGuidance(): ReactElement | null {
   const [displayErrorMessage, setDisplayErrorMessage] = useState(false)
+  const [displayAlreadySubmittedMessage, setDisplayAlreadySubmittedMessage] = useState(false)
   const { reload } = useRouter()
 
   const status = trpc.sykmeldtStatus.useQuery()
   const mutation = trpc.submitSenOppfolging.useMutation({
-    onError: () => {
-      logger.error(`Client: ønsker ikke sen oppfølging form submission failed from landing`)
-      setDisplayErrorMessage(true)
+    onError: (error) => {
+      if (error.data?.code === 'CONFLICT') {
+        setDisplayAlreadySubmittedMessage(true)
+      } else {
+        logger.error(`Client: ønsker ikke sen oppfølging form submission failed from landing`)
+        setDisplayErrorMessage(true)
+      }
     },
     onSuccess: async () => {
       setDisplayErrorMessage(false)
@@ -61,45 +67,49 @@ function MoreGuidance(): ReactElement | null {
         {status.data.responseStatus === ResponseStatus.NO_RESPONSE ? (
           <>
             {displayErrorMessage && <ErrorMessage />}
-            <HStack gap="4" className="mt-7">
-              <Button
-                className="min-w-28"
-                onClick={() => {
-                  logAmplitudeEvent({
-                    eventName: 'skjema spørsmål besvart',
-                    data: {
-                      skjemanavn: 'Snart slutt på sykepengene',
-                      spørsmål: 'Ønsker du mer veiledning?',
-                      svar: 'JA',
-                    },
-                  })
-                }}
-                as={NextLink}
-                href={getFormUrl(INITIAL_FORM_PAGE)}
-                variant="primary"
-              >
-                Ja, jeg trenger oppfølging
-              </Button>
 
-              <Button
-                disabled={mutation.isLoading || status.isLoading}
-                onClick={() => {
-                  logAmplitudeEvent({
-                    eventName: 'skjema spørsmål besvart',
-                    data: {
-                      skjemanavn: 'Snart slutt på sykepengene',
-                      spørsmål: 'Ønsker du mer veiledning?',
-                      svar: 'NEI',
-                    },
-                  })
-                  handleSubmit()
-                }}
-                variant="secondary"
-                className="min-w-28"
-              >
-                Nei, jeg trenger ikke oppfølging
-              </Button>
-            </HStack>
+            {displayAlreadySubmittedMessage && <AlreadySubmittedMessage />}
+            {!displayAlreadySubmittedMessage && (
+              <HStack gap="4" className="mt-7">
+                <Button
+                  className="min-w-28"
+                  onClick={() => {
+                    logAmplitudeEvent({
+                      eventName: 'skjema spørsmål besvart',
+                      data: {
+                        skjemanavn: 'Snart slutt på sykepengene',
+                        spørsmål: 'Ønsker du mer veiledning?',
+                        svar: 'JA',
+                      },
+                    })
+                  }}
+                  as={NextLink}
+                  href={getFormUrl(INITIAL_FORM_PAGE)}
+                  variant="primary"
+                >
+                  Ja, jeg trenger oppfølging
+                </Button>
+
+                <Button
+                  disabled={mutation.isLoading || status.isLoading}
+                  onClick={() => {
+                    logAmplitudeEvent({
+                      eventName: 'skjema spørsmål besvart',
+                      data: {
+                        skjemanavn: 'Snart slutt på sykepengene',
+                        spørsmål: 'Ønsker du mer veiledning?',
+                        svar: 'NEI',
+                      },
+                    })
+                    handleSubmit()
+                  }}
+                  variant="secondary"
+                  className="min-w-28"
+                >
+                  Nei, jeg trenger ikke oppfølging
+                </Button>
+              </HStack>
+            )}
           </>
         ) : (
           <>

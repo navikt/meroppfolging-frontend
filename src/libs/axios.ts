@@ -1,8 +1,9 @@
 import { logger } from '@navikt/next-logger'
 import axios from 'axios'
 import { nanoid } from 'nanoid'
+import { TRPCError } from '@trpc/server'
 
-type AxiosServerRequstParams = {
+type AxiosServerRequestParams = {
   url: string
   accessToken: string
 } & (
@@ -13,7 +14,7 @@ type AxiosServerRequstParams = {
     }
 )
 
-export async function serverRequest<T>(opt: AxiosServerRequstParams): Promise<T> {
+export async function serverRequest<T>(opt: AxiosServerRequestParams): Promise<T> {
   return axios(opt.url, {
     method: opt.method || 'get',
     headers: {
@@ -26,11 +27,18 @@ export async function serverRequest<T>(opt: AxiosServerRequstParams): Promise<T>
   })
     .then((response) => response.data)
     .catch((error) => {
-      if (error.status === 401) {
-        logger.error(`Users access to API on path ${opt.url} has expired`)
-        throw new Error(`Users access has expired`)
+      switch (error.status) {
+        case 401:
+          logger.error(`Users access to API on path ${opt.url} has expired`)
+          throw new Error(`Users access has expired`)
+        case 409:
+          throw new TRPCError({
+            code: 'CONFLICT',
+            message: 'User has already submitted form.',
+          })
+        default:
+          logger.error(`Unknown error from API, responded with error: ${error} when fetching ${opt.url}`)
+          throw new Error(`Unknown error from API.`)
       }
-      logger.error(`Unknown error from API, responded with error: ${error} when fetching ${opt.url}`)
-      throw new Error(`Unknown error from API.`)
     })
 }

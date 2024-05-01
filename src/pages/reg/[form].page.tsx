@@ -10,7 +10,7 @@ import OtherRegistrationTypes from '@/components/OtherRegistrationTypes/OtherReg
 import { useToggle } from '@/contexts/toggleContext'
 import OngoingMaintenance from '@/components/Maintenance/OngoingMaintenance'
 import { useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
-import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
+import ErrorMessage from '@/components/AlertMessages/ErrorMessage'
 import FormPageContainer from '@/components/Containers/FormPageContainer'
 import { RegistrationTypes } from '@/server/services/schemas/meroppfolgingSchema'
 
