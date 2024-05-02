@@ -66,7 +66,6 @@ export async function authenticateIdportenToken(bearerToken?: string): Promise<s
   }
 
   if (!bearerToken) {
-    logger.error('Could not find any bearer token on the request. Denying request. This should not happen')
     throw new TRPCError({
       code: 'UNAUTHORIZED',
       message: 'Access denied',
