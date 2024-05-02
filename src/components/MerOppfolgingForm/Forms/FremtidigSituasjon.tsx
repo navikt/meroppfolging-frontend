@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form'
+import { BodyShort } from '@navikt/ds-react'
 
 import { QuestionId } from '@/types/merOppfolgingForm'
 import { useMerOppfolgingFormContext } from '@/contexts/formContext'
@@ -19,7 +20,10 @@ function FremtidigSituasjon(): React.ReactElement {
   })
   return (
     <FormPanel formPage={formPage} methods={methods}>
-      <NestedRadioGroup name={formPage} legend={formQuestionTexts[formPage]} />
+      <>
+        <BodyShort spacing>For å vite hva slags oppfølging du trenger må du svare på noen spørsmål.</BodyShort>
+        <NestedRadioGroup name={formPage} legend={formQuestionTexts[formPage]} />
+      </>
     </FormPanel>
   )
 }
