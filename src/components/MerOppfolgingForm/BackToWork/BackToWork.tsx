@@ -12,6 +12,7 @@ import { createOnskerIkkeSenOppfolgingFormRequest } from '@/components/MerOppfol
 import { OnskerOppfolgingOrigins } from '@/domain/OnskerOppfolging'
 import { trpc } from '@/utils/trpc'
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
+import ReadMoreSection from '@/components/SnartSluttPaSykepengene/ReadMoreSection'
 
 const uenigText = 'Uenig, jeg trenger mer veiledning'
 const enigText = 'Enig'
@@ -109,7 +110,10 @@ function BackToWork(): React.ReactElement {
             </Button>
           </section>
         ) : (
-          <Alert variant="success">Takk! Du har svart at du er enig i NAV sin vurdering.</Alert>
+          <>
+            <Alert variant="success">Takk! Du har svart at du er enig i NAV sin vurdering.</Alert>
+            <ReadMoreSection />
+          </>
         )}
       </Column>
     </>
