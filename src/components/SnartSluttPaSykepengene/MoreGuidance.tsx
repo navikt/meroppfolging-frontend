@@ -13,7 +13,7 @@ import { createOnskerIkkeSenOppfolgingFormRequest } from '@/components/MerOppfol
 import { OnskerOppfolgingOrigins } from '@/domain/OnskerOppfolging'
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
 import ResponseStatusInfoBox from '@/components/SnartSluttPaSykepengene/ResponseStatusInfoBox'
-import ReadMoreSection from '@/components/SnartSluttPaSykepengene/ReadMoreSection'
+import MoreInfoSection from '@/components/SnartSluttPaSykepengene/MoreInfoSection'
 
 function MoreGuidance(): ReactElement | null {
   const [displayErrorMessage, setDisplayErrorMessage] = useState(false)
@@ -104,7 +104,7 @@ function MoreGuidance(): ReactElement | null {
         ) : (
           <>
             <ResponseStatusInfoBox responseStatus={status.data.responseStatus} />
-            <ReadMoreSection />
+            <MoreInfoSection />
           </>
         )}
       </Box>

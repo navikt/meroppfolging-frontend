@@ -1,7 +1,7 @@
 import { BodyLong, Box, Heading, Link, List } from '@navikt/ds-react'
 import { ReactElement } from 'react'
 
-function ReadMoreSection(): ReactElement {
+function MoreInfoSection(): ReactElement {
   return (
     <>
       <Box>
@@ -53,4 +53,4 @@ function ReadMoreSection(): ReactElement {
   )
 }
 
-export default ReadMoreSection
+export default MoreInfoSection
