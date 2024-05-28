@@ -8,9 +8,12 @@ import MaxDateIngress from '@/components/SnartSluttPaSykepengene/MaxDateIngress'
 import { withAuthenticatedPage } from '@/auth'
 import MoreGuidance from '@/components/SnartSluttPaSykepengene/MoreGuidance'
 import { trpc } from '@/utils/trpc'
+import { useStatusV2 } from '@/hooks/useStatusV2'
 
 function SnartSlutt(): ReactElement {
   const visitSenOppfolgingMutation = trpc.visit.useMutation()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const statusQueryV2 = useStatusV2()
 
   useEffect(() => {
     const hasVisitedSenOppfolging = sessionStorage.getItem('visited_sen_oppfolging')

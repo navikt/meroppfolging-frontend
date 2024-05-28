@@ -1,4 +1,4 @@
-import { ZodError, z } from 'zod'
+import { z, ZodError } from 'zod'
 
 export type PublicEnv = z.infer<typeof publicEnvSchema>
 export const publicEnvSchema = z.object({
@@ -22,7 +22,7 @@ export const serverEnvSchema = z.object({
   // Provided by nais-*.yaml
   ESYFOVARSEL_MAX_DATE_API_URL: z.string(),
   MEROPPFOLGING_BACKEND_URL: z.string(),
-
+  MEROPPFOLGING_BACKEND_CLIENT_ID: z.string(),
   // Provided by nais
   TOKEN_X_WELL_KNOWN_URL: z.string(),
   TOKEN_X_CLIENT_ID: z.string(),
@@ -55,6 +55,7 @@ const getRawServerConfig = (): Partial<unknown> =>
     // Provided by nais-*.yml
     ESYFOVARSEL_MAX_DATE_API_URL: process.env.ESYFOVARSEL_MAX_DATE_API_URL,
     MEROPPFOLGING_BACKEND_URL: process.env.MEROPPFOLGING_BACKEND_URL,
+    MEROPPFOLGING_BACKEND_CLIENT_ID: process.env.MEROPPFOLGING_BACKEND_CLIENT_ID,
 
     // Provided by nais
     TOKEN_X_WELL_KNOWN_URL: process.env.TOKEN_X_WELL_KNOWN_URL,
