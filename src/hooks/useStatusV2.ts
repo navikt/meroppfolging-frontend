@@ -7,7 +7,7 @@ export const useStatusV2 = (): UseQueryResult<SenOppfolgingStatusDTOV2, Error> =
   const router = useRouter()
 
   const fetchStatusV2 = async (): Promise<SenOppfolgingStatusDTOV2> => {
-    const response = await fetch(`${router.basePath}/api/sykmeldt`)
+    const response = await fetch(`${router.basePath}/api/senoppfolging/status`)
     return (await response.json()) as Promise<SenOppfolgingStatusDTOV2>
   }
 
