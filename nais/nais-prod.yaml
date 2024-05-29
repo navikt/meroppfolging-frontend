@@ -51,8 +51,6 @@ spec:
       value: http://esyfovarsel/api/v1/sykepenger/maxdate
     - name: MEROPPFOLGING_BACKEND_URL
       value: http://meroppfolging-backend
-    - name: MEROPPFOLGING_BACKEND_CLIENT_ID
-      value: "prod-gcp:team-esyfo:meroppfolging-backend"
   envFrom:
     - secret: meroppfolging-frontend-unleash-secrets
   accessPolicy:

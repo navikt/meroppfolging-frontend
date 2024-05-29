@@ -1,10 +1,10 @@
 import { logger } from '@navikt/next-logger'
 import type { NextApiRequest } from 'next'
+import { getToken } from '@navikt/oasis'
 
 import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from '@/auth/tokenUtils'
 import { serverRequest } from '@/libs/axios'
 import { getServerEnv } from '@/constants/envs'
-import { getBearerToken } from '@/auth/authentication'
 import { SenOppfolgingDTOV2 } from '@/server/services/schemas/submitFormSchemaV2'
 
 import { SenOppfolgingFormRequest, StatusDTO, statusSchema } from './schemas/meroppfolgingSchema'
@@ -28,8 +28,8 @@ export async function getStatus(auth: string): Promise<StatusDTO> {
 
 export async function getStatusV2(req: NextApiRequest): Promise<SenOppfolgingStatusDTOV2> {
   const url = getServerEnv().MEROPPFOLGING_BACKEND_URL
-  const clientId = getServerEnv().MEROPPFOLGING_BACKEND_CLIENT_ID
-  const tokenX = await getBearerToken(req, clientId)
+  const idportenToken = getToken(req)
+  const tokenX = await exchangeIdportenTokenForMeroppfolgingBackendTokenx(idportenToken!)
   const path = `${url}/api/v2/senoppfolging/status`
 
   const response = await serverRequest<SenOppfolgingStatusDTOV2>({ url: path, accessToken: tokenX })
@@ -58,8 +58,8 @@ export async function postSenOppfolging(auth: string, data: SenOppfolgingFormReq
 
 export async function postSenOppfolgingV2(req: NextApiRequest): Promise<void> {
   const url = getServerEnv().MEROPPFOLGING_BACKEND_URL
-  const clientId = getServerEnv().MEROPPFOLGING_BACKEND_CLIENT_ID
-  const tokenX = await getBearerToken(req, clientId)
+  const idportenToken = getToken(req)
+  const tokenX = await exchangeIdportenTokenForMeroppfolgingBackendTokenx(idportenToken!)
   const path = `${url}/api/v2/senoppfolging/submitform`
   const data: SenOppfolgingDTOV2 = req.body
 
