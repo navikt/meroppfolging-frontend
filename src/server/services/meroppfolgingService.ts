@@ -29,7 +29,7 @@ export async function getStatus(auth: string): Promise<StatusDTO> {
 export async function getStatusV2(req: NextApiRequest): Promise<SenOppfolgingStatusDTOV2> {
   const url = getServerEnv().MEROPPFOLGING_BACKEND_URL
   const idportenToken = getToken(req)
-  const tokenX = await exchangeIdportenTokenForMeroppfolgingBackendTokenx(idportenToken!)
+  const tokenX = await exchangeIdportenTokenForMeroppfolgingBackendTokenx(idportenToken)
   const path = `${url}/api/v2/senoppfolging/status`
 
   const response = await serverRequest<SenOppfolgingStatusDTOV2>({ url: path, accessToken: tokenX })
@@ -59,7 +59,7 @@ export async function postSenOppfolging(auth: string, data: SenOppfolgingFormReq
 export async function postSenOppfolgingV2(req: NextApiRequest): Promise<void> {
   const url = getServerEnv().MEROPPFOLGING_BACKEND_URL
   const idportenToken = getToken(req)
-  const tokenX = await exchangeIdportenTokenForMeroppfolgingBackendTokenx(idportenToken!)
+  const tokenX = await exchangeIdportenTokenForMeroppfolgingBackendTokenx(idportenToken)
   const path = `${url}/api/v2/senoppfolging/submitform`
   const data: SenOppfolgingDTOV2 = req.body
 
