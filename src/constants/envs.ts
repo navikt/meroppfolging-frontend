@@ -1,4 +1,4 @@
-import { ZodError, z } from 'zod'
+import { z, ZodError } from 'zod'
 
 export type PublicEnv = z.infer<typeof publicEnvSchema>
 export const publicEnvSchema = z.object({
@@ -22,7 +22,6 @@ export const serverEnvSchema = z.object({
   // Provided by nais-*.yaml
   ESYFOVARSEL_MAX_DATE_API_URL: z.string(),
   MEROPPFOLGING_BACKEND_URL: z.string(),
-
   // Provided by nais
   TOKEN_X_WELL_KNOWN_URL: z.string(),
   TOKEN_X_CLIENT_ID: z.string(),
@@ -89,4 +88,4 @@ export function getServerEnv(): ServerEnv & PublicEnv {
 }
 
 export const isLocalOrDemo =
-  process.env.NODE_ENV !== 'production' || browserEnv.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === 'demo'
+  process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === 'local' || process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === 'demo'
