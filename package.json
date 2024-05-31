@@ -55,7 +55,7 @@
     "@vitejs/plugin-react": "^4.3.0",
     "autoprefixer": "^10.4.19",
     "dotenv": "^16.4.5",
-    "eslint": "8.57.0",
+    "eslint": "9.3.0",
     "eslint-config-next": "14.2.3",
     "next-router-mock": "^0.9.13",
     "path": "^0.12.7",
