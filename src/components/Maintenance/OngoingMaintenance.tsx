@@ -13,7 +13,7 @@ function OngoingMaintenance(): React.ReactElement {
         </Heading>
 
         <BodyLong>
-          Arbeidssøkerregistreringen er ikke tilgjengelig på grunn av vedlikehold. Vennligst prøv igjen litt senere.
+          Sykmeldtregistreringen er ikke tilgjengelig på grunn av vedlikehold. Vennligst prøv igjen litt senere.
         </BodyLong>
       </GuidePanel>
     </>
