@@ -1,9 +1,10 @@
 import { senOppfolgingFormRequestSchema } from '@/server/services/schemas/meroppfolgingSchema'
+import { FormRequestSchema } from '@/server/services/schemas/formRequestSchema'
 
 import { authenticatedProcedure, router } from '../trpc'
 import { getFeatureToggles } from '../services/toggleService'
 import { getMaxDate } from '../services/esyfoVarselService'
-import { getStatus, postSenOppfolging, postVisit } from '../services/meroppfolgingService'
+import { getStatus, getStatusPilot, postForm, postSenOppfolging, postVisit } from '../services/meroppfolgingService'
 
 export const appRouter = router({
   sykmeldtStatus: authenticatedProcedure.query(async ({ ctx }) => {
@@ -20,6 +21,12 @@ export const appRouter = router({
   }),
   maxDate: authenticatedProcedure.query(async ({ ctx }) => {
     return getMaxDate(ctx.authorization)
+  }),
+  statusPilot: authenticatedProcedure.query(async ({ ctx }) => {
+    return getStatusPilot(ctx.authorization)
+  }),
+  submitPilotForm: authenticatedProcedure.input(FormRequestSchema).mutation(async ({ ctx, input }) => {
+    return postForm(ctx.authorization, input)
   }),
 })
 

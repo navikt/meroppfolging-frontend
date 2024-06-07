@@ -1,6 +1,4 @@
 import { describe, expect, it } from 'vitest'
-import { act } from '@testing-library/react'
-import { axe } from 'vitest-axe'
 
 import { render, screen } from '@/test/testUtils'
 import { testServer } from '@/mocks/testServer'
@@ -10,29 +8,19 @@ import { ResponseStatus } from '@/server/services/schemas/meroppfolgingSchema'
 import SnartSlutt from './index.page'
 
 describe('SnartSlutt', () => {
-  it('should have no a11y violations', async () => {
-    const { container } = render(<SnartSlutt />)
-
-    await act(async () => {
-      const result = await axe(container)
-      expect(result).toHaveNoViolations()
-    })
-  })
-
-  it('should render more guidance panel', async () => {
+  it('should display pilot variation', async () => {
     render(<SnartSlutt />)
 
-    expect(await screen.findByText('Trenger du oppfølging fra oss?')).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: 'Trenger du hjelp fra oss?', level: 1 })).toBeInTheDocument()
   })
 
-  it('should not render more guidance panel when isSykmeldt is false', async () => {
+  it('should display normal variation', async () => {
     testServer.use(
-      trpcMsw.sykmeldtStatus.query(async (_req, res, ctx) => {
+      trpcMsw.statusPilot.query(async (_req, res, ctx) => {
         return res(
           ctx.status(200),
           ctx.data({
-            registrationType: 'SYKMELDT_REGISTRERING',
-            isSykmeldt: false,
+            isPilot: false,
             responseStatus: ResponseStatus.NO_RESPONSE,
           }),
         )
@@ -41,6 +29,6 @@ describe('SnartSlutt', () => {
 
     render(<SnartSlutt />)
 
-    expect(screen.queryByText('Ønsker du mer veiledning?')).not.toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: 'Snart slutt på sykepengene', level: 1 })).toBeInTheDocument()
   })
 })

@@ -4,14 +4,18 @@ import React, { ReactElement, ReactNode } from 'react'
 import open from 'open'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider'
+import { FormProvider, useForm } from 'react-hook-form'
 
 import { MerOppfolgingFormProvider } from '@/contexts/formContext'
 import { trpc } from '@/utils/trpc'
 import { ToggleProvider } from '@/contexts/toggleContext'
+import { FormInputs } from '@/pilot/components/SenOppfolging/SenOppfolgingForm'
 
 type CustomRenderReturnType = { user: ReturnType<typeof userEvent.setup> } & ReturnType<typeof render>
 
 const AllTheProviders = ({ children }: { children: ReactNode }): ReactElement => {
+  const methods = useForm<FormInputs>()
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -24,7 +28,9 @@ const AllTheProviders = ({ children }: { children: ReactNode }): ReactElement =>
     <MemoryRouterProvider>
       <ToggleProvider>
         <MerOppfolgingFormProvider>
-          <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+          <FormProvider {...methods}>
+            <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+          </FormProvider>
         </MerOppfolgingFormProvider>
       </ToggleProvider>
     </MemoryRouterProvider>

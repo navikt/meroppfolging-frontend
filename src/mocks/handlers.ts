@@ -1,5 +1,6 @@
 import { trpcMsw } from '@/utils/trpc'
 import { disabledFeatureToggles } from '@/mocks/data/fixtures/featureToggles'
+import { statusPilotDTOFixture } from '@/mocks/data/fixtures/statusPilotDTO'
 
 import { statusDTO } from './data/fixtures/statusDTO'
 import { maxDateDTO } from './data/fixtures/esyfoVarselDTO'
@@ -18,6 +19,12 @@ export const handlers = [
     return res(ctx.status(200), ctx.data(maxDateDTO))
   }),
   trpcMsw.visit.mutation((_req, res, ctx) => {
+    return res(ctx.status(200), ctx.data())
+  }),
+  trpcMsw.statusPilot.query((_req, res, ctx) => {
+    return res(ctx.status(200), ctx.data(statusPilotDTOFixture))
+  }),
+  trpcMsw.submitPilotForm.mutation((_req, res, ctx) => {
     return res(ctx.status(200), ctx.data())
   }),
 ]
