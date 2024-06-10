@@ -1,6 +1,5 @@
 import { ReactElement } from 'react'
-import { BodyShort, Heading } from '@navikt/ds-react'
-import Link from 'next/link'
+import { BodyShort, Heading, Link } from '@navikt/ds-react'
 
 import { CONTACT_NAV_URL } from '@/constants/paths'
 
