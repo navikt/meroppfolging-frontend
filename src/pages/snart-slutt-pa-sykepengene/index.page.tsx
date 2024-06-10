@@ -1,47 +1,29 @@
-import { ReactElement, useEffect } from 'react'
-import { Button, Heading, Link, VStack } from '@navikt/ds-react'
-import { ChevronLeftIcon } from '@navikt/aksel-icons'
+import { ReactElement } from 'react'
 
-import FormPageContainer from '@/components/Containers/FormPageContainer'
-import InfoSection from '@/components/SnartSluttPaSykepengene/InfoSection'
-import MaxDateIngress from '@/components/SnartSluttPaSykepengene/MaxDateIngress'
 import { withAuthenticatedPage } from '@/auth'
-import MoreGuidance from '@/components/SnartSluttPaSykepengene/MoreGuidance'
+import LandingPilot from '@/pilot/components/LandingPage/LandingPilot'
 import { trpc } from '@/utils/trpc'
+import Landing from '@/components/SnartSluttPaSykepengene/Landing'
 
 function SnartSlutt(): ReactElement {
-  const visitSenOppfolgingMutation = trpc.visit.useMutation()
+  const status = trpc.statusPilot.useQuery()
+  trpc.maxDate.useQuery()
+  trpc.sykmeldtStatus.useQuery()
 
-  useEffect(() => {
-    const hasVisitedSenOppfolging = sessionStorage.getItem('visited_sen_oppfolging')
-
-    if (!hasVisitedSenOppfolging) {
-      visitSenOppfolgingMutation.mutate()
-      sessionStorage.setItem('visited_sen_oppfolging', 'true')
-    }
-  }, [])
-
-  return (
-    <FormPageContainer className="bg-bg-subtle">
-      <VStack gap="6" className="max-w-4xl bg-bg-default p-4 md:p-12">
-        <Heading size="xlarge" level="1">
-          Snart slutt på sykepengene
-        </Heading>
-
-        <MaxDateIngress />
-
-        <InfoSection />
-
-        <MoreGuidance />
-
-        <Link href="https://www.nav.no/syk/sykefravaer">
-          <Button variant="tertiary" icon={<ChevronLeftIcon aria-hidden />}>
-            Ditt sykefravær
-          </Button>
-        </Link>
-      </VStack>
-    </FormPageContainer>
-  )
+  switch (status.status) {
+    case 'loading':
+      return <></>
+    case 'error':
+      return <Landing />
+    case 'success':
+      if (status.data.isPilot) {
+        return <LandingPilot responseStatus={status.data.responseStatus} />
+      }
+      return <Landing />
+    default:
+      const exhaustiveCheck: never = status
+      return exhaustiveCheck
+  }
 }
 
 export const getServerSideProps = withAuthenticatedPage()

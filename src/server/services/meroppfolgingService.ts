@@ -1,14 +1,12 @@
 import { logger } from '@navikt/next-logger'
-import type { NextApiRequest } from 'next'
-import { getToken } from '@navikt/oasis'
 
 import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from '@/auth/tokenUtils'
 import { serverRequest } from '@/libs/axios'
 import { getServerEnv } from '@/constants/envs'
-import { SenOppfolgingDTOV2 } from '@/server/services/schemas/submitFormSchemaV2'
+import { StatusPilotDTO, StatusPilotDTOSchema } from '@/server/services/schemas/statusSchema'
+import { FormRequest } from '@/server/services/schemas/formRequestSchema'
 
 import { SenOppfolgingFormRequest, StatusDTO, statusSchema } from './schemas/meroppfolgingSchema'
-import { SenOppfolgingStatusDTOV2, SenOppfolgingStatusDTOV2Schema } from './schemas/statusSchemaV2'
 
 export async function getStatus(auth: string): Promise<StatusDTO> {
   const url = getServerEnv().MEROPPFOLGING_BACKEND_URL
@@ -26,15 +24,14 @@ export async function getStatus(auth: string): Promise<StatusDTO> {
   throw new Error(`Failed to parse response from ${path}: ${JSON.stringify(result.error)}`)
 }
 
-export async function getStatusV2(req: NextApiRequest): Promise<SenOppfolgingStatusDTOV2> {
+export async function getStatusPilot(auth: string): Promise<StatusPilotDTO> {
   const url = getServerEnv().MEROPPFOLGING_BACKEND_URL
-  const idportenToken = getToken(req)
-  const tokenX = await exchangeIdportenTokenForMeroppfolgingBackendTokenx(idportenToken)
   const path = `${url}/api/v2/senoppfolging/status`
+  const tokenX = await exchangeIdportenTokenForMeroppfolgingBackendTokenx(auth)
 
-  const response = await serverRequest<SenOppfolgingStatusDTOV2>({ url: path, accessToken: tokenX })
+  const response = await serverRequest<StatusPilotDTO>({ url: path, accessToken: tokenX })
 
-  const result = SenOppfolgingStatusDTOV2Schema.safeParse(response)
+  const result = StatusPilotDTOSchema.safeParse(response)
 
   if (result.success) {
     return result.data
@@ -56,15 +53,13 @@ export async function postSenOppfolging(auth: string, data: SenOppfolgingFormReq
   }
 }
 
-export async function postSenOppfolgingV2(req: NextApiRequest): Promise<void> {
+export async function postForm(auth: string, data: FormRequest): Promise<void> {
   const url = getServerEnv().MEROPPFOLGING_BACKEND_URL
-  const idportenToken = getToken(req)
-  const tokenX = await exchangeIdportenTokenForMeroppfolgingBackendTokenx(idportenToken)
   const path = `${url}/api/v2/senoppfolging/submitform`
-  const data: SenOppfolgingDTOV2 = req.body
+  const tokenx = await exchangeIdportenTokenForMeroppfolgingBackendTokenx(auth)
 
   try {
-    await serverRequest({ url: path, accessToken: tokenX, method: 'post', data })
+    await serverRequest({ url: path, accessToken: tokenx, method: 'post', data })
   } catch (e) {
     logger.error(`Failed to submit registration: ${e}. Payload: ${JSON.stringify(data)}`)
     throw new Error(`Failed to submit registration: ${e}`)

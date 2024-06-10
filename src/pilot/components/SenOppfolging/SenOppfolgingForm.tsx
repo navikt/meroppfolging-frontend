@@ -1,0 +1,53 @@
+import { ReactElement, useState } from 'react'
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
+import { Button } from '@navikt/ds-react'
+import { useRouter } from 'next/router'
+
+import NestedRadioGroup from '@/pilot/components/FormComponents/NestedRadioGroup'
+import { BehovForOppfolgingAnswerTypes, FremtidigSituasjonAnswerTypes } from '@/pilot/domain/answerValues'
+import { createFormRequest } from '@/pilot/components/SenOppfolging/requestUtils'
+import { trpc } from '@/utils/trpc'
+import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
+
+export type FormInputs = {
+  FREMTIDIG_SITUASJON: FremtidigSituasjonAnswerTypes
+  BEHOV_FOR_OPPFOLGING: BehovForOppfolgingAnswerTypes
+}
+
+function SenOppfolgingForm(): ReactElement {
+  const methods = useForm<FormInputs>()
+  const [displayErrorMessage, setDisplayErrorMessage] = useState(false)
+  const { reload } = useRouter()
+
+  const mutation = trpc.submitPilotForm.useMutation({
+    onError: () => {
+      setDisplayErrorMessage(true)
+    },
+    onSuccess: () => {
+      reload()
+    },
+  })
+
+  const onSubmit: SubmitHandler<FormInputs> = (data) => {
+    setDisplayErrorMessage(false)
+    const request = createFormRequest(data)
+    mutation.mutate(request)
+  }
+  return (
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <NestedRadioGroup name="FREMTIDIG_SITUASJON" />
+        <NestedRadioGroup
+          name="BEHOV_FOR_OPPFOLGING"
+          description="En veileder kan ta kontakt med deg for å hjelpe deg"
+        />
+        {displayErrorMessage && <ErrorMessage />}
+        <Button className="w-fit mt-6" loading={mutation.isLoading}>
+          Send svarene
+        </Button>
+      </form>
+    </FormProvider>
+  )
+}
+
+export default SenOppfolgingForm
