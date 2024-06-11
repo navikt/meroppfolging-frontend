@@ -1,5 +1,4 @@
-import { BodyLong, GuidePanel, Heading } from '@navikt/ds-react'
-import Link from 'next/link'
+import { BodyLong, GuidePanel, Heading, Link } from '@navikt/ds-react'
 
 import { CONTACT_NAV_URL, NAV_PHONE_NUMBER } from '@/constants/paths'
 import { useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
