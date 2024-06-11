@@ -22,7 +22,7 @@ function LandingContent({ responseStatus }: { responseStatus: ResponseStatusPilo
 function LandingPilot({ responseStatus }: { responseStatus: ResponseStatusPilot }): ReactElement {
   return (
     <PageContainer className="bg-bg-subtle">
-      <VStack gap="4" className="max-w-4xl bg-bg-default px-4 py-8 md:p-12">
+      <VStack gap="8" className="max-w-4xl bg-bg-default px-4 py-8 md:p-12">
         <LandingContent responseStatus={responseStatus} />
       </VStack>
     </PageContainer>

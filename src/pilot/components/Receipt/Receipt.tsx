@@ -4,7 +4,8 @@ import { Alert, BodyShort, Heading } from '@navikt/ds-react'
 import InfoSection from '@/pilot/components/Receipt/InfoSection'
 import ContactUs from '@/pilot/components/Receipt/ContactUs'
 import MaxDateIngress from '@/components/SnartSluttPaSykepengene/MaxDateIngress'
-import UsefulLinks from '@/pilot/components/Receipt/UsefulLinks'
+
+import UsefulLinks from './UsefulLinks'
 
 function Receipt({
   responseStatus,
