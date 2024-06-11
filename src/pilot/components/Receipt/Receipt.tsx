@@ -4,6 +4,7 @@ import { Alert, BodyShort, Heading } from '@navikt/ds-react'
 import InfoSection from '@/pilot/components/Receipt/InfoSection'
 import ContactUs from '@/pilot/components/Receipt/ContactUs'
 import MaxDateIngress from '@/components/SnartSluttPaSykepengene/MaxDateIngress'
+import UsefulLinks from '@/pilot/components/Receipt/UsefulLinks'
 
 function Receipt({
   responseStatus,
@@ -24,6 +25,7 @@ function Receipt({
 
       <MaxDateIngress />
       <InfoSection />
+      <UsefulLinks />
       <ContactUs />
     </>
   )
