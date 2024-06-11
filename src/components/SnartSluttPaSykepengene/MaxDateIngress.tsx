@@ -32,7 +32,7 @@ function MaxDateErrorMessage({ reason }: { reason: string }): ReactElement {
   )
 }
 
-function MaxDateContent(): ReactElement {
+function MaxDateIngress(): ReactElement {
   const maxDate = trpc.maxDate.useQuery()
 
   switch (maxDate.status) {
@@ -67,10 +67,6 @@ function MaxDateContent(): ReactElement {
       const exhaustiveCheck: never = maxDate
       return exhaustiveCheck
   }
-}
-
-function MaxDateIngress(): ReactElement {
-  return <MaxDateContent />
 }
 
 export default MaxDateIngress
