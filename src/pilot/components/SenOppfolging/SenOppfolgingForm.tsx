@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-import { Button } from '@navikt/ds-react'
+import { Button, VStack } from '@navikt/ds-react'
 import { useRouter } from 'next/router'
 
 import NestedRadioGroup from '@/pilot/components/FormComponents/NestedRadioGroup'
@@ -36,12 +36,14 @@ function SenOppfolgingForm(): ReactElement {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <NestedRadioGroup name="FREMTIDIG_SITUASJON" />
-        <NestedRadioGroup
-          name="BEHOV_FOR_OPPFOLGING"
-          description="En veileder kan ta kontakt med deg for å hjelpe deg"
-        />
-        {displayErrorMessage && <ErrorMessage />}
+        <VStack gap="8">
+          <NestedRadioGroup name="FREMTIDIG_SITUASJON" />
+          <NestedRadioGroup
+            name="BEHOV_FOR_OPPFOLGING"
+            description="En veileder kan ta kontakt med deg for å hjelpe deg"
+          />
+          {displayErrorMessage && <ErrorMessage />}
+        </VStack>
         <Button className="w-fit mt-6" loading={mutation.isLoading}>
           Send svarene
         </Button>

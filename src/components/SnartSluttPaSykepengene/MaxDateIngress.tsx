@@ -70,11 +70,7 @@ function MaxDateContent(): ReactElement {
 }
 
 function MaxDateIngress(): ReactElement {
-  return (
-    <Box>
-      <MaxDateContent />
-    </Box>
-  )
+  return <MaxDateContent />
 }
 
 export default MaxDateIngress
