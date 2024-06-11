@@ -5,6 +5,8 @@ import InfoSection from '@/pilot/components/Receipt/InfoSection'
 import ContactUs from '@/pilot/components/Receipt/ContactUs'
 import MaxDateIngress from '@/components/SnartSluttPaSykepengene/MaxDateIngress'
 
+import UsefulLinks from './UsefulLinks'
+
 function Receipt({
   responseStatus,
 }: {
@@ -24,6 +26,7 @@ function Receipt({
 
       <MaxDateIngress />
       <InfoSection />
+      <UsefulLinks />
       <ContactUs />
     </>
   )
