@@ -49,6 +49,8 @@ spec:
   env:
     - name: ESYFOVARSEL_MAX_DATE_API_URL
       value: http://esyfovarsel/api/v1/sykepenger/maxdate
+    - name: SYKEPENGEDAGER_INFORMASJON_MAX_DATE_API_URL
+      value: http://sykepengedager-informasjon/api/v1/sykepenger/maxdate
     - name: MEROPPFOLGING_BACKEND_URL
       value: http://meroppfolging-backend
   envFrom:
