@@ -4,6 +4,7 @@ import { Alert, BodyShort, Heading } from '@navikt/ds-react'
 import InfoSection from '@/pilot/components/Receipt/InfoSection'
 import ContactUs from '@/pilot/components/Receipt/ContactUs'
 import MaxDateIngress from '@/components/SnartSluttPaSykepengene/MaxDateIngress'
+import { Flexjar } from '@/components/Flexjar/flexjar'
 
 import UsefulLinks from './UsefulLinks'
 
@@ -28,6 +29,12 @@ function Receipt({
       <InfoSection />
       <UsefulLinks />
       <ContactUs />
+
+      <Flexjar
+        feedbackId="meroppfolging-kvittering"
+        sporsmal="Er informasjonen på siden her enkel, forståelig, og nyttig for deg?"
+        oppfolgingsSporsmalNEI="Hva var det som ikke var bra?"
+      />
     </>
   )
 }
