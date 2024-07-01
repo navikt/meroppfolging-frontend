@@ -1,6 +1,7 @@
 import { requestOboToken } from '@navikt/oasis'
+import { NextApiRequest } from 'next'
 
-import { getServerEnv } from '@/constants/envs'
+import { getServerEnv, isLocalOrDemo } from '@/constants/envs'
 
 export async function exchangeIdportenTokenForEsyfoVarselTokenx(idportenToken: string | null): Promise<string> {
   if (!idportenToken) {
@@ -34,4 +35,18 @@ export async function exchangeIdportenTokenForMeroppfolgingBackendTokenx(
   }
 
   return tokenxGrant.token
+}
+
+export async function getIdportenToken(req: NextApiRequest): Promise<string> {
+  if (isLocalOrDemo) {
+    return 'sometoken'
+  }
+
+  const bearerToken = req.headers['authorization']
+
+  if (!bearerToken) {
+    throw new Error('Missing idporten token')
+  }
+
+  return bearerToken.replace('Bearer ', '')
 }

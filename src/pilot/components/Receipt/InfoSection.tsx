@@ -1,4 +1,4 @@
-import { Accordion, BodyLong, BodyShort, Box, Heading, Link, List } from '@navikt/ds-react'
+import { Accordion, BodyLong, Box, Heading, Link, List } from '@navikt/ds-react'
 import { ReactElement } from 'react'
 
 function InfoSection(): ReactElement {
@@ -8,7 +8,7 @@ function InfoSection(): ReactElement {
         <Heading size="medium" level="2" spacing>
           Hvis du fortsatt er for syk til å jobbe
         </Heading>
-        <BodyShort spacing>
+        <div>
           Hvis du ikke er frisk nok til å gå tilbake til jobb slik som før, kan det være riktig å søke om{' '}
           <Link href="https://www.nav.no/aap" target="_blank" rel="noopener noreferrer">
             arbeidsavklaringspenger (AAP)
@@ -25,7 +25,7 @@ function InfoSection(): ReactElement {
             </List.Item>
             <List.Item>Husk at du også kan ha rettigheter hos forsikringsselskapet eller pensjonskassen din.</List.Item>
           </List>
-        </BodyShort>
+        </div>
       </Box>
 
       <Accordion>

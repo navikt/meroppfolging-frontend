@@ -4,6 +4,7 @@ import { Alert, BodyShort, Heading } from '@navikt/ds-react'
 import InfoSection from '@/pilot/components/Receipt/InfoSection'
 import ContactUs from '@/pilot/components/Receipt/ContactUs'
 import MaxDateIngress from '@/components/SnartSluttPaSykepengene/MaxDateIngress'
+import { Flexjar } from '@/components/Flexjar/flexjar'
 
 import UsefulLinks from './UsefulLinks'
 
@@ -28,6 +29,11 @@ function Receipt({
       <InfoSection />
       <UsefulLinks />
       <ContactUs />
+
+      <Flexjar
+        feedbackId="meroppfolging-kvittering"
+        sporsmal="Føler du at denne siden har gitt deg nok informasjon om hva som skjer etter at sykepengene tar slutt?"
+      />
     </>
   )
 }
