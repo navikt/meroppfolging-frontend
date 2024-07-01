@@ -3,7 +3,6 @@ import { BodyShort, Heading } from '@navikt/ds-react'
 
 import SenOppfolgingForm from '@/pilot/components/SenOppfolging/SenOppfolgingForm'
 import MaxDateIngress from '@/components/SnartSluttPaSykepengene/MaxDateIngress'
-import { Flexjar } from '@/components/Flexjar/flexjar'
 
 function SenOppfolging(): ReactElement {
   return (
@@ -24,12 +23,6 @@ function SenOppfolging(): ReactElement {
       </BodyShort>
 
       <SenOppfolgingForm />
-
-      <Flexjar
-        feedbackId="meroppfolging-landing"
-        sporsmal="Var det lett å forstå spørsmålene, og passet svaralternativene for deg?"
-        oppfolgingsSporsmalNEI="Hva var det som ikke fungerte så bra?"
-      />
     </>
   )
 }

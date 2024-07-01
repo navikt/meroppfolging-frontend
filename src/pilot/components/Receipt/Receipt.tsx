@@ -32,8 +32,7 @@ function Receipt({
 
       <Flexjar
         feedbackId="meroppfolging-kvittering"
-        sporsmal="Er informasjonen på siden her enkel, forståelig, og nyttig for deg?"
-        oppfolgingsSporsmalNEI="Hva var det som ikke var bra?"
+        sporsmal="Føler du at denne siden har gitt deg nok informasjon om hva som skjer etter at sykepengene tar slutt?"
       />
     </>
   )

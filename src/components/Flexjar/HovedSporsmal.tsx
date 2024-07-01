@@ -15,7 +15,7 @@ interface Props {
 export const HovedSporsmal = ({ sporsmal, control, error, disabled }: Props): ReactElement => {
   return (
     <Controller
-      name="feedbackSvar"
+      name="svar"
       rules={{
         required: 'Du må svare på spørsmålet',
       }}

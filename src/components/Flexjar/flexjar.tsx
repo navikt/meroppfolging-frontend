@@ -10,26 +10,19 @@ import { HovedSporsmal } from '@/components/Flexjar/HovedSporsmal'
 import { HeadingSection } from '@/components/Flexjar/HeadingSection'
 import { TakkForTilbakemeldingen } from '@/components/Flexjar/TakkForTilbakemeldingen'
 
-export type FeedbackSvar = 'JA' | 'NEI' | 'FORBEDRING' | null
+export type SvarPaaHovedsporsmal = 'JA' | 'NEI' | 'FORBEDRING' | null
 
 export type FormValues = {
-  feedbackSvar: FeedbackSvar
-  beskrivelse: string | null
+  svar: SvarPaaHovedsporsmal
+  svarBeskrivelse: string | null
 }
 
 interface Props {
   feedbackId: string
   sporsmal: string
-  oppfolgingsSporsmalJA?: string
-  oppfolgingsSporsmalNEI?: string
 }
 
-export const Flexjar = ({
-  feedbackId,
-  sporsmal,
-  oppfolgingsSporsmalJA,
-  oppfolgingsSporsmalNEI,
-}: Props): ReactElement => {
+export const Flexjar = ({ feedbackId, sporsmal }: Props): ReactElement => {
   const {
     register,
     handleSubmit,
@@ -39,14 +32,14 @@ export const Flexjar = ({
   } = useForm<FormValues>()
   const sendFeedbackMutation = useOpprettFlexjarFeedback()
 
-  const feedbackSvar = watch('feedbackSvar')
+  const svar = watch('svar')
 
-  const getOppfolgingsSporsmalText = (feedbackSvar: FeedbackSvar): string => {
-    switch (feedbackSvar) {
+  const getOppfolgingsSporsmalText = (svar: SvarPaaHovedsporsmal): string => {
+    switch (svar) {
       case 'JA':
-        return oppfolgingsSporsmalJA ? oppfolgingsSporsmalJA : 'Er det noe du vil trekke frem? (valgfritt)'
+        return 'Er det noe du vil trekke frem? (valgfritt)'
       case 'NEI':
-        return oppfolgingsSporsmalNEI ? oppfolgingsSporsmalNEI : 'Hvilken informasjon leter du etter?'
+        return 'Hvilken informasjon leter du etter?'
       case 'FORBEDRING':
         return 'Hva kan forbedres?'
       default:
@@ -57,9 +50,9 @@ export const Flexjar = ({
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const feedbackData: OpprettFeedbackData = {
       sporsmal: sporsmal,
-      svar: data.feedbackSvar!,
-      oppfolgingssporsmal: getOppfolgingsSporsmalText(data.feedbackSvar!),
-      feedback: data.beskrivelse,
+      svar: data.svar!,
+      oppfolgingssporsmal: getOppfolgingsSporsmalText(data.svar!),
+      feedback: data.svarBeskrivelse,
       feedbackId: feedbackId,
     }
     sendFeedbackMutation.mutate(feedbackData)
@@ -76,20 +69,20 @@ export const Flexjar = ({
               <HovedSporsmal
                 sporsmal={sporsmal}
                 control={control}
-                error={errors.feedbackSvar?.message}
+                error={errors.svar?.message}
                 disabled={isSubmitSuccessful}
               />
 
-              {!isSubmitSuccessful && feedbackSvar && (
-                <div className="mt-6 w-full">
+              {!isSubmitSuccessful && svar && (
+                <div className="mt-6 w-full space-y-6">
                   <Textarea
-                    {...register('beskrivelse', {
+                    {...register('svarBeskrivelse', {
                       required:
-                        (feedbackSvar === 'FORBEDRING' || feedbackSvar === 'NEI') &&
+                        (svar === 'FORBEDRING' || svar === 'NEI') &&
                         'Tilbakemeldingen kan ikke være tom. Legg til tekst i feltet.',
                     })}
-                    label={getOppfolgingsSporsmalText(feedbackSvar)}
-                    error={errors.beskrivelse?.message}
+                    label={getOppfolgingsSporsmalText(svar)}
+                    error={errors.svarBeskrivelse?.message}
                     maxLength={600}
                     minRows={3}
                   />
