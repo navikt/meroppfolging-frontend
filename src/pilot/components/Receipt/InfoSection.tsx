@@ -1,36 +1,36 @@
-import { Accordion, BodyLong, Box, Heading, Link, List } from '@navikt/ds-react'
+import { Accordion, BodyLong, List } from '@navikt/ds-react'
 import { ReactElement } from 'react'
 
 function InfoSection(): ReactElement {
   return (
     <>
-      <Box>
-        <Heading size="medium" level="2" spacing>
-          Hvis du fortsatt er for syk til å jobbe
-        </Heading>
-        <div>
-          Hvis du ikke er frisk nok til å gå tilbake til jobb slik som før, kan det være riktig å søke om{' '}
-          <Link href="https://www.nav.no/aap" target="_blank" rel="noopener noreferrer">
-            arbeidsavklaringspenger (AAP)
-          </Link>
-          , eller en annen økonomisk støtte. Du må være forberedt på å gå ned i inntekt når sykepengene tar slutt, fordi
-          andre støtter fra NAV gir mindre enn sykepenger. .
-          <List as="ul">
-            <List.Item>
-              Husk at du selv må søke om AAP eller annen økonomisk støtte. Dette skjer ikke automatisk.
-            </List.Item>
-            <List.Item>
-              Husk å søke støtte i god tid før sykepengene tar slutt,{' '}
-              <b>behandlingstiden er beregnet til å være 15 uker.</b>
-            </List.Item>
-            <List.Item>Husk at du også kan ha rettigheter hos forsikringsselskapet eller pensjonskassen din.</List.Item>
-          </List>
-        </div>
-      </Box>
+      {/*<Box>*/}
+      {/*  <Heading size="medium" level="2" spacing>*/}
+      {/*    Hvis du fortsatt er for syk til å jobbe*/}
+      {/*  </Heading>*/}
+      {/*  <div>*/}
+      {/*    Hvis du ikke er frisk nok til å gå tilbake til jobb slik som før, kan det være riktig å søke om{' '}*/}
+      {/*    <Link href="https://www.nav.no/aap" target="_blank" rel="noopener noreferrer">*/}
+      {/*      arbeidsavklaringspenger (AAP)*/}
+      {/*    </Link>*/}
+      {/*    , eller en annen økonomisk støtte. Du må være forberedt på å gå ned i inntekt når sykepengene tar slutt, fordi*/}
+      {/*    andre støtter fra NAV gir mindre enn sykepenger. .*/}
+      {/*    <List as="ul">*/}
+      {/*      <List.Item>*/}
+      {/*        Husk at du selv må søke om AAP eller annen økonomisk støtte. Dette skjer ikke automatisk.*/}
+      {/*      </List.Item>*/}
+      {/*      <List.Item>*/}
+      {/*        Husk å søke støtte i god tid før sykepengene tar slutt,{' '}*/}
+      {/*        <b>behandlingstiden er beregnet til å være 15 uker.</b>*/}
+      {/*      </List.Item>*/}
+      {/*      <List.Item>Husk at du også kan ha rettigheter hos forsikringsselskapet eller pensjonskassen din.</List.Item>*/}
+      {/*    </List>*/}
+      {/*  </div>*/}
+      {/*</Box>*/}
 
       <Accordion>
         <Accordion.Item>
-          <Accordion.Header>Kan du gå tilbake til jobben din?</Accordion.Header>
+          <Accordion.Header>Hvis du trenger tilrettelegging for å stå i jobben du har</Accordion.Header>
           <Accordion.Content>
             <BodyLong size="medium">
               Arbeidsgiveren din skal, så langt det er mulig, tilpasse arbeidsplassen og oppgavene dine slik at du kan
@@ -47,7 +47,14 @@ function InfoSection(): ReactElement {
         </Accordion.Item>
 
         <Accordion.Item>
-          <Accordion.Header>Bør du bytte jobb?</Accordion.Header>
+          <Accordion.Header>Hvis du skal jobbe redusert</Accordion.Header>
+          <Accordion.Content>
+            <BodyLong size="medium">TODO</BodyLong>
+          </Accordion.Content>
+        </Accordion.Item>
+
+        <Accordion.Item>
+          <Accordion.Header>Hvis du skal bytte jobb</Accordion.Header>
           <Accordion.Content>
             <BodyLong size="medium">
               Av og til er det mulig å fungere bedre i en annen jobb enn den man ble sykmeldt fra.

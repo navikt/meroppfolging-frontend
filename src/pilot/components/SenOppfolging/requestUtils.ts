@@ -1,6 +1,6 @@
 import { FormInputs } from '@/pilot/components/SenOppfolging/SenOppfolgingForm'
 import { ANSWER_TEXTS, QUESTION_TEXTS, QuestionTypes } from '@/pilot/domain/formValues'
-import { FormRequest } from '@/server/services/schemas/formRequestSchema'
+import { FormRequest } from '@/pilot/server/services/schemas/formRequestSchema'
 
 type FormRecord<T extends QuestionTypes, U extends keyof (typeof ANSWER_TEXTS)[T]> = {
   questionType: T

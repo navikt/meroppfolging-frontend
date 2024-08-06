@@ -1,35 +1,39 @@
 import { ReactElement } from 'react'
-import { Alert, BodyShort, Heading } from '@navikt/ds-react'
 
-import InfoSection from '@/pilot/components/Receipt/InfoSection'
-import ContactUs from '@/pilot/components/Receipt/ContactUs'
-import MaxDateIngress from '@/components/SnartSluttPaSykepengene/MaxDateIngress'
+import UsefulLinks from '@/pilot/components/Receipt/UsefulLinks'
+import TilbakeGradertReceipt from '@/pilot/components/Receipt/contents/TilbakeGradertReceipt'
 import { Flexjar } from '@/components/Flexjar/flexjar'
+import { Form } from '@/pilot/server/services/schemas/formRequestSchema'
+import ReceiptIngress from '@/pilot/components/Receipt/ReceiptIngress'
 
-import UsefulLinks from './UsefulLinks'
+function Content({ formResponse }: { formResponse: Form }): ReactElement {
+  const fremtidigSituasjonAnswer = formResponse[0].answerType
 
-function Receipt({
-  responseStatus,
-}: {
-  responseStatus: 'TRENGER_OPPFOLGING' | 'TRENGER_IKKE_OPPFOLGING'
-}): ReactElement {
+  switch (fremtidigSituasjonAnswer) {
+    case 'BYTTE_JOBB':
+      return <>1</>
+    case 'FORTSATT_SYK':
+      return <>2</>
+    case 'TILBAKE_GRADERT':
+      return <>3</>
+    case 'TILBAKE_HOS_ARBEIDSGIVER':
+      return <TilbakeGradertReceipt />
+    case 'TILBAKE_MED_TILPASNINGER':
+      return <>5</>
+    case 'USIKKER':
+      return <>lol</>
+    default:
+      const exhaustiveCheck: never = fremtidigSituasjonAnswer
+      return exhaustiveCheck
+  }
+}
+
+function Receipt({ response }: { response: Form }): ReactElement {
   return (
     <>
-      <Heading size="large" level="1">
-        Trenger du hjelp fra oss?
-      </Heading>
-      <Alert variant="success">
-        <b>Takk, svarene dine er sendt til NAV</b>
-        {responseStatus === 'TRENGER_OPPFOLGING' && (
-          <BodyShort>En veileder vil ta kontakt med deg for å hjelpe deg videre</BodyShort>
-        )}
-      </Alert>
-
-      <MaxDateIngress />
-      <InfoSection />
+      <ReceiptIngress formResponse={response} />
+      <Content formResponse={response} />
       <UsefulLinks />
-      <ContactUs />
-
       <Flexjar
         feedbackId="meroppfolging-kvittering"
         sporsmal="Føler du at denne siden har gitt deg nok informasjon om hva som skjer etter at sykepengene tar slutt?"

@@ -8,6 +8,8 @@ import { BehovForOppfolgingAnswerTypes, FremtidigSituasjonAnswerTypes } from '@/
 import { createFormRequest } from '@/pilot/components/SenOppfolging/requestUtils'
 import { trpc } from '@/utils/trpc'
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
+import NeedForHelpInfoBox from '@/pilot/components/SenOppfolging/NeedForHelpInfoBox'
+import { getDaysBetweenDateAndToday } from '@/utils/utils'
 
 export type FormInputs = {
   FREMTIDIG_SITUASJON: FremtidigSituasjonAnswerTypes
@@ -28,20 +30,34 @@ function SenOppfolgingForm(): ReactElement {
     },
   })
 
+  const maxDate = trpc.maxDate.useQuery()
+  let fremtidigSituasjonLegend = 'I hvilken situasjon ser du for deg etter at sykepengene har tatt slutt?'
+  if (maxDate.isSuccess && maxDate.data.maxDate) {
+    fremtidigSituasjonLegend = `I hvilken situasjon ser du for deg at du står om ${getDaysBetweenDateAndToday(
+      new Date(maxDate.data.maxDate),
+    )} dager`
+  }
+
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
     setDisplayErrorMessage(false)
     const request = createFormRequest(data)
     mutation.mutate(request)
   }
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <VStack gap="8">
-          <NestedRadioGroup name="FREMTIDIG_SITUASJON" />
+          <NestedRadioGroup name="FREMTIDIG_SITUASJON" info={{ title: fremtidigSituasjonLegend }} />
           <NestedRadioGroup
             name="BEHOV_FOR_OPPFOLGING"
-            description="En veileder kan ta kontakt med deg for å hjelpe deg"
-          />
+            info={{
+              description:
+                'En veileder kan hjelpe deg på veien videre. Sammen kan dere kartlegge mulighetene dine, og vurdere hvilken hjelp og støtte du kan få fra NAV.',
+            }}
+          >
+            <NeedForHelpInfoBox />
+          </NestedRadioGroup>
           {displayErrorMessage && <ErrorMessage />}
         </VStack>
         <Button className="w-fit mt-6" loading={mutation.isLoading}>

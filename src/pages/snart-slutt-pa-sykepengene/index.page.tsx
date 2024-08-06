@@ -17,7 +17,7 @@ function SnartSlutt(): ReactElement {
       return <Landing />
     case 'success':
       if (status.data.isPilot) {
-        return <LandingPilot responseStatus={status.data.responseStatus} />
+        return <LandingPilot status={status.data} />
       }
       return <Landing />
     default:

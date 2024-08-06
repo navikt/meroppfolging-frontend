@@ -14,17 +14,17 @@ function UsefulLinks(): ReactElement {
             Har vært syk eller skadet lenge <ExternalLinkIcon title="external link" />
           </Link>
         </li>
-        <li>
+        <li className="mt-2">
           <Link href="https://www.nav.no/aap">
             Arbeidsavklaringspenger (AAP) <ExternalLinkIcon title="external link" />
           </Link>
         </li>
-        <li>
+        <li className="mt-2">
           <Link href="https://www.nav.no/arbeidsgiver/kompetansetiltak-sykmeldte">
             Kompetansetiltak for sykmeldte <ExternalLinkIcon title="external link" />
           </Link>
         </li>
-        <li>
+        <li className="mt-2">
           <Link href="https://www.nav.no/friskmelding-arbeidsformidling">
             Friskmelding til arbeidsformidling <ExternalLinkIcon title="external link" />
           </Link>
