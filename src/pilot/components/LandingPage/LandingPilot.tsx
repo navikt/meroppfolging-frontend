@@ -17,7 +17,7 @@ function LandingContent({ response }: { response: PilotStatus['response'] }): Re
 function LandingPilot({ status }: { status: PilotStatus }): ReactElement {
   return (
     <PageContainer className="bg-bg-subtle">
-      <VStack gap="8" className="max-w-4xl bg-bg-default px-4 py-8 md:p-12">
+      <VStack gap="6" className="max-w-4xl bg-bg-default px-4 py-8 md:p-12">
         <LandingContent response={status.response} />
       </VStack>
     </PageContainer>

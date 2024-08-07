@@ -1,39 +1,57 @@
 import { ReactElement } from 'react'
-import { Alert, BodyLong, Button, Heading, Link } from '@navikt/ds-react'
+import { Accordion, BodyShort, Heading, Link, VStack } from '@navikt/ds-react'
+
+import { TilbakeMedTilpasningerAccordianItem } from '@/pilot/components/Receipt/contents/TilbakeMedTilpasningerReceipt'
+import { BytteJobbAccordianItem } from '@/pilot/components/Receipt/contents/BytteJobbReceipt'
+import { FortsattSykAccordianItem } from '@/pilot/components/Receipt/contents/FortsattSykReceipt'
+
+function TilbakeGradertContent(): ReactElement {
+  return (
+    <>
+      <BodyShort>
+        Hvis du skal jobbe redusert fordi du har en sykdom eller skade, kan det hende at du har rett på{' '}
+        <Link href="https://www.nav.no/aap" target="_blank" rel="noopener noreferrer">
+          arbeidsavklaringspenger (AAP)
+        </Link>
+        , eller en annen økonomisk støtte.
+      </BodyShort>
+
+      <BodyShort>
+        Les mer om{' '}
+        <Link href=" https://www.nav.no/jobbe-noe#pengestotte" target="_blank" rel="noopener noreferrer">
+          aktuelle pengestøtter
+        </Link>
+        .
+      </BodyShort>
+    </>
+  )
+}
+
+export function TilbakeGradertAccordianItem(): ReactElement {
+  return (
+    <Accordion.Item>
+      <Accordion.Header>Hvis du skal jobbe redusert</Accordion.Header>
+      <Accordion.Content>
+        <VStack gap="6">
+          <TilbakeGradertContent />
+        </VStack>
+      </Accordion.Content>
+    </Accordion.Item>
+  )
+}
 
 function TilbakeGradertReceipt(): ReactElement {
   return (
     <>
-      <BodyLong>
-        Hvis du ikke er frisk nok til å gå tilbake til jobb slik som før, kan det være riktig å søke om{' '}
-        <Link href="https://www.nav.no/aap" target="_blank" rel="noopener noreferrer">
-          arbeidsavklaringspenger (AAP)
-        </Link>
-        , eller en annen økonomisk støtte
-      </BodyLong>
-      <BodyLong>
-        <b>Du må selv søke om AAP eller annen økonomisk støtte.</b> Dette skjer ikke automatisk.
-      </BodyLong>
-      <BodyLong>
-        Du må være forberedt på å gå ned i inntekt når sykepengene tar slutt, fordi andre økonomiske støtter kun
-        erstatter en del av inntektstapet ditt. Husk at du også kan ha rettigheter hos forsikringsselskapet eller
-        pensjonskassen din.
-      </BodyLong>
-      <BodyLong>
-        Veileder kan hjelpe deg med å finne ut hvilken økonomisk støtte som kan være aktuelt for deg, og med
-        søkeprosessen.
-      </BodyLong>
-
-      <Alert variant="info">
-        <Heading size="xsmall" level="3">
-          Saksbehandlingstiden på AAP-søknader er beregnet til 15 uker.
-        </Heading>
-        Søk tidlig nok slik at du sikrer at du har inntekt etter at sykepengene tar slutt.
-      </Alert>
-
-      <Link href="www.vg.no">
-        <Button className="w-fit">Gå til søknaden om AAP</Button>
-      </Link>
+      <Heading size="medium" level="2">
+        Når du skal jobbe i redusert stillingsprosent
+      </Heading>
+      <TilbakeGradertContent />
+      <Accordion>
+        <TilbakeMedTilpasningerAccordianItem />
+        <BytteJobbAccordianItem />
+        <FortsattSykAccordianItem />
+      </Accordion>
     </>
   )
 }

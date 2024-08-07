@@ -11,7 +11,6 @@ function NeedForHelpInfoBox(): ReactElement {
   const behovForOppfolgingValue = useWatch<Pick<FormInputs, 'BEHOV_FOR_OPPFOLGING'>>({
     name: 'BEHOV_FOR_OPPFOLGING',
   })
-  console.log(fremtidigSituasjonValue, behovForOppfolgingValue)
 
   if (
     behovForOppfolgingValue !== 'NEI' ||

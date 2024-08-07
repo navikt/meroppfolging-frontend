@@ -1,14 +1,24 @@
 import { ReactElement } from 'react'
+import { Accordion, Heading } from '@navikt/ds-react'
+
+import { FortsattSykContent } from '@/pilot/components/Receipt/contents/FortsattSykReceipt'
+import { TilbakeMedTilpasningerAccordianItem } from '@/pilot/components/Receipt/contents/TilbakeMedTilpasningerReceipt'
+import { TilbakeGradertAccordianItem } from '@/pilot/components/Receipt/contents/TilbakeGradertReceipt'
+import { BytteJobbAccordianItem } from '@/pilot/components/Receipt/contents/BytteJobbReceipt'
 
 function UsikkerReceipt(): ReactElement {
   return (
-    <div>
-      <h1>Usikker kvittering</h1>
-      <p>
-        Vi har mottatt din forespørsel om å endre en reservasjon. Vi vil kontakte deg så snart vi har sjekket at
-        endringen er mulig.
-      </p>
-    </div>
+    <>
+      <Heading size="medium" level="2">
+        Hvis du fortsatt er for syk til å jobbe
+      </Heading>
+      <FortsattSykContent />
+      <Accordion>
+        <TilbakeMedTilpasningerAccordianItem />
+        <TilbakeGradertAccordianItem />
+        <BytteJobbAccordianItem />
+      </Accordion>
+    </>
   )
 }
 

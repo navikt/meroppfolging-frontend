@@ -31,12 +31,12 @@ function SenOppfolgingForm(): ReactElement {
   })
 
   const maxDate = trpc.maxDate.useQuery()
-  let fremtidigSituasjonLegend = 'I hvilken situasjon ser du for deg etter at sykepengene har tatt slutt?'
-  if (maxDate.isSuccess && maxDate.data.maxDate) {
-    fremtidigSituasjonLegend = `I hvilken situasjon ser du for deg at du står om ${getDaysBetweenDateAndToday(
-      new Date(maxDate.data.maxDate),
-    )} dager`
-  }
+  const fremtidigSituasjonLegend =
+    maxDate.isSuccess && maxDate.data.maxDate
+      ? `I hvilken situasjon ser du for deg at du står om ${getDaysBetweenDateAndToday(
+          new Date(maxDate.data.maxDate),
+        )} dager?`
+      : 'I hvilken situasjon ser du for deg etter at sykepengene har tatt slutt?'
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
     setDisplayErrorMessage(false)

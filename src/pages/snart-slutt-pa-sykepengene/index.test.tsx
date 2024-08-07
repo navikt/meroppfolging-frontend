@@ -11,7 +11,7 @@ describe('SnartSlutt', () => {
   it('should display pilot variation', async () => {
     render(<SnartSlutt />)
 
-    expect(await screen.findByRole('heading', { name: 'Trenger du hjelp fra oss?', level: 1 })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: 'Vil du ha hjelp fra oss?', level: 1 })).toBeInTheDocument()
   })
 
   it('should display normal variation', async () => {
