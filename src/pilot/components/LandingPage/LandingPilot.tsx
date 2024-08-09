@@ -7,7 +7,7 @@ import Receipt from '@/pilot/components/Receipt/Receipt'
 import { PilotStatus } from '@/server/services/schemas/statusSchema'
 
 function LandingContent({ response }: { response: PilotStatus['response'] }): ReactElement {
-  if (response.length === 0) {
+  if (response === null) {
     return <SenOppfolging />
   } else {
     return <Receipt response={response} />

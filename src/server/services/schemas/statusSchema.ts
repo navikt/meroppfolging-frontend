@@ -4,7 +4,7 @@ import { FormSchema } from '@/pilot/server/services/schemas/formRequestSchema'
 
 export const ResponseStatusPilotSchema = z.enum(['NO_RESPONSE', 'TRENGER_OPPFOLGING', 'TRENGER_IKKE_OPPFOLGING'])
 
-export const ResponseFormSchema = z.union([FormSchema, z.tuple([])])
+export const ResponseFormSchema = z.union([FormSchema, z.literal(null)])
 
 export const PilotStatusSchema = z.object({
   isPilot: z.literal(true),

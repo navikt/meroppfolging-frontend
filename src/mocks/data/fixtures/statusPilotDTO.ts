@@ -3,7 +3,7 @@ import { ResponseStatus } from '@/server/services/schemas/meroppfolgingSchema'
 
 export const pilotStatusDTO: StatusPilotDTO = {
   isPilot: true,
-  response: [],
+  response: null,
 }
 
 export const notPilotStatusDTO: StatusPilotDTO = {
