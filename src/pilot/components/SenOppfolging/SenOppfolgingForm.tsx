@@ -8,6 +8,7 @@ import { BehovForOppfolgingAnswerTypes, FremtidigSituasjonAnswerTypes } from '@/
 import { createFormRequest } from '@/pilot/components/SenOppfolging/requestUtils'
 import { trpc } from '@/utils/trpc'
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
+import NeedForHelpInfoBox from '@/pilot/components/SenOppfolging/NeedForHelpInfoBox'
 
 export type FormInputs = {
   FREMTIDIG_SITUASJON: FremtidigSituasjonAnswerTypes
@@ -33,6 +34,7 @@ function SenOppfolgingForm(): ReactElement {
     const request = createFormRequest(data)
     mutation.mutate(request)
   }
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -40,8 +42,10 @@ function SenOppfolgingForm(): ReactElement {
           <NestedRadioGroup name="FREMTIDIG_SITUASJON" />
           <NestedRadioGroup
             name="BEHOV_FOR_OPPFOLGING"
-            description="En veileder kan ta kontakt med deg for å hjelpe deg"
-          />
+            description="En veileder kan hjelpe deg på veien videre. Sammen kan dere kartlegge mulighetene dine, og vurdere hvilken hjelp og støtte du kan få fra NAV."
+          >
+            <NeedForHelpInfoBox />
+          </NestedRadioGroup>
           {displayErrorMessage && <ErrorMessage />}
         </VStack>
         <Button className="w-fit mt-6" loading={mutation.isLoading}>

@@ -19,18 +19,18 @@ describe('SenOppfolgingForm', () => {
     const { user } = render(<SenOppfolgingForm />)
 
     const radioGroup1 = within(
-      screen.getByRole('group', {
-        name: 'I hvilken situasjon ser du for deg at du står i når sykepengene har tatt slutt?',
+      await screen.findByRole('group', {
+        name: 'Hvilken situasjon tror du at du er i når sykepengene har tatt slutt?',
       }),
     )
-    await user.click(radioGroup1.getByLabelText('Jeg er tilbake i jobb, men skal jobbe gradert'))
+    await user.click(radioGroup1.getByLabelText('Jeg er for syk til å jobbe'))
 
     const radioGroup2 = within(
       screen.getByRole('group', {
-        name: 'Har du behov for hjelp fra oss i NAV?',
+        name: 'Ønsker du å snakke med en veileder?',
       }),
     )
-    await user.click(radioGroup2.getByLabelText('Ja, jeg vil snakke med en veileder i NAV'))
+    await user.click(radioGroup2.getByLabelText('Ja, jeg vil bli kontaktet'))
 
     await user.click(screen.getByRole('button', { name: 'Send svarene' }))
 
@@ -38,15 +38,15 @@ describe('SenOppfolgingForm', () => {
       expect(requestResolver).toBeCalledWith({
         senOppfolgingFormV2: [
           {
-            answerText: 'Jeg er tilbake i jobb, men skal jobbe gradert',
-            answerType: 'TILBAKE_GRADERT',
-            questionText: 'I hvilken situasjon ser du for deg at du står i når sykepengene har tatt slutt?',
+            answerText: 'Jeg er for syk til å jobbe',
+            answerType: 'FORTSATT_SYK',
+            questionText: 'Hvilken situasjon tror du at du er i når sykepengene har tatt slutt?',
             questionType: 'FREMTIDIG_SITUASJON',
           },
           {
-            answerText: 'Ja, jeg vil snakke med en veileder i NAV',
+            answerText: 'Ja, jeg vil bli kontaktet',
             answerType: 'JA',
-            questionText: 'Har du behov for hjelp fra oss i NAV?',
+            questionText: 'Ønsker du å snakke med en veileder?',
             questionType: 'BEHOV_FOR_OPPFOLGING',
           },
         ],

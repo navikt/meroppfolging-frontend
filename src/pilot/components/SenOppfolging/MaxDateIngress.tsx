@@ -1,24 +1,26 @@
-import { Alert, BodyLong, Box, Heading, Skeleton } from '@navikt/ds-react'
+import { Alert, BodyLong, BodyShort, Box, Heading, Skeleton } from '@navikt/ds-react'
 import { ReactElement } from 'react'
 import Link from 'next/link'
 import { logger } from '@navikt/next-logger'
+import { isValid } from 'date-fns'
 
-import { useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
 import { trpc } from '@/utils/trpc'
-import { getLongDateFormat } from '@/utils/dateUtils'
+import { getDaysBetweenDateAndToday, getLongDateFormat } from '@/utils/dateUtils'
+
+function Paragraph(): ReactElement {
+  return (
+    <BodyShort>
+      Svar på disse spørsmålene så vi vet hvordan vi kan hjelpe deg med{' '}
+      <b>å sikre at du har en inntekt etter at sykepengene tar slutt.</b>
+    </BodyShort>
+  )
+}
 
 function MaxDateErrorMessage({ reason }: { reason: string }): ReactElement {
-  useLogAmplitudeEvent(
-    {
-      eventName: 'alert vist',
-      data: { variant: 'error', tekst: 'Beklager, teknisk feil med maks dato' },
-    },
-    { grunn: reason },
-  )
   logger.error(`Client: could not fetch max date. Reason: ${reason}`)
 
   return (
-    <Alert variant="error" className="mb-8">
+    <Alert variant="error">
       <Heading size="medium" spacing level="1">
         Beklager, teknisk feil
       </Heading>
@@ -47,22 +49,32 @@ function MaxDateIngress(): ReactElement {
         </Box>
       )
     case 'success':
-      if (maxDate.data.maxDate && maxDate.data.utbetaltTom) {
+      if (!maxDate.data.maxDate) {
         return (
-          <BodyLong size="medium">
-            Per {getLongDateFormat(maxDate.data.utbetaltTom)} er din siste dag med sykepenger beregnet til å være{' '}
-            <b>{getLongDateFormat(maxDate.data.maxDate)}</b>.
-          </BodyLong>
-        )
-      } else {
-        return (
-          <MaxDateErrorMessage
-            reason={`Missing: ${maxDate.data.maxDate ? '' : 'maks dato'} ${
-              maxDate.data.utbetaltTom ? '' : 'utbetalt Tom'
-            }`}
-          />
+          <>
+            <MaxDateErrorMessage reason="Missing max date" />
+            <Paragraph />
+          </>
         )
       }
+      if (!isValid(new Date(maxDate.data.maxDate))) {
+        return (
+          <>
+            <MaxDateErrorMessage reason="Invalid date format" />
+            <Paragraph />
+          </>
+        )
+      }
+
+      return (
+        <>
+          <BodyLong size="medium">
+            {getLongDateFormat(maxDate.data.maxDate)} er den siste dagen du har rett på sykepenger.{' '}
+            <b>Det betyr at du har {getDaysBetweenDateAndToday(maxDate.data.maxDate)} dager med sykepenger igjen.</b>
+          </BodyLong>
+          <Paragraph />
+        </>
+      )
 
     default:
       const exhaustiveCheck: never = maxDate

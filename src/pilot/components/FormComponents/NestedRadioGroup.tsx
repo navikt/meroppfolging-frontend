@@ -1,5 +1,6 @@
 import { Radio, RadioGroup } from '@navikt/ds-react'
 import { useController } from 'react-hook-form'
+import { ReactElement } from 'react'
 
 import { ANSWER_TEXTS, QUESTION_TEXTS, QuestionTypes } from '@/pilot/domain/formValues'
 
@@ -17,7 +18,15 @@ function RadioAlternatives(name: QuestionTypes): React.ReactElement[] {
   return RadioAlternatives
 }
 
-function NestedRadioGroup({ name, description }: { name: QuestionTypes; description?: string }): React.ReactElement {
+function NestedRadioGroup({
+  name,
+  description,
+  children,
+}: {
+  name: QuestionTypes
+  description?: string
+  children?: ReactElement
+}): React.ReactElement {
   const { field, fieldState } = useController({
     name,
     rules: { required: 'Du må velge et alternativ' },
@@ -29,6 +38,7 @@ function NestedRadioGroup({ name, description }: { name: QuestionTypes; descript
   return (
     <RadioGroup {...field} legend={legend} description={description} error={fieldState.error?.message}>
       {RadioAlternatives(name)}
+      {children}
     </RadioGroup>
   )
 }
