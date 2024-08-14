@@ -1,10 +1,8 @@
 import { Button, Modal, Radio, RadioGroup, Tooltip } from '@navikt/ds-react'
 import React, { ReactElement, useEffect, useState } from 'react'
-import Image from 'next/image'
+import { SunIcon } from '@navikt/aksel-icons'
 
 import { getStoredPilotStatus, initializePilot, PilotStatus, storePilotStatus } from '@/mocks/testScenarioUtils'
-
-import SunImage from '../../../public/sun.svg'
 
 import styles from './testscenarioselector.module.css'
 
@@ -62,7 +60,7 @@ export const TestScenarioSelector = (): ReactElement => {
       </Modal>
 
       <div id="TestScenarioSelector" onClick={() => setOpen(!open)} className={styles.testscenariocontainer}>
-        <Image src={SunImage} alt="" width={40} height={40} />
+        <SunIcon title="a11y-title" fontSize="1.5rem" width={40} height={40} />
       </div>
     </>
   )
