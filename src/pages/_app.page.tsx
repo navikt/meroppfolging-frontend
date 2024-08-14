@@ -1,6 +1,6 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
-import { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { configureLogger } from '@navikt/next-logger'
@@ -12,6 +12,8 @@ import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
 import { BASE_PATH } from '@/constants/paths'
 import { initFaro } from '@/libs/faro/faro'
 import { ToggleProvider } from '@/contexts/toggleContext'
+import { TestScenarioSelector } from '@/components/TestscenarioSelector/TestScenarioSelector'
+import { isLocalOrDemo } from '@/constants/envs'
 
 if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
   // eslint-disable-next-line no-console
@@ -39,6 +41,7 @@ function App({ Component, pageProps }: AppProps): ReactElement {
         <ToggleProvider>
           <main tabIndex={-1} id="maincontent">
             <Component {...pageProps} />
+            {isLocalOrDemo && <TestScenarioSelector />}
           </main>
         </ToggleProvider>
         <ReactQueryDevtools initialIsOpen={false} />

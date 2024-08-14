@@ -39,7 +39,7 @@ function FormCancelLink(): React.ReactElement {
                 data: { skjemanavn: FORM_NAME, steg: currentForm || 'ukjent' },
               })
               ref.current?.close()
-              push(SSPS_URL)
+              push('/snart-slutt-pa-sykepengene')
             }}
           >
             Ja, avbryt
