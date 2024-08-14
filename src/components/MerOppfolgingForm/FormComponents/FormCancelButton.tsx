@@ -2,7 +2,6 @@ import { BodyLong, Button, Modal } from '@navikt/ds-react'
 import { useRef } from 'react'
 import { useRouter } from 'next/router'
 
-import { SSPS_URL } from '@/constants/paths'
 import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
 import useCurrentForm from '@/hooks/useCurrentForm'
 import { FORM_NAME } from '@/domain/formPages'

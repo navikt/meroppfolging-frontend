@@ -1,4 +1,4 @@
-import { Button, Modal, Radio, RadioGroup } from '@navikt/ds-react'
+import { Button, Modal, Radio, RadioGroup, Tooltip } from '@navikt/ds-react'
 import React, { ReactElement, useEffect, useState } from 'react'
 import Image from 'next/image'
 
@@ -42,16 +42,18 @@ export const TestScenarioSelector = (): ReactElement => {
           </div>
 
           <div>
-            <Button
-              id="VelgScenarioButton"
-              variant="primary"
-              onClick={() => {
-                storePilotStatus(pilotStatus)
-                window.location.reload()
-              }}
-            >
-              Velg scenario
-            </Button>
+            <Tooltip content="Lagrede svar blir slettet hver gang du velger på nytt, og når du lukker nettleseren.">
+              <Button
+                id="VelgScenarioButton"
+                variant="primary"
+                onClick={() => {
+                  storePilotStatus(pilotStatus)
+                  window.location.reload()
+                }}
+              >
+                Velg
+              </Button>
+            </Tooltip>
             <Button variant="tertiary" onClick={() => setOpen(false)}>
               Avbryt
             </Button>
