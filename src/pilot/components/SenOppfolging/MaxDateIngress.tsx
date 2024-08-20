@@ -5,7 +5,7 @@ import { logger } from '@navikt/next-logger'
 import { isValid } from 'date-fns'
 
 import { trpc } from '@/utils/trpc'
-import { getDaysBetweenDateAndToday, getLongDateFormat } from '@/utils/dateUtils'
+import { getLongDateFormat } from '@/utils/dateUtils'
 
 function Paragraph(): ReactElement {
   return (
@@ -49,10 +49,10 @@ function MaxDateIngress(): ReactElement {
         </Box>
       )
     case 'success':
-      if (!maxDate.data.maxDate) {
+      if (!maxDate.data.maxDate || !maxDate.data.gjenstaendeSykedager) {
         return (
           <>
-            <MaxDateErrorMessage reason="Missing max date" />
+            <MaxDateErrorMessage reason="Missing max date or gjenstaendeSykedager" />
             <Paragraph />
           </>
         )
@@ -70,7 +70,7 @@ function MaxDateIngress(): ReactElement {
         <>
           <BodyLong size="medium">
             {getLongDateFormat(maxDate.data.maxDate)} er den siste dagen du har rett på sykepenger.{' '}
-            <b>Det betyr at du har {getDaysBetweenDateAndToday(maxDate.data.maxDate)} dager med sykepenger igjen.</b>
+            <b>Det betyr at du har {maxDate.data.gjenstaendeSykedager} dager med sykepenger igjen.</b>
           </BodyLong>
           <Paragraph />
         </>

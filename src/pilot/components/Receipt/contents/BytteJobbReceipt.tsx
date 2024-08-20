@@ -6,15 +6,15 @@ import { trpc } from '@/utils/trpc'
 import { FortsattSykAccordionItem } from '@/pilot/components/Receipt/contents/FortsattSykReceipt'
 import { TilbakeMedTilpasningerAccordionItem } from '@/pilot/components/Receipt/contents/TilbakeMedTilpasningerReceipt'
 import { TilbakeGradertAccordionItem } from '@/pilot/components/Receipt/contents/TilbakeGradertReceipt'
-import { getDaysBetweenDateAndToday, getLongDateFormat } from '@/utils/dateUtils'
+import { getLongDateFormat } from '@/utils/dateUtils'
 
 function BytteJobbContent(): ReactElement {
   const maxDate = trpc.maxDate.useQuery()
   const remaingDaysText =
-    maxDate.isSuccess && maxDate.data.maxDate
-      ? `Per ${getLongDateFormat(new Date().toString())} har du ${getDaysBetweenDateAndToday(
-          maxDate.data.maxDate,
-        )} dager med sykepenger igjen.`
+    maxDate.isSuccess && maxDate.data.maxDate && maxDate.data.gjenstaendeSykedager
+      ? `Per ${getLongDateFormat(new Date().toString())} har du ${
+          maxDate.data.gjenstaendeSykedager
+        } dager med sykepenger igjen.`
       : 'Det nærmer seg slutten på sykepengene dine.'
 
   return (
