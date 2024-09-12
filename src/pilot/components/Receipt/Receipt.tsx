@@ -1,16 +1,17 @@
 import { ReactElement } from 'react'
+import { Button, RadioGroup } from '@navikt/ds-react'
 
 import UsefulLinks from '@/pilot/components/Receipt/UsefulLinks'
 import TilbakeGradertReceipt from '@/pilot/components/Receipt/contents/TilbakeGradertReceipt'
 import { Flexjar } from '@/components/Flexjar/flexjar'
-import { Form } from '@/pilot/server/services/schemas/formRequestSchema'
-import ReceiptIngress from '@/pilot/components/Receipt/ReceiptIngress'
 import FortsattSykReceipt from '@/pilot/components/Receipt/contents/FortsattSykReceipt'
 import BytteJobbReceipt from '@/pilot/components/Receipt/contents/BytteJobbReceipt'
 import TilbakeMedTilpasningerReceipt from '@/pilot/components/Receipt/contents/TilbakeMedTilpasningerReceipt'
 import UsikkerReceipt from '@/pilot/components/Receipt/contents/UsikkerReceipt'
 import TilbakeHosArbeidsgiverReceipt from '@/pilot/components/Receipt/contents/TilbakeHosArbeidsgiverReceipt'
-import SituationChange from '@/pilot/components/Receipt/SituationChange'
+import { FremtidigSituasjonAnswerTypes } from '@/pilot/domain/answerValues'
+import { QUESTION_TEXTS } from '@/pilot/domain/formValues'
+import { RadioAlternatives } from '@/pilot/components/LandingPage/LandingPilot'
 
 function Content({
   fremtidigSituasjonAnswer,
@@ -42,18 +43,23 @@ function Content({
   }
 }
 
-function Receipt({ response }: { response: Form }): ReactElement {
-  const fremtidigSituasjonAnswer = response[0].answerType
-  const behovForOppfolgingAnswer = response[1].answerType
-
+function Receipt({ next }: { next: FremtidigSituasjonAnswerTypes }): ReactElement {
   return (
     <>
-      <ReceiptIngress behovForOppfolgingAnswer={behovForOppfolgingAnswer} />
-      <Content fremtidigSituasjonAnswer={fremtidigSituasjonAnswer} />
-      <SituationChange behovForOppfolgingAnswer={behovForOppfolgingAnswer} />
+      <Content fremtidigSituasjonAnswer={next} />
+
+      <RadioGroup
+        legend={QUESTION_TEXTS['BEHOV_FOR_OPPFOLGING']}
+        description="En veileder kan hjelpe deg på veien videre. Sammen kan dere kartlegge mulighetene dine, og vurdere hvilken hjelp og støtte du kan få fra NAV."
+      >
+        {RadioAlternatives('BEHOV_FOR_OPPFOLGING')}
+      </RadioGroup>
+
+      <Button className="w-fit">Send svarene</Button>
+
       <UsefulLinks />
       <Flexjar
-        feedbackId={`meroppfolging-kvittering-${fremtidigSituasjonAnswer}`}
+        feedbackId={`meroppfolging-kvittering-${next}`}
         sporsmal="Føler du at denne siden har gitt deg nok informasjon om hva som skjer etter at sykepengene tar slutt?"
       />
     </>
