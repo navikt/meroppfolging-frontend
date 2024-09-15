@@ -5,14 +5,15 @@ import { TilbakeGradertAccordionItem } from '@/pilot/components/Receipt/contents
 import { BytteJobbAccordionItem } from '@/pilot/components/Receipt/contents/BytteJobbReceipt'
 import { FortsattSykAccordionItem } from '@/pilot/components/Receipt/contents/FortsattSykReceipt'
 
-function TilbakeMedTilpasningerContent(): ReactElement {
+export function TilbakeMedTilpasningerContent(): ReactElement {
   return (
     <>
-      <BodyShort>
+      <BodyShort spacing>
         Arbeidsgiveren din skal, så langt det er mulig, tilpasse arbeidsplassen og oppgavene dine slik at du kan jobbe.
       </BodyShort>
-      <BodyShort>Det er ditt ansvar å bidra til å finne løsninger slik at du kan jobbe.</BodyShort>
-      <BodyShort>
+
+      <BodyShort spacing>Det er ditt ansvar å bidra til å finne løsninger slik at du kan jobbe.</BodyShort>
+      <BodyShort spacing>
         <b>Snakk med lederen din om hvilke muligheter som finnes.</b>
       </BodyShort>
     </>

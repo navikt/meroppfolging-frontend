@@ -1,27 +1,28 @@
 import { ReactElement } from 'react'
 import { Accordion, BodyShort, Heading, Link, VStack } from '@navikt/ds-react'
+import { ExternalLinkIcon } from '@navikt/aksel-icons'
 
 import { TilbakeMedTilpasningerAccordionItem } from '@/pilot/components/Receipt/contents/TilbakeMedTilpasningerReceipt'
 import { BytteJobbAccordionItem } from '@/pilot/components/Receipt/contents/BytteJobbReceipt'
 import { FortsattSykAccordionItem } from '@/pilot/components/Receipt/contents/FortsattSykReceipt'
 
-function TilbakeGradertContent(): ReactElement {
+export function TilbakeGradertContent(): ReactElement {
   return (
     <>
-      <BodyShort>
+      <BodyShort spacing>
         Hvis du skal jobbe redusert fordi du har en sykdom eller skade, kan det hende at du har rett på{' '}
         <Link href="https://www.nav.no/aap" target="_blank" rel="noopener noreferrer">
-          arbeidsavklaringspenger (AAP)
-        </Link>
-        , eller en annen økonomisk støtte.
+          arbeidsavklaringspenger (AAP) <ExternalLinkIcon />
+        </Link>{' '}
+        (åpner i ny fane), eller en annen økonomisk støtte.
       </BodyShort>
 
-      <BodyShort>
+      <BodyShort spacing>
         Les mer om{' '}
         <Link href=" https://www.nav.no/jobbe-noe#pengestotte" target="_blank" rel="noopener noreferrer">
-          aktuelle pengestøtter
-        </Link>
-        .
+          aktuelle pengestøtter <ExternalLinkIcon />
+        </Link>{' '}
+        (åpner i ny fane).
       </BodyShort>
 
       <BodyShort>

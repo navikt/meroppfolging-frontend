@@ -13,7 +13,7 @@ export function FortsattSykContent(): ReactElement {
         <Link href="https://www.nav.no/aap" target="_blank" rel="noopener noreferrer">
           arbeidsavklaringspenger (AAP)
         </Link>
-        , eller en annen økonomisk støtte
+        , eller en annen økonomisk støtte.
       </BodyLong>
       <BodyLong>
         <b>Du må selv søke om AAP eller annen økonomisk støtte.</b> Dette skjer ikke automatisk.

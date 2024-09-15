@@ -1,14 +1,15 @@
 import { ReactElement } from 'react'
 import { Accordion, BodyShort, Heading, Link, List, VStack } from '@navikt/ds-react'
 import NextLink from 'next/link'
+import { ExternalLinkIcon } from '@navikt/aksel-icons'
 
 import { trpc } from '@/utils/trpc'
+import { getLongDateFormat } from '@/utils/dateUtils'
 import { FortsattSykAccordionItem } from '@/pilot/components/Receipt/contents/FortsattSykReceipt'
 import { TilbakeMedTilpasningerAccordionItem } from '@/pilot/components/Receipt/contents/TilbakeMedTilpasningerReceipt'
 import { TilbakeGradertAccordionItem } from '@/pilot/components/Receipt/contents/TilbakeGradertReceipt'
-import { getLongDateFormat } from '@/utils/dateUtils'
 
-function BytteJobbContent(): ReactElement {
+export function BytteJobbContent(): ReactElement {
   const maxDate = trpc.maxDate.useQuery()
   const remaingDaysText =
     maxDate.isSuccess && maxDate.data.maxDate && maxDate.data.gjenstaendeSykedager
@@ -26,16 +27,16 @@ function BytteJobbContent(): ReactElement {
           Er det andre forhold hos arbeidsgiveren din som gjør det vanskelig for deg å fungere i jobben?
         </List.Item>
       </List>
-      <BodyShort>
+      <BodyShort spacing>
         {`${remaingDaysText} `}
         <b>Det er derfor lurt å tenke på jobbytte allerede nå.</b> Veilederen kan hjelpe deg med dette.
       </BodyShort>
       <BodyShort>
         Du kan finne alle utlyste stillinger i landet på{' '}
-        <Link as={NextLink} href="https://arbeidsplassen.nav.no">
-          arbeidsplassen.nav.no
-        </Link>
-        .
+        <Link as={NextLink} href="https://arbeidsplassen.nav.no" target="_blank">
+          arbeidsplassen.nav.no <ExternalLinkIcon />
+        </Link>{' '}
+        (åpner i ny fane) .
       </BodyShort>
     </>
   )
