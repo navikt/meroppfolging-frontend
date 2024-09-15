@@ -11,17 +11,12 @@ import TilbakeMedTilpasningerReceipt from '@/pilot/components/Receipt/contents/T
 import UsikkerReceipt from '@/pilot/components/Receipt/contents/UsikkerReceipt'
 import TilbakeHosArbeidsgiverReceipt from '@/pilot/components/Receipt/contents/TilbakeHosArbeidsgiverReceipt'
 import SituationChange from '@/pilot/components/Receipt/SituationChange'
+import { FremtidigSituasjonAnswerTypes } from '@/pilot/domain/answerValues'
 
 function Content({
   fremtidigSituasjonAnswer,
 }: {
-  fremtidigSituasjonAnswer:
-    | 'BYTTE_JOBB'
-    | 'FORTSATT_SYK'
-    | 'TILBAKE_GRADERT'
-    | 'TILBAKE_HOS_ARBEIDSGIVER'
-    | 'TILBAKE_MED_TILPASNINGER'
-    | 'USIKKER'
+  fremtidigSituasjonAnswer: FremtidigSituasjonAnswerTypes
 }): ReactElement {
   switch (fremtidigSituasjonAnswer) {
     case 'BYTTE_JOBB':
