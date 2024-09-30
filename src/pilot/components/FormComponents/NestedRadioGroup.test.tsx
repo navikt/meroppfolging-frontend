@@ -5,18 +5,18 @@ import NestedRadioGroup from '@/pilot/components/FormComponents/NestedRadioGroup
 
 describe('NestedRadioGroup', () => {
   it('should render', async () => {
-    render(<NestedRadioGroup name="BEHOV_FOR_OPPFOLGING" description="Test description" />)
+    render(<NestedRadioGroup name="BEHOV_FOR_OPPFOLGING" description={<div>Test description</div>} />)
 
     expect(screen.getByRole('group', { name: 'Ønsker du å snakke med en veileder?' })).toBeInTheDocument()
     expect(screen.getByText('Test description')).toBeInTheDocument()
     expect(
       screen.getByRole('radio', {
-        name: 'Ja, jeg vil bli kontaktet',
+        name: 'Ja, jeg vil bli kontaktet av en veileder',
       }),
     ).toBeInTheDocument()
     expect(
       screen.getByRole('radio', {
-        name: 'Nei, jeg klarer meg selv',
+        name: 'Nei, jeg trenger ikke å bli kontaktet nå',
       }),
     ).toBeInTheDocument()
   })

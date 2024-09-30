@@ -24,7 +24,7 @@ function NestedRadioGroup({
   children,
 }: {
   name: QuestionTypes
-  description?: string
+  description?: ReactElement
   children?: ReactElement
 }): React.ReactElement {
   const { field, fieldState } = useController({
