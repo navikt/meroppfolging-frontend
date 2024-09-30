@@ -30,7 +30,7 @@ describe('SenOppfolgingForm', () => {
         name: 'Ønsker du å snakke med en veileder?',
       }),
     )
-    await user.click(radioGroup2.getByLabelText('Ja, jeg vil bli kontaktet'))
+    await user.click(radioGroup2.getByLabelText('Ja, jeg vil bli kontaktet av en veileder'))
 
     await user.click(screen.getByRole('button', { name: 'Send svarene' }))
 
@@ -44,7 +44,7 @@ describe('SenOppfolgingForm', () => {
             questionType: 'FREMTIDIG_SITUASJON',
           },
           {
-            answerText: 'Ja, jeg vil bli kontaktet',
+            answerText: 'Ja, jeg vil bli kontaktet av en veileder',
             answerType: 'JA',
             questionText: 'Ønsker du å snakke med en veileder?',
             questionType: 'BEHOV_FOR_OPPFOLGING',

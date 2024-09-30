@@ -19,6 +19,6 @@ export const FREMTIDIG_SITUASJON_ANSWER_TEXTS = {
 export const BEHOV_FOR_OPPFOLGING_ANSWER_TYPES = ['JA', 'NEI'] as const
 export type BehovForOppfolgingAnswerTypes = (typeof BEHOV_FOR_OPPFOLGING_ANSWER_TYPES)[number]
 export const BEHOV_FOR_OPPFOLGING_ANSWER_TEXTS = {
-  JA: 'Ja, jeg vil bli kontaktet',
-  NEI: 'Nei, jeg klarer meg selv',
+  JA: 'Ja, jeg vil bli kontaktet av en veileder',
+  NEI: 'Nei, jeg trenger ikke å bli kontaktet nå',
 } as const satisfies Record<BehovForOppfolgingAnswerTypes, string>
