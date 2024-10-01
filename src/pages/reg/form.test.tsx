@@ -8,6 +8,7 @@ import { render, screen } from '@/test/testUtils'
 import { testServer } from '@/mocks/testServer'
 import { enabledFeatureToggles } from '@/mocks/data/fixtures/featureToggles'
 import { trpcMsw } from '@/utils/trpc'
+import { statusDtoTrengerIkkeOppfolging } from '@/mocks/data/fixtures/statusDtoFixtures'
 
 describe('FormPage', () => {
   beforeEach(() => {
@@ -21,6 +22,20 @@ describe('FormPage', () => {
       const result = await axe(container)
       expect(result).toHaveNoViolations()
     })
+  })
+
+  it('should display already registered when user has responded', async () => {
+    testServer.use(
+      trpcMsw.sykmeldtStatus.query(async (_req, res, ctx) => {
+        return res(ctx.status(200), ctx.data(statusDtoTrengerIkkeOppfolging))
+      }),
+    )
+
+    render(<FormPage />)
+
+    expect(
+      await screen.findByText('For at NAV skal kunne hjelpe deg videre, må vi hjelpe deg i andre kanaler.'),
+    ).toBeInTheDocument()
   })
 
   describe('with feature toggles', () => {
