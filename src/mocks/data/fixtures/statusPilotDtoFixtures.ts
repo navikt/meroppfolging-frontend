@@ -3,16 +3,23 @@ import { StatusPilotDTO } from '@/server/services/schemas/statusSchema'
 export const pilotIkkeSvart: StatusPilotDTO = {
   isPilot: true,
   response: null,
+  hasAccessToSenOppfolging: true,
 }
 
-// TODO: Brukes ikke, bruke eller slette?
-export const pilotSvartTilbakeHosArbeidsgiver: StatusPilotDTO = {
+export const pilotIkkeSvartAndShouldNotHaveAccess: StatusPilotDTO = {
   isPilot: true,
+  response: null,
+  hasAccessToSenOppfolging: false,
+}
+
+export const pilotSvartFortsattSykOgTrengerOppfolging: StatusPilotDTO = {
+  isPilot: true,
+  hasAccessToSenOppfolging: true,
   response: [
     {
       questionType: 'FREMTIDIG_SITUASJON',
       questionText: 'Hva tenker du om fremtiden?',
-      answerType: 'TILBAKE_HOS_ARBEIDSGIVER',
+      answerType: 'FORTSATT_SYK',
       answerText: 'syk',
     },
     {
@@ -24,9 +31,9 @@ export const pilotSvartTilbakeHosArbeidsgiver: StatusPilotDTO = {
   ],
 }
 
-// TODO: Brukes ikke, bruke eller slette?
-export const pilotTrengerIkkeOppfolging: StatusPilotDTO = {
+export const pilotSvartTilbakeHosArbeidsgiverOgTrengerIkkeOppfolging: StatusPilotDTO = {
   isPilot: true,
+  hasAccessToSenOppfolging: true,
   response: [
     {
       questionType: 'FREMTIDIG_SITUASJON',

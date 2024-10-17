@@ -45,9 +45,11 @@ export const getStatusPilotDTOFixture = (): StatusPilotDTO => {
   const storedAnswer: string | null = window.sessionStorage.getItem(SESSION_STORAGE_PILOT_ANSWERS_KEY)
   if (storedAnswer) {
     const formAnswer: FormRequest = JSON.parse(storedAnswer)
+
     return {
       isPilot: true,
       response: formAnswer.senOppfolgingFormV2,
+      hasAccessToSenOppfolging: true,
     }
   }
   return statusPilotDtoFixtures.pilotIkkeSvart
