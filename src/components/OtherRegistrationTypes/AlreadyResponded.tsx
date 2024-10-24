@@ -1,7 +1,7 @@
 import { BodyLong, GuidePanel, Heading } from '@navikt/ds-react'
 import Link from 'next/link'
 
-import { CONTACT_NAV_URL, NAV_PHONE_NUMBER } from '@/constants/paths'
+import { CONTACT_NAV_URL, NAV_PHONE_NUMBER } from '@/constants/appConstants'
 
 function AlreadyResponded(): React.ReactElement {
   return (

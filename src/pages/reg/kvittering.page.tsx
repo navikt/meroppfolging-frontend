@@ -3,7 +3,7 @@ import { BodyLong, Button, GuidePanel, Heading } from '@navikt/ds-react'
 import Link from 'next/link'
 
 import { withAuthenticatedPage } from '@/auth'
-import { DITT_NAV } from '@/constants/paths'
+import { DITT_NAV } from '@/constants/appConstants'
 import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
 import { browserEnv } from '@/constants/envs'
 import FormPageContainer from '@/components/Containers/FormPageContainer'
