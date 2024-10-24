@@ -10,7 +10,7 @@ export type FremtidigSituasjonAnswerTypes = (typeof FREMTIDIG_SITUASJON_ANSWER_T
 export const FREMTIDIG_SITUASJON_ANSWER_TEXTS = {
   TILBAKE_HOS_ARBEIDSGIVER: 'Jeg er frisk og tilbake hos arbeidsgiver',
   TILBAKE_MED_TILPASNINGER: 'Jeg er tilbake i full jobb, men trenger tilrettelegging på arbeidsplassen',
-  TILBAKE_GRADERT: 'Jeg er tilbake i jobb, men jobber i redusert stillingsprosentt',
+  TILBAKE_GRADERT: 'Jeg er tilbake i jobb, men jobber i redusert stillingsprosent',
   BYTTE_JOBB: 'Jeg skal bytte jobb',
   FORTSATT_SYK: 'Jeg er for syk til å jobbe',
   USIKKER: 'Jeg er usikker',
