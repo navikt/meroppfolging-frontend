@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest'
 
 import { render, screen } from '@/test/testUtils'
-import NestedRadioGroup from '@/pilot/components/FormComponents/NestedRadioGroup'
+import RadioGroupForQuestion from '@/pilot/components/FormComponents/RadioGroupForQuestion'
 
-describe('NestedRadioGroup', () => {
+describe('RadioGroupForQuestion', () => {
   it('should render', async () => {
-    render(<NestedRadioGroup name="BEHOV_FOR_OPPFOLGING" description={<div>Test description</div>} />)
+    render(<RadioGroupForQuestion questionName="BEHOV_FOR_OPPFOLGING" description={<div>Test description</div>} />)
 
     expect(screen.getByRole('group', { name: 'Ønsker du å snakke med en veileder?' })).toBeInTheDocument()
     expect(screen.getByText('Test description')).toBeInTheDocument()
