@@ -1,6 +1,9 @@
 import { ReactElement } from 'react'
 import { BodyShort, Heading } from '@navikt/ds-react'
 
+import WriteToUsLink from '@/pilot/components/UI/WriteToUsLink'
+import { NAV_PHONE_NUMBER } from '@/constants/appConstants'
+
 function SituationChange({ behovForOppfolgingAnswer }: { behovForOppfolgingAnswer: 'JA' | 'NEI' }): ReactElement {
   switch (behovForOppfolgingAnswer) {
     case 'JA':
@@ -12,7 +15,8 @@ function SituationChange({ behovForOppfolgingAnswer }: { behovForOppfolgingAnswe
             Hvis situasjonen din endrer seg
           </Heading>
           <BodyShort>
-            Du kan alltid kontakte oss og be om å få snakke med en veileder hvis behovet ditt endrer seg.
+            Du kan når som helst ta kontakt med oss på tlf. {NAV_PHONE_NUMBER} eller på <WriteToUsLink /> (åpner i ny
+            fane). Har du en aktivitetsplan bruker du «dialog med veileder» der for å snakke med veilederen din.
           </BodyShort>
         </>
       )

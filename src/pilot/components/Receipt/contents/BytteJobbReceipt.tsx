@@ -10,12 +10,10 @@ import { getLongDateFormat } from '@/utils/dateUtils'
 
 function BytteJobbContent(): ReactElement {
   const maxDate = trpc.maxDate.useQuery()
-  const remaingDaysText =
-    maxDate.isSuccess && maxDate.data.maxDate && maxDate.data.gjenstaendeSykedager
-      ? `Per ${getLongDateFormat(new Date().toString())} har du ${
-          maxDate.data.gjenstaendeSykedager
-        } dager med sykepenger igjen.`
-      : 'Det nærmer seg slutten på sykepengene dine.'
+  const maxDateText =
+    maxDate.isSuccess && maxDate.data.maxDate
+      ? `Siste dag du kan motta sykepenger er beregnet til å være ${getLongDateFormat(maxDate.data.maxDate)}.`
+      : 'Det nærmer seg siste dag du kan motta sykepenger.'
 
   return (
     <>
@@ -27,8 +25,7 @@ function BytteJobbContent(): ReactElement {
         </List.Item>
       </List>
       <BodyShort>
-        {`${remaingDaysText} `}
-        <b>Det er derfor lurt å tenke på jobbytte allerede nå.</b> Veilederen kan hjelpe deg med dette.
+        {maxDateText} <b>Det er derfor lurt å tenke på jobbytte allerede nå.</b> Veilederen kan hjelpe deg med dette.
       </BodyShort>
       <BodyShort>
         Du kan finne alle utlyste stillinger i landet på{' '}
