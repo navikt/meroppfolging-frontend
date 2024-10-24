@@ -6,6 +6,7 @@ import { isValid } from 'date-fns'
 
 import { trpc } from '@/utils/trpc'
 import { getLongDateFormat } from '@/utils/dateUtils'
+import MaxDatoInformationExpansionCard from '@/pilot/components/UI/MaxDatoInformationExpansionCard'
 
 function Paragraph(): ReactElement {
   return (
@@ -69,9 +70,11 @@ function MaxDateIngress(): ReactElement {
       return (
         <>
           <BodyLong size="medium">
-            {getLongDateFormat(maxDate.data.maxDate)} er den siste dagen du har rett på sykepenger.{' '}
-            <b>Det betyr at du har {maxDate.data.gjenstaendeSykedager} dager med sykepenger igjen.</b>
+            {getLongDateFormat(maxDate.data.maxDate)} er beregnet til å være siste dag du har rett på sykepenger.
           </BodyLong>
+
+          <MaxDatoInformationExpansionCard utbetaltTomDato={maxDate.data.utbetaltTom} maxDato={maxDate.data.maxDate} />
+
           <Paragraph />
         </>
       )
