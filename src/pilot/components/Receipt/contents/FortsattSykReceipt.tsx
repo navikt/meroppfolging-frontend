@@ -30,7 +30,7 @@ export function FortsattSykContent(): ReactElement {
 
       <Alert variant="info">
         <Heading size="xsmall" level="3">
-          Saksbehandlingstiden på AAP-søknader er beregnet til 15 uker.
+          Saksbehandlingstiden på AAP-søknader er omtrent 15 uker.
         </Heading>
         Søk tidlig nok slik at du sikrer at du har inntekt etter at sykepengene tar slutt.
       </Alert>
