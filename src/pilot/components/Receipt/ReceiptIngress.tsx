@@ -6,7 +6,7 @@ function ReceiptIngress({ behovForOppfolgingAnswer }: { behovForOppfolgingAnswer
     case 'JA':
       return (
         <>
-          <Alert variant="success">Takk, svarene dine er sendt til NAV.</Alert>
+          <Alert variant="success">Takk, svarene dine er sendt til Nav.</Alert>
           <Heading level="1" size="large">
             Vi tar kontakt med deg
           </Heading>
@@ -16,7 +16,7 @@ function ReceiptIngress({ behovForOppfolgingAnswer }: { behovForOppfolgingAnswer
     case 'NEI':
       return (
         <>
-          <Alert variant="success">Takk, svarene dine er sendt til NAV.</Alert>
+          <Alert variant="success">Takk, svarene dine er sendt til Nav.</Alert>
           <Heading level="1" size="large">
             Det kan hende du hører fra oss
           </Heading>

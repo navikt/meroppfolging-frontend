@@ -25,7 +25,7 @@ function TilbakeGradertContent(): ReactElement {
       </BodyShort>
 
       <BodyShort>
-        Du kan også ta kontakt med NAV på telefon 55 55 33 33 for å få informasjon om hvilken økonomisk støtte som kan
+        Du kan også ta kontakt med Nav på telefon 55 55 33 33 for å få informasjon om hvilken økonomisk støtte som kan
         være aktuell for deg hvis du får et inntektstap.
       </BodyShort>
     </>
