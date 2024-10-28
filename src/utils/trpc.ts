@@ -2,7 +2,7 @@ import { httpLink } from '@trpc/client'
 import { createTRPCNext } from '@trpc/next'
 import { createTRPCMsw } from 'msw-trpc'
 
-import { BASE_PATH } from '@/constants/paths'
+import { BASE_PATH } from '@/constants/appConstants'
 
 import type { AppRouter } from '../server/routers/_app'
 

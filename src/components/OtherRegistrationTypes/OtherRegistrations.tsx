@@ -1,6 +1,6 @@
 import { BodyLong, GuidePanel, Heading, Link } from '@navikt/ds-react'
 
-import { CONTACT_NAV_URL, NAV_PHONE_NUMBER } from '@/constants/paths'
+import { CONTACT_NAV_URL, NAV_PHONE_NUMBER } from '@/constants/appConstants'
 import { useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
 
 function OtherRegistrations(): React.ReactElement {

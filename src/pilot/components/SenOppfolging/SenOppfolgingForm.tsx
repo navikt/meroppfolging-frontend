@@ -1,17 +1,16 @@
 import { ReactElement, useState } from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-import { BodyLong, Button, Link, VStack } from '@navikt/ds-react'
+import { BodyLong, Button, VStack } from '@navikt/ds-react'
 import { useRouter } from 'next/router'
-import NextLink from 'next/link'
 
-import NestedRadioGroup from '@/pilot/components/FormComponents/NestedRadioGroup'
+import RadioGroupForQuestion from '@/pilot/components/FormComponents/RadioGroupForQuestion'
 import { BehovForOppfolgingAnswerTypes, FremtidigSituasjonAnswerTypes } from '@/pilot/domain/answerValues'
 import { createFormRequest } from '@/pilot/components/SenOppfolging/requestUtils'
 import { trpc } from '@/utils/trpc'
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
 import NeedForHelpInfoBox from '@/pilot/components/SenOppfolging/NeedForHelpInfoBox'
-import { CONTACT_NAV_URL, NAV_PHONE_NUMBER } from '@/constants/paths'
-import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
+import { NAV_PHONE_NUMBER } from '@/constants/appConstants'
+import WriteToUsLink from '@/pilot/components/UI/WriteToUsLink'
 
 export type FormInputs = {
   FREMTIDIG_SITUASJON: FremtidigSituasjonAnswerTypes
@@ -19,36 +18,16 @@ export type FormInputs = {
 }
 
 const Description = (): ReactElement => {
-  const contactUsText = 'skriv til oss på nav.no.'
-
   return (
     <>
       <BodyLong>
         Sammen kan dere kartlegge mulighetene dine, og vurdere hvilken hjelp og støtte du kan få fra Nav.
       </BodyLong>
       <BodyLong>
-        Har du andre spørsmål kan du når som helst ta kontakt med oss på tlf. {NAV_PHONE_NUMBER} eller på{' '}
-        <Link
-          as={NextLink}
-          target="_blank"
-          href={CONTACT_NAV_URL}
-          onClick={() =>
-            logAmplitudeEvent(
-              {
-                eventName: 'navigere',
-                data: {
-                  lenketekst: contactUsText,
-                  destinasjon: 'Nav.no - skriv til oss',
-                },
-              },
-              { fra: 'Pilot landingsside' },
-            )
-          }
-        >
-          {contactUsText}
-        </Link>
+        Har du andre spørsmål kan du når som helst ta kontakt med oss på tlf. {NAV_PHONE_NUMBER} eller <WriteToUsLink />{' '}
+        (åpner i ny fane).
       </BodyLong>
-      <BodyLong>Har du en aktivitetsplan, bruker du “dialog med veileder” for å snakke med veilederen din.</BodyLong>
+      <BodyLong>Har du en aktivitetsplan bruker du «dialog med veileder» der for å snakke med veilederen din.</BodyLong>
     </>
   )
 }
@@ -77,10 +56,10 @@ function SenOppfolgingForm(): ReactElement {
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <VStack gap="8">
-          <NestedRadioGroup name="FREMTIDIG_SITUASJON" />
-          <NestedRadioGroup name="BEHOV_FOR_OPPFOLGING" description={<Description />}>
+          <RadioGroupForQuestion questionName="FREMTIDIG_SITUASJON" />
+          <RadioGroupForQuestion questionName="BEHOV_FOR_OPPFOLGING" description={<Description />}>
             <NeedForHelpInfoBox />
-          </NestedRadioGroup>
+          </RadioGroupForQuestion>
           {displayErrorMessage && <ErrorMessage />}
         </VStack>
         <Button className="w-fit mt-6" loading={mutation.isLoading}>
