@@ -24,7 +24,7 @@ const Description = (): ReactElement => {
   return (
     <>
       <BodyLong>
-        Sammen kan dere kartlegge mulighetene dine, og vurdere hvilken hjelp og støtte du kan få fra NAV.
+        Sammen kan dere kartlegge mulighetene dine, og vurdere hvilken hjelp og støtte du kan få fra Nav.
       </BodyLong>
       <BodyLong>
         Har du andre spørsmål kan du når som helst ta kontakt med oss på tlf. {NAV_PHONE_NUMBER} eller på{' '}

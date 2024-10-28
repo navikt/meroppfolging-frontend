@@ -6,6 +6,7 @@ export const pilotIkkeSvart: StatusPilotDTO = {
   response: null,
 }
 
+// TODO: Brukes ikke, bruke eller slette?
 export const pilotSvartTilbakeHosArbeidsgiver: StatusPilotDTO = {
   isPilot: true,
   response: [
@@ -17,13 +18,14 @@ export const pilotSvartTilbakeHosArbeidsgiver: StatusPilotDTO = {
     },
     {
       questionType: 'BEHOV_FOR_OPPFOLGING',
-      questionText: 'Trenger du oppfølging fra NAV?',
+      questionText: 'Trenger du oppfølging fra Nav?',
       answerType: 'JA',
       answerText: 'ja',
     },
   ],
 }
 
+// TODO: Brukes ikke, bruke eller slette?
 export const pilotTrengerIkkeOppfolging: StatusPilotDTO = {
   isPilot: true,
   response: [
@@ -35,7 +37,7 @@ export const pilotTrengerIkkeOppfolging: StatusPilotDTO = {
     },
     {
       questionType: 'BEHOV_FOR_OPPFOLGING',
-      questionText: 'Trenger du oppfølging fra NAV?',
+      questionText: 'Trenger du oppfølging fra Nav?',
       answerType: 'NEI',
       answerText: 'nei',
     },
