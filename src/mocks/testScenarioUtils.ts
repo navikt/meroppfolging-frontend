@@ -4,7 +4,7 @@ import * as statusDtoFixtures from '@/mocks/data/fixtures/statusDtoFixtures'
 import * as statusPilotDtoFixtures from '@/mocks/data/fixtures/statusPilotDtoFixtures'
 import { FormRequest } from '@/pilot/server/services/schemas/formRequestSchema'
 
-export type PilotStatus = 'PILOT' | 'DAGENS'
+export type PilotStatus = 'PILOT'
 const SESSION_STORAGE_PILOT_STATUS_KEY = 'isMeroppfolgingPilot'
 const SESSION_STORAGE_PILOT_ANSWERS_KEY = 'pilot-answers'
 
@@ -42,9 +42,6 @@ export const getStatusDTOFixture = (): StatusDTO => {
 }
 
 export const getStatusPilotDTOFixture = (): StatusPilotDTO => {
-  if (getStoredPilotStatus() === 'DAGENS') {
-    return statusPilotDtoFixtures.erIkkePilot
-  }
   const storedAnswer: string | null = window.sessionStorage.getItem(SESSION_STORAGE_PILOT_ANSWERS_KEY)
   if (storedAnswer) {
     const formAnswer: FormRequest = JSON.parse(storedAnswer)

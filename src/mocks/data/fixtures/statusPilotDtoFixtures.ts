@@ -1,4 +1,3 @@
-import { ResponseStatus } from '@/server/services/schemas/meroppfolgingSchema'
 import { StatusPilotDTO } from '@/server/services/schemas/statusSchema'
 
 export const pilotIkkeSvart: StatusPilotDTO = {
@@ -42,9 +41,4 @@ export const pilotTrengerIkkeOppfolging: StatusPilotDTO = {
       answerText: 'nei',
     },
   ],
-}
-
-export const erIkkePilot: StatusPilotDTO = {
-  isPilot: false,
-  responseStatus: ResponseStatus.NO_RESPONSE,
 }
