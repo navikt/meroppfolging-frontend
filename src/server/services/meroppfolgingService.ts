@@ -3,7 +3,7 @@ import { logger } from '@navikt/next-logger'
 import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from '@/auth/tokenUtils'
 import { serverRequest } from '@/libs/axios'
 import { getServerEnv } from '@/constants/envs'
-import { StatusPilotDTO, StatusPilotDTOSchema } from '@/server/services/schemas/statusSchema'
+import { PilotStatusSchema, StatusPilotDTO } from '@/server/services/schemas/statusSchema'
 
 import { SenOppfolgingFormRequest, StatusDTO, statusSchema } from './schemas/meroppfolgingSchema'
 
@@ -30,7 +30,7 @@ export async function getStatusPilot(auth: string): Promise<StatusPilotDTO> {
 
   const response = await serverRequest<StatusPilotDTO>({ url: path, accessToken: tokenX })
 
-  const result = StatusPilotDTOSchema.safeParse(response)
+  const result = PilotStatusSchema.safeParse(response)
 
   if (result.success) {
     return result.data

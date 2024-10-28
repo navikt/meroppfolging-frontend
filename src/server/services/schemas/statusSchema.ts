@@ -4,7 +4,7 @@ import { FormSchema } from '@/pilot/server/services/schemas/formRequestSchema'
 
 import { ResponseStatus } from './meroppfolgingSchema'
 
-const PilotStatusSchema = z.object({
+export const PilotStatusSchema = z.object({
   isPilot: z.literal(true),
   response: z.union([FormSchema, z.literal(null)]),
 })
@@ -15,5 +15,4 @@ export const NotPilotStatusSchema = z.object({
   responseStatus: z.nativeEnum(ResponseStatus),
 })
 
-export const StatusPilotDTOSchema = z.union([PilotStatusSchema, NotPilotStatusSchema])
-export type StatusPilotDTO = z.infer<typeof StatusPilotDTOSchema>
+export type StatusPilotDTO = z.infer<typeof PilotStatusSchema>

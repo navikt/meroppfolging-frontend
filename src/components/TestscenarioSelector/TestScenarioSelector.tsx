@@ -35,7 +35,6 @@ export const TestScenarioSelector = (): ReactElement => {
               }}
             >
               <Radio value="PILOT">Pilot</Radio>
-              <Radio value="DAGENS">Dagens løsning</Radio>
             </RadioGroup>
           </div>
 
