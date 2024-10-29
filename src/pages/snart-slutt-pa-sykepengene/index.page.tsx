@@ -7,7 +7,6 @@ import { trpc } from '@/utils/trpc'
 function SnartSlutt(): ReactElement {
   const status = trpc.statusPilot.useQuery()
   trpc.maxDate.useQuery()
-  trpc.sykmeldtStatus.useQuery()
 
   switch (status.status) {
     case 'loading':
