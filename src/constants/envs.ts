@@ -20,7 +20,6 @@ export const publicEnvSchema = z.object({
 export type ServerEnv = z.infer<typeof serverEnvSchema>
 export const serverEnvSchema = z.object({
   // Provided by nais-*.yaml
-  ESYFOVARSEL_MAX_DATE_API_URL: z.string(),
   SYKEPENGEDAGER_INFORMASJON_MAX_DATE_API_URL: z.string(),
   FLEXJAR_HOST: z.string(),
   FLEXJAR_BACKEND_CLIENT_ID: z.string(),
@@ -55,7 +54,6 @@ export const browserEnv = publicEnvSchema.parse({
 const getRawServerConfig = (): Partial<unknown> =>
   ({
     // Provided by nais-*.yml
-    ESYFOVARSEL_MAX_DATE_API_URL: process.env.ESYFOVARSEL_MAX_DATE_API_URL,
     SYKEPENGEDAGER_INFORMASJON_MAX_DATE_API_URL: process.env.SYKEPENGEDAGER_INFORMASJON_MAX_DATE_API_URL,
     FLEXJAR_HOST: process.env.FLEXJAR_HOST,
     FLEXJAR_BACKEND_CLIENT_ID: process.env.FLEXJAR_BACKEND_CLIENT_ID,
