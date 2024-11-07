@@ -1,6 +1,4 @@
-import { StatusDTO } from '@/server/services/schemas/meroppfolgingSchema'
 import { StatusPilotDTO } from '@/server/services/schemas/statusSchema'
-import * as statusDtoFixtures from '@/mocks/data/fixtures/statusDtoFixtures'
 import * as statusPilotDtoFixtures from '@/mocks/data/fixtures/statusPilotDtoFixtures'
 import { FormRequest } from '@/pilot/server/services/schemas/formRequestSchema'
 
@@ -35,10 +33,6 @@ export const storeFormRequest = (formRequest: FormRequest): void => {
   if (typeof window !== 'undefined') {
     sessionStorage.setItem(SESSION_STORAGE_PILOT_ANSWERS_KEY, JSON.stringify(formRequest))
   }
-}
-
-export const getStatusDTOFixture = (): StatusDTO => {
-  return statusDtoFixtures.statusDtoIkkeSvart
 }
 
 export const getStatusPilotDTOFixture = (): StatusPilotDTO => {
