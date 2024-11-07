@@ -1,28 +1,18 @@
 import { trpcMsw } from '@/utils/trpc'
 import { disabledFeatureToggles } from '@/mocks/data/fixtures/featureToggles'
-import { getStatusDTOFixture, getStatusPilotDTOFixture, storeFormRequest } from '@/mocks/testScenarioUtils'
+import { getStatusPilotDTOFixture, storeFormRequest } from '@/mocks/testScenarioUtils'
 import { FormRequest } from '@/pilot/server/services/schemas/formRequestSchema'
-import * as statusDtoFixtures from '@/mocks/data/fixtures/statusDtoFixtures'
 import * as statusPilotDtoFixtures from '@/mocks/data/fixtures/statusPilotDtoFixtures'
 
 import { maxDateDTO } from './data/fixtures/esyfoVarselDTO'
 
 //For demo and local
 export const handlers = [
-  trpcMsw.sykmeldtStatus.query((_req, res, ctx) => {
-    return res(ctx.status(200), ctx.data(getStatusDTOFixture()))
-  }),
-  trpcMsw.submitSenOppfolging.mutation((_req, res, ctx) => {
-    return res(ctx.status(200), ctx.data())
-  }),
   trpcMsw.featureToggles.query((_req, res, ctx) => {
     return res(ctx.status(200), ctx.data(disabledFeatureToggles))
   }),
   trpcMsw.maxDate.query((_req, res, ctx) => {
     return res(ctx.status(200), ctx.data(maxDateDTO))
-  }),
-  trpcMsw.visit.mutation((_req, res, ctx) => {
-    return res(ctx.status(200), ctx.data())
   }),
   trpcMsw.statusPilot.query((_req, res, ctx) => {
     return res(ctx.status(200), ctx.data(getStatusPilotDTOFixture()))
@@ -36,20 +26,11 @@ export const handlers = [
 
 //For tests
 export const testHandlers = [
-  trpcMsw.sykmeldtStatus.query((_req, res, ctx) => {
-    return res(ctx.status(200), ctx.data(statusDtoFixtures.statusDtoIkkeSvart))
-  }),
-  trpcMsw.submitSenOppfolging.mutation((_req, res, ctx) => {
-    return res(ctx.status(200), ctx.data())
-  }),
   trpcMsw.featureToggles.query((_req, res, ctx) => {
     return res(ctx.status(200), ctx.data(disabledFeatureToggles))
   }),
   trpcMsw.maxDate.query((_req, res, ctx) => {
     return res(ctx.status(200), ctx.data(maxDateDTO))
-  }),
-  trpcMsw.visit.mutation((_req, res, ctx) => {
-    return res(ctx.status(200), ctx.data())
   }),
   trpcMsw.statusPilot.query((_req, res, ctx) => {
     return res(ctx.status(200), ctx.data(statusPilotDtoFixtures.pilotIkkeSvart))
