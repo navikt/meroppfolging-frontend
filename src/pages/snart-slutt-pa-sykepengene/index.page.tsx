@@ -1,11 +1,11 @@
 import { ReactElement } from 'react'
 
 import { withAuthenticatedPage } from '@/auth'
-import LandingPilot from '@/pilot/components/LandingPage/LandingPilot'
+import Landing from '@/components/LandingPage/Landing'
 import { trpc } from '@/utils/trpc'
 
 function SnartSlutt(): ReactElement {
-  const status = trpc.statusPilot.useQuery()
+  const status = trpc.status.useQuery()
   trpc.maxDate.useQuery()
 
   switch (status.status) {
@@ -14,7 +14,7 @@ function SnartSlutt(): ReactElement {
     case 'error':
       throw new Error('Beklager, det skjedede en feil ved henting av din status')
     case 'success':
-      return <LandingPilot status={status.data} />
+      return <Landing status={status.data} />
     default:
       const exhaustiveCheck: never = status
       return exhaustiveCheck
