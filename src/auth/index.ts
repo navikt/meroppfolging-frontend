@@ -4,7 +4,7 @@ import { TRPCError } from '@trpc/server'
 import { getToken, validateIdportenToken } from '@navikt/oasis'
 
 import { isLocalOrDemo } from '@/constants/envs'
-import { BASE_PATH } from '@/constants/paths'
+import { BASE_PATH } from '@/constants/appConstants'
 
 type PageHandler = (context: GetServerSidePropsContext) => Promise<GetServerSidePropsResult<Record<string, unknown>>>
 

@@ -4,26 +4,26 @@ import { VStack } from '@navikt/ds-react'
 import PageContainer from '@/pilot/components/containers/PageContainer'
 import SenOppfolging from '@/pilot/components/SenOppfolging/SenOppfolging'
 import Receipt from '@/pilot/components/Receipt/Receipt'
-import { ResponseStatusPilot } from '@/server/services/schemas/statusSchema'
+import { StatusPilotDTO } from '@/server/services/schemas/statusSchema'
+import NoAccessInformation from '@/pilot/components/LandingPage/NoAccessInformation'
 
-function LandingContent({ responseStatus }: { responseStatus: ResponseStatusPilot }): ReactElement {
-  switch (responseStatus) {
-    case 'NO_RESPONSE':
-      return <SenOppfolging />
-    case 'TRENGER_IKKE_OPPFOLGING':
-    case 'TRENGER_OPPFOLGING':
-      return <Receipt responseStatus={responseStatus} />
-    default:
-      const exhaustiveCheck: never = responseStatus
-      return exhaustiveCheck
+function LandingContent({ status }: { status: StatusPilotDTO }): ReactElement {
+  if (!status.hasAccessToSenOppfolging) {
+    return <NoAccessInformation />
+  }
+
+  if (status.response === null) {
+    return <SenOppfolging />
+  } else {
+    return <Receipt response={status.response} />
   }
 }
 
-function LandingPilot({ responseStatus }: { responseStatus: ResponseStatusPilot }): ReactElement {
+function LandingPilot({ status }: { status: StatusPilotDTO }): ReactElement {
   return (
     <PageContainer className="bg-bg-subtle">
-      <VStack gap="8" className="max-w-4xl bg-bg-default px-4 py-8 md:p-12">
-        <LandingContent responseStatus={responseStatus} />
+      <VStack gap="6" className="max-w-4xl bg-bg-default px-4 py-8 md:p-12">
+        <LandingContent status={status} />
       </VStack>
     </PageContainer>
   )

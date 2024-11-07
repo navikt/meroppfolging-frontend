@@ -5,6 +5,7 @@ import { logger } from '@navikt/next-logger'
 
 import { useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
 import { trpc } from '@/utils/trpc'
+import { getLongDateFormat } from '@/utils/dateUtils'
 
 function MaxDateErrorMessage({ reason }: { reason: string }): ReactElement {
   useLogAmplitudeEvent(
@@ -49,8 +50,8 @@ function MaxDateIngress(): ReactElement {
       if (maxDate.data.maxDate && maxDate.data.utbetaltTom) {
         return (
           <BodyLong size="medium">
-            Per {maxDate.data.utbetaltTom} er din siste dag med sykepenger beregnet til å være{' '}
-            <b>{maxDate.data.maxDate}</b>.
+            Per {getLongDateFormat(maxDate.data.utbetaltTom)} er din siste dag med sykepenger beregnet til å være{' '}
+            <b>{getLongDateFormat(maxDate.data.maxDate)}</b>.
           </BodyLong>
         )
       } else {

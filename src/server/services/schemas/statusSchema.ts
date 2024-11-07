@@ -1,10 +1,18 @@
 import { z } from 'zod'
 
-export const ResponseStatusPilotSchema = z.enum(['NO_RESPONSE', 'TRENGER_OPPFOLGING', 'TRENGER_IKKE_OPPFOLGING'])
-export type ResponseStatusPilot = z.infer<typeof ResponseStatusPilotSchema>
+import { FormSchema } from '@/pilot/server/services/schemas/formRequestSchema'
 
-export const StatusPilotDTOSchema = z.object({
-  isPilot: z.boolean(),
-  responseStatus: ResponseStatusPilotSchema,
+import { ResponseStatus } from './meroppfolgingSchema'
+
+export const PilotStatusSchema = z.object({
+  isPilot: z.literal(true),
+  response: z.union([FormSchema, z.literal(null)]),
+  hasAccessToSenOppfolging: z.boolean(),
 })
-export type StatusPilotDTO = z.infer<typeof StatusPilotDTOSchema>
+
+export const NotPilotStatusSchema = z.object({
+  isPilot: z.literal(false),
+  responseStatus: z.nativeEnum(ResponseStatus),
+})
+
+export type StatusPilotDTO = z.infer<typeof PilotStatusSchema>

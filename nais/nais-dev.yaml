@@ -49,6 +49,10 @@ spec:
       value: http://sykepengedager-informasjon/api/v1/sykepenger/maxdate
     - name: MEROPPFOLGING_BACKEND_URL
       value: http://meroppfolging-backend
+    - name: FLEXJAR_HOST
+      value: "http://flexjar-backend.flex"
+    - name: FLEXJAR_BACKEND_CLIENT_ID
+      value: dev-gcp:flex:flexjar-backend
   envFrom:
     - secret: meroppfolging-frontend-unleash-secrets
   accessPolicy:
@@ -59,5 +63,7 @@ spec:
         - application: esyfovarsel
         - application: meroppfolging-backend
         - application: sykepengedager-informasjon
+        - application: flexjar-backend
+          namespace: flex
       external:
         - host: team-esyfo-unleash-api.nav.cloud.nais.io

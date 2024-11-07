@@ -3,8 +3,7 @@ import { logger } from '@navikt/next-logger'
 import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from '@/auth/tokenUtils'
 import { serverRequest } from '@/libs/axios'
 import { getServerEnv } from '@/constants/envs'
-import { StatusPilotDTO, StatusPilotDTOSchema } from '@/server/services/schemas/statusSchema'
-import { FormRequest } from '@/server/services/schemas/formRequestSchema'
+import { PilotStatusSchema, StatusPilotDTO } from '@/server/services/schemas/statusSchema'
 
 import { SenOppfolgingFormRequest, StatusDTO, statusSchema } from './schemas/meroppfolgingSchema'
 
@@ -31,7 +30,7 @@ export async function getStatusPilot(auth: string): Promise<StatusPilotDTO> {
 
   const response = await serverRequest<StatusPilotDTO>({ url: path, accessToken: tokenX })
 
-  const result = StatusPilotDTOSchema.safeParse(response)
+  const result = PilotStatusSchema.safeParse(response)
 
   if (result.success) {
     return result.data
@@ -43,19 +42,6 @@ export async function getStatusPilot(auth: string): Promise<StatusPilotDTO> {
 export async function postSenOppfolging(auth: string, data: SenOppfolgingFormRequest): Promise<void> {
   const url = getServerEnv().MEROPPFOLGING_BACKEND_URL
   const path = `${url}/api/v1/senoppfolging/submitform`
-  const tokenx = await exchangeIdportenTokenForMeroppfolgingBackendTokenx(auth)
-
-  try {
-    await serverRequest({ url: path, accessToken: tokenx, method: 'post', data })
-  } catch (e) {
-    logger.error(`Failed to submit registration: ${e}. Payload: ${JSON.stringify(data)}`)
-    throw new Error(`Failed to submit registration: ${e}`)
-  }
-}
-
-export async function postForm(auth: string, data: FormRequest): Promise<void> {
-  const url = getServerEnv().MEROPPFOLGING_BACKEND_URL
-  const path = `${url}/api/v2/senoppfolging/submitform`
   const tokenx = await exchangeIdportenTokenForMeroppfolgingBackendTokenx(auth)
 
   try {

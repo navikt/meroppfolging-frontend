@@ -13,6 +13,7 @@ import { useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
 import FormPageContainer from '@/components/Containers/FormPageContainer'
 import { RegistrationTypes } from '@/server/services/schemas/meroppfolgingSchema'
+import AlreadyResponded from '@/components/OtherRegistrationTypes/AlreadyResponded'
 
 function StatusErrorMessage(): React.ReactElement {
   useLogAmplitudeEvent({ eventName: 'alert vist', data: { variant: 'error', tekst: 'Beklager, teknisk feil' } })
@@ -37,11 +38,14 @@ function Content(): ReactElement {
       return <StatusErrorMessage />
 
     case 'success': {
-      const registreringType = sykmeldtStatus.data.registrationType
+      const { registrationType, responseStatus } = sykmeldtStatus.data
       const sykmeldt = sykmeldtStatus.data.isSykmeldt
 
-      if (registreringType !== RegistrationTypes.SYKMELDT_REGISTRERING || !sykmeldt) {
-        return <OtherRegistrationTypes type={registreringType} />
+      if (registrationType !== RegistrationTypes.SYKMELDT_REGISTRERING || !sykmeldt) {
+        return <OtherRegistrationTypes type={registrationType} />
+      }
+      if (responseStatus !== 'NO_RESPONSE') {
+        return <AlreadyResponded />
       }
 
       return (

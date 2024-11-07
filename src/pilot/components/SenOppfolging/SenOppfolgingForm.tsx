@@ -1,17 +1,35 @@
 import { ReactElement, useState } from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-import { Button, VStack } from '@navikt/ds-react'
+import { BodyLong, Button, VStack } from '@navikt/ds-react'
 import { useRouter } from 'next/router'
 
-import NestedRadioGroup from '@/pilot/components/FormComponents/NestedRadioGroup'
+import RadioGroupForQuestion from '@/pilot/components/FormComponents/RadioGroupForQuestion'
 import { BehovForOppfolgingAnswerTypes, FremtidigSituasjonAnswerTypes } from '@/pilot/domain/answerValues'
 import { createFormRequest } from '@/pilot/components/SenOppfolging/requestUtils'
 import { trpc } from '@/utils/trpc'
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
+import NeedForHelpInfoBox from '@/pilot/components/SenOppfolging/NeedForHelpInfoBox'
+import { NAV_PHONE_NUMBER } from '@/constants/appConstants'
+import WriteToUsLink from '@/pilot/components/UI/WriteToUsLink'
 
 export type FormInputs = {
   FREMTIDIG_SITUASJON: FremtidigSituasjonAnswerTypes
   BEHOV_FOR_OPPFOLGING: BehovForOppfolgingAnswerTypes
+}
+
+const Description = (): ReactElement => {
+  return (
+    <>
+      <BodyLong>
+        Sammen kan dere kartlegge mulighetene dine, og vurdere hvilken hjelp og støtte du kan få fra Nav.
+      </BodyLong>
+      <BodyLong>
+        Har du andre spørsmål kan du når som helst ta kontakt med oss på tlf. {NAV_PHONE_NUMBER} eller <WriteToUsLink />{' '}
+        (åpner i ny fane).
+      </BodyLong>
+      <BodyLong>Har du en aktivitetsplan bruker du «dialog med veileder» der for å snakke med veilederen din.</BodyLong>
+    </>
+  )
 }
 
 function SenOppfolgingForm(): ReactElement {
@@ -33,15 +51,15 @@ function SenOppfolgingForm(): ReactElement {
     const request = createFormRequest(data)
     mutation.mutate(request)
   }
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <VStack gap="8">
-          <NestedRadioGroup name="FREMTIDIG_SITUASJON" />
-          <NestedRadioGroup
-            name="BEHOV_FOR_OPPFOLGING"
-            description="En veileder kan ta kontakt med deg for å hjelpe deg"
-          />
+          <RadioGroupForQuestion questionName="FREMTIDIG_SITUASJON" />
+          <RadioGroupForQuestion questionName="BEHOV_FOR_OPPFOLGING" description={<Description />}>
+            <NeedForHelpInfoBox />
+          </RadioGroupForQuestion>
           {displayErrorMessage && <ErrorMessage />}
         </VStack>
         <Button className="w-fit mt-6" loading={mutation.isLoading}>
