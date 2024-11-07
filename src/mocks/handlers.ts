@@ -5,7 +5,7 @@ import { FormRequest } from '@/pilot/server/services/schemas/formRequestSchema'
 import * as statusDtoFixtures from '@/mocks/data/fixtures/statusDtoFixtures'
 import * as statusPilotDtoFixtures from '@/mocks/data/fixtures/statusPilotDtoFixtures'
 
-import { maxDateDTO } from './data/fixtures/esyfoVarselDTO'
+import { maxDateDTO } from './data/fixtures/sykepengedagerInformasjonDTO'
 
 //For demo and local
 export const handlers = [

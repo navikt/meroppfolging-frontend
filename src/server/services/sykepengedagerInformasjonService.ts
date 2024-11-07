@@ -2,10 +2,9 @@ import { getServerEnv } from '@/constants/envs'
 import { exchangeIdportenTokenForSykepengedagerInformasjonTokenx } from '@/auth/tokenUtils'
 import { serverRequest } from '@/libs/axios'
 
-import { MaxDateDTO, maxDateSchema } from './schemas/esyfoVarselSchema'
+import { MaxDateDTO, maxDateSchema } from './schemas/sykepengedagerInformasjonSchema'
 
 export async function getMaxDate(auth: string): Promise<MaxDateDTO> {
-  // const url = `${getServerEnv().ESYFOVARSEL_MAX_DATE_API_URL}?isoformat=true`
   const url = `${getServerEnv().SYKEPENGEDAGER_INFORMASJON_MAX_DATE_API_URL}?isoformat=true`
   const tokenx = await exchangeIdportenTokenForSykepengedagerInformasjonTokenx(auth)
 

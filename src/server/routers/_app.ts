@@ -4,7 +4,7 @@ import { FormRequestSchema } from '@/pilot/server/services/schemas/formRequestSc
 
 import { authenticatedProcedure, router } from '../trpc'
 import { getFeatureToggles } from '../services/toggleService'
-import { getMaxDate } from '../services/esyfoVarselService'
+import { getMaxDate } from '../services/sykepengedagerInformasjonService'
 import { getStatus, getStatusPilot, postSenOppfolging, postVisit } from '../services/meroppfolgingService'
 
 export const appRouter = router({
