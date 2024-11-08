@@ -1,19 +1,16 @@
 import { StatusDTO } from '@/server/services/schemas/statusSchema'
 
 export const IkkeSvart: StatusDTO = {
-  isPilot: true,
   response: null,
   hasAccessToSenOppfolging: true,
 }
 
 export const IkkeSvartAndShouldNotHaveAccess: StatusDTO = {
-  isPilot: true,
   response: null,
   hasAccessToSenOppfolging: false,
 }
 
 export const SvartFortsattSykOgTrengerOppfolging: StatusDTO = {
-  isPilot: true,
   hasAccessToSenOppfolging: true,
   response: [
     {
@@ -32,7 +29,6 @@ export const SvartFortsattSykOgTrengerOppfolging: StatusDTO = {
 }
 
 export const SvartTilbakeHosArbeidsgiverOgTrengerIkkeOppfolging: StatusDTO = {
-  isPilot: true,
   hasAccessToSenOppfolging: true,
   response: [
     {
