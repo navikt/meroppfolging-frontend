@@ -22,7 +22,6 @@ export const getStatusDTOFixture = (): StatusDTO => {
     const formAnswer: FormRequest = JSON.parse(storedAnswer)
 
     return {
-      isPilot: true,
       response: formAnswer.senOppfolgingFormV2,
       hasAccessToSenOppfolging: true,
     }
