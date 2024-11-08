@@ -3,8 +3,7 @@ import { createTRPCNext } from '@trpc/next'
 import { createTRPCMsw } from 'msw-trpc'
 
 import { BASE_PATH } from '@/constants/appConstants'
-
-import type { AppRouter } from '../server/routers/_app'
+import type { AppRouter } from '@/server/routers/_app'
 
 export const trpc = createTRPCNext<AppRouter>({
   config() {

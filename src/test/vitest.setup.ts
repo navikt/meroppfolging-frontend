@@ -9,7 +9,7 @@ import * as vitestAxeMatchers from 'vitest-axe/matchers'
 import mockRouter from 'next-router-mock'
 import { createDynamicRouteParser } from 'next-router-mock/dynamic-routes'
 
-import { testServer } from '../mocks/testServer'
+import { testServer } from '@/mocks/testServer'
 
 expect.extend(matchers)
 expect.extend(vitestAxeMatchers)

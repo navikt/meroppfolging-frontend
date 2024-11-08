@@ -1,10 +1,9 @@
-import { postForm } from '@/pilot/server/services/senoppfolgingService'
-import { FormRequestSchema } from '@/pilot/server/services/schemas/formRequestSchema'
+import { FormRequestSchema } from '@/server/services/schemas/formRequestSchema'
+import { getStatus, postForm } from '@/server/services/senoppfolgingService'
 
 import { authenticatedProcedure, router } from '../trpc'
 import { getFeatureToggles } from '../services/toggleService'
 import { getMaxDate } from '../services/esyfoVarselService'
-import { getStatusPilot } from '../services/meroppfolgingService'
 
 export const appRouter = router({
   featureToggles: authenticatedProcedure.query(async () => {
@@ -13,10 +12,10 @@ export const appRouter = router({
   maxDate: authenticatedProcedure.query(async ({ ctx }) => {
     return getMaxDate(ctx.authorization)
   }),
-  statusPilot: authenticatedProcedure.query(async ({ ctx }) => {
-    return getStatusPilot(ctx.authorization)
+  status: authenticatedProcedure.query(async ({ ctx }) => {
+    return getStatus(ctx.authorization)
   }),
-  submitPilotForm: authenticatedProcedure.input(FormRequestSchema).mutation(async ({ ctx, input }) => {
+  submitForm: authenticatedProcedure.input(FormRequestSchema).mutation(async ({ ctx, input }) => {
     return postForm(ctx.authorization, input)
   }),
 })

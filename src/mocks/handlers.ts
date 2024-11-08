@@ -1,8 +1,8 @@
 import { trpcMsw } from '@/utils/trpc'
 import { disabledFeatureToggles } from '@/mocks/data/fixtures/featureToggles'
-import { getStatusPilotDTOFixture, storeFormRequest } from '@/mocks/testScenarioUtils'
-import { FormRequest } from '@/pilot/server/services/schemas/formRequestSchema'
-import * as statusPilotDtoFixtures from '@/mocks/data/fixtures/statusPilotDtoFixtures'
+import { getStatusDTOFixture, storeFormRequest } from '@/mocks/testScenarioUtils'
+import * as statusDtoFixtures from '@/mocks/data/fixtures/statusDtoFixtures'
+import { FormRequest } from '@/server/services/schemas/formRequestSchema'
 
 import { maxDateDTO } from './data/fixtures/esyfoVarselDTO'
 
@@ -14,10 +14,10 @@ export const handlers = [
   trpcMsw.maxDate.query((_req, res, ctx) => {
     return res(ctx.status(200), ctx.data(maxDateDTO))
   }),
-  trpcMsw.statusPilot.query((_req, res, ctx) => {
-    return res(ctx.status(200), ctx.data(getStatusPilotDTOFixture()))
+  trpcMsw.status.query((_req, res, ctx) => {
+    return res(ctx.status(200), ctx.data(getStatusDTOFixture()))
   }),
-  trpcMsw.submitPilotForm.mutation((_req, res, ctx) => {
+  trpcMsw.submitForm.mutation((_req, res, ctx) => {
     const data: FormRequest = _req.body
     storeFormRequest(data)
     return res(ctx.status(200), ctx.data())
@@ -32,10 +32,10 @@ export const testHandlers = [
   trpcMsw.maxDate.query((_req, res, ctx) => {
     return res(ctx.status(200), ctx.data(maxDateDTO))
   }),
-  trpcMsw.statusPilot.query((_req, res, ctx) => {
-    return res(ctx.status(200), ctx.data(statusPilotDtoFixtures.pilotIkkeSvart))
+  trpcMsw.status.query((_req, res, ctx) => {
+    return res(ctx.status(200), ctx.data(statusDtoFixtures.IkkeSvart))
   }),
-  trpcMsw.submitPilotForm.mutation((_req, res, ctx) => {
+  trpcMsw.submitForm.mutation((_req, res, ctx) => {
     return res(ctx.status(200), ctx.data())
   }),
 ]

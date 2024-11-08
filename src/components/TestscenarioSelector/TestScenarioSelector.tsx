@@ -1,18 +1,13 @@
-import { Button, Modal, Radio, RadioGroup, Tooltip } from '@navikt/ds-react'
-import React, { ReactElement, useEffect, useState } from 'react'
+import { Button, Modal } from '@navikt/ds-react'
+import React, { ReactElement, useState } from 'react'
 import { SunIcon } from '@navikt/aksel-icons'
 
-import { getStoredPilotStatus, initializePilot, PilotStatus, storePilotStatus } from '@/mocks/testScenarioUtils'
+import { nukeFormRequests } from '@/mocks/testScenarioUtils'
 
 import styles from './testscenarioselector.module.css'
 
 export const TestScenarioSelector = (): ReactElement => {
   const [open, setOpen] = useState(false)
-  const [pilotStatus, setPilotStatus] = useState<PilotStatus>(getStoredPilotStatus())
-
-  useEffect(() => {
-    initializePilot()
-  }, [])
 
   return (
     <>
@@ -21,36 +16,21 @@ export const TestScenarioSelector = (): ReactElement => {
         aria-label="Testdatavelger"
         onClose={() => setOpen(false)}
         header={{
-          heading: 'Dagens løsning eller pilot?',
+          heading: 'Ønsker du å slette svaret ditt og begynne på nytt?',
         }}
       >
         <Modal.Body>
-          <div className="mb-4">
-            <RadioGroup
-              legend="Dagens løsning eller pilot?"
-              hideLegend={true}
-              value={pilotStatus}
-              onChange={(val: PilotStatus) => {
-                setPilotStatus(val)
+          <div>
+            <Button
+              id="VelgScenarioButton"
+              variant="primary"
+              onClick={() => {
+                nukeFormRequests()
+                window.location.reload()
               }}
             >
-              <Radio value="PILOT">Pilot</Radio>
-            </RadioGroup>
-          </div>
-
-          <div>
-            <Tooltip content="Lagrede svar blir slettet hver gang du velger på nytt, og når du lukker nettleseren.">
-              <Button
-                id="VelgScenarioButton"
-                variant="primary"
-                onClick={() => {
-                  storePilotStatus(pilotStatus)
-                  window.location.reload()
-                }}
-              >
-                Velg
-              </Button>
-            </Tooltip>
+              Slett svaret mitt og begynn på nytt
+            </Button>
             <Button variant="tertiary" onClick={() => setOpen(false)}>
               Avbryt
             </Button>
