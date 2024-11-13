@@ -1,19 +1,47 @@
-import { RegistrationTypes, ResponseStatus, StatusDTO } from '@/server/services/schemas/meroppfolgingSchema'
+import { StatusDTO } from '@/server/services/schemas/statusSchema'
 
-export const statusDtoIkkeSvart: StatusDTO = {
-  registrationType: RegistrationTypes.SYKMELDT_REGISTRERING,
-  isSykmeldt: true,
-  responseStatus: ResponseStatus.NO_RESPONSE,
+export const IkkeSvart: StatusDTO = {
+  response: null,
+  hasAccessToSenOppfolging: true,
 }
 
-export const statusDtoTrengerOppfolging: StatusDTO = {
-  registrationType: RegistrationTypes.SYKMELDT_REGISTRERING,
-  isSykmeldt: true,
-  responseStatus: ResponseStatus.TRENGER_OPPFOLGING,
+export const IkkeSvartAndShouldNotHaveAccess: StatusDTO = {
+  response: null,
+  hasAccessToSenOppfolging: false,
 }
 
-export const statusDtoTrengerIkkeOppfolging: StatusDTO = {
-  registrationType: RegistrationTypes.SYKMELDT_REGISTRERING,
-  isSykmeldt: true,
-  responseStatus: ResponseStatus.TRENGER_IKKE_OPPFOLGING,
+export const SvartFortsattSykOgTrengerOppfolging: StatusDTO = {
+  hasAccessToSenOppfolging: true,
+  response: [
+    {
+      questionType: 'FREMTIDIG_SITUASJON',
+      questionText: 'Hva tenker du om fremtiden?',
+      answerType: 'FORTSATT_SYK',
+      answerText: 'syk',
+    },
+    {
+      questionType: 'BEHOV_FOR_OPPFOLGING',
+      questionText: 'Trenger du oppfølging fra Nav?',
+      answerType: 'JA',
+      answerText: 'ja',
+    },
+  ],
+}
+
+export const SvartTilbakeHosArbeidsgiverOgTrengerIkkeOppfolging: StatusDTO = {
+  hasAccessToSenOppfolging: true,
+  response: [
+    {
+      questionType: 'FREMTIDIG_SITUASJON',
+      questionText: 'Hva tenker du om fremtiden?',
+      answerType: 'TILBAKE_HOS_ARBEIDSGIVER',
+      answerText: 'Jeg er frisk og tilbake hos arbeidsgiver',
+    },
+    {
+      questionType: 'BEHOV_FOR_OPPFOLGING',
+      questionText: 'Trenger du oppfølging fra Nav?',
+      answerType: 'NEI',
+      answerText: 'nei',
+    },
+  ],
 }
