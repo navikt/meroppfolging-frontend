@@ -13,7 +13,8 @@ export function FortsattSykContent(): ReactElement {
         <Link href="https://www.nav.no/aap" target="_blank" rel="noopener noreferrer">
           arbeidsavklaringspenger (AAP)
         </Link>
-        , eller en annen økonomisk støtte
+        , eller en annen økonomisk støtte. Merk at det er egne vilkår for å motta AAP, som du bør sette deg inn i før du
+        søker.
       </BodyLong>
       <BodyLong>
         <b>Du må selv søke om AAP eller annen økonomisk støtte.</b> Dette skjer ikke automatisk.
@@ -30,9 +31,13 @@ export function FortsattSykContent(): ReactElement {
 
       <Alert variant="info">
         <Heading size="xsmall" level="3">
-          Saksbehandlingstiden på AAP-søknader er omtrent 15 uker.
+          Saksbehandlingstiden for AAP-søknader er omtrent 15 uker.
         </Heading>
-        Søk tidlig nok slik at du sikrer at du har inntekt etter at sykepengene tar slutt.
+        <BodyLong className="mb-2">
+          Hvis du bor eller oppholder deg i et annet EØS-land og får oppfølging av Nav utland, så er
+          saksbehandlingstiden for AAP-søknader betydelig lenger.
+        </BodyLong>
+        <BodyLong>Husk å søke tidlig nok.</BodyLong>
       </Alert>
 
       <Link href="https://www.nav.no/start/soknad-aap" target="_blank" rel="noopener noreferrer">
