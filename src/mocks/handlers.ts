@@ -4,7 +4,7 @@ import { getStatusDTOFixture, storeFormRequest } from '@/mocks/testScenarioUtils
 import * as statusDtoFixtures from '@/mocks/data/fixtures/statusDtoFixtures'
 import { FormRequest } from '@/server/services/schemas/formRequestSchema'
 
-import { maxDateDTO } from './data/fixtures/esyfoVarselDTO'
+import { maxDateDTO } from './data/fixtures/sykepengedagerInformasjonDTO'
 
 //For demo and local
 export const handlers = [

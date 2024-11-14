@@ -3,17 +3,19 @@ import { NextApiRequest } from 'next'
 
 import { getServerEnv, isLocalOrDemo } from '@/constants/envs'
 
-export async function exchangeIdportenTokenForEsyfoVarselTokenx(idportenToken: string | null): Promise<string> {
+export async function exchangeIdportenTokenForSykepengedagerInformasjonTokenx(
+  idportenToken: string | null,
+): Promise<string> {
   if (!idportenToken) {
     throw new Error('Mangler idportenToken')
   }
 
-  const ESYFO_VARSEL_CLIENT_ID = `${getServerEnv().NAIS_CLUSTER_NAME}:team-esyfo:esyfovarsel`
+  const SYKEPENGEDAGER_INFORMASJON_ID = `${getServerEnv().NAIS_CLUSTER_NAME}:team-esyfo:sykepengedager-informasjon`
 
-  const tokenxGrant = await requestOboToken(idportenToken, ESYFO_VARSEL_CLIENT_ID)
+  const tokenxGrant = await requestOboToken(idportenToken, SYKEPENGEDAGER_INFORMASJON_ID)
 
   if (!tokenxGrant.ok) {
-    throw new Error(`Failed to exchange idporten token for esyfovarseltokenx: ${tokenxGrant.error}`)
+    throw new Error(`Failed to exchange idporten token for SykepengedagerInformasjon tokenx: ${tokenxGrant.error}`)
   }
 
   return tokenxGrant.token

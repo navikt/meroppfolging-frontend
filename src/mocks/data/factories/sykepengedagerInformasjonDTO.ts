@@ -1,4 +1,4 @@
-import { MaxDateDTO } from '@/server/services/schemas/esyfoVarselSchema'
+import { MaxDateDTO } from '@/server/services/schemas/sykepengedagerInformasjonSchema'
 
 export function createMaxDateDTO(overrides?: Partial<MaxDateDTO>): MaxDateDTO {
   return {

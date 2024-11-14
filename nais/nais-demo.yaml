@@ -43,8 +43,8 @@ spec:
   ingresses:
     - {{ingress}}
   env:
-    - name: ESYFOVARSEL_MAX_DATE_API_URL
-      value: https://esyfovarsel.dev.intern.nav.no
+    - name:  SYKEPENGEDAGER_INFORMASJON_MAX_DATE_API_URL
+      value: https://sykepengedager-informasjon.dev.intern.nav.no
     - name: MEROPPFOLGING_BACKEND_URL
       value: http://meroppfolging-backend
   accessPolicy:

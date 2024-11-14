@@ -3,7 +3,7 @@ import { getStatus, postForm } from '@/server/services/senoppfolgingService'
 
 import { authenticatedProcedure, router } from '../trpc'
 import { getFeatureToggles } from '../services/toggleService'
-import { getMaxDate } from '../services/esyfoVarselService'
+import { getMaxDate } from '../services/sykepengedagerInformasjonService'
 
 export const appRouter = router({
   featureToggles: authenticatedProcedure.query(async () => {
