@@ -8,7 +8,6 @@ import { BehovForOppfolgingAnswerTypes, FremtidigSituasjonAnswerTypes } from '@/
 import { createFormRequest } from '@/components/SenOppfolging/requestUtils'
 import { trpc } from '@/utils/trpc'
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
-import NeedForHelpInfoBox from '@/components/SenOppfolging/NeedForHelpInfoBox'
 import { NAV_PHONE_NUMBER } from '@/constants/appConstants'
 import WriteToUsLink from '@/components/UI/WriteToUsLink'
 
@@ -57,9 +56,7 @@ function SenOppfolgingForm(): ReactElement {
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <VStack gap="8">
           <RadioGroupForQuestion questionName="FREMTIDIG_SITUASJON" />
-          <RadioGroupForQuestion questionName="BEHOV_FOR_OPPFOLGING" description={<Description />}>
-            <NeedForHelpInfoBox />
-          </RadioGroupForQuestion>
+          <RadioGroupForQuestion questionName="BEHOV_FOR_OPPFOLGING" description={<Description />} />
           {displayErrorMessage && <ErrorMessage />}
         </VStack>
         <Button className="w-fit mt-6" loading={mutation.isLoading}>
