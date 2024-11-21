@@ -36,7 +36,7 @@ function MaxDateErrorMessage({ reason }: { reason: string }): ReactElement {
   )
 }
 
-function OtherMaxDateInfo(): ReactElement {
+function MaxDateInfo(): ReactElement {
   const maxDate = trpc.maxDate.useQuery()
 
   switch (maxDate.status) {
@@ -83,4 +83,4 @@ function OtherMaxDateInfo(): ReactElement {
   }
 }
 
-export default OtherMaxDateInfo
+export default MaxDateInfo

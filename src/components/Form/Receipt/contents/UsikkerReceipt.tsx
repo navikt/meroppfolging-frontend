@@ -1,10 +1,10 @@
 import { ReactElement } from 'react'
 import { Accordion, Heading } from '@navikt/ds-react'
 
-import { FortsattSykContent } from '@/components/Receipt/contents/FortsattSykReceipt'
-import { TilbakeMedTilpasningerAccordionItem } from '@/components/Receipt/contents/TilbakeMedTilpasningerReceipt'
-import { TilbakeGradertAccordionItem } from '@/components/Receipt/contents/TilbakeGradertReceipt'
-import { BytteJobbAccordionItem } from '@/components/Receipt/contents/BytteJobbReceipt'
+import { TilbakeMedTilpasningerAccordionItem } from './TilbakeMedTilpasningerReceipt'
+import { FortsattSykContent } from './FortsattSykReceipt'
+import { TilbakeGradertAccordionItem } from './TilbakeGradertReceipt'
+import { BytteJobbAccordionItem } from './BytteJobbReceipt'
 
 function UsikkerReceipt(): ReactElement {
   return (

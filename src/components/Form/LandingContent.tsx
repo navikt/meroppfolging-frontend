@@ -2,18 +2,19 @@ import React, { ReactElement, useState } from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 
-import { FremtidigSituasjonStep } from '@/components/OtherForm/FremtidigSituasjon/FremtidigSituasjonStep'
-import { OtherInfo } from '@/components/OtherForm/Info/OtherInfo'
-import { OnskerKontaktStep } from '@/components/OtherForm/Kontakt/OnskerKontaktStep'
-import LandingInfoStep from '@/components/OtherForm/LandingInfo/LandingInfoStep'
 import { BehovForOppfolgingAnswerTypes, FremtidigSituasjonAnswerTypes } from '@/domain/answerValues'
 import { StatusDTO } from '@/server/services/schemas/statusSchema'
-import Receipt from '@/components/Receipt/Receipt'
 import { trpc } from '@/utils/trpc'
 import { createFormRequest } from '@/components/SenOppfolging/requestUtils'
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
+import { OnskerKontaktStep } from '@/components/Form/KontaktStep/OnskerKontaktStep'
 
 import NoAccessInformation from '../NoAccessInformation/NoAccessInformation'
+
+import { FremtidigSituasjonStep } from './FremtidigSituasjonStep/FremtidigSituasjonStep'
+import LandingInfoStep from './LandingInfoStep/LandingInfoStep'
+import { InfoStep } from './InfoStep/InfoStep'
+import Receipt from './Receipt/Receipt'
 
 export type Step = 'LANDING' | 'FREMTIDIG_SITUASJON' | 'INFO' | 'KONTAKT'
 
@@ -69,7 +70,7 @@ export const LandingContent = ({ status }: LandingContentProps): ReactElement =>
 
           {currentStep === 'LANDING' && <LandingInfoStep nextStep={() => setCurrentStep('FREMTIDIG_SITUASJON')} />}
           {currentStep === 'INFO' && (
-            <OtherInfo
+            <InfoStep
               previousStep={() => setCurrentStep('FREMTIDIG_SITUASJON')}
               nextStep={() => setCurrentStep('KONTAKT')}
             />

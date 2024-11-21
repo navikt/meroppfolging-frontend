@@ -1,10 +1,11 @@
-import { ReactElement } from 'react'
+import { ReactElement, useEffect } from 'react'
 import { BodyLong } from '@navikt/ds-react'
 
 import RadioGroupForQuestion from '@/components/FormComponents/RadioGroupForQuestion'
 import { NAV_PHONE_NUMBER } from '@/constants/appConstants'
 import WriteToUsLink from '@/components/UI/WriteToUsLink'
-import { Step } from '@/components/OtherForm/Step'
+
+import { Step } from '../Step'
 
 interface Props {
   previousStep: () => void
@@ -26,6 +27,10 @@ const Description = (): ReactElement => {
 }
 
 export const OnskerKontaktStep = ({ previousStep }: Props): ReactElement => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <Step heading="Bistand fra NAV" previousStep={previousStep} displaySubmitButton>
       <RadioGroupForQuestion questionName="BEHOV_FOR_OPPFOLGING" description={<Description />} />

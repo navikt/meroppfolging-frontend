@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 
 import { withAuthenticatedPage } from '@/auth'
 import { trpc } from '@/utils/trpc'
-import { LandingContent } from '@/components/OtherForm/LandingContent'
+import { LandingContent } from '@/components/Form/LandingContent'
 
 function SnartSlutt(): ReactElement {
   const status = trpc.status.useQuery()

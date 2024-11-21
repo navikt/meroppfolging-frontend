@@ -1,14 +1,16 @@
-import { ReactElement } from 'react'
+import { ReactElement, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 
 import { FremtidigSituasjonAnswerTypes } from '@/domain/answerValues'
-import { TilbakeHosArbeidsgiver } from '@/components/OtherForm/Info/Situasjoner/TilbakeHosArbeidsgiver'
-import { TilbakeMedTilpasninger } from '@/components/OtherForm/Info/Situasjoner/TilbakeMedTilpasninger'
-import { TilbakeGradert } from '@/components/OtherForm/Info/Situasjoner/TilbakeGradert'
-import { BytteJobb } from '@/components/OtherForm/Info/Situasjoner/BytteJobb'
-import { FortsattSyk } from '@/components/OtherForm/Info/Situasjoner/FortsattSyk'
-import { Step } from '@/components/OtherForm/Step'
-import { Usikker } from '@/components/OtherForm/Info/Situasjoner/Usikker'
+
+import { Step } from '../Step'
+
+import { TilbakeHosArbeidsgiver } from './Situasjoner/TilbakeHosArbeidsgiver'
+import { TilbakeMedTilpasninger } from './Situasjoner/TilbakeMedTilpasninger'
+import { TilbakeGradert } from './Situasjoner/TilbakeGradert'
+import { BytteJobb } from './Situasjoner/BytteJobb'
+import { FortsattSyk } from './Situasjoner/FortsattSyk'
+import { Usikker } from './Situasjoner/Usikker'
 
 export type FormInputs = {
   FREMTIDIG_SITUASJON: FremtidigSituasjonAnswerTypes
@@ -45,10 +47,14 @@ const getSituationInfo = (value: FremtidigSituasjonAnswerTypes): SituationInfo =
   }
 }
 
-export const OtherInfo = ({ previousStep, nextStep }: Props): ReactElement => {
+export const InfoStep = ({ previousStep, nextStep }: Props): ReactElement => {
   const { watch } = useFormContext<FormInputs>()
   const value: FremtidigSituasjonAnswerTypes = watch('FREMTIDIG_SITUASJON')
   const { content, heading } = getSituationInfo(value)
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <Step heading={heading} previousStep={previousStep} nextStep={nextStep}>

@@ -1,17 +1,22 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { BodyLong, BodyShort } from '@navikt/ds-react'
 
-import OtherMaxDateInfo from '@/components/OtherForm/LandingInfo/OtherMaxDateInfo'
-import { Step } from '@/components/OtherForm/Step'
+import { Step } from '../Step'
+
+import MaxDateInfo from './MaxDateInfo'
 
 interface Props {
   nextStep: () => void
 }
 
 function LandingInfoStep({ nextStep }: Props): ReactElement {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <Step heading="Sykepengene dine tar snart slutt" nextStep={nextStep}>
-      <OtherMaxDateInfo />
+      <MaxDateInfo />
 
       <BodyLong>
         Det er viktig at du tar stilling til din økonomiske situasjon i god tid før sykepengene tar slutt.

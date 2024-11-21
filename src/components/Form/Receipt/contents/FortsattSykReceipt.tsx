@@ -1,9 +1,9 @@
 import { ReactElement } from 'react'
 import { Accordion, Alert, BodyLong, Button, Heading, Link, VStack } from '@navikt/ds-react'
 
-import { BytteJobbAccordionItem } from '@/components/Receipt/contents/BytteJobbReceipt'
-import { TilbakeMedTilpasningerAccordionItem } from '@/components/Receipt/contents/TilbakeMedTilpasningerReceipt'
-import { TilbakeGradertAccordionItem } from '@/components/Receipt/contents/TilbakeGradertReceipt'
+import { TilbakeMedTilpasningerAccordionItem } from './TilbakeMedTilpasningerReceipt'
+import { BytteJobbAccordionItem } from './BytteJobbReceipt'
+import { TilbakeGradertAccordionItem } from './TilbakeGradertReceipt'
 
 export function FortsattSykContent(): ReactElement {
   return (
