@@ -1,8 +1,8 @@
-import { ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 
 import { withAuthenticatedPage } from '@/auth'
-import Landing from '@/components/LandingPage/Landing'
 import { trpc } from '@/utils/trpc'
+import { LandingContent } from '@/components/Form/LandingContent'
 
 function SnartSlutt(): ReactElement {
   const status = trpc.status.useQuery()
@@ -14,7 +14,7 @@ function SnartSlutt(): ReactElement {
     case 'error':
       throw new Error('Beklager, det skjedede en feil ved henting av din status')
     case 'success':
-      return <Landing status={status.data} />
+      return <LandingContent status={status.data} />
     default:
       const exhaustiveCheck: never = status
       return exhaustiveCheck

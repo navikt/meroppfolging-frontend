@@ -1,4 +1,4 @@
-import Document, { Html, Head, Main, NextScript, DocumentInitialProps, DocumentContext } from 'next/document'
+import Document, { DocumentContext, DocumentInitialProps, Head, Html, Main, NextScript } from 'next/document'
 import { DecoratorComponents, fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr'
 import { Page } from '@navikt/ds-react'
 
@@ -40,7 +40,7 @@ class MyDocument extends Document<DocumentProps> {
           <Decorator.Styles />
         </Head>
         <body>
-          <Page contentBlockPadding="none" footer={<Decorator.Footer />}>
+          <Page background="bg-subtle" contentBlockPadding="none" footer={<Decorator.Footer />}>
             <Decorator.Header />
             <Main />
           </Page>

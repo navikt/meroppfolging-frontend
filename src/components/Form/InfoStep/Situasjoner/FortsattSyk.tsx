@@ -1,11 +1,7 @@
-import { ReactElement } from 'react'
-import { Accordion, Alert, BodyLong, Button, Heading, Link, VStack } from '@navikt/ds-react'
+import React, { ReactElement } from 'react'
+import { Alert, BodyLong, Heading, Link } from '@navikt/ds-react'
 
-import { BytteJobbAccordionItem } from '@/components/Receipt/contents/BytteJobbReceipt'
-import { TilbakeMedTilpasningerAccordionItem } from '@/components/Receipt/contents/TilbakeMedTilpasningerReceipt'
-import { TilbakeGradertAccordionItem } from '@/components/Receipt/contents/TilbakeGradertReceipt'
-
-export function FortsattSykContent(): ReactElement {
+export const FortsattSyk = (): ReactElement => {
   return (
     <>
       <BodyLong>
@@ -41,39 +37,8 @@ export function FortsattSykContent(): ReactElement {
       </Alert>
 
       <Link href="https://www.nav.no/start/soknad-aap" target="_blank" rel="noopener noreferrer">
-        <Button className="w-fit">Gå til søknaden om AAP</Button>
+        Gå til søknaden om AAP
       </Link>
     </>
   )
 }
-
-export function FortsattSykAccordionItem(): ReactElement {
-  return (
-    <Accordion.Item>
-      <Accordion.Header>Hvis du blir for syk til å jobbe</Accordion.Header>
-      <Accordion.Content>
-        <VStack gap="6">
-          <FortsattSykContent />
-        </VStack>
-      </Accordion.Content>
-    </Accordion.Item>
-  )
-}
-
-function FortsattSykReceipt(): ReactElement {
-  return (
-    <>
-      <Heading size="medium" level="2">
-        Når du er for syk til å jobbe
-      </Heading>
-      <FortsattSykContent />
-      <Accordion>
-        <TilbakeMedTilpasningerAccordionItem />
-        <TilbakeGradertAccordionItem />
-        <BytteJobbAccordionItem />
-      </Accordion>
-    </>
-  )
-}
-
-export default FortsattSykReceipt

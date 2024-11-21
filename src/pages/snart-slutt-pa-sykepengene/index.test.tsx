@@ -21,7 +21,9 @@ describe('SnartSlutt', () => {
 
     render(<SnartSlutt />)
 
-    expect(await screen.findByRole('heading', { name: 'Vil du ha hjelp fra oss?', level: 1 })).toBeInTheDocument()
+    expect(
+      await screen.findByRole('heading', { name: 'Sykepengene dine tar snart slutt', level: 1 }),
+    ).toBeInTheDocument()
   })
 
   it('should display heading for no access screen if user should not have access to sen oppfølging solution', async () => {
