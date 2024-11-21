@@ -40,7 +40,9 @@ function App({ Component, pageProps }: AppProps): ReactElement {
       <QueryClientProvider client={queryClient}>
         <ToggleProvider>
           <main tabIndex={-1} id="maincontent">
-            <Component {...pageProps} />
+            <div className="flex flex-col items-center w-full p-4 md:p-8">
+              <Component {...pageProps} />
+            </div>
             {isLocalOrDemo && <TestScenarioSelector />}
           </main>
         </ToggleProvider>

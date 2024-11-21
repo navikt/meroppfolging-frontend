@@ -1,10 +1,10 @@
 import { Accordion } from '@navikt/ds-react'
 import { ReactElement } from 'react'
 
-import { BytteJobbAccordionItem } from '@/components/Receipt/contents/BytteJobbReceipt'
-import { TilbakeGradertAccordionItem } from '@/components/Receipt/contents/TilbakeGradertReceipt'
-import { FortsattSykAccordionItem } from '@//components/Receipt/contents/FortsattSykReceipt'
-import { TilbakeMedTilpasningerAccordionItem } from '@/components/Receipt/contents/TilbakeMedTilpasningerReceipt'
+import { TilbakeMedTilpasningerAccordionItem } from './TilbakeMedTilpasningerReceipt'
+import { TilbakeGradertAccordionItem } from './TilbakeGradertReceipt'
+import { BytteJobbAccordionItem } from './BytteJobbReceipt'
+import { FortsattSykAccordionItem } from './FortsattSykReceipt'
 
 function TilbakeHosArbeidsgiverReceipt(): ReactElement {
   return (

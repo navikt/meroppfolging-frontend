@@ -3,10 +3,11 @@ import { Accordion, BodyShort, Heading, Link, List, VStack } from '@navikt/ds-re
 import NextLink from 'next/link'
 
 import { trpc } from '@/utils/trpc'
-import { FortsattSykAccordionItem } from '@/components/Receipt/contents/FortsattSykReceipt'
-import { TilbakeMedTilpasningerAccordionItem } from '@/components/Receipt/contents/TilbakeMedTilpasningerReceipt'
-import { TilbakeGradertAccordionItem } from '@/components/Receipt/contents/TilbakeGradertReceipt'
 import { getLongDateFormat } from '@/utils/dateUtils'
+
+import { TilbakeMedTilpasningerAccordionItem } from './TilbakeMedTilpasningerReceipt'
+import { TilbakeGradertAccordionItem } from './TilbakeGradertReceipt'
+import { FortsattSykAccordionItem } from './FortsattSykReceipt'
 
 function BytteJobbContent(): ReactElement {
   const maxDate = trpc.maxDate.useQuery()

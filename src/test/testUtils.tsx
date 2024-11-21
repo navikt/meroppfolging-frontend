@@ -8,7 +8,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 
 import { trpc } from '@/utils/trpc'
 import { ToggleProvider } from '@/contexts/toggleContext'
-import { FormInputs } from '@/components/SenOppfolging/SenOppfolgingForm'
+import { FormInputs } from '@/components/Form/LandingContent'
 
 type CustomRenderReturnType = { user: ReturnType<typeof userEvent.setup> } & ReturnType<typeof render>
 
