@@ -5,9 +5,9 @@ import { useRouter } from 'next/router'
 import { BehovForOppfolgingAnswerTypes, FremtidigSituasjonAnswerTypes } from '@/domain/answerValues'
 import { StatusDTO } from '@/server/services/schemas/statusSchema'
 import { trpc } from '@/utils/trpc'
-import { createFormRequest } from '@/components/SenOppfolging/requestUtils'
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
 import { OnskerKontaktStep } from '@/components/Form/KontaktStep/OnskerKontaktStep'
+import { createFormRequest } from '@/utils/requestUtils'
 
 import NoAccessInformation from '../NoAccessInformation/NoAccessInformation'
 

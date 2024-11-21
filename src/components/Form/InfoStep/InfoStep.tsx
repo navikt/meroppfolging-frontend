@@ -4,6 +4,7 @@ import { useFormContext } from 'react-hook-form'
 import { FremtidigSituasjonAnswerTypes } from '@/domain/answerValues'
 
 import { Step } from '../Step'
+import { FormInputs } from '../LandingContent'
 
 import { TilbakeHosArbeidsgiver } from './Situasjoner/TilbakeHosArbeidsgiver'
 import { TilbakeMedTilpasninger } from './Situasjoner/TilbakeMedTilpasninger'
@@ -11,10 +12,6 @@ import { TilbakeGradert } from './Situasjoner/TilbakeGradert'
 import { BytteJobb } from './Situasjoner/BytteJobb'
 import { FortsattSyk } from './Situasjoner/FortsattSyk'
 import { Usikker } from './Situasjoner/Usikker'
-
-export type FormInputs = {
-  FREMTIDIG_SITUASJON: FremtidigSituasjonAnswerTypes
-}
 
 interface Props {
   previousStep: () => void
