@@ -60,21 +60,30 @@ export const LandingContent = ({ status }: LandingContentProps): ReactElement =>
     <>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          {currentStep === 'FREMTIDIG_SITUASJON' && (
-            <FremtidigSituasjonStep
-              previousStep={() => setCurrentStep('LANDING')}
-              nextStep={() => setCurrentStep('INFO')}
-            />
-          )}
-          {currentStep === 'KONTAKT' && <OnskerKontaktStep previousStep={() => setCurrentStep('INFO')} />}
-
-          {currentStep === 'LANDING' && <LandingInfoStep nextStep={() => setCurrentStep('FREMTIDIG_SITUASJON')} />}
-          {currentStep === 'INFO' && (
-            <InfoStep
-              previousStep={() => setCurrentStep('FREMTIDIG_SITUASJON')}
-              nextStep={() => setCurrentStep('KONTAKT')}
-            />
-          )}
+          {(() => {
+            switch (currentStep) {
+              case 'LANDING':
+                return <LandingInfoStep nextStep={() => setCurrentStep('FREMTIDIG_SITUASJON')} />
+              case 'FREMTIDIG_SITUASJON':
+                return (
+                  <FremtidigSituasjonStep
+                    previousStep={() => setCurrentStep('LANDING')}
+                    nextStep={() => setCurrentStep('INFO')}
+                  />
+                )
+              case 'INFO':
+                return (
+                  <InfoStep
+                    previousStep={() => setCurrentStep('FREMTIDIG_SITUASJON')}
+                    nextStep={() => setCurrentStep('KONTAKT')}
+                  />
+                )
+              case 'KONTAKT':
+                return <OnskerKontaktStep previousStep={() => setCurrentStep('INFO')} />
+              default:
+                return null
+            }
+          })()}
         </form>
       </FormProvider>
       {displayErrorMessage && <ErrorMessage />}
