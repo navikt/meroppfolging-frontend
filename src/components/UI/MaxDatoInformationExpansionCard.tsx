@@ -13,14 +13,19 @@ function MaxDatoInformationExpansionCard({ maxDato, utbetaltTomDato }: Props): R
       <ExpansionCard.Header>
         <ExpansionCard.Title size="small">Beregnet slutt på sykepenger</ExpansionCard.Title>
         <ExpansionCard.Description>
-          {utbetaltTomDato ? `Maksdato per ${getLongDateFormat(utbetaltTomDato)}` : 'Sist beregnede maksdato'} er{' '}
-          {getLongDateFormat(maxDato)}. Åpne kortet for å lese mer.
+          Din maksdato er beregnet til å være {getLongDateFormat(maxDato)}. Åpne kortet for å lese mer.
         </ExpansionCard.Description>
       </ExpansionCard.Header>
       <ExpansionCard.Content>
         Du kan maksimalt få sykepenger fra Nav i 52 uker. Grensen er den samme enten du er helt eller delvis sykmeldt.
-        Den siste datoen du kan få sykepenger kalles maksdato. Datoen gjelder hvis du er sammenhengende sykmeldt. Den
-        vil forskyve seg hvis du for eksempel ikke får sykepenger fra Nav i perioder, eller hvis du tar ferie.
+        Den siste datoen du kan få sykepenger kalles maksdato.{' '}
+        {utbetaltTomDato
+          ? `Din maksdato ble sist oppdatert ${getLongDateFormat(
+              utbetaltTomDato,
+            )}. Maksdatoen gjelder fortsatt hvis du har vært sammenhengende sykmeldt og mottatt sykepenger siden da.`
+          : 'Datoen gjelder hvis du er sammenhengende sykmeldt.'}{' '}
+        Den vil forskyve seg hvis du ikke mottar sykepenger i perioder, for eksempel fordi du er frisk i perioder, eller
+        hvis du tar ferie.
       </ExpansionCard.Content>
     </ExpansionCard>
   )
