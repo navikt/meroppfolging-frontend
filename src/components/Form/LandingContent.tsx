@@ -3,7 +3,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 
 import { BehovForOppfolgingAnswerTypes, FremtidigSituasjonAnswerTypes } from '@/domain/answerValues'
-import { StatusDTO } from '@/server/services/schemas/statusSchema'
+import { SenOppfolgingStatusDTO } from '@/server/services/schemas/statusSchema'
 import { trpc } from '@/utils/trpc'
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
 import { OnskerKontaktStep } from '@/components/Form/KontaktStep/OnskerKontaktStep'
@@ -24,10 +24,10 @@ export type FormInputs = {
 }
 
 interface LandingContentProps {
-  status: StatusDTO
+  senOppfolgingStatus: SenOppfolgingStatusDTO
 }
 
-export const LandingContent = ({ status }: LandingContentProps): ReactElement => {
+export const LandingContent = ({ senOppfolgingStatus }: LandingContentProps): ReactElement => {
   const methods = useForm<FormInputs>()
   const [currentStep, setCurrentStep] = useState<Step>('LANDING')
   const [displayErrorMessage, setDisplayErrorMessage] = useState(false)
@@ -42,12 +42,12 @@ export const LandingContent = ({ status }: LandingContentProps): ReactElement =>
     },
   })
 
-  if (!status.hasAccessToSenOppfolging) {
+  if (!senOppfolgingStatus.hasAccessToSenOppfolging) {
     return <NoAccessInformation />
   }
 
-  if (status.response) {
-    return <Receipt response={status.response} />
+  if (senOppfolgingStatus.response) {
+    return <Receipt response={senOppfolgingStatus.response} />
   }
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {

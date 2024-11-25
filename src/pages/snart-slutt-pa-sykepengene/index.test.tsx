@@ -14,7 +14,7 @@ import {
 describe('SnartSlutt', () => {
   it('should display form', async () => {
     testServer.use(
-      trpcMsw.status.query(async (_req, res, ctx) => {
+      trpcMsw.senOppfolgingStatus.query(async (_req, res, ctx) => {
         return res(ctx.status(200), ctx.data(IkkeSvart))
       }),
     )
@@ -28,7 +28,7 @@ describe('SnartSlutt', () => {
 
   it('should display heading for no access screen if user should not have access to sen oppfølging solution', async () => {
     testServer.use(
-      trpcMsw.status.query(async (_req, res, ctx) => {
+      trpcMsw.senOppfolgingStatus.query(async (_req, res, ctx) => {
         return res(ctx.status(200), ctx.data(IkkeSvartAndShouldNotHaveAccess))
       }),
     )
@@ -42,7 +42,7 @@ describe('SnartSlutt', () => {
 
   it('should dipslay display receipt with certain headings if user has responded fortsatt syk og trenger oppfølging', async () => {
     testServer.use(
-      trpcMsw.status.query(async (_req, res, ctx) => {
+      trpcMsw.senOppfolgingStatus.query(async (_req, res, ctx) => {
         return res(ctx.status(200), ctx.data(SvartFortsattSykOgTrengerOppfolging))
       }),
     )
@@ -55,7 +55,7 @@ describe('SnartSlutt', () => {
 
   it('should dipslay display receipt with correct heading if user has responded trenger ikke oppfølging', async () => {
     testServer.use(
-      trpcMsw.status.query(async (_req, res, ctx) => {
+      trpcMsw.senOppfolgingStatus.query(async (_req, res, ctx) => {
         return res(ctx.status(200), ctx.data(SvartTilbakeHosArbeidsgiverOgTrengerIkkeOppfolging))
       }),
     )

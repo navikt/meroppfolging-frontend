@@ -14,7 +14,7 @@ export const handlers = [
   trpcMsw.maxDate.query((_req, res, ctx) => {
     return res(ctx.status(200), ctx.data(maxDateDTO))
   }),
-  trpcMsw.status.query((_req, res, ctx) => {
+  trpcMsw.senOppfolgingStatus.query((_req, res, ctx) => {
     return res(ctx.status(200), ctx.data(getStatusDTOFixture()))
   }),
   trpcMsw.submitForm.mutation((_req, res, ctx) => {
@@ -32,7 +32,7 @@ export const testHandlers = [
   trpcMsw.maxDate.query((_req, res, ctx) => {
     return res(ctx.status(200), ctx.data(maxDateDTO))
   }),
-  trpcMsw.status.query((_req, res, ctx) => {
+  trpcMsw.senOppfolgingStatus.query((_req, res, ctx) => {
     return res(ctx.status(200), ctx.data(statusDtoFixtures.IkkeSvart))
   }),
   trpcMsw.submitForm.mutation((_req, res, ctx) => {
