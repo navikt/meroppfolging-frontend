@@ -15,7 +15,7 @@ export const FremtidigSituasjonStep = ({ previousStep, nextStep }: Props): React
   }, [])
 
   return (
-    <Step heading="Fremtidig situasjon" previousStep={previousStep} nextStep={nextStep}>
+    <Step heading="Din forventning til fremtidig situasjon" previousStep={previousStep} nextStep={nextStep}>
       <RadioGroupForQuestion questionName="FREMTIDIG_SITUASJON" />
     </Step>
   )
