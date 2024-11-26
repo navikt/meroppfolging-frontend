@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
-import { FormProgress } from '@navikt/ds-react'
+import { FormProgress, Page } from '@navikt/ds-react'
 
 import { BehovForOppfolgingAnswerTypes, FremtidigSituasjonAnswerTypes } from '@/domain/answerValues'
 import { SenOppfolgingStatusDTO } from '@/server/services/schemas/statusSchema'
@@ -77,33 +77,35 @@ export const LandingContent = ({ senOppfolgingStatus }: LandingContentProps): Re
 
   return (
     <>
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
-          {currentStepIndex > 0 && (
-            <FormProgress totalSteps={3} activeStep={currentStepIndex}>
-              <FormProgress.Step>Fremtidig situasjon</FormProgress.Step>
-              <FormProgress.Step>Informasjon</FormProgress.Step>
-              <FormProgress.Step>Kontakt</FormProgress.Step>
-            </FormProgress>
-          )}
+      <Page.Block width="md" className="bg-bg-default p-4 py-8 md:p-12">
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmit)}>
+            {currentStepIndex > 0 && (
+              <FormProgress totalSteps={3} activeStep={currentStepIndex} className="pb-6">
+                <FormProgress.Step>Fremtidig situasjon</FormProgress.Step>
+                <FormProgress.Step>Informasjon</FormProgress.Step>
+                <FormProgress.Step>Kontakt</FormProgress.Step>
+              </FormProgress>
+            )}
 
-          {(() => {
-            switch (steps[currentStepIndex].name) {
-              case 'LANDING':
-                return <LandingInfoStep />
-              case 'FREMTIDIG_SITUASJON':
-                return <FremtidigSituasjonStep goToPreviousStep={goToPreviousStep} />
-              case 'INFO':
-                return <InfoStep goToPreviousStep={goToPreviousStep} />
-              case 'KONTAKT':
-                return <OnskerKontaktStep goToPreviousStep={goToPreviousStep} />
-              default:
-                return null
-            }
-          })()}
-        </form>
-      </FormProvider>
-      {displayErrorMessage && <ErrorMessage />}
+            {(() => {
+              switch (steps[currentStepIndex].name) {
+                case 'LANDING':
+                  return <LandingInfoStep />
+                case 'FREMTIDIG_SITUASJON':
+                  return <FremtidigSituasjonStep goToPreviousStep={goToPreviousStep} />
+                case 'INFO':
+                  return <InfoStep goToPreviousStep={goToPreviousStep} />
+                case 'KONTAKT':
+                  return <OnskerKontaktStep goToPreviousStep={goToPreviousStep} />
+                default:
+                  return null
+              }
+            })()}
+          </form>
+        </FormProvider>
+        {displayErrorMessage && <ErrorMessage />}
+      </Page.Block>
     </>
   )
 }

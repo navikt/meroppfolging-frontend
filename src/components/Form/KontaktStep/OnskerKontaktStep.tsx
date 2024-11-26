@@ -1,11 +1,11 @@
 import { ReactElement, useEffect } from 'react'
 import { BodyLong } from '@navikt/ds-react'
+import { PaperplaneIcon } from '@navikt/aksel-icons'
 
 import RadioGroupForQuestion from '@/components/FormComponents/RadioGroupForQuestion'
 import { NAV_PHONE_NUMBER } from '@/constants/appConstants'
 import WriteToUsLink from '@/components/UI/WriteToUsLink'
-
-import { Step } from '../Step'
+import { Step } from '@/components/Form/Step'
 
 interface Props {
   goToPreviousStep: () => void
@@ -32,7 +32,12 @@ export const OnskerKontaktStep = ({ goToPreviousStep }: Props): ReactElement => 
   }, [])
 
   return (
-    <Step heading="Bistand fra NAV" goToPreviousStep={goToPreviousStep} isLastStep>
+    <Step
+      heading="Bistand fra NAV"
+      goToPreviousStep={goToPreviousStep}
+      customNextButtonIcon={<PaperplaneIcon aria-hidden />}
+      customNextButtonLabel="Send inn svarene"
+    >
       <RadioGroupForQuestion questionName="BEHOV_FOR_OPPFOLGING" description={<Description />} />
     </Step>
   )

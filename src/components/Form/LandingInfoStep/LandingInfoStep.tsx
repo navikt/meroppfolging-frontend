@@ -11,7 +11,7 @@ function LandingInfoStep(): ReactElement {
   }, [])
 
   return (
-    <Step heading="Sykepengene dine tar snart slutt">
+    <Step heading="Sykepengene dine tar snart slutt" customNextButtonLabel="Gå videre">
       <MaxDateInfo />
 
       <BodyLong>
@@ -19,8 +19,8 @@ function LandingInfoStep(): ReactElement {
       </BodyLong>
 
       <BodyLong>
-        Vi ber deg svare på noen få spørsmål, slik at vi best mulig kan gi deg informasjon om hvilke muligheter du har.
-        Din veileder vil også se svarene dine.
+        Vi ber deg svare på noen få spørsmål, slik at vi best mulig kan gi deg informasjon om hvilke muligheter du har,
+        og hjelpe deg videre. Din veileder vil se svarene dine.
       </BodyLong>
     </Step>
   )
