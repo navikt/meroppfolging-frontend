@@ -5,17 +5,16 @@ import RadioGroupForQuestion from '@/components/FormComponents/RadioGroupForQues
 import { Step } from '../Step'
 
 interface Props {
-  previousStep: () => void
-  nextStep: () => void
+  goToPreviousStep: () => void
 }
 
-export const FremtidigSituasjonStep = ({ previousStep, nextStep }: Props): ReactElement => {
+export const FremtidigSituasjonStep = ({ goToPreviousStep }: Props): ReactElement => {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
   return (
-    <Step heading="Fremtidig situasjon" previousStep={previousStep} nextStep={nextStep}>
+    <Step heading="Fremtidig situasjon" goToPreviousStep={goToPreviousStep}>
       <RadioGroupForQuestion questionName="FREMTIDIG_SITUASJON" />
     </Step>
   )
