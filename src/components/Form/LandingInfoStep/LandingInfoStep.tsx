@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect } from 'react'
-import { BodyLong, BodyShort } from '@navikt/ds-react'
+import { BodyLong } from '@navikt/ds-react'
 
 import { Step } from '../Step'
 
@@ -22,9 +22,10 @@ function LandingInfoStep({ nextStep }: Props): ReactElement {
         Det er viktig at du tar stilling til din økonomiske situasjon i god tid før sykepengene tar slutt.
       </BodyLong>
 
-      <BodyShort>
+      <BodyLong>
         Vi ber deg svare på noen få spørsmål, slik at vi best mulig kan gi deg informasjon om hvilke muligheter du har.
-      </BodyShort>
+        Din veileder vil også se svarene dine.
+      </BodyLong>
     </Step>
   )
 }

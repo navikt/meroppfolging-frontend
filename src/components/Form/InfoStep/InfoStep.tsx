@@ -36,7 +36,7 @@ const getSituationInfo = (value: FremtidigSituasjonAnswerTypes): SituationInfo =
     case 'FORTSATT_SYK':
       return { content: <FortsattSyk />, heading: 'Når du er for syk til å jobbe' }
     case 'USIKKER':
-      return { content: <Usikker />, heading: 'Når du er for syk til å jobbe' }
+      return { content: <Usikker />, heading: 'Informasjon til deg som er usikker' }
     default:
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const _exhaustiveCheck: never = value

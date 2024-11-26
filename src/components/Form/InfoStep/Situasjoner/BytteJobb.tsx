@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { BodyShort, Link, List } from '@navikt/ds-react'
-import NextLink from 'next/link'
+import { ExternalLinkIcon } from '@navikt/aksel-icons'
 
 import { trpc } from '@/utils/trpc'
 import { getLongDateFormat } from '@/utils/dateUtils'
@@ -29,10 +29,20 @@ export const BytteJobb = (): ReactElement => {
 
       <BodyShort>
         Du kan finne alle utlyste stillinger i landet på{' '}
-        <Link as={NextLink} href="https://arbeidsplassen.nav.no">
-          arbeidsplassen.nav.no
+        <Link href="https://arbeidsplassen.nav.no" target="_blank">
+          arbeidsplassen.nav.no <ExternalLinkIcon title="åpner i ny fane" />
         </Link>
         .
+      </BodyShort>
+
+      <BodyShort>
+        Hvis du blir arbeidsledig eller permittert kan du ha rett på{' '}
+        <Link href="https://www.nav.no/dagpenger" target="_blank">
+          dagpenger
+          <ExternalLinkIcon title="åpner i ny fane" />
+        </Link>
+        . Merk at hvis du sier opp jobben og det det vurderes at du ikke hadde rimelig grunn, så mister du retten til
+        dagpenger de første 18 ukene.
       </BodyShort>
     </>
   )
