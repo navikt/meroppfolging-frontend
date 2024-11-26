@@ -1,22 +1,22 @@
 import React, { ReactElement, useState } from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
+import { FormProgress } from '@navikt/ds-react'
 
 import { BehovForOppfolgingAnswerTypes, FremtidigSituasjonAnswerTypes } from '@/domain/answerValues'
 import { SenOppfolgingStatusDTO } from '@/server/services/schemas/statusSchema'
 import { trpc } from '@/utils/trpc'
-import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
-import { OnskerKontaktStep } from '@/components/Form/KontaktStep/OnskerKontaktStep'
 import { createFormRequest } from '@/utils/requestUtils'
-
-import NoAccessInformation from '../NoAccessInformation/NoAccessInformation'
+import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
+import NoAccessInformation from '@/components/NoAccessInformation/NoAccessInformation'
+import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
+import { OnskerOppfolgingStep } from '@/components/Form/OppfolgingStep/OnskerOppfolgingStep'
 
 import { FremtidigSituasjonStep } from './FremtidigSituasjonStep/FremtidigSituasjonStep'
-import LandingInfoStep from './LandingInfoStep/LandingInfoStep'
 import { InfoStep } from './InfoStep/InfoStep'
 import Receipt from './Receipt/Receipt'
 
-type Step = { number: number; name: 'LANDING' | 'FREMTIDIG_SITUASJON' | 'INFO' | 'KONTAKT' }
+type Step = { number: number; name: 'FREMTIDIG_SITUASJON' | 'INFO' | 'KONTAKT' }
 
 export type FormInputs = {
   FREMTIDIG_SITUASJON: FremtidigSituasjonAnswerTypes
@@ -28,13 +28,12 @@ interface LandingContentProps {
 }
 
 const steps: Step[] = [
-  { number: 1, name: 'LANDING' },
-  { number: 2, name: 'FREMTIDIG_SITUASJON' },
-  { number: 3, name: 'INFO' },
-  { number: 4, name: 'KONTAKT' },
+  { number: 1, name: 'FREMTIDIG_SITUASJON' },
+  { number: 2, name: 'INFO' },
+  { number: 3, name: 'KONTAKT' },
 ]
 
-export const LandingContent = ({ senOppfolgingStatus }: LandingContentProps): ReactElement => {
+export const StepHandler = ({ senOppfolgingStatus }: LandingContentProps): ReactElement => {
   const methods = useForm<FormInputs>()
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
   const [displayErrorMessage, setDisplayErrorMessage] = useState(false)
@@ -58,18 +57,42 @@ export const LandingContent = ({ senOppfolgingStatus }: LandingContentProps): Re
   }
 
   const goToNextStep = (): void => {
-    setCurrentStepIndex((prevIndex) => Math.min(prevIndex + 1, steps.length - 1))
+    logAmplitudeEvent({
+      eventName: 'skjema steg fullført',
+      data: {
+        skjemanavn: steps[currentStepIndex].name,
+        steg: steps[currentStepIndex].number.toString(),
+      },
+    })
+    setCurrentStepIndex(currentStepIndex + 1)
   }
 
   const goToPreviousStep = (): void => {
-    setCurrentStepIndex((prevIndex) => Math.max(prevIndex - 1, 0))
+    logAmplitudeEvent({
+      eventName: 'navigere',
+      data: {
+        lenketekst: 'Forrige',
+        destinasjon: steps[currentStepIndex - 1].name,
+      },
+    })
+    setCurrentStepIndex(currentStepIndex - 1)
+  }
+
+  const submitFormToMOBE = (data: FormInputs): void => {
+    logAmplitudeEvent({
+      eventName: 'skjema fullført',
+      data: {
+        skjemanavn: 'Snart slutt på sykepengene',
+      },
+    })
+    const request = createFormRequest(data)
+    mutation.mutate(request)
   }
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
     setDisplayErrorMessage(false)
     if (steps[currentStepIndex].name === 'KONTAKT') {
-      const request = createFormRequest(data)
-      mutation.mutate(request)
+      submitFormToMOBE(data)
     } else {
       goToNextStep()
     }
@@ -79,16 +102,20 @@ export const LandingContent = ({ senOppfolgingStatus }: LandingContentProps): Re
     <>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
+          <FormProgress totalSteps={3} activeStep={steps[currentStepIndex].number} className="pb-6">
+            <FormProgress.Step>Fremtidig situasjon</FormProgress.Step>
+            <FormProgress.Step>Informasjon</FormProgress.Step>
+            <FormProgress.Step>Oppfølging</FormProgress.Step>
+          </FormProgress>
+
           {(() => {
             switch (steps[currentStepIndex].name) {
-              case 'LANDING':
-                return <LandingInfoStep />
               case 'FREMTIDIG_SITUASJON':
-                return <FremtidigSituasjonStep goToPreviousStep={goToPreviousStep} />
+                return <FremtidigSituasjonStep />
               case 'INFO':
                 return <InfoStep goToPreviousStep={goToPreviousStep} />
               case 'KONTAKT':
-                return <OnskerKontaktStep goToPreviousStep={goToPreviousStep} />
+                return <OnskerOppfolgingStep goToPreviousStep={goToPreviousStep} />
               default:
                 return null
             }

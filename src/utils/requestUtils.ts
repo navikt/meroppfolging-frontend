@@ -1,4 +1,4 @@
-import { FormInputs } from '@/components/Form/LandingContent'
+import { FormInputs } from '@/components/Form/StepHandler'
 import { ANSWER_TEXTS, QUESTION_TEXTS, QuestionTypes } from '@/domain/formValues'
 import { FormRequest } from '@/server/services/schemas/formRequestSchema'
 

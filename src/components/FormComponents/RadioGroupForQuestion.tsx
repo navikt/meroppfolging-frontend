@@ -3,6 +3,7 @@ import { useController } from 'react-hook-form'
 import { ReactElement } from 'react'
 
 import { ANSWER_TEXTS, QUESTION_TEXTS, QuestionTypes } from '@/domain/formValues'
+import { logCustomAmplitudeEvent } from '@/libs/amplitude/amplitude'
 
 function RadioGroupForQuestion({
   questionName,
@@ -23,7 +24,13 @@ function RadioGroupForQuestion({
   const answerAlternativesValuesToLabels = ANSWER_TEXTS[questionName]
 
   const radioButtons = Object.entries(answerAlternativesValuesToLabels).map(([value, label]) => (
-    <Radio key={value} value={value}>
+    <Radio
+      key={value}
+      value={value}
+      onClick={() => {
+        logCustomAmplitudeEvent('RadioButton clicked', { questionText: { questionText }, radioName: { value } })
+      }}
+    >
       {label}
     </Radio>
   ))

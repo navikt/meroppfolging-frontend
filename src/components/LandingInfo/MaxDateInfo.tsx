@@ -5,7 +5,6 @@ import { logger } from '@navikt/next-logger'
 import { isValid } from 'date-fns'
 
 import { trpc } from '@/utils/trpc'
-import { getLongDateFormat } from '@/utils/dateUtils'
 import MaxDatoInformationExpansionCard from '@/components/UI/MaxDatoInformationExpansionCard'
 
 function MaxDateErrorMessage({ reason }: { reason: string }): ReactElement {
@@ -50,10 +49,6 @@ function MaxDateInfo(): ReactElement {
 
       return (
         <>
-          <BodyLong size="medium">
-            {getLongDateFormat(maxDate.data.maxDate)} er beregnet til å være siste dag du har rett på sykepenger.
-          </BodyLong>
-
           <MaxDatoInformationExpansionCard utbetaltTomDato={maxDate.data.utbetaltTom} maxDato={maxDate.data.maxDate} />
         </>
       )

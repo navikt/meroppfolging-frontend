@@ -10,6 +10,7 @@ import {
   SvartFortsattSykOgTrengerOppfolging,
   SvartTilbakeHosArbeidsgiverOgTrengerIkkeOppfolging,
 } from '@/mocks/data/fixtures/statusDtoFixtures'
+import Skjema from '@/pages/snart-slutt-pa-sykepengene/skjema/index.page'
 
 describe('SnartSlutt', () => {
   it('should display form', async () => {
@@ -33,7 +34,7 @@ describe('SnartSlutt', () => {
       }),
     )
 
-    render(<SnartSlutt />)
+    render(<Skjema />)
 
     expect(
       await screen.findByRole('heading', { name: 'Beklager, du kan ikke svare på dette skjemaet nå.', level: 1 }),
@@ -47,7 +48,7 @@ describe('SnartSlutt', () => {
       }),
     )
 
-    render(<SnartSlutt />)
+    render(<Skjema />)
 
     expect(await screen.findByRole('heading', { name: 'Vi tar kontakt med deg', level: 1 })).toBeInTheDocument()
     expect(await screen.findByRole('heading', { name: 'Når du er for syk til å jobbe', level: 2 })).toBeInTheDocument()
@@ -60,7 +61,7 @@ describe('SnartSlutt', () => {
       }),
     )
 
-    render(<SnartSlutt />)
+    render(<Skjema />)
 
     expect(await screen.findByRole('heading', { name: 'Det kan hende du hører fra oss', level: 1 })).toBeInTheDocument()
   })
