@@ -16,7 +16,7 @@ import LandingInfoStep from './LandingInfoStep/LandingInfoStep'
 import { InfoStep } from './InfoStep/InfoStep'
 import Receipt from './Receipt/Receipt'
 
-export type Step = 'LANDING' | 'FREMTIDIG_SITUASJON' | 'INFO' | 'KONTAKT'
+type Step = { number: number; name: 'LANDING' | 'FREMTIDIG_SITUASJON' | 'INFO' | 'KONTAKT' }
 
 export type FormInputs = {
   FREMTIDIG_SITUASJON: FremtidigSituasjonAnswerTypes
@@ -27,9 +27,16 @@ interface LandingContentProps {
   status: StatusDTO
 }
 
+const steps: Step[] = [
+  { number: 1, name: 'LANDING' },
+  { number: 2, name: 'FREMTIDIG_SITUASJON' },
+  { number: 3, name: 'INFO' },
+  { number: 4, name: 'KONTAKT' },
+]
+
 export const LandingContent = ({ status }: LandingContentProps): ReactElement => {
   const methods = useForm<FormInputs>()
-  const [currentStep, setCurrentStep] = useState<Step>('LANDING')
+  const [currentStepIndex, setCurrentStepIndex] = useState(0)
   const [displayErrorMessage, setDisplayErrorMessage] = useState(false)
   const { reload } = useRouter()
 
@@ -50,10 +57,22 @@ export const LandingContent = ({ status }: LandingContentProps): ReactElement =>
     return <Receipt response={status.response} />
   }
 
+  const goToNextStep = (): void => {
+    setCurrentStepIndex((prevIndex) => Math.min(prevIndex + 1, steps.length - 1))
+  }
+
+  const goToPreviousStep = (): void => {
+    setCurrentStepIndex((prevIndex) => Math.max(prevIndex - 1, 0))
+  }
+
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
     setDisplayErrorMessage(false)
-    const request = createFormRequest(data)
-    mutation.mutate(request)
+    if (steps[currentStepIndex].name === 'KONTAKT') {
+      const request = createFormRequest(data)
+      mutation.mutate(request)
+    } else {
+      goToNextStep()
+    }
   }
 
   return (
@@ -61,25 +80,15 @@ export const LandingContent = ({ status }: LandingContentProps): ReactElement =>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           {(() => {
-            switch (currentStep) {
+            switch (steps[currentStepIndex].name) {
               case 'LANDING':
-                return <LandingInfoStep nextStep={() => setCurrentStep('FREMTIDIG_SITUASJON')} />
+                return <LandingInfoStep />
               case 'FREMTIDIG_SITUASJON':
-                return (
-                  <FremtidigSituasjonStep
-                    previousStep={() => setCurrentStep('LANDING')}
-                    nextStep={() => setCurrentStep('INFO')}
-                  />
-                )
+                return <FremtidigSituasjonStep goToPreviousStep={goToPreviousStep} />
               case 'INFO':
-                return (
-                  <InfoStep
-                    previousStep={() => setCurrentStep('FREMTIDIG_SITUASJON')}
-                    nextStep={() => setCurrentStep('KONTAKT')}
-                  />
-                )
+                return <InfoStep goToPreviousStep={goToPreviousStep} />
               case 'KONTAKT':
-                return <OnskerKontaktStep previousStep={() => setCurrentStep('INFO')} />
+                return <OnskerKontaktStep goToPreviousStep={goToPreviousStep} />
               default:
                 return null
             }

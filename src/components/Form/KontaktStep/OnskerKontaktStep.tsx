@@ -8,7 +8,7 @@ import WriteToUsLink from '@/components/UI/WriteToUsLink'
 import { Step } from '../Step'
 
 interface Props {
-  previousStep: () => void
+  goToPreviousStep: () => void
 }
 
 const Description = (): ReactElement => {
@@ -26,13 +26,13 @@ const Description = (): ReactElement => {
   )
 }
 
-export const OnskerKontaktStep = ({ previousStep }: Props): ReactElement => {
+export const OnskerKontaktStep = ({ goToPreviousStep }: Props): ReactElement => {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
   return (
-    <Step heading="Bistand fra NAV" previousStep={previousStep} displaySubmitButton>
+    <Step heading="Bistand fra NAV" goToPreviousStep={goToPreviousStep} isLastStep>
       <RadioGroupForQuestion questionName="BEHOV_FOR_OPPFOLGING" description={<Description />} />
     </Step>
   )
