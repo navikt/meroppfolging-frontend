@@ -31,8 +31,8 @@ export const BytteJobb = (): ReactElement => {
         Du kan finne alle utlyste stillinger i landet på{' '}
         <Link href="https://arbeidsplassen.nav.no" target="_blank">
           arbeidsplassen.nav.no <ExternalLinkIcon title="åpner i ny fane" />
-        </Link>
-        .
+        </Link>{' '}
+        (åpner i en ny fane).
       </BodyShort>
 
       <BodyShort>
@@ -40,9 +40,9 @@ export const BytteJobb = (): ReactElement => {
         <Link href="https://www.nav.no/dagpenger" target="_blank">
           dagpenger
           <ExternalLinkIcon title="åpner i ny fane" />
-        </Link>
-        . Merk at hvis du sier opp jobben og det det vurderes at du ikke hadde rimelig grunn, så mister du retten til
-        dagpenger de første 18 ukene.
+        </Link>{' '}
+        (åpner i en ny fane). Merk at hvis du sier opp jobben og det det vurderes at du ikke hadde rimelig grunn, så
+        mister du retten til dagpenger de første 18 ukene.
       </BodyShort>
     </>
   )

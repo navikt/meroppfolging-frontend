@@ -16,11 +16,11 @@ export const TilbakeMedTilpasninger = (): ReactElement => {
         søke Nav om hjelpemidler til å utføre arbeidet ditt.
       </BodyShort>
       <BodyShort>
-        Les mer om (lenken åpner i ny fane){' '}
+        Les mer om{' '}
         <Link href="https://www.nav.no/tilrettelegging-jobb" target="_blank">
           tilrettelegging på jobb <ExternalLinkIcon title="åpner i ny fane" />
         </Link>{' '}
-        og hva Nav kan bistå med.
+        (åpner i ny fane) og hva Nav kan bistå med.
       </BodyShort>
     </>
   )
