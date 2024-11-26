@@ -5,12 +5,11 @@ import { ArrowLeftIcon, ArrowRightIcon, PaperplaneIcon } from '@navikt/aksel-ico
 interface Props {
   heading: string
   children: ReactNode
-  nextStep?: () => void
-  previousStep?: () => void
-  displaySubmitButton?: boolean
+  goToPreviousStep?: () => void
+  isLastStep?: boolean
 }
 
-export const Step = ({ heading, children, previousStep, nextStep, displaySubmitButton }: Props): ReactElement => {
+export const Step = ({ heading, children, goToPreviousStep, isLastStep }: Props): ReactElement => {
   return (
     <Page.Block width="md">
       <VStack className="bg-bg-default p-4 py-8 md:p-12" gap="6">
@@ -20,22 +19,22 @@ export const Step = ({ heading, children, previousStep, nextStep, displaySubmitB
           </Heading>
           {children}
           <HStack gap="8">
-            {previousStep && (
+            {goToPreviousStep && (
               <Button
                 variant="secondary"
-                onClick={previousStep}
+                onClick={goToPreviousStep}
                 icon={<ArrowLeftIcon aria-hidden />}
                 iconPosition="left"
               >
                 Forrige
               </Button>
             )}
-            {nextStep && (
-              <Button onClick={nextStep} icon={<ArrowRightIcon aria-hidden />} iconPosition="right">
+            {!isLastStep && (
+              <Button type="submit" icon={<ArrowRightIcon aria-hidden />} iconPosition="right">
                 Neste
               </Button>
             )}
-            {displaySubmitButton && (
+            {isLastStep && (
               <Button type="submit" icon={<PaperplaneIcon aria-hidden />} iconPosition="right">
                 Send svarene
               </Button>
