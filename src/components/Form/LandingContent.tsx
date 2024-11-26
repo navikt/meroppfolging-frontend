@@ -1,15 +1,15 @@
 import React, { ReactElement, useState } from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
+import { FormProgress } from '@navikt/ds-react'
 
 import { BehovForOppfolgingAnswerTypes, FremtidigSituasjonAnswerTypes } from '@/domain/answerValues'
 import { SenOppfolgingStatusDTO } from '@/server/services/schemas/statusSchema'
 import { trpc } from '@/utils/trpc'
+import { createFormRequest } from '@/utils/requestUtils'
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
 import { OnskerKontaktStep } from '@/components/Form/KontaktStep/OnskerKontaktStep'
-import { createFormRequest } from '@/utils/requestUtils'
-
-import NoAccessInformation from '../NoAccessInformation/NoAccessInformation'
+import NoAccessInformation from '@/components/NoAccessInformation/NoAccessInformation'
 
 import { FremtidigSituasjonStep } from './FremtidigSituasjonStep/FremtidigSituasjonStep'
 import LandingInfoStep from './LandingInfoStep/LandingInfoStep'
@@ -79,6 +79,14 @@ export const LandingContent = ({ senOppfolgingStatus }: LandingContentProps): Re
     <>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
+          {currentStepIndex > 0 && (
+            <FormProgress totalSteps={3} activeStep={currentStepIndex}>
+              <FormProgress.Step>Fremtidig situasjon</FormProgress.Step>
+              <FormProgress.Step>Informasjon</FormProgress.Step>
+              <FormProgress.Step>Kontakt</FormProgress.Step>
+            </FormProgress>
+          )}
+
           {(() => {
             switch (steps[currentStepIndex].name) {
               case 'LANDING':
