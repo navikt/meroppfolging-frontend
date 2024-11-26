@@ -14,8 +14,7 @@ import { FortsattSyk } from './Situasjoner/FortsattSyk'
 import { Usikker } from './Situasjoner/Usikker'
 
 interface Props {
-  previousStep: () => void
-  nextStep: () => void
+  goToPreviousStep: () => void
 }
 
 interface SituationInfo {
@@ -44,7 +43,7 @@ const getSituationInfo = (value: FremtidigSituasjonAnswerTypes): SituationInfo =
   }
 }
 
-export const InfoStep = ({ previousStep, nextStep }: Props): ReactElement => {
+export const InfoStep = ({ goToPreviousStep }: Props): ReactElement => {
   const { watch } = useFormContext<FormInputs>()
   const value: FremtidigSituasjonAnswerTypes = watch('FREMTIDIG_SITUASJON')
   const { content, heading } = getSituationInfo(value)
@@ -54,7 +53,7 @@ export const InfoStep = ({ previousStep, nextStep }: Props): ReactElement => {
   }, [])
 
   return (
-    <Step heading={heading} previousStep={previousStep} nextStep={nextStep}>
+    <Step heading={heading} goToPreviousStep={goToPreviousStep}>
       {content}
     </Step>
   )

@@ -5,17 +5,13 @@ import { Step } from '../Step'
 
 import MaxDateInfo from './MaxDateInfo'
 
-interface Props {
-  nextStep: () => void
-}
-
-function LandingInfoStep({ nextStep }: Props): ReactElement {
+function LandingInfoStep(): ReactElement {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
   return (
-    <Step heading="Sykepengene dine tar snart slutt" nextStep={nextStep}>
+    <Step heading="Sykepengene dine tar snart slutt">
       <MaxDateInfo />
 
       <BodyLong>
