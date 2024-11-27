@@ -15,7 +15,7 @@ export const Usikker = (): ReactElement => {
         </Accordion.Item>
 
         <Accordion.Item>
-          <Accordion.Header>Jeg planlegger å gå av med pensjon</Accordion.Header>
+          <Accordion.Header>Jeg planlegger å ta ut pensjon</Accordion.Header>
           <Accordion.Content>
             <BodyShort spacing>[Informasjon]</BodyShort>
             <BodyShort>
