@@ -24,8 +24,9 @@ function MaxDatoInformationExpansionCard({ maxDato, utbetaltTomDato }: Props): R
               utbetaltTomDato,
             )}. Maksdatoen gjelder fortsatt hvis du har vært sammenhengende sykmeldt og mottatt sykepenger siden da.`
           : 'Datoen gjelder hvis du er sammenhengende sykmeldt.'}{' '}
-        Den vil forskyve seg hvis du ikke mottar sykepenger i perioder, for eksempel fordi du er frisk i perioder, eller
-        hvis du tar ferie.
+        Den vil forskyve seg til en senere dato hvis du har perioder{' '}
+        {utbetaltTomDato ? `etter ${getLongDateFormat(utbetaltTomDato)}` : ''} der du ikke mottar sykepenger. Det kan
+        skje hvis du er frisk i perioder eller hvis du tar ferie.
       </ExpansionCard.Content>
     </ExpansionCard>
   )
