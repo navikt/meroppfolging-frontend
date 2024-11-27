@@ -20,7 +20,7 @@ function LandingInfoStep(): ReactElement {
 
       <BodyLong>
         Vi ber deg svare på noen få spørsmål, slik at vi best mulig kan gi deg informasjon om hvilke muligheter du har,
-        og hjelpe deg videre. Din veileder vil se svarene dine.
+        og hjelpe deg videre.
       </BodyLong>
     </Step>
   )
