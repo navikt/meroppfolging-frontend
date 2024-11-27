@@ -33,7 +33,7 @@ export const OnskerKontaktStep = ({ goToPreviousStep }: Props): ReactElement => 
 
   return (
     <Step
-      heading="Bistand fra Nav"
+      heading="Hjelp fra Nav"
       goToPreviousStep={goToPreviousStep}
       customNextButtonIcon={<PaperplaneIcon aria-hidden />}
       customNextButtonLabel="Send inn svarene"

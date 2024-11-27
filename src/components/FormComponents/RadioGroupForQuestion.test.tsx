@@ -7,7 +7,9 @@ describe('RadioGroupForQuestion', () => {
   it('should render', async () => {
     render(<RadioGroupForQuestion questionName="BEHOV_FOR_OPPFOLGING" description={<div>Test description</div>} />)
 
-    expect(screen.getByRole('group', { name: 'Ønsker du å snakke med en veileder?' })).toBeInTheDocument()
+    expect(
+      screen.getByRole('group', { name: 'Ønsker du mer hjelp fra en sykefravær-veileder nå?' }),
+    ).toBeInTheDocument()
     expect(screen.getByText('Test description')).toBeInTheDocument()
     expect(
       screen.getByRole('radio', {

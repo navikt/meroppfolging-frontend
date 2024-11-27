@@ -5,7 +5,7 @@ export type QuestionTypes = (typeof QUESTION_TYPES)[number]
 
 export const QUESTION_TEXTS = {
   FREMTIDIG_SITUASJON: 'Hvilken situasjon tror du at du er i når sykepengene har tatt slutt?',
-  BEHOV_FOR_OPPFOLGING: 'Ønsker du å snakke med en veileder?',
+  BEHOV_FOR_OPPFOLGING: 'Ønsker du mer hjelp fra en sykefravær-veileder nå?',
 } as const satisfies Record<QuestionTypes, string>
 
 export const ANSWER_TEXTS = {
