@@ -28,6 +28,7 @@ export const Step = ({
           {goToPreviousStep && (
             <Button
               variant="secondary"
+              type="button"
               onClick={goToPreviousStep}
               icon={<ArrowLeftIcon aria-hidden />}
               iconPosition="left"

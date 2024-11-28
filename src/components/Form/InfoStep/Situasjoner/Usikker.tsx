@@ -3,18 +3,37 @@ import { Accordion, BodyLong, BodyShort } from '@navikt/ds-react'
 
 import { alleredeSoktOmPengestotteContent } from '@/components/UI/AlleredeSoktOmPengestotteExpansionCard'
 import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'
+import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
 
 export const Usikker = (): ReactElement => {
   return (
     <>
       <BodyLong>Her har vi samlet litt informasjon om andre situasjoner som kan være aktuelle for deg.</BodyLong>
       <Accordion>
-        <Accordion.Item>
+        <Accordion.Item
+          onOpenChange={(open) => {
+            logAmplitudeEvent({
+              eventName: open ? 'accordion åpnet' : 'accordion lukket',
+              data: {
+                tekst: 'Jeg har allerede søkt om AAP eller en annen pengestøtte',
+              },
+            })
+          }}
+        >
           <Accordion.Header>Jeg har allerede søkt om AAP eller en annen pengestøtte</Accordion.Header>
           <Accordion.Content>{alleredeSoktOmPengestotteContent}</Accordion.Content>
         </Accordion.Item>
 
-        <Accordion.Item>
+        <Accordion.Item
+          onOpenChange={(open) => {
+            logAmplitudeEvent({
+              eventName: open ? 'accordion åpnet' : 'accordion lukket',
+              data: {
+                tekst: 'Jeg planlegger å ta ut pensjon',
+              },
+            })
+          }}
+        >
           <Accordion.Header>Jeg planlegger å ta ut pensjon</Accordion.Header>
           <Accordion.Content>
             <BodyShort spacing>[Informasjon]</BodyShort>
@@ -25,7 +44,16 @@ export const Usikker = (): ReactElement => {
           </Accordion.Content>
         </Accordion.Item>
 
-        <Accordion.Item>
+        <Accordion.Item
+          onOpenChange={(open) => {
+            logAmplitudeEvent({
+              eventName: open ? 'accordion åpnet' : 'accordion lukket',
+              data: {
+                tekst: 'Jeg skal i permisjon',
+              },
+            })
+          }}
+        >
           <Accordion.Header>Jeg skal i permisjon</Accordion.Header>
           <Accordion.Content>
             <BodyShort>
@@ -35,12 +63,30 @@ export const Usikker = (): ReactElement => {
           </Accordion.Content>
         </Accordion.Item>
 
-        <Accordion.Item>
+        <Accordion.Item
+          onOpenChange={(open) => {
+            logAmplitudeEvent({
+              eventName: open ? 'accordion åpnet' : 'accordion lukket',
+              data: {
+                tekst: 'Jeg venter på behandling og er usikker på min fremtidige situasjon',
+              },
+            })
+          }}
+        >
           <Accordion.Header>Jeg venter på behandling og er usikker på min fremtidige situasjon</Accordion.Header>
           <Accordion.Content>Informasjon</Accordion.Content>
         </Accordion.Item>
 
-        <Accordion.Item>
+        <Accordion.Item
+          onOpenChange={(open) => {
+            logAmplitudeEvent({
+              eventName: open ? 'accordion åpnet' : 'accordion lukket',
+              data: {
+                tekst: 'Jeg har andre spørsmål',
+              },
+            })
+          }}
+        >
           <Accordion.Header>Jeg har andre spørsmål</Accordion.Header>
           <Accordion.Content>Du kan kontakte Nav [...]</Accordion.Content>
         </Accordion.Item>
