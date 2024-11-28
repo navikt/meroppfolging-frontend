@@ -4,7 +4,7 @@ import { withAuthenticatedPage } from '@/auth'
 import { trpc } from '@/utils/trpc'
 import { StepHandler } from '@/components/Form/StepHandler'
 
-function SnartSlutt(): ReactElement {
+function Skjema(): ReactElement {
   const senOppfolgingStatus = trpc.senOppfolgingStatus.useQuery()
   trpc.maxDate.useQuery()
 
@@ -23,4 +23,4 @@ function SnartSlutt(): ReactElement {
 
 export const getServerSideProps = withAuthenticatedPage()
 
-export default SnartSlutt
+export default Skjema
