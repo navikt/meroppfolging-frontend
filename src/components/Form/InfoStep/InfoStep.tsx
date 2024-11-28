@@ -2,9 +2,9 @@ import { ReactElement, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 
 import { FremtidigSituasjonAnswerTypes } from '@/domain/answerValues'
+import { Step } from '@/components/Step/Step'
 
-import { Step } from '../Step'
-import { FormInputs } from '../LandingContent'
+import { FormInputs } from '../StepHandler'
 
 import { TilbakeHosArbeidsgiver } from './Situasjoner/TilbakeHosArbeidsgiver'
 import { TilbakeGradert } from './Situasjoner/TilbakeGradert'

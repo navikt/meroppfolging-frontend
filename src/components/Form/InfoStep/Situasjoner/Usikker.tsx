@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react'
-import { Accordion, BodyLong, BodyShort, Link } from '@navikt/ds-react'
-import { ExternalLinkIcon } from '@navikt/aksel-icons'
+import { Accordion, BodyLong, BodyShort } from '@navikt/ds-react'
 
 import { alleredeSoktOmPengestotteContent } from '@/components/UI/AlleredeSoktOmPengestotteExpansionCard'
+import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'
 
 export const Usikker = (): ReactElement => {
   return (
@@ -19,12 +19,8 @@ export const Usikker = (): ReactElement => {
           <Accordion.Content>
             <BodyShort spacing>[Informasjon]</BodyShort>
             <BodyShort>
-              På{' '}
-              <Link href="https://www.nav.no/planlegger-pensjon" target="_blank">
-                denne siden <ExternalLinkIcon title="åpner i ny fane" />
-              </Link>{' '}
-              (åpner i en ny fane) kan du få oversikt over hvordan pensjonen din er bygget opp og sjekke
-              pensjonskalkulatoren.
+              På <TrackedExternalLink href="https://www.nav.no/planlegger-pensjon">denne siden</TrackedExternalLink> kan
+              du få oversikt over hvordan pensjonen din er bygget opp og sjekke pensjonskalkulatoren.
             </BodyShort>
           </Accordion.Content>
         </Accordion.Item>

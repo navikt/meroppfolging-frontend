@@ -5,7 +5,7 @@ import { PaperplaneIcon } from '@navikt/aksel-icons'
 import RadioGroupForQuestion from '@/components/FormComponents/RadioGroupForQuestion'
 import { NAV_PHONE_NUMBER } from '@/constants/appConstants'
 import WriteToUsLink from '@/components/UI/WriteToUsLink'
-import { Step } from '@/components/Form/Step'
+import { Step } from '@/components/Step/Step'
 
 interface Props {
   goToPreviousStep: () => void

@@ -1,19 +1,16 @@
 import React, { ReactElement } from 'react'
-import { Alert, BodyShort, Heading, Link } from '@navikt/ds-react'
-import { ExternalLinkIcon } from '@navikt/aksel-icons'
+import { Alert, BodyShort, Heading } from '@navikt/ds-react'
 
 import AlleredeSoktOmPengestotteExpansionCard from '@/components/UI/AlleredeSoktOmPengestotteExpansionCard'
+import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'
 
 export const FortsattSyk = (): ReactElement => {
   return (
     <>
       <BodyShort>
         Hvis du ikke er frisk nok til å gå tilbake til jobb slik som før, kan det være riktig å søke om{' '}
-        <Link href="https://www.nav.no/aap" target="_blank" rel="noopener noreferrer">
-          arbeidsavklaringspenger (AAP) <ExternalLinkIcon title="åpner i ny fane" />
-        </Link>{' '}
-        (åpner i en ny fane), eller en annen økonomisk støtte. Merk at det er egne vilkår for å motta AAP, som du bør
-        sette deg inn i før du søker.
+        <TrackedExternalLink href="https://www.nav.no/aap">arbeidsavklaringspenger (AAP)</TrackedExternalLink>, eller en
+        annen økonomisk støtte. Merk at det er egne vilkår for å motta AAP, som du bør sette deg inn i før du søker.
       </BodyShort>
       <BodyShort>
         <b>Du må selv søke om AAP eller annen økonomisk støtte.</b> Dette skjer ikke automatisk.
@@ -38,13 +35,6 @@ export const FortsattSyk = (): ReactElement => {
         </BodyShort>
         <BodyShort>Husk å søke tidlig nok.</BodyShort>
       </Alert>
-
-      <BodyShort>
-        <Link href="https://www.nav.no/start/soknad-aap" target="_blank" rel="noopener noreferrer">
-          Gå til søknaden om AAP <ExternalLinkIcon title="åpner i ny fane" />
-        </Link>{' '}
-        (lenken åpner i en ny fane, husk å komme tilbake hit etterpå).
-      </BodyShort>
     </>
   )
 }

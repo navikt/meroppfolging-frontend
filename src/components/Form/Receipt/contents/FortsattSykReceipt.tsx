@@ -1,6 +1,9 @@
 import { ReactElement } from 'react'
 import { Accordion, Alert, BodyLong, Button, Heading, Link, VStack } from '@navikt/ds-react'
 
+import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'
+import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
+
 import { TilbakeMedTilpasningerAccordionItem } from './TilbakeMedTilpasningerReceipt'
 import { BytteJobbAccordionItem } from './BytteJobbReceipt'
 import { TilbakeGradertAccordionItem } from './TilbakeGradertReceipt'
@@ -10,11 +13,8 @@ export function FortsattSykContent(): ReactElement {
     <>
       <BodyLong>
         Hvis du ikke er frisk nok til å gå tilbake til jobb slik som før, kan det være riktig å søke om{' '}
-        <Link href="https://www.nav.no/aap" target="_blank" rel="noopener noreferrer">
-          arbeidsavklaringspenger (AAP)
-        </Link>
-        , eller en annen økonomisk støtte. Merk at det er egne vilkår for å motta AAP, som du bør sette deg inn i før du
-        søker.
+        <TrackedExternalLink href="https://www.nav.no/aap">arbeidsavklaringspenger (AAP)</TrackedExternalLink>, eller en
+        annen økonomisk støtte. Merk at det er egne vilkår for å motta AAP, som du bør sette deg inn i før du søker.
       </BodyLong>
       <BodyLong>
         <b>Du må selv søke om AAP eller annen økonomisk støtte.</b> Dette skjer ikke automatisk.
@@ -41,7 +41,20 @@ export function FortsattSykContent(): ReactElement {
       </Alert>
 
       <Link href="https://www.nav.no/start/soknad-aap" target="_blank" rel="noopener noreferrer">
-        <Button className="w-fit">Gå til søknaden om AAP</Button>
+        <Button
+          className="w-fit"
+          onClick={() => {
+            logAmplitudeEvent({
+              eventName: 'navigere',
+              data: {
+                lenketekst: 'Gå til søknaden om AAP',
+                destinasjon: 'https://www.nav.no/start/soknad-aap',
+              },
+            })
+          }}
+        >
+          Gå til søknaden om AAP
+        </Button>
       </Link>
     </>
   )

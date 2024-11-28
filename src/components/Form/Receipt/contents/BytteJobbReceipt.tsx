@@ -1,9 +1,9 @@
 import { ReactElement } from 'react'
-import { Accordion, BodyShort, Heading, Link, List, VStack } from '@navikt/ds-react'
-import NextLink from 'next/link'
+import { Accordion, BodyShort, Heading, List, VStack } from '@navikt/ds-react'
 
 import { trpc } from '@/utils/trpc'
 import { getLongDateFormat } from '@/utils/dateUtils'
+import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'
 
 import { TilbakeMedTilpasningerAccordionItem } from './TilbakeMedTilpasningerReceipt'
 import { TilbakeGradertAccordionItem } from './TilbakeGradertReceipt'
@@ -30,10 +30,7 @@ function BytteJobbContent(): ReactElement {
       </BodyShort>
       <BodyShort>
         Du kan finne alle utlyste stillinger i landet på{' '}
-        <Link as={NextLink} href="https://arbeidsplassen.nav.no">
-          arbeidsplassen.nav.no
-        </Link>
-        .
+        <TrackedExternalLink href="https://arbeidsplassen.nav.no">arbeidsplassen.nav.no</TrackedExternalLink>.
       </BodyShort>
     </>
   )

@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
-import { BodyShort, Link } from '@navikt/ds-react'
-import { ExternalLinkIcon } from '@navikt/aksel-icons'
+import { BodyShort } from '@navikt/ds-react'
+
+import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'
 
 export const TilbakeMedTilpasninger = (): ReactElement => {
   return (
@@ -13,10 +14,10 @@ export const TilbakeMedTilpasninger = (): ReactElement => {
       </BodyShort>
       <BodyShort>
         Les mer om{' '}
-        <Link href="https://www.nav.no/tilrettelegging-jobb" target="_blank">
-          tilrettelegging på jobb <ExternalLinkIcon title="åpner i ny fane" />
-        </Link>{' '}
-        (åpner i ny fane) og hva Nav kan bistå med.
+        <TrackedExternalLink href="https://www.nav.no/tilrettelegging-jobb">
+          tilrettelegging på jobb
+        </TrackedExternalLink>{' '}
+        og hva Nav kan bistå med.
       </BodyShort>
     </>
   )

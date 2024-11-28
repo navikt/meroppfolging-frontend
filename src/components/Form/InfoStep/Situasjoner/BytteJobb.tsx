@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react'
-import { BodyShort, Link, List } from '@navikt/ds-react'
-import { ExternalLinkIcon } from '@navikt/aksel-icons'
+import { BodyShort, List } from '@navikt/ds-react'
 
 import { trpc } from '@/utils/trpc'
 import { getLongDateFormat } from '@/utils/dateUtils'
+import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'
 
 export const BytteJobb = (): ReactElement => {
   const maxDate = trpc.maxDate.useQuery()
@@ -29,20 +29,14 @@ export const BytteJobb = (): ReactElement => {
 
       <BodyShort>
         Du kan finne alle utlyste stillinger i landet på{' '}
-        <Link href="https://arbeidsplassen.nav.no" target="_blank">
-          arbeidsplassen.nav.no <ExternalLinkIcon title="åpner i ny fane" />
-        </Link>{' '}
-        (åpner i en ny fane).
+        <TrackedExternalLink href="https://arbeidsplassen.nav.no">arbeidsplassen.nav.no</TrackedExternalLink>.
       </BodyShort>
 
       <BodyShort>
         Hvis du blir arbeidsledig eller permittert kan du ha rett på{' '}
-        <Link href="https://www.nav.no/dagpenger" target="_blank">
-          dagpenger
-          <ExternalLinkIcon title="åpner i ny fane" />
-        </Link>{' '}
-        (åpner i en ny fane). Merk at hvis du sier opp jobben og det det vurderes at du ikke hadde rimelig grunn, så
-        mister du retten til dagpenger de første 18 ukene.
+        <TrackedExternalLink href="https://www.nav.no/dagpenger">dagpenger</TrackedExternalLink>
+        {'. '} Merk at hvis du sier opp jobben og det det vurderes at du ikke hadde rimelig grunn, så mister du retten
+        til dagpenger de første 18 ukene.
       </BodyShort>
     </>
   )

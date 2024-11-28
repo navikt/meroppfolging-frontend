@@ -1,6 +1,7 @@
 import { ExpansionCard } from '@navikt/ds-react'
 
 import { getLongDateFormat } from '@/utils/dateUtils'
+import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
 
 interface Props {
   maxDato: string
@@ -9,7 +10,18 @@ interface Props {
 
 function MaxDatoInformationExpansionCard({ maxDato, utbetaltTomDato }: Props): React.ReactElement {
   return (
-    <ExpansionCard size="small" aria-label="Informasjon om beregnet slutt-dato for sykepenger">
+    <ExpansionCard
+      size="small"
+      aria-label="Informasjon om beregnet slutt-dato for sykepenger"
+      onToggle={(open: boolean) => {
+        logAmplitudeEvent({
+          eventName: open ? 'accordion åpnet' : 'accordion lukket',
+          data: {
+            tekst: 'Informasjon om beregnet slutt-dato for sykepenger',
+          },
+        })
+      }}
+    >
       <ExpansionCard.Header>
         <ExpansionCard.Title size="small">Beregnet slutt på sykepenger</ExpansionCard.Title>
         <ExpansionCard.Description>
