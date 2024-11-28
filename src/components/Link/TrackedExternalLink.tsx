@@ -1,6 +1,6 @@
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { Link } from '@navikt/ds-react'
-import React from 'react'
+import React, { ReactElement } from 'react'
 
 import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
 
@@ -9,7 +9,7 @@ interface Props {
   children: string
 }
 
-export const TrackedExternalLink = ({ href, children }: Props) => {
+export const TrackedExternalLink = ({ href, children }: Props): ReactElement => {
   return (
     <>
       <Link

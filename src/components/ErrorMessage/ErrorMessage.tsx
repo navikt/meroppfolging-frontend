@@ -1,4 +1,5 @@
 import { Alert, BodyLong, Heading } from '@navikt/ds-react'
+
 import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'
 
 function ErrorMessage(): React.ReactElement {
