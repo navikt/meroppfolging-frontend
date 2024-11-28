@@ -1,50 +1,23 @@
 import React, { ReactElement } from 'react'
-import { BodyLong, Button, Heading, VStack } from '@navikt/ds-react'
-import Link from 'next/link'
-import { ArrowRightIcon } from '@navikt/aksel-icons'
 
 import { withAuthenticatedPage } from '@/auth'
-import MaxDateInfo from '@/components/LandingInfo/MaxDateInfo'
-import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
+import { trpc } from '@/utils/trpc'
+import { Landing } from '@/components/LandingInfo/Landing'
 
 function SnartSlutt(): ReactElement {
-  return (
-    <>
-      <VStack gap="6">
-        <Heading size="large" level="1">
-          Sykepengene dine tar snart slutt
-        </Heading>
-        <MaxDateInfo />
+  const senOppfolgingStatus = trpc.senOppfolgingStatus.useQuery()
 
-        <BodyLong>
-          Det er viktig at du tar stilling til din økonomiske situasjon i god tid før sykepengene tar slutt.
-        </BodyLong>
-
-        <BodyLong>
-          Vi ber deg svare på noen spørsmål, slik at vi best mulig kan gi deg informasjon som er relevant for deg, og
-          hjelpe deg hvis du har behov for det.
-        </BodyLong>
-
-        <Link href="/snart-slutt-pa-sykepengene/skjema" passHref>
-          <Button
-            type="button"
-            icon={<ArrowRightIcon aria-hidden />}
-            iconPosition="right"
-            onClick={() =>
-              logAmplitudeEvent({
-                eventName: 'skjema startet',
-                data: {
-                  skjemanavn: 'Snart slutt på sykepengene',
-                },
-              })
-            }
-          >
-            Gå videre
-          </Button>
-        </Link>
-      </VStack>
-    </>
-  )
+  switch (senOppfolgingStatus.status) {
+    case 'loading':
+      return <></>
+    case 'error':
+      throw new Error('Beklager, det skjedede en feil ved henting av din status')
+    case 'success':
+      return <Landing senOppfolgingStatus={senOppfolgingStatus.data} />
+    default:
+      const exhaustiveCheck: never = senOppfolgingStatus
+      return exhaustiveCheck
+  }
 }
 
 export const getServerSideProps = withAuthenticatedPage()

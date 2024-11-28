@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { Page, VStack } from '@navikt/ds-react'
+import { VStack } from '@navikt/ds-react'
 
 import { Flexjar } from '@/components/Flexjar/flexjar'
 import { Form } from '@/server/services/schemas/formRequestSchema'
@@ -49,18 +49,16 @@ function Receipt({ response }: { response: Form }): ReactElement {
   const behovForOppfolgingAnswer = response[1].answerType
 
   return (
-    <Page.Block width="md">
-      <VStack className="bg-bg-default p-4 py-8 md:p-12" gap="6">
-        <ReceiptIngress behovForOppfolgingAnswer={behovForOppfolgingAnswer} />
-        <Content fremtidigSituasjonAnswer={fremtidigSituasjonAnswer} />
-        <SituationChange behovForOppfolgingAnswer={behovForOppfolgingAnswer} />
-        <UsefulLinks />
-        <Flexjar
-          feedbackId={`meroppfolging-kvittering-${fremtidigSituasjonAnswer}`}
-          sporsmal="Føler du at denne siden har gitt deg nok informasjon om hva som skjer etter at sykepengene tar slutt?"
-        />
-      </VStack>
-    </Page.Block>
+    <VStack gap="6">
+      <ReceiptIngress behovForOppfolgingAnswer={behovForOppfolgingAnswer} />
+      <Content fremtidigSituasjonAnswer={fremtidigSituasjonAnswer} />
+      <SituationChange behovForOppfolgingAnswer={behovForOppfolgingAnswer} />
+      <UsefulLinks />
+      <Flexjar
+        feedbackId={`meroppfolging-kvittering-${fremtidigSituasjonAnswer}`}
+        sporsmal="Føler du at denne siden har gitt deg nok informasjon om hva som skjer etter at sykepengene tar slutt?"
+      />
+    </VStack>
   )
 }
 
