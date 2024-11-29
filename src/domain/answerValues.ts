@@ -1,6 +1,5 @@
 export const FREMTIDIG_SITUASJON_ANSWER_TYPES = [
   'TILBAKE_HOS_ARBEIDSGIVER',
-  'TILBAKE_MED_TILPASNINGER',
   'TILBAKE_GRADERT',
   'BYTTE_JOBB',
   'FORTSATT_SYK',
@@ -9,11 +8,10 @@ export const FREMTIDIG_SITUASJON_ANSWER_TYPES = [
 export type FremtidigSituasjonAnswerTypes = (typeof FREMTIDIG_SITUASJON_ANSWER_TYPES)[number]
 export const FREMTIDIG_SITUASJON_ANSWER_TEXTS = {
   TILBAKE_HOS_ARBEIDSGIVER: 'Jeg er frisk og tilbake hos arbeidsgiver',
-  TILBAKE_MED_TILPASNINGER: 'Jeg er tilbake i jobb, men trenger tilrettelegging på arbeidsplassen',
-  TILBAKE_GRADERT: 'Jeg jobber i redusert stillingsprosent',
-  BYTTE_JOBB: 'Jeg skal bytte jobb',
+  TILBAKE_GRADERT: 'Jeg er fortsatt syk, men jobber redusert',
   FORTSATT_SYK: 'Jeg er for syk til å jobbe',
-  USIKKER: 'Jeg er usikker, eller ingen av de andre alternativene passer',
+  BYTTE_JOBB: 'Jeg skal bytte jobb',
+  USIKKER: 'Jeg er usikker',
 } as const satisfies Record<FremtidigSituasjonAnswerTypes, string>
 
 export const BEHOV_FOR_OPPFOLGING_ANSWER_TYPES = ['JA', 'NEI'] as const

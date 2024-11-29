@@ -12,10 +12,6 @@ export const TilbakeMedTilpasninger = (): ReactElement => {
         <b>Snakk med lederen din om hvilke muligheter som finnes.</b>
       </BodyShort>
       <BodyShort>
-        Nav Hjelpemiddelsentral kan gi råd og veiledning om hjelpemidler og tilrettelegging på arbeidsplassen. Du kan
-        søke Nav om hjelpemidler til å utføre arbeidet ditt.
-      </BodyShort>
-      <BodyShort>
         Les mer om{' '}
         <Link href="https://www.nav.no/tilrettelegging-jobb" target="_blank">
           tilrettelegging på jobb <ExternalLinkIcon title="åpner i ny fane" />

@@ -19,8 +19,8 @@ function LandingInfoStep(): ReactElement {
       </BodyLong>
 
       <BodyLong>
-        Vi ber deg svare på noen spørsmål, slik at vi best mulig kan gi deg informasjon som er relevant for deg, og
-        hjelpe deg hvis du har behov for det.
+        Vi ber deg svare på to spørsmål, slik at vi best mulig kan gi deg informasjon som er relevant for deg. Du får
+        også muligheten til å be om kontakt med veileder.
       </BodyLong>
     </Step>
   )

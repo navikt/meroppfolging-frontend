@@ -8,11 +8,6 @@ export const TilbakeGradert = (): ReactElement => {
   return (
     <>
       <BodyShort>
-        <em>
-          Alle lenker på denne siden åpner i en ny fane. Husk å komme tilbake til denne fanen dersom du åpner en lenke.
-        </em>
-      </BodyShort>
-      <BodyShort>
         Hvis du skal jobbe redusert fordi du har en sykdom eller skade, kan det hende at du har rett på{' '}
         <Link href="https://www.nav.no/aap" target="_blank" rel="noopener noreferrer">
           arbeidsavklaringspenger (AAP) <ExternalLinkIcon title="åpner i ny fane" />
