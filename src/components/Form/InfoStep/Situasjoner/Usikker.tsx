@@ -4,6 +4,7 @@ import { Accordion, BodyLong } from '@navikt/ds-react'
 import { alleredeSoktOmPengestotteContent } from '@/components/UI/AlleredeSoktOmPengestotteExpansionCard'
 import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'
 import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
+import { CONTACT_NAV_URL } from '@/constants/appConstants'
 
 export const Usikker = (): ReactElement => {
   return (
@@ -105,7 +106,18 @@ export const Usikker = (): ReactElement => {
           }}
         >
           <Accordion.Header>Jeg har andre spørsmål</Accordion.Header>
-          <Accordion.Content>Du kan kontakte Nav [...]</Accordion.Content>
+          <Accordion.Content>
+            <BodyLong spacing>
+              Dersom du trenger hjelp til å finne ut av hvilke muligheter du har fremover, og hva Nav kan tilby av
+              pengestøtter eller annen hjelp, kan du be om oppfølging på neste side. En sykefraværsveileder vil da motta
+              henvendelsen din.
+            </BodyLong>
+
+            <BodyLong>
+              Dersom du lurer på noe annet kan du når som helst ta kontakt med oss på tlf. 55 55 33 33 eller på{' '}
+              <TrackedExternalLink href={CONTACT_NAV_URL}>skriv til oss her på nav.no</TrackedExternalLink>
+            </BodyLong>
+          </Accordion.Content>
         </Accordion.Item>
       </Accordion>
     </>
