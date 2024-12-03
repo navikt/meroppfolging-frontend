@@ -6,7 +6,7 @@ import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'
 export const BytteJobb = (): ReactElement => {
   return (
     <>
-      <List>
+      <List className="[&_ul]:mt-0 [&_ul]:mb-0">
         <List.Item>Er det vanskelig for deg å utføre oppgavene du hadde før du ble syk?</List.Item>
         <List.Item>
           Er det andre forhold hos arbeidsgiveren din som gjør det vanskelig for deg å fungere i jobben?
@@ -21,8 +21,8 @@ export const BytteJobb = (): ReactElement => {
       <BodyShort>
         Hvis du blir arbeidsledig eller permittert kan du ha rett på{' '}
         <TrackedExternalLink href="https://www.nav.no/dagpenger">dagpenger</TrackedExternalLink>
-        {'. '} Merk at hvis du sier opp jobben og det vurderes at du ikke hadde rimelig grunn, så mister du retten til
-        dagpenger de første 18 ukene.
+        {'. '} Merk at hvis du sier opp jobben og det det vurderes at du ikke hadde rimelig grunn, så mister du retten
+        til dagpenger de første 18 ukene.
       </BodyShort>
     </>
   )
