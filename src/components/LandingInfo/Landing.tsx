@@ -23,40 +23,39 @@ export const Landing = ({ senOppfolgingStatus }: Props): ReactElement => {
   }
 
   return (
-    <>
-      <VStack gap="6">
-        <Heading size="large" level="1">
-          Sykepengene dine tar snart slutt
-        </Heading>
-        <MaxDateInfo />
+    <VStack gap="6">
+      <Heading size="large" level="1">
+        Sykepengene dine tar snart slutt
+      </Heading>
 
-        <BodyLong>
-          Det er viktig at du tar stilling til din økonomiske situasjon i god tid før sykepengene tar slutt.
-        </BodyLong>
+      <MaxDateInfo />
 
-        <BodyLong>
-          Vi ber deg svare på to spørsmål, slik at vi best mulig kan gi deg informasjon som er relevant for deg. Du får
-          også muligheten til å be om oppfølging fra en veileder.
-        </BodyLong>
+      <BodyLong>
+        Det er viktig at du tar stilling til din økonomiske situasjon i god tid før sykepengene tar slutt.
+      </BodyLong>
 
-        <Link href="/snart-slutt-pa-sykepengene/skjema" passHref>
-          <Button
-            type="button"
-            icon={<ArrowRightIcon aria-hidden />}
-            iconPosition="right"
-            onClick={() =>
-              logAmplitudeEvent({
-                eventName: 'skjema startet',
-                data: {
-                  skjemanavn: 'Snart slutt på sykepengene',
-                },
-              })
-            }
-          >
-            Gå videre
-          </Button>
-        </Link>
-      </VStack>
-    </>
+      <BodyLong>
+        Vi ber deg svare på to spørsmål, slik at vi best mulig kan gi deg informasjon som er relevant for deg. Du får
+        også muligheten til å be om oppfølging fra en veileder.
+      </BodyLong>
+
+      <Link href="/snart-slutt-pa-sykepengene/skjema" passHref>
+        <Button
+          type="button"
+          icon={<ArrowRightIcon aria-hidden />}
+          iconPosition="right"
+          onClick={() =>
+            logAmplitudeEvent({
+              eventName: 'skjema startet',
+              data: {
+                skjemanavn: 'Snart slutt på sykepengene',
+              },
+            })
+          }
+        >
+          Gå videre
+        </Button>
+      </Link>
+    </VStack>
   )
 }
