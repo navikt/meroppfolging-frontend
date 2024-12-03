@@ -73,7 +73,16 @@ export const Usikker = (): ReactElement => {
           }}
         >
           <Accordion.Header>Jeg venter på behandling og er usikker på min fremtidige situasjon</Accordion.Header>
-          <Accordion.Content>Informasjon</Accordion.Content>
+          <Accordion.Content>
+            <BodyLong spacing>
+              Det kan være lange ventetider for å få nødvendig behandling fra helsevesenet. Hvis du ikke er ferdig med
+              behandlingen din når sykepengerettighetene dine tar slutt, kan det hende du bør søke pengestøtte hos Nav.
+              Dette kan for eksempel være arbeidsavklaringspenger (AAP).
+            </BodyLong>
+            <TrackedExternalLink href="https://www.nav.no/aap">
+              Les mer her om hvem som har rett på AAP.
+            </TrackedExternalLink>
+          </Accordion.Content>
         </Accordion.Item>
 
         <Accordion.Item
