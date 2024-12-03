@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { Accordion, BodyLong, BodyShort } from '@navikt/ds-react'
+import { Accordion, BodyLong } from '@navikt/ds-react'
 
 import { alleredeSoktOmPengestotteContent } from '@/components/UI/AlleredeSoktOmPengestotteExpansionCard'
 import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'
@@ -36,10 +36,15 @@ export const Usikker = (): ReactElement => {
         >
           <Accordion.Header>Jeg planlegger å ta ut pensjon</Accordion.Header>
           <Accordion.Content>
-            <BodyShort>
-              På <TrackedExternalLink href="https://www.nav.no/planlegger-pensjon">denne siden</TrackedExternalLink> kan
+            <BodyLong spacing>
+              Mange kan ta ut pensjon fra de er 62 år. Tidlig uttak betyr at du fordeler pensjonen din over flere år, og
+              dermed får mindre utbetalt hvert år. Pensjonen blir høyere hvis du fortsetter å jobbe samtidig som du tar
+              ut pensjon. Du kan jobbe så mye du vil samtidig som du tar ut alderspensjon fra folketrygden.
+            </BodyLong>
+            <BodyLong>
+              <TrackedExternalLink href="https://www.nav.no/planlegger-pensjon">På denne siden</TrackedExternalLink> kan
               du få oversikt over hvordan pensjonen din er bygget opp og sjekke pensjonskalkulatoren.
-            </BodyShort>
+            </BodyLong>
           </Accordion.Content>
         </Accordion.Item>
 
@@ -55,10 +60,14 @@ export const Usikker = (): ReactElement => {
         >
           <Accordion.Header>Jeg skal i permisjon</Accordion.Header>
           <Accordion.Content>
-            <BodyShort>
-              Permisjon er en rett for arbeidstaker til å være borte fra arbeidet sitt i et begrenset tidsrom. Permisjon
-              kan være lønnet - helt eller delvis - eller ulønnet. Husk at dette må avklares med arbeidsgiveren din.
-            </BodyShort>
+            <BodyLong spacing>
+              Skal du ta ut lovfestet permisjon i forbindelse med svangerskap, fødsel, omsorg eller foreldrepermisjon,
+              er det viktig at dette avklares med arbeidsgiveren din.
+            </BodyLong>
+            <BodyLong>
+              En permisjon er midlertidig. Dette betyr at du fremdeles er ansatt og har rett og plikt til å komme
+              tilbake til stillingen din når permisjonen er ferdig.
+            </BodyLong>
           </Accordion.Content>
         </Accordion.Item>
 
