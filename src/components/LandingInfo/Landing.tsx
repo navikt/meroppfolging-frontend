@@ -39,23 +39,25 @@ export const Landing = ({ senOppfolgingStatus }: Props): ReactElement => {
         også muligheten til å be om oppfølging fra en veileder.
       </BodyLong>
 
-      <Link href="/snart-slutt-pa-sykepengene/skjema" passHref>
-        <Button
-          type="button"
-          icon={<ArrowRightIcon aria-hidden />}
-          iconPosition="right"
-          onClick={() =>
-            logAmplitudeEvent({
-              eventName: 'skjema startet',
-              data: {
-                skjemanavn: 'Snart slutt på sykepengene',
-              },
-            })
-          }
-        >
-          Gå videre
-        </Button>
-      </Link>
+      <div>
+        <Link href="/snart-slutt-pa-sykepengene/skjema" passHref>
+          <Button
+            type="button"
+            icon={<ArrowRightIcon aria-hidden />}
+            iconPosition="right"
+            onClick={() =>
+              logAmplitudeEvent({
+                eventName: 'skjema startet',
+                data: {
+                  skjemanavn: 'Snart slutt på sykepengene',
+                },
+              })
+            }
+          >
+            Gå videre
+          </Button>
+        </Link>
+      </div>
     </VStack>
   )
 }

@@ -21,8 +21,6 @@ export const BytteJobb = (): ReactElement => {
       <BodyShort>
         Hvis du blir arbeidsledig eller permittert kan du ha rett på{' '}
         <TrackedExternalLink href="https://www.nav.no/dagpenger">dagpenger</TrackedExternalLink>
-        {'. '} Merk at hvis du sier opp jobben og det det vurderes at du ikke hadde rimelig grunn, så mister du retten
-        til dagpenger de første 18 ukene.
       </BodyShort>
     </>
   )
