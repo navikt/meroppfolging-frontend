@@ -114,7 +114,8 @@ export const Usikker = (): ReactElement => {
             </BodyLong>
 
             <BodyLong>
-              Dersom du lurer på noe annet kan du når som helst ta kontakt med oss på tlf. 55 55 33 33 eller på{' '}
+              Dersom du lurer på noe annet, som f.eks. utbetaling av sykepenger eller generelle spørsmål, kan du når som
+              helst ta kontakt med oss på tlf. 55 55 33 33 eller på{' '}
               <TrackedExternalLink href={CONTACT_NAV_URL}>skriv til oss her på nav.no</TrackedExternalLink>
             </BodyLong>
           </Accordion.Content>
