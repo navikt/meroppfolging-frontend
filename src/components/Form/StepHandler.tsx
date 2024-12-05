@@ -57,13 +57,16 @@ export const StepHandler = ({ senOppfolgingStatus }: LandingContentProps): React
   }
 
   const goToNextStep = (): void => {
-    logAmplitudeEvent({
-      eventName: 'skjema steg fullført',
-      data: {
-        skjemanavn: steps[currentStepIndex].name,
-        steg: steps[currentStepIndex].number.toString(),
+    logAmplitudeEvent(
+      {
+        eventName: 'skjema steg fullført',
+        data: {
+          skjemanavn: steps[currentStepIndex].name,
+          steg: steps[currentStepIndex].number.toString(),
+        },
       },
-    })
+      { fremtidigSituasjon: methods.getValues().FREMTIDIG_SITUASJON },
+    )
     setCurrentStepIndex(currentStepIndex + 1)
   }
 
@@ -79,12 +82,18 @@ export const StepHandler = ({ senOppfolgingStatus }: LandingContentProps): React
   }
 
   const submitFormToMOBE = (data: FormInputs): void => {
-    logAmplitudeEvent({
-      eventName: 'skjema fullført',
-      data: {
-        skjemanavn: 'Snart slutt på sykepengene',
+    logAmplitudeEvent(
+      {
+        eventName: 'skjema fullført',
+        data: {
+          skjemanavn: 'Snart slutt på sykepengene',
+        },
       },
-    })
+      {
+        fremtidigSituasjon: methods.getValues().FREMTIDIG_SITUASJON,
+        behovForOppfolging: methods.getValues().BEHOV_FOR_OPPFOLGING,
+      },
+    )
     const request = createFormRequest(data)
     mutation.mutate(request)
   }
