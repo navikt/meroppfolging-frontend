@@ -124,7 +124,7 @@ export const StepHandler = ({ senOppfolgingStatus }: LandingContentProps): React
               case 'INFO':
                 return <InfoStep goToPreviousStep={goToPreviousStep} />
               case 'KONTAKT':
-                return <OnskerOppfolgingStep goToPreviousStep={goToPreviousStep} />
+                return <OnskerOppfolgingStep goToPreviousStep={goToPreviousStep} isSubmitting={mutation.isLoading} />
               default:
                 return null
             }
