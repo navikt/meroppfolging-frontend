@@ -1,16 +1,16 @@
-import { StatusDTO } from '@/server/services/schemas/statusSchema'
+import { SenOppfolgingStatusDTO } from '@/server/services/schemas/statusSchema'
 
-export const IkkeSvart: StatusDTO = {
+export const IkkeSvart: SenOppfolgingStatusDTO = {
   response: null,
   hasAccessToSenOppfolging: true,
 }
 
-export const IkkeSvartAndShouldNotHaveAccess: StatusDTO = {
+export const IkkeSvartAndShouldNotHaveAccess: SenOppfolgingStatusDTO = {
   response: null,
   hasAccessToSenOppfolging: false,
 }
 
-export const SvartFortsattSykOgTrengerOppfolging: StatusDTO = {
+export const SvartFortsattSykOgTrengerOppfolging: SenOppfolgingStatusDTO = {
   hasAccessToSenOppfolging: true,
   response: [
     {
@@ -28,7 +28,7 @@ export const SvartFortsattSykOgTrengerOppfolging: StatusDTO = {
   ],
 }
 
-export const SvartTilbakeHosArbeidsgiverOgTrengerIkkeOppfolging: StatusDTO = {
+export const SvartTilbakeHosArbeidsgiverOgTrengerIkkeOppfolging: SenOppfolgingStatusDTO = {
   hasAccessToSenOppfolging: true,
   response: [
     {

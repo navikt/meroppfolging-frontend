@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { configureLogger } from '@navikt/next-logger'
 import Head from 'next/head'
+import { Page } from '@navikt/ds-react'
 
 import { trpc } from '@/utils/trpc'
 import { server } from '@/mocks/server'
@@ -40,7 +41,11 @@ function App({ Component, pageProps }: AppProps): ReactElement {
       <QueryClientProvider client={queryClient}>
         <ToggleProvider>
           <main tabIndex={-1} id="maincontent">
-            <Component {...pageProps} />
+            <div className="flex flex-col items-center w-full p-4 md:p-8">
+              <Page.Block width="md" className="bg-bg-default p-4 py-8 md:p-12">
+                <Component {...pageProps} />
+              </Page.Block>
+            </div>
             {isLocalOrDemo && <TestScenarioSelector />}
           </main>
         </ToggleProvider>

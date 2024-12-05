@@ -2,10 +2,11 @@ import React, { ReactElement } from 'react'
 
 import { withAuthenticatedPage } from '@/auth'
 import { trpc } from '@/utils/trpc'
-import { Landing } from '@/components/LandingInfo/Landing'
+import { StepHandler } from '@/components/Form/StepHandler'
 
-function SnartSlutt(): ReactElement {
+function Skjema(): ReactElement {
   const senOppfolgingStatus = trpc.senOppfolgingStatus.useQuery()
+  trpc.maxDate.useQuery()
 
   switch (senOppfolgingStatus.status) {
     case 'loading':
@@ -13,7 +14,7 @@ function SnartSlutt(): ReactElement {
     case 'error':
       throw new Error('Beklager, det skjedede en feil ved henting av din status')
     case 'success':
-      return <Landing senOppfolgingStatus={senOppfolgingStatus.data} />
+      return <StepHandler senOppfolgingStatus={senOppfolgingStatus.data} />
     default:
       const exhaustiveCheck: never = senOppfolgingStatus
       return exhaustiveCheck
@@ -22,4 +23,4 @@ function SnartSlutt(): ReactElement {
 
 export const getServerSideProps = withAuthenticatedPage()
 
-export default SnartSlutt
+export default Skjema

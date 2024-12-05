@@ -16,7 +16,7 @@ function SituationChange({ behovForOppfolgingAnswer }: { behovForOppfolgingAnswe
           </Heading>
           <BodyShort>
             Du kan når som helst ta kontakt med oss på tlf. {NAV_PHONE_NUMBER} eller på <WriteToUsLink /> (åpner i ny
-            fane). Har du en aktivitetsplan bruker du «dialog med veileder» der for å snakke med veilederen din.
+            fane).
           </BodyShort>
         </>
       )

@@ -1,5 +1,6 @@
 import { Alert, BodyLong, Heading } from '@navikt/ds-react'
-import Link from 'next/link'
+
+import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'
 
 function ErrorMessage(): React.ReactElement {
   return (
@@ -10,9 +11,9 @@ function ErrorMessage(): React.ReactElement {
       <BodyLong>På grunn av feil i systemene våre kan du ikke registrere deg akkurat nå.</BodyLong>
       <BodyLong spacing>Vennligst prøv igjen litt senere.</BodyLong>
       <BodyLong>
-        <Link href="https://www.nav.no/no/nav-og-samfunn/kontakt-nav/teknisk-brukerstotte/kontakt-teknisk-brukerstotte-nav.no">
+        <TrackedExternalLink href="https://www.nav.no/no/nav-og-samfunn/kontakt-nav/teknisk-brukerstotte/kontakt-teknisk-brukerstotte-nav.no">
           Kontakt teknisk brukerstøtte dersom problemene vedvarer.
-        </Link>
+        </TrackedExternalLink>
       </BodyLong>
     </Alert>
   )

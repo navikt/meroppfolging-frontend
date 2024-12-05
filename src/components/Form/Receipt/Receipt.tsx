@@ -1,16 +1,18 @@
 import { ReactElement } from 'react'
+import { VStack } from '@navikt/ds-react'
 
-import UsefulLinks from '@/components/Receipt/UsefulLinks'
-import TilbakeGradertReceipt from '@/components/Receipt/contents/TilbakeGradertReceipt'
 import { Flexjar } from '@/components/Flexjar/flexjar'
 import { Form } from '@/server/services/schemas/formRequestSchema'
-import ReceiptIngress from '@/components/Receipt/ReceiptIngress'
-import FortsattSykReceipt from '@/components/Receipt/contents/FortsattSykReceipt'
-import BytteJobbReceipt from '@/components/Receipt/contents/BytteJobbReceipt'
-import TilbakeMedTilpasningerReceipt from '@/components/Receipt/contents/TilbakeMedTilpasningerReceipt'
-import UsikkerReceipt from '@/components/Receipt/contents/UsikkerReceipt'
-import TilbakeHosArbeidsgiverReceipt from '@/components/Receipt/contents/TilbakeHosArbeidsgiverReceipt'
-import SituationChange from '@/components/Receipt/SituationChange'
+
+import BytteJobbReceipt from './contents/BytteJobbReceipt'
+import FortsattSykReceipt from './contents/FortsattSykReceipt'
+import TilbakeGradertReceipt from './contents/TilbakeGradertReceipt'
+import TilbakeHosArbeidsgiverReceipt from './contents/TilbakeHosArbeidsgiverReceipt'
+import TilbakeMedTilpasningerReceipt from './contents/TilbakeMedTilpasningerReceipt'
+import UsikkerReceipt from './contents/UsikkerReceipt'
+import ReceiptIngress from './ReceiptIngress'
+import SituationChange from './SituationChange'
+import UsefulLinks from './UsefulLinks'
 
 function Content({
   fremtidigSituasjonAnswer,
@@ -47,7 +49,7 @@ function Receipt({ response }: { response: Form }): ReactElement {
   const behovForOppfolgingAnswer = response[1].answerType
 
   return (
-    <>
+    <VStack gap="6">
       <ReceiptIngress behovForOppfolgingAnswer={behovForOppfolgingAnswer} />
       <Content fremtidigSituasjonAnswer={fremtidigSituasjonAnswer} />
       <SituationChange behovForOppfolgingAnswer={behovForOppfolgingAnswer} />
@@ -56,7 +58,7 @@ function Receipt({ response }: { response: Form }): ReactElement {
         feedbackId={`meroppfolging-kvittering-${fremtidigSituasjonAnswer}`}
         sporsmal="Føler du at denne siden har gitt deg nok informasjon om hva som skjer etter at sykepengene tar slutt?"
       />
-    </>
+    </VStack>
   )
 }
 

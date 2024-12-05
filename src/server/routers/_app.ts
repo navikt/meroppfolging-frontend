@@ -1,5 +1,5 @@
 import { FormRequestSchema } from '@/server/services/schemas/formRequestSchema'
-import { getStatus, postForm } from '@/server/services/senoppfolgingService'
+import { getSenOppfolgingStatus, postForm } from '@/server/services/senoppfolgingService'
 
 import { authenticatedProcedure, router } from '../trpc'
 import { getFeatureToggles } from '../services/toggleService'
@@ -12,8 +12,8 @@ export const appRouter = router({
   maxDate: authenticatedProcedure.query(async ({ ctx }) => {
     return getMaxDate(ctx.authorization)
   }),
-  status: authenticatedProcedure.query(async ({ ctx }) => {
-    return getStatus(ctx.authorization)
+  senOppfolgingStatus: authenticatedProcedure.query(async ({ ctx }) => {
+    return getSenOppfolgingStatus(ctx.authorization)
   }),
   submitForm: authenticatedProcedure.input(FormRequestSchema).mutation(async ({ ctx, input }) => {
     return postForm(ctx.authorization, input)

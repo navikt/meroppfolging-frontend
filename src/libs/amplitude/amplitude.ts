@@ -51,15 +51,29 @@ export async function logAmplitudeEvent(
   const { eventType, eventProperties } = taxonomyToAmplitudeEvent(event, extraData)
 
   if (isLocalOrDemo) {
-    // console.log('Amplitude event: ' + eventType)
-    // if (eventProperties) {
-    //   console.log(eventProperties)
-    // }
+    console.log('Amplitude event: ' + eventType)
+    if (eventProperties) {
+      console.log(eventProperties)
+    }
 
     return
   }
 
-  logger(eventType, {
+  await logger(eventType, {
     ...eventProperties,
   })
+}
+
+export async function logCustomAmplitudeEvent(event: string, extraData?: Record<string, unknown>): Promise<void> {
+  const eventProperties = {
+    ...infoProperties,
+    ...extraData,
+  }
+
+  if (isLocalOrDemo) {
+    console.log(`Custom Amplitude event: ${event}`, eventProperties)
+    return
+  }
+
+  await logger(event, eventProperties)
 }
