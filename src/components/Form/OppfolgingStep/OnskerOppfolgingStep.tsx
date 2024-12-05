@@ -7,6 +7,7 @@ import { Step } from '@/components/Step/Step'
 
 interface Props {
   goToPreviousStep: () => void
+  isSubmitting: boolean
 }
 
 const Description = (): ReactElement => {
@@ -21,7 +22,7 @@ const Description = (): ReactElement => {
   )
 }
 
-export const OnskerOppfolgingStep = ({ goToPreviousStep }: Props): ReactElement => {
+export const OnskerOppfolgingStep = ({ goToPreviousStep, isSubmitting }: Props): ReactElement => {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
@@ -32,6 +33,7 @@ export const OnskerOppfolgingStep = ({ goToPreviousStep }: Props): ReactElement 
       goToPreviousStep={goToPreviousStep}
       customNextButtonIcon={<PaperplaneIcon aria-hidden />}
       customNextButtonLabel="Send inn svarene"
+      isSubmitting={isSubmitting}
     >
       <RadioGroupForQuestion questionName="BEHOV_FOR_OPPFOLGING" description={<Description />} />
     </Step>

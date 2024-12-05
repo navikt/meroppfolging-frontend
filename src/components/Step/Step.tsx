@@ -8,6 +8,7 @@ interface Props {
   goToPreviousStep?: () => void
   customNextButtonLabel?: string
   customNextButtonIcon?: ReactNode
+  isSubmitting?: boolean
 }
 
 export const Step = ({
@@ -16,6 +17,7 @@ export const Step = ({
   goToPreviousStep,
   customNextButtonLabel,
   customNextButtonIcon,
+  isSubmitting = false,
 }: Props): ReactElement => {
   return (
     <>
@@ -36,7 +38,12 @@ export const Step = ({
               Tilbake
             </Button>
           )}
-          <Button type="submit" icon={customNextButtonIcon ?? <ArrowRightIcon aria-hidden />} iconPosition="right">
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            icon={customNextButtonIcon ?? <ArrowRightIcon aria-hidden />}
+            iconPosition="right"
+          >
             {customNextButtonLabel ?? 'Neste'}
           </Button>
         </HStack>
