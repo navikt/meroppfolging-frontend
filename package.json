@@ -15,10 +15,10 @@
   "dependencies": {
     "@grafana/faro-web-sdk": "^1.12.2",
     "@grafana/faro-web-tracing": "^1.12.2",
-    "@navikt/aksel-icons": "^7.6.0",
-    "@navikt/ds-css": "^7.6.0",
-    "@navikt/ds-react": "^7.6.0",
-    "@navikt/ds-tailwind": "^7.6.0",
+    "@navikt/aksel-icons": "^7.7.0",
+    "@navikt/ds-css": "^7.7.0",
+    "@navikt/ds-react": "^7.7.0",
+    "@navikt/ds-tailwind": "^7.7.0",
     "@navikt/ds-tokens": "^7.5.3",
     "@navikt/nav-dekoratoren-moduler": "^2.1.6",
     "@navikt/next-logger": "^1.35.0",
@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@hookform/devtools": "^4.3.1",
-    "@navikt/aksel-stylelint": "^7.6.0",
+    "@navikt/aksel-stylelint": "^7.7.0",
     "@navikt/eslint-config-teamsykmelding": "^5.2.0",
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.2",
