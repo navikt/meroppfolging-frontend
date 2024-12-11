@@ -53,7 +53,9 @@ export const StepHandler = ({ senOppfolgingStatus }: LandingContentProps): React
   }
 
   if (senOppfolgingStatus.response) {
-    return <Receipt response={senOppfolgingStatus.response} />
+    return (
+      <Receipt response={senOppfolgingStatus.response} responseDateISOString={senOppfolgingStatus.responseDateTime} />
+    )
   }
 
   const goToNextStep = (): void => {

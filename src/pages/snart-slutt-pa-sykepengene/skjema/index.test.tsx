@@ -13,7 +13,7 @@ import {
 import Skjema from '@/pages/snart-slutt-pa-sykepengene/skjema/index.page'
 
 describe('SnartSlutt', () => {
-  it('should display form', async () => {
+  it('should display start page', async () => {
     testServer.use(
       trpcMsw.senOppfolgingStatus.query(async (_req, res, ctx) => {
         return res(ctx.status(200), ctx.data(IkkeSvart))
@@ -41,28 +41,37 @@ describe('SnartSlutt', () => {
     ).toBeInTheDocument()
   })
 
-  it('should dipslay display receipt with certain headings if user has responded fortsatt syk og trenger oppfølging', async () => {
-    testServer.use(
-      trpcMsw.senOppfolgingStatus.query(async (_req, res, ctx) => {
-        return res(ctx.status(200), ctx.data(SvartFortsattSykOgTrengerOppfolging))
-      }),
-    )
+  it(
+    'should dipslay receipt with certain texts in "summary of your answer" ' +
+      'if user has responded fortsatt syk og trenger oppfølging',
+    async () => {
+      testServer.use(
+        trpcMsw.senOppfolgingStatus.query(async (_req, res, ctx) => {
+          return res(ctx.status(200), ctx.data(SvartFortsattSykOgTrengerOppfolging))
+        }),
+      )
 
-    render(<Skjema />)
+      render(<Skjema />)
 
-    expect(await screen.findByRole('heading', { name: 'Vi tar kontakt med deg', level: 1 })).toBeInTheDocument()
-    expect(await screen.findByRole('heading', { name: 'Når du er for syk til å jobbe', level: 2 })).toBeInTheDocument()
-  })
+      expect(await screen.findByText('Jeg er for syk til å jobbe')).toBeInTheDocument()
+      expect(await screen.findByText('Ja, jeg ønsker å be om oppfølging')).toBeInTheDocument()
+    },
+  )
 
-  it('should dipslay display receipt with correct heading if user has responded trenger ikke oppfølging', async () => {
-    testServer.use(
-      trpcMsw.senOppfolgingStatus.query(async (_req, res, ctx) => {
-        return res(ctx.status(200), ctx.data(SvartTilbakeHosArbeidsgiverOgTrengerIkkeOppfolging))
-      }),
-    )
+  it(
+    'should dipslay receipt with certain texts in "summary of your answer" ' +
+      'if user has responded trenger ikke oppfølging',
+    async () => {
+      testServer.use(
+        trpcMsw.senOppfolgingStatus.query(async (_req, res, ctx) => {
+          return res(ctx.status(200), ctx.data(SvartTilbakeHosArbeidsgiverOgTrengerIkkeOppfolging))
+        }),
+      )
 
-    render(<Skjema />)
+      render(<Skjema />)
 
-    expect(await screen.findByRole('heading', { name: 'Det kan hende du hører fra oss', level: 1 })).toBeInTheDocument()
-  })
+      expect(await screen.findByText('Jeg er frisk og tilbake hos arbeidsgiver')).toBeInTheDocument()
+      expect(await screen.findByText('Nei, jeg trenger ikke oppfølging nå')).toBeInTheDocument()
+    },
+  )
 })

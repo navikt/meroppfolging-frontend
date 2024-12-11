@@ -1,5 +1,7 @@
 import { SenOppfolgingStatusDTO } from '@/server/services/schemas/statusSchema'
 
+const responseDateTime = new Date().toISOString()
+
 export const IkkeSvart: SenOppfolgingStatusDTO = {
   response: null,
   hasAccessToSenOppfolging: true,
@@ -26,6 +28,7 @@ export const SvartFortsattSykOgTrengerOppfolging: SenOppfolgingStatusDTO = {
       answerText: 'ja',
     },
   ],
+  responseDateTime,
 }
 
 export const SvartTilbakeHosArbeidsgiverOgTrengerIkkeOppfolging: SenOppfolgingStatusDTO = {
@@ -44,4 +47,5 @@ export const SvartTilbakeHosArbeidsgiverOgTrengerIkkeOppfolging: SenOppfolgingSt
       answerText: 'nei',
     },
   ],
+  responseDateTime,
 }
