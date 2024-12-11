@@ -42,23 +42,22 @@ export const Landing = ({ senOppfolgingStatus }: Props): ReactElement => {
       </BodyLong>
 
       <div>
-        <Link href="/snart-slutt-pa-sykepengene/skjema" passHref>
-          <Button
-            type="button"
-            icon={<ArrowRightIcon aria-hidden />}
-            iconPosition="right"
-            onClick={() =>
-              logAmplitudeEvent({
-                eventName: 'skjema startet',
-                data: {
-                  skjemanavn: 'Snart slutt på sykepengene',
-                },
-              })
-            }
-          >
-            Gå videre
-          </Button>
-        </Link>
+        <Button
+          as={Link}
+          href="/snart-slutt-pa-sykepengene/skjema"
+          icon={<ArrowRightIcon aria-hidden />}
+          iconPosition="right"
+          onClick={() => {
+            logAmplitudeEvent({
+              eventName: 'skjema startet',
+              data: {
+                skjemanavn: 'Snart slutt på sykepengene',
+              },
+            })
+          }}
+        >
+          Gå videre
+        </Button>
       </div>
     </VStack>
   )
