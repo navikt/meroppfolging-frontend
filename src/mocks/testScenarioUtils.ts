@@ -24,6 +24,7 @@ export const getStatusDTOFixture = (): SenOppfolgingStatusDTO => {
     return {
       response: formAnswer.senOppfolgingFormV2,
       hasAccessToSenOppfolging: true,
+      responseDateTime: new Date().toISOString(),
     }
   }
   return statusDtoFixtures.IkkeSvart
