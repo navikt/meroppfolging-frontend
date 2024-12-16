@@ -40,8 +40,8 @@ function MaxDateInfo(): ReactElement {
         </Box>
       )
     case 'success':
-      if (!maxDate.data.maxDate || !maxDate.data.gjenstaendeSykedager) {
-        return <MaxDateErrorMessage reason="Missing max date or gjenstaendeSykedager" />
+      if (!maxDate.data.maxDate) {
+        return <MaxDateErrorMessage reason="Missing max date" />
       }
       if (!isValid(new Date(maxDate.data.maxDate))) {
         return <MaxDateErrorMessage reason="Invalid date format" />
