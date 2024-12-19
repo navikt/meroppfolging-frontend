@@ -10,11 +10,3 @@ function dateToLongFormat(date: Date): string {
   }
   return date.toLocaleDateString('nb-NO', options)
 }
-
-function isValidDateString(value: string): boolean {
-  return !isNaN(new Date(value).getTime())
-}
-
-export function convertISOStringToDateIfValid(value: string): Date | undefined {
-  return isValidDateString(value) ? new Date(value) : undefined
-}
