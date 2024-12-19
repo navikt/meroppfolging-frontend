@@ -25,7 +25,11 @@ export const FortsattSyk = (): ReactElement => {
           Husk å søke tidlig nok!
         </Heading>
         <BodyLong className="mb-2">
-          Saksbehandlingstiden for AAP-søknader er <b>omtrent 15 uker.</b>
+          Her kan du se{' '}
+          <TrackedExternalLink href="https://www.nav.no/saksbehandlingstider#arbeidsavklaringspenger-aap">
+            forventet saksbehandlingstid for AAP-søknader
+          </TrackedExternalLink>
+          . Du kan se saksbehandlingstider for andre pengestøtter på samme side.
         </BodyLong>
       </Alert>
       <AlleredeSoktOmPengestotteExpansionCard />
