@@ -1,46 +1,48 @@
 import { ReactElement } from 'react'
-import { BodyLong, Box, Heading } from '@navikt/ds-react'
+import { Box, Heading, List } from '@navikt/ds-react'
 
 import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'
 
 const NyttigeLenker = (): ReactElement => (
   <Box>
     <Heading size="medium" spacing>
-      Lenker som kan være nyttige for deg
+      Informasjon fra Nav som kan være nyttig for deg
     </Heading>
 
-    <BodyLong>
-      <TrackedExternalLink href="https://www.nav.no/syk-lenge" openingInNewTabIconInsteadOfText>
-        Har vært syk eller skadet lenge
-      </TrackedExternalLink>
-    </BodyLong>
+    <List>
+      <List.Item>
+        <TrackedExternalLink href="https://www.nav.no/syk-lenge" openingInNewTabIconInsteadOfText>
+          Når du har vært syk eller skadet lenge
+        </TrackedExternalLink>
+      </List.Item>
 
-    <BodyLong className="mt-2">
-      <TrackedExternalLink href="https://www.nav.no/aap" openingInNewTabIconInsteadOfText>
-        Arbeidsavklaringspenger (AAP)
-      </TrackedExternalLink>
-    </BodyLong>
+      <List.Item>
+        <TrackedExternalLink href="https://www.nav.no/aap" openingInNewTabIconInsteadOfText>
+          Arbeidsavklaringspenger (AAP)
+        </TrackedExternalLink>
+      </List.Item>
 
-    <BodyLong className="mt-2">
-      <TrackedExternalLink
-        href="https://www.nav.no/arbeidsgiver/kompetansetiltak-sykmeldte"
-        openingInNewTabIconInsteadOfText
-      >
-        Kompetansetiltak for sykmeldte
-      </TrackedExternalLink>
-    </BodyLong>
+      <List.Item>
+        <TrackedExternalLink
+          href="https://www.nav.no/arbeidsgiver/kompetansetiltak-sykmeldte"
+          openingInNewTabIconInsteadOfText
+        >
+          Kompetansetiltak for sykmeldte
+        </TrackedExternalLink>
+      </List.Item>
 
-    <BodyLong className="mt-2">
-      <TrackedExternalLink href="https://www.nav.no/friskmelding-arbeidsformidling" openingInNewTabIconInsteadOfText>
-        Friskmelding til arbeidsformidling
-      </TrackedExternalLink>
-    </BodyLong>
+      <List.Item>
+        <TrackedExternalLink href="https://www.nav.no/friskmelding-arbeidsformidling" openingInNewTabIconInsteadOfText>
+          Friskmelding til arbeidsformidling
+        </TrackedExternalLink>
+      </List.Item>
 
-    <BodyLong className="mt-2">
-      <TrackedExternalLink href="https://www.nav.no/varig-sykdom-skade#pengestotte" openingInNewTabIconInsteadOfText>
-        Aktuelle pengestøtter
-      </TrackedExternalLink>
-    </BodyLong>
+      <List.Item>
+        <TrackedExternalLink href="https://www.nav.no/varig-sykdom-skade#pengestotte" openingInNewTabIconInsteadOfText>
+          Aktuelle pengestøtter når du ikke kan jobbe
+        </TrackedExternalLink>
+      </List.Item>
+    </List>
   </Box>
 )
 
