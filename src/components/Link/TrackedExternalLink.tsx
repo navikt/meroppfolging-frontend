@@ -6,7 +6,6 @@ import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
 
 interface Props {
   href: string
-  includeOpeningInNewTabText?: boolean
   openingInNewTabIconInsteadOfText?: boolean
   children: string
 }
