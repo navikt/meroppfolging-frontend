@@ -19,7 +19,9 @@ export const Landing = ({ senOppfolgingStatus }: Props): ReactElement => {
   }
 
   if (senOppfolgingStatus.response) {
-    return <Receipt response={senOppfolgingStatus.response} />
+    return (
+      <Receipt response={senOppfolgingStatus.response} responseDateISOString={senOppfolgingStatus.responseDateTime} />
+    )
   }
 
   return (

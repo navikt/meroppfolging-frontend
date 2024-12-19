@@ -5,6 +5,7 @@ import { alleredeSoktOmPengestotteContent } from '@/components/UI/AlleredeSoktOm
 import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'
 import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
 import { CONTACT_NAV_URL } from '@/constants/appConstants'
+import { NavPhoneNumber } from '@/components/UI/NavPhoneNumber'
 
 export const Usikker = (): ReactElement => {
   return (
@@ -115,7 +116,7 @@ export const Usikker = (): ReactElement => {
 
             <BodyLong>
               Dersom du lurer på noe annet, som f.eks. utbetaling av sykepenger eller generelle spørsmål, kan du når som
-              helst ta kontakt med oss på tlf. 55 55 33 33 eller på{' '}
+              helst ta kontakt med oss på tlf. <NavPhoneNumber /> eller på{' '}
               <TrackedExternalLink href={CONTACT_NAV_URL}>skriv til oss her på nav.no</TrackedExternalLink>
             </BodyLong>
           </Accordion.Content>

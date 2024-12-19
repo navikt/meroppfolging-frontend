@@ -1,5 +1,8 @@
-export function getLongDateFormat(dateString: string): string {
-  const date = new Date(dateString)
+export function ISODateStringToLongFormat(dateISOString: string): string {
+  return dateToLongFormat(new Date(dateISOString))
+}
+
+function dateToLongFormat(date: Date): string {
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',

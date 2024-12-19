@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { BodyLong } from '@navikt/ds-react'
 
-import { InformasjonOmTilpasninger } from '@/components/InformasjonOmTilpasninger/InformasjonOmTilpasninger'
+import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'
 
 export const TilbakeHosArbeidsgiver = (): ReactElement => {
   return (
@@ -15,7 +15,12 @@ export const TilbakeHosArbeidsgiver = (): ReactElement => {
         Husk at du alltid kan kontakte Nav dersom du trenger hjelp med noe eller hvis situasjonen din endrer seg.
       </BodyLong>
 
-      <InformasjonOmTilpasninger />
+      <BodyLong>
+        <TrackedExternalLink href="https://www.nav.no/tilrettelegging-jobb">
+          Les mer om tilrettelegging på jobb, og hva Nav kan bistå med
+        </TrackedExternalLink>
+        .
+      </BodyLong>
     </>
   )
 }
