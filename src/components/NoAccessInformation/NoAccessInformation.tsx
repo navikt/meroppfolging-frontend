@@ -3,10 +3,10 @@ import { BodyShort, Box, Button, Heading } from '@navikt/ds-react'
 import { logger } from '@navikt/next-logger'
 import Image from 'next/image'
 
-import { NAV_PHONE_NUMBER } from '@/constants/appConstants'
 import WriteToUsLink from '@/components/UI/WriteToUsLink'
 import { useLogAmplitudeEvent } from '@/libs/amplitude/amplitude'
 import pageErrorDad from '@/components/ErrorBoundary/Images/error-page-dad.svg'
+import { NavPhoneNumber } from '@/components/UI/NavPhoneNumber'
 
 function NoAccessInformation(): ReactElement {
   const logMessage = "User visited SenOppfolging page, but does not have access. Showing 'You cannot access form' page."
@@ -27,7 +27,7 @@ function NoAccessInformation(): ReactElement {
           </BodyShort>
           <BodyShort>
             Hvis du mener det har skjedd en feil, prøv igjen senere. Hvis feilen vedvarer, ta kontakt med oss på tlf.{' '}
-            {NAV_PHONE_NUMBER} eller på <WriteToUsLink /> (åpner i ny fane).
+            <NavPhoneNumber /> eller på <WriteToUsLink /> (åpner i ny fane).
           </BodyShort>
         </div>
       </div>

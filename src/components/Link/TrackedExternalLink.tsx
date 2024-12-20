@@ -1,14 +1,20 @@
-import { Link } from '@navikt/ds-react'
 import React, { ReactElement } from 'react'
+import { Link } from '@navikt/ds-react'
+import { ExternalLinkIcon } from '@navikt/aksel-icons'
 
 import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
 
 interface Props {
   href: string
+  openingInNewTabIconInsteadOfText?: boolean
   children: string
 }
 
-export const TrackedExternalLink = ({ href, children }: Props): ReactElement => {
+export const TrackedExternalLink = ({
+  href,
+  openingInNewTabIconInsteadOfText = false,
+  children,
+}: Props): ReactElement => {
   return (
     <Link
       href={href}
@@ -24,7 +30,14 @@ export const TrackedExternalLink = ({ href, children }: Props): ReactElement => 
       }}
       inlineText
     >
-      {children} (åpner i ny fane)
+      {openingInNewTabIconInsteadOfText ? (
+        <>
+          <span className="mr-1">{children}</span>
+          <ExternalLinkIcon title="åpner i ny fane" />
+        </>
+      ) : (
+        <>{children} (åpner i ny fane)</>
+      )}
     </Link>
   )
 }
