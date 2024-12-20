@@ -17,7 +17,7 @@ function HvaSkjerVidereTekst({ behovForOppfolgingAnswer }: Props): ReactElement 
   const svartNeiTilOppfolgingContent = (
     <>
       Du har svart at du ikke trenger oppfølging nå. Hvis du allerede har kontakt med en veileder, så vil du ikke miste
-      den kontakten. Dersom du senere ønsker råd og veiledning kan du når som helst ta kontakt med oss på telefon
+      den kontakten. Dersom du senere ønsker råd og veiledning kan du når som helst ta kontakt med oss på telefon{' '}
       <NavPhoneNumber /> eller{' '}
       <TrackedExternalLink href={CONTACT_NAV_URL}>skrive til oss her på nav.no</TrackedExternalLink>.
     </>
