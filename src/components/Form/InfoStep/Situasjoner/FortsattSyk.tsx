@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { Alert, BodyLong, BodyShort, Heading } from '@navikt/ds-react'
+import { BodyLong, BodyShort, GuidePanel, Heading } from '@navikt/ds-react'
 
 import AlleredeSoktOmPengestotteExpansionCard from '@/components/UI/AlleredeSoktOmPengestotteExpansionCard'
 import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'
@@ -20,14 +20,20 @@ export const FortsattSyk = (): ReactElement => {
         ikke gir like mye utbetalt som sykepenger. Husk at du også kan ha rettigheter hos forsikringsselskapet eller
         pensjonskassen din.
       </BodyShort>
-      <Alert variant="info">
+
+      <GuidePanel>
         <Heading size="xsmall" level="3" spacing>
           Husk å søke tidlig nok!
         </Heading>
         <BodyLong className="mb-2">
-          Saksbehandlingstiden for AAP-søknader er <b>omtrent 15 uker.</b>
+          Her kan du se{' '}
+          <TrackedExternalLink href="https://www.nav.no/saksbehandlingstider#arbeidsavklaringspenger-aap">
+            forventet saksbehandlingstid for AAP-søknader
+          </TrackedExternalLink>
+          . Du kan se saksbehandlingstider for andre pengestøtter på samme side.
         </BodyLong>
-      </Alert>
+      </GuidePanel>
+
       <AlleredeSoktOmPengestotteExpansionCard />
     </>
   )
