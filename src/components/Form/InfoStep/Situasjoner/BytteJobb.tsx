@@ -20,7 +20,7 @@ export const BytteJobb = (): ReactElement => {
 
       <BodyShort>
         Hvis du blir arbeidsledig eller permittert kan du ha rett på{' '}
-        <TrackedExternalLink href="https://www.nav.no/dagpenger">dagpenger</TrackedExternalLink>
+        <TrackedExternalLink href="https://www.nav.no/dagpenger">dagpenger</TrackedExternalLink>.
       </BodyShort>
     </>
   )
