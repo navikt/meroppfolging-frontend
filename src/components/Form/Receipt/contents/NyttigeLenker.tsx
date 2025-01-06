@@ -23,15 +23,6 @@ const NyttigeLenker = (): ReactElement => (
       </List.Item>
 
       <List.Item>
-        <TrackedExternalLink
-          href="https://www.nav.no/arbeidsgiver/kompetansetiltak-sykmeldte"
-          openingInNewTabIconInsteadOfText
-        >
-          Kompetansetiltak for sykmeldte
-        </TrackedExternalLink>
-      </List.Item>
-
-      <List.Item>
         <TrackedExternalLink href="https://www.nav.no/friskmelding-arbeidsformidling" openingInNewTabIconInsteadOfText>
           Friskmelding til arbeidsformidling
         </TrackedExternalLink>

@@ -91,8 +91,9 @@ export const Usikker = (): ReactElement => {
               Dette kan for eksempel være arbeidsavklaringspenger (AAP).
             </BodyLong>
             <TrackedExternalLink href="https://www.nav.no/aap">
-              Les mer her om hvem som har rett på AAP.
+              Les mer her om hvem som har rett på AAP
             </TrackedExternalLink>
+            .
           </Accordion.Content>
         </Accordion.Item>
 
@@ -117,7 +118,7 @@ export const Usikker = (): ReactElement => {
             <BodyLong>
               Dersom du lurer på noe annet, som f.eks. utbetaling av sykepenger eller generelle spørsmål, kan du når som
               helst ta kontakt med oss på tlf. <NavPhoneNumber /> eller på{' '}
-              <TrackedExternalLink href={CONTACT_NAV_URL}>skriv til oss her på nav.no</TrackedExternalLink>
+              <TrackedExternalLink href={CONTACT_NAV_URL}>skriv til oss her på nav.no</TrackedExternalLink>.
             </BodyLong>
           </Accordion.Content>
         </Accordion.Item>
