@@ -1,7 +1,6 @@
 import { ReactElement } from 'react'
 import { VStack } from '@navikt/ds-react'
 
-import { Flexjar } from '@/components/Flexjar/flexjar'
 import { Form } from '@/server/services/schemas/formRequestSchema'
 import { BehovForOppfolgingAnswerTypes, FremtidigSituasjonAnswerTypes } from '@/domain/answerValues'
 import MaxDateInfo from '@/components/LandingInfo/MaxDateInfo'
@@ -38,10 +37,10 @@ function Receipt({ response, responseDateISOString }: Props): ReactElement {
 
       <KontaktInformasjon />
 
-      <Flexjar
+      {/*<Flexjar
         feedbackId={`meroppfolging-kvittering-${fremtidigSituasjonAnswer}`}
         sporsmal="Synes du at du har fått nok informasjon om hva som skjer etter at sykepengene tar slutt?"
-      />
+      />*/}
     </VStack>
   )
 }
