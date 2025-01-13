@@ -6,6 +6,17 @@
       {
         "endOfLine": "auto"
       }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "**/*.test.tsx",
+          "./src/libs/ReactHookFormsDevTools.tsx",
+          "./src/test/testUtils.tsx",
+          "./src/test/vitest.setup.ts"
+        ]
+      }
     ]
   }
 }
