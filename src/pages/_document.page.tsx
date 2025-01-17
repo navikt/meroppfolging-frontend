@@ -1,11 +1,11 @@
 import Document, { DocumentContext, DocumentInitialProps, Head, Html, Main, NextScript } from 'next/document'
-import { DecoratorComponents, fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr'
+import { DecoratorComponentsReact, fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr'
 import { Page } from '@navikt/ds-react'
 
 import { browserEnv } from '@/constants/envs'
 
 interface DocumentProps {
-  Decorator: DecoratorComponents
+  Decorator: DecoratorComponentsReact
 }
 
 function createDecoratorEnv(): 'dev' | 'prod' {
@@ -37,7 +37,7 @@ class MyDocument extends Document<DocumentProps> {
     return (
       <Html lang="no">
         <Head>
-          <Decorator.Styles />
+          <Decorator.HeadAssets />
         </Head>
         <body>
           <Page background="bg-subtle" contentBlockPadding="none" footer={<Decorator.Footer />}>
