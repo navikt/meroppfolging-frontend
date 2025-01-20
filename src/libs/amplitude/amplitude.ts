@@ -1,11 +1,12 @@
 import { useEffect, useRef } from 'react'
 import { getAmplitudeInstance } from '@navikt/nav-dekoratoren-moduler'
+import { logger as pinoLogger } from '@navikt/next-logger'
 
 import { isLocalOrDemo } from '@/constants/envs'
 
 import { AmplitudeTaxonomyEvents } from './events'
 
-const logger = getAmplitudeInstance('dekoratoren')
+const dekoratorenAmplitudeLogger = getAmplitudeInstance('dekoratoren')
 
 const infoProperties = { team: 'eSyfo', app: 'meroppfolging-frontend' }
 
@@ -59,9 +60,14 @@ export async function logAmplitudeEvent(
     return
   }
 
-  await logger(eventType, {
-    ...eventProperties,
-  })
+  try {
+    // This can throw an error (rejected promise), therefore try-catch
+    await dekoratorenAmplitudeLogger(eventType, {
+      ...eventProperties,
+    })
+  } catch (error) {
+    pinoLogger.error(`Could not log event to Amplitude. Message: ${(error as Error)?.message}`)
+  }
 }
 
 export async function logCustomAmplitudeEvent(event: string, extraData?: Record<string, unknown>): Promise<void> {
@@ -75,5 +81,5 @@ export async function logCustomAmplitudeEvent(event: string, extraData?: Record<
     return
   }
 
-  await logger(event, eventProperties)
+  await dekoratorenAmplitudeLogger(event, eventProperties)
 }
