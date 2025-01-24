@@ -42,7 +42,7 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-hook-form": "^7.54.2",
-    "remeda": "^2.19.2",
+    "remeda": "^2.20.0",
     "typescript": "5.7.3",
     "zod": "^3.24.1"
   },
