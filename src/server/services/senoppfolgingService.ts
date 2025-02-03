@@ -26,11 +26,15 @@ export async function getSenOppfolgingStatus(auth: string): Promise<SenOppfolgin
 
   const response = await serverRequest<SenOppfolgingStatusDTO>({ url: path, accessToken: tokenX })
 
+  logger.error(`New log: ${JSON.stringify(response)}`)
+
   const result = SenOppfolgingStatusSchema.safeParse(response)
 
   if (result.success) {
     return result.data
   }
+
+  logger.error(`New log: Failed to parse response from ${path}: ${JSON.stringify(result.error)}`)
 
   throw new Error(`Failed to parse response from ${path}: ${JSON.stringify(result.error)}`)
 }
