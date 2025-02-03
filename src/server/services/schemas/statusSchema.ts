@@ -4,7 +4,7 @@ import { FormSchema } from '@/server/services/schemas/formRequestSchema'
 
 export const SenOppfolgingStatusSchema = z.object({
   response: z.union([FormSchema, z.literal(null)]),
-  responseDateTime: z.string().optional(),
+  responseDateTime: z.string().nullable(),
   hasAccessToSenOppfolging: z.boolean(),
 })
 

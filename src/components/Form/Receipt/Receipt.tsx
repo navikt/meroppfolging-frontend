@@ -13,7 +13,7 @@ import KontaktInformasjon from './contents/KontaktInformasjon'
 
 interface Props {
   response: Form
-  responseDateISOString: string | undefined
+  responseDateISOString: string | null
 }
 
 function Receipt({ response, responseDateISOString }: Props): ReactElement {

@@ -4,11 +4,13 @@ const responseDateTime = new Date().toISOString()
 
 export const IkkeSvart: SenOppfolgingStatusDTO = {
   response: null,
+  responseDateTime: null,
   hasAccessToSenOppfolging: true,
 }
 
 export const IkkeSvartAndShouldNotHaveAccess: SenOppfolgingStatusDTO = {
   response: null,
+  responseDateTime: null,
   hasAccessToSenOppfolging: false,
 }
 

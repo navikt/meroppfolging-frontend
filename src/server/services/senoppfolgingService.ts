@@ -30,7 +30,11 @@ export async function getSenOppfolgingStatus(auth: string): Promise<SenOppfolgin
 
   if (result.success) {
     return result.data
-  }
+  } else {
+    const errorMessage = `Failed to parse response from ${path}: ${JSON.stringify(result.error)}`
 
-  throw new Error(`Failed to parse response from ${path}: ${JSON.stringify(result.error)}`)
+    logger.error(errorMessage)
+    // TODO: Find out why throwing error like this does not log the message
+    throw new Error(errorMessage)
+  }
 }
