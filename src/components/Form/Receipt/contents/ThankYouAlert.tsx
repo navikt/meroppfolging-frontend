@@ -2,7 +2,7 @@ import { Alert, BodyShort, Heading } from '@navikt/ds-react'
 
 import { ISODateStringToLongFormat } from '@/utils/dateUtils'
 
-const ThankYouAlert = ({ responseDateISOString }: { responseDateISOString: string | undefined }): React.ReactNode => (
+const ThankYouAlert = ({ responseDateISOString }: { responseDateISOString: string | null }): React.ReactNode => (
   <Alert variant="success">
     <Heading size="small" level="2">
       Takk, svarene dine er sendt til Nav.
