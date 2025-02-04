@@ -76,6 +76,6 @@ async function logAmplitudeEventUsingDekoratorenInstance(
     // This can throw an error (rejected promise), therefore try-catch
     await dekoratorenAmplitudeLogger(event, eventProperties)
   } catch (error) {
-    pinoLogger.error(`Could not log event to Amplitude. Message: ${(error as Error)?.message}`)
+    pinoLogger.debug(`Could not log event to Amplitude. Message: ${(error as Error)?.message}`)
   }
 }
