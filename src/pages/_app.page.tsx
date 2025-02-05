@@ -12,7 +12,6 @@ import { server } from '@/mocks/server'
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
 import { BASE_PATH } from '@/constants/appConstants'
 import { initFaro } from '@/libs/faro/faro'
-import { ToggleProvider } from '@/contexts/toggleContext'
 import { TestScenarioSelector } from '@/components/TestscenarioSelector/TestScenarioSelector'
 import { isLocalOrDemo } from '@/constants/envs'
 
@@ -39,16 +38,14 @@ function App({ Component, pageProps }: AppProps): ReactElement {
         <title>Registering av mer oppfølging</title>
       </Head>
       <QueryClientProvider client={queryClient}>
-        <ToggleProvider>
-          <main tabIndex={-1} id="maincontent">
-            <div className="flex flex-col items-center w-full p-4 md:p-8">
-              <Page.Block width="md" className="bg-bg-default p-4 py-8 md:p-12">
-                <Component {...pageProps} />
-              </Page.Block>
-            </div>
-            {isLocalOrDemo && <TestScenarioSelector />}
-          </main>
-        </ToggleProvider>
+        <main tabIndex={-1} id="maincontent">
+          <div className="flex flex-col items-center w-full p-4 md:p-8">
+            <Page.Block width="md" className="bg-bg-default p-4 py-8 md:p-12">
+              <Component {...pageProps} />
+            </Page.Block>
+          </div>
+          {isLocalOrDemo && <TestScenarioSelector />}
+        </main>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </ErrorBoundary>
