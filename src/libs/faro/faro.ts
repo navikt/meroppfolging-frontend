@@ -1,16 +1,18 @@
+'use client'
+
 import { Faro, getWebInstrumentations, initializeFaro } from '@grafana/faro-web-sdk'
 import { TracingInstrumentation } from '@grafana/faro-web-tracing'
 
-import { browserEnv, isLocalOrDemo } from '@/constants/envs'
+import { isLocalOrDemo, publicEnv } from '@/constants/envs'
 
 export const initFaro = (): Faro | null => {
-  if (!browserEnv.NEXT_PUBLIC_TELEMETRY_URL || typeof window === 'undefined' || isLocalOrDemo) return null
+  if (!publicEnv.NEXT_PUBLIC_TELEMETRY_URL || typeof window === 'undefined' || isLocalOrDemo) return null
 
   return initializeFaro({
-    url: browserEnv.NEXT_PUBLIC_TELEMETRY_URL,
+    url: publicEnv.NEXT_PUBLIC_TELEMETRY_URL,
     app: {
       name: 'meroppfolging-frontend',
-      version: browserEnv.NEXT_PUBLIC_RUNTIME_ENVIRONMENT,
+      version: publicEnv.NEXT_PUBLIC_RUNTIME_ENVIRONMENT,
     },
     instrumentations: [
       ...getWebInstrumentations({

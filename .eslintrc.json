@@ -1,5 +1,6 @@
 {
-  "extends": ["@navikt/eslint-config-teamsykmelding", "next/core-web-vitals"],
+  "extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
+  "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": [
       "error",
@@ -17,6 +18,8 @@
           "./src/test/vitest.setup.ts"
         ]
       }
-    ]
+    ],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   }
 }
