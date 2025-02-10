@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { BodyShort, Box, Button, Heading, List, Page, VStack } from '@navikt/ds-react'
 import Link from 'next/link'
 
-function Custom404(): ReactElement {
+function NotFound(): ReactElement {
   return (
     <Page.Block as="main" width="xl" gutters>
       <Box paddingBlock="20 16" data-aksel-template="404-v2">
@@ -30,4 +30,4 @@ function Custom404(): ReactElement {
   )
 }
 
-export default Custom404
+export default NotFound

@@ -1,3 +1,5 @@
+'use client'
+
 import { SenOppfolgingStatusDTO } from '@/server/services/schemas/statusSchema'
 import * as statusDtoFixtures from '@/mocks/data/fixtures/statusDtoFixtures'
 import { FormRequest } from '@/server/services/schemas/formRequestSchema'
@@ -17,14 +19,16 @@ export const nukeFormRequests = (): void => {
 }
 
 export const getStatusDTOFixture = (): SenOppfolgingStatusDTO => {
-  const storedAnswer: string | null = window.sessionStorage.getItem(SESSION_STORAGE_ANSWERS_KEY)
-  if (storedAnswer) {
-    const formAnswer: FormRequest = JSON.parse(storedAnswer)
+  if (typeof window !== 'undefined') {
+    const storedAnswer: string | null = window.sessionStorage.getItem(SESSION_STORAGE_ANSWERS_KEY)
+    if (storedAnswer) {
+      const formAnswer: FormRequest = JSON.parse(storedAnswer)
 
-    return {
-      response: formAnswer.senOppfolgingFormV2,
-      hasAccessToSenOppfolging: true,
-      responseDateTime: new Date().toISOString(),
+      return {
+        response: formAnswer.senOppfolgingFormV2,
+        hasAccessToSenOppfolging: true,
+        responseDateTime: new Date().toISOString(),
+      }
     }
   }
   return statusDtoFixtures.IkkeSvart

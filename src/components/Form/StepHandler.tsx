@@ -1,11 +1,10 @@
+'use client'
+
 import React, { ReactElement, useState } from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-import { useRouter } from 'next/router'
 import { FormProgress } from '@navikt/ds-react'
-
 import { BehovForOppfolgingAnswerTypes, FremtidigSituasjonAnswerTypes } from '@/domain/answerValues'
 import { SenOppfolgingStatusDTO } from '@/server/services/schemas/statusSchema'
-import { trpc } from '@/utils/trpc'
 import { createFormRequest } from '@/utils/requestUtils'
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
 import NoAccessInformation from '@/components/NoAccessInformation/NoAccessInformation'
@@ -15,6 +14,11 @@ import { OnskerOppfolgingStep } from '@/components/Form/OppfolgingStep/OnskerOpp
 import { FremtidigSituasjonStep } from './FremtidigSituasjonStep/FremtidigSituasjonStep'
 import { InfoStep } from './InfoStep/InfoStep'
 import Receipt from './Receipt/Receipt'
+import { submitForm } from '@/server/actions/submitForm'
+import { useRouter } from 'next/navigation'
+import { isLocalOrDemo } from '@/constants/envs'
+import { getStatusDTOFixture, storeFormRequest } from '@/mocks/testScenarioUtils'
+import { MaxDateDTO } from '@/server/services/schemas/sykepengedagerInformasjonSchema'
 
 type Step = { number: number; name: 'FREMTIDIG_SITUASJON' | 'INFO' | 'KONTAKT' }
 
@@ -25,6 +29,7 @@ export type FormInputs = {
 
 interface LandingContentProps {
   senOppfolgingStatus: SenOppfolgingStatusDTO
+  maxDate: MaxDateDTO
 }
 
 const steps: Step[] = [
@@ -33,20 +38,19 @@ const steps: Step[] = [
   { number: 3, name: 'KONTAKT' },
 ]
 
-export const StepHandler = ({ senOppfolgingStatus }: LandingContentProps): ReactElement => {
+export const StepHandler = ({ senOppfolgingStatus, maxDate }: LandingContentProps): ReactElement => {
   const methods = useForm<FormInputs>()
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [displayErrorMessage, setDisplayErrorMessage] = useState(false)
-  const { reload } = useRouter()
+  const router = useRouter()
 
-  const mutation = trpc.submitForm.useMutation({
-    onError: () => {
-      setDisplayErrorMessage(true)
-    },
-    onSuccess: () => {
-      reload()
-    },
-  })
+  if (isLocalOrDemo) {
+    const storedStatus = getStatusDTOFixture()
+    if (storedStatus) {
+      senOppfolgingStatus = storedStatus
+    }
+  }
 
   if (!senOppfolgingStatus.hasAccessToSenOppfolging) {
     return <NoAccessInformation />
@@ -54,7 +58,11 @@ export const StepHandler = ({ senOppfolgingStatus }: LandingContentProps): React
 
   if (senOppfolgingStatus.response) {
     return (
-      <Receipt response={senOppfolgingStatus.response} responseDateISOString={senOppfolgingStatus.responseDateTime} />
+      <Receipt
+        response={senOppfolgingStatus.response}
+        responseDateISOString={senOppfolgingStatus.responseDateTime}
+        maxDate={maxDate}
+      />
     )
   }
 
@@ -83,7 +91,8 @@ export const StepHandler = ({ senOppfolgingStatus }: LandingContentProps): React
     setCurrentStepIndex(currentStepIndex - 1)
   }
 
-  const submitFormToMOBE = (data: FormInputs): void => {
+  const submitFormToMOBE = async (data: FormInputs): Promise<void> => {
+    setIsSubmitting(true)
     logAmplitudeEvent(
       {
         eventName: 'skjema fullført',
@@ -97,7 +106,20 @@ export const StepHandler = ({ senOppfolgingStatus }: LandingContentProps): React
       },
     )
     const request = createFormRequest(data)
-    mutation.mutate(request)
+
+    setDisplayErrorMessage(false)
+    try {
+      if (isLocalOrDemo) {
+        storeFormRequest(request)
+      }
+
+      await submitForm(request)
+    } catch (e) {
+      setDisplayErrorMessage(true)
+    } finally {
+      router.refresh()
+      setIsSubmitting(false)
+    }
   }
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
@@ -126,7 +148,7 @@ export const StepHandler = ({ senOppfolgingStatus }: LandingContentProps): React
               case 'INFO':
                 return <InfoStep goToPreviousStep={goToPreviousStep} />
               case 'KONTAKT':
-                return <OnskerOppfolgingStep goToPreviousStep={goToPreviousStep} isSubmitting={mutation.isLoading} />
+                return <OnskerOppfolgingStep goToPreviousStep={goToPreviousStep} isSubmitting={isSubmitting} />
               default:
                 return null
             }

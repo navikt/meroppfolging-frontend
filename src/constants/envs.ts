@@ -10,10 +10,8 @@ export const publicEnvSchema = z.object({
     z.literal('prod'),
   ]),
   NEXT_PUBLIC_ASSET_PREFIX: z.string().optional(),
-  NEXT_PUBLIC_API_MOCKING: z.string(),
   NEXT_PUBLIC_TELEMETRY_URL: z.string().optional(),
   NEXT_PUBLIC_BASE_PATH: z.string(),
-  NEXT_PUBLIC_AKTIVITETSPLAN_URL: z.string(),
 })
 
 export type ServerEnv = z.infer<typeof serverEnvSchema>
@@ -30,9 +28,6 @@ export const serverEnvSchema = z.object({
   IDPORTEN_WELL_KNOWN_URL: z.string(),
   IDPORTEN_CLIENT_ID: z.string(),
   NAIS_CLUSTER_NAME: z.string(),
-  // Provided by unleash
-  UNLEASH_SERVER_API_URL: z.string(),
-  UNLEASH_SERVER_API_TOKEN: z.string(),
 })
 
 /**
@@ -40,13 +35,11 @@ export const serverEnvSchema = z.object({
  *
  * They MUST be provided during the build step.
  */
-export const browserEnv = publicEnvSchema.parse({
+export const publicEnv = publicEnvSchema.parse({
   NEXT_PUBLIC_RUNTIME_ENVIRONMENT: process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT,
   NEXT_PUBLIC_ASSET_PREFIX: process.env.NEXT_PUBLIC_ASSET_PREFIX,
-  NEXT_PUBLIC_API_MOCKING: process.env.NEXT_PUBLIC_API_MOCKING,
   NEXT_PUBLIC_TELEMETRY_URL: process.env.NEXT_PUBLIC_TELEMETRY_URL,
   NEXT_PUBLIC_BASE_PATH: process.env.NEXT_PUBLIC_BASE_PATH,
-  NEXT_PUBLIC_AKTIVITETSPLAN_URL: process.env.NEXT_PUBLIC_AKTIVITETSPLAN_URL,
 } satisfies Record<keyof PublicEnv, string | undefined>)
 
 const getRawServerConfig = (): Partial<unknown> =>
@@ -64,14 +57,11 @@ const getRawServerConfig = (): Partial<unknown> =>
     IDPORTEN_WELL_KNOWN_URL: process.env.IDPORTEN_WELL_KNOWN_URL,
     IDPORTEN_CLIENT_ID: process.env.IDPORTEN_CLIENT_ID,
     NAIS_CLUSTER_NAME: process.env.NAIS_CLUSTER_NAME,
-    // Provided by unleash
-    UNLEASH_SERVER_API_URL: process.env.UNLEASH_SERVER_API_URL,
-    UNLEASH_SERVER_API_TOKEN: process.env.UNLEASH_SERVER_API_TOKEN,
   }) satisfies Record<keyof ServerEnv, string | undefined>
 
 export function getServerEnv(): ServerEnv & PublicEnv {
   try {
-    return { ...serverEnvSchema.parse(getRawServerConfig()), ...publicEnvSchema.parse(browserEnv) }
+    return { ...serverEnvSchema.parse(getRawServerConfig()), ...publicEnvSchema.parse(publicEnv) }
   } catch (e) {
     if (e instanceof ZodError) {
       throw new Error(

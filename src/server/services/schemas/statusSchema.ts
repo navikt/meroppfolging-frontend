@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { FormSchema } from '@/server/services/schemas/formRequestSchema'
 
 export const SenOppfolgingStatusSchema = z.object({
-  response: z.union([FormSchema, z.literal(null)]),
+  response: FormSchema.nullable(),
   responseDateTime: z.string().nullable(),
   hasAccessToSenOppfolging: z.boolean(),
 })

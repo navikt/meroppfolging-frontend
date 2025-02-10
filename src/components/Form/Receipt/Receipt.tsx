@@ -1,3 +1,5 @@
+'use client'
+
 import { ReactElement } from 'react'
 import { VStack } from '@navikt/ds-react'
 
@@ -10,13 +12,15 @@ import OppsummeringAvDineSvar from './contents/OppsummeringAvDineSvar'
 import HvaSkjerVidereTekst from './contents/HvaSkjerVidereTekst'
 import NyttigeLenker from './contents/NyttigeLenker'
 import KontaktInformasjon from './contents/KontaktInformasjon'
+import { MaxDateDTO } from '@/server/services/schemas/sykepengedagerInformasjonSchema'
 
 interface Props {
   response: Form
   responseDateISOString: string | null
+  maxDate: MaxDateDTO
 }
 
-function Receipt({ response, responseDateISOString }: Props): ReactElement {
+function Receipt({ response, responseDateISOString, maxDate }: Props): ReactElement {
   const fremtidigSituasjonAnswer: FremtidigSituasjonAnswerTypes = response[0].answerType
   const behovForOppfolgingAnswer: BehovForOppfolgingAnswerTypes = response[1].answerType
 
@@ -31,7 +35,7 @@ function Receipt({ response, responseDateISOString }: Props): ReactElement {
 
       <HvaSkjerVidereTekst behovForOppfolgingAnswer={behovForOppfolgingAnswer} />
 
-      <MaxDateInfo />
+      <MaxDateInfo maxDate={maxDate} />
 
       <NyttigeLenker />
 

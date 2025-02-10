@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useRef } from 'react'
 import { getAmplitudeInstance } from '@navikt/nav-dekoratoren-moduler'
 import { logger as pinoLogger } from '@navikt/next-logger'
