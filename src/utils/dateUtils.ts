@@ -8,5 +8,6 @@ function dateToLongFormat(date: Date): string {
     month: 'long',
     day: 'numeric',
   }
-  return date.toLocaleDateString('nb-NO', options)
+  const formatter = new Intl.DateTimeFormat('nb-NO', options)
+  return formatter.format(date)
 }
