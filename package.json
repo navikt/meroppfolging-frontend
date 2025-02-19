@@ -63,7 +63,7 @@
     "next-router-mock": "^0.9.13",
     "path": "^0.12.7",
     "pino-pretty": "^13.0.0",
-    "postcss": "^8.5.2",
+    "postcss": "^8.5.3",
     "stylelint": "^16.14.1",
     "tailwindcss": "^3.4.17",
     "vitest": "^2.1.9",
