@@ -4,9 +4,9 @@ import React, { ReactElement } from 'react'
 import NoAccessInformation from '@/components/NoAccessInformation/NoAccessInformation'
 import Receipt from '@/components/Form/Receipt/Receipt'
 import MaxDateInfo from '@/components/LandingInfo/MaxDateInfo'
-import { SenOppfolgingStatusDTO } from '@/server/services/schemas/statusSchema'
+import { SenOppfolgingStatusDTO } from '@/server/schemas/statusSchema'
 import { BeginFormButton } from '@/components/LandingInfo/BeginFormButton'
-import { MaxDateDTO } from '@/server/services/schemas/sykepengedagerInformasjonSchema'
+import { MaxDateDTO } from '@/server/schemas/sykepengedagerInformasjonSchema'
 
 interface Props {
   senOppfolgingStatus: SenOppfolgingStatusDTO

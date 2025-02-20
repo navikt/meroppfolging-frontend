@@ -1,8 +1,8 @@
 'use client'
 
-import { SenOppfolgingStatusDTO } from '@/server/services/schemas/statusSchema'
+import { SenOppfolgingStatusDTO } from '@/server/schemas/statusSchema'
 import * as statusDtoFixtures from '@/mocks/data/fixtures/statusDtoFixtures'
-import { FormRequest } from '@/server/services/schemas/formRequestSchema'
+import { FormRequest } from '@/server/schemas/formRequestSchema'
 
 const SESSION_STORAGE_ANSWERS_KEY = 'answers'
 

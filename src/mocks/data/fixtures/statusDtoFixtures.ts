@@ -1,4 +1,4 @@
-import { SenOppfolgingStatusDTO } from '@/server/services/schemas/statusSchema'
+import { SenOppfolgingStatusDTO } from '@/server/schemas/statusSchema'
 
 const responseDateTime = new Date().toISOString()
 

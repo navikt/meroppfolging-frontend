@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { FormSchema } from '@/server/services/schemas/formRequestSchema'
+import { FormSchema } from '@/server/schemas/formRequestSchema'
 
 export const SenOppfolgingStatusSchema = z.object({
   response: FormSchema.nullable(),

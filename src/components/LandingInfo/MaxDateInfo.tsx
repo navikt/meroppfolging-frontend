@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { logger } from '@navikt/next-logger'
 
 import MaxDatoInformationExpansionCard from '@/components/UI/MaxDatoInformationExpansionCard'
-import { MaxDateDTO } from '@/server/services/schemas/sykepengedagerInformasjonSchema'
+import { MaxDateDTO } from '@/server/schemas/sykepengedagerInformasjonSchema'
 
 function MaxDateErrorMessage({ reason }: { reason: string }): ReactElement {
   logger.error(`Client: could not fetch max date. Reason: ${reason}`)

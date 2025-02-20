@@ -3,7 +3,7 @@
 import { ReactElement } from 'react'
 import { VStack } from '@navikt/ds-react'
 
-import { Form } from '@/server/services/schemas/formRequestSchema'
+import { Form } from '@/server/schemas/formRequestSchema'
 import { BehovForOppfolgingAnswerTypes, FremtidigSituasjonAnswerTypes } from '@/domain/answerValues'
 import MaxDateInfo from '@/components/LandingInfo/MaxDateInfo'
 
@@ -12,7 +12,7 @@ import OppsummeringAvDineSvar from './contents/OppsummeringAvDineSvar'
 import HvaSkjerVidereTekst from './contents/HvaSkjerVidereTekst'
 import NyttigeLenker from './contents/NyttigeLenker'
 import KontaktInformasjon from './contents/KontaktInformasjon'
-import { MaxDateDTO } from '@/server/services/schemas/sykepengedagerInformasjonSchema'
+import { MaxDateDTO } from '@/server/schemas/sykepengedagerInformasjonSchema'
 
 interface Props {
   response: Form

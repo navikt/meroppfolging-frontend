@@ -6,7 +6,7 @@ import { serverRequest } from '@/libs/axios'
 import { logger } from '@navikt/next-logger'
 import { headers } from 'next/headers'
 import { getToken } from '@navikt/oasis'
-import { FormRequest } from '@/server/services/schemas/formRequestSchema'
+import { FormRequest } from '@/server/schemas/formRequestSchema'
 import { validateIdPortenToken } from '@/auth/getIdPortenToken'
 import { navigateToLogin } from '@/auth/navigateToLogin'
 

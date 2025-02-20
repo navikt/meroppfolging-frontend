@@ -4,7 +4,7 @@ import React, { ReactElement, useState } from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { FormProgress } from '@navikt/ds-react'
 import { BehovForOppfolgingAnswerTypes, FremtidigSituasjonAnswerTypes } from '@/domain/answerValues'
-import { SenOppfolgingStatusDTO } from '@/server/services/schemas/statusSchema'
+import { SenOppfolgingStatusDTO } from '@/server/schemas/statusSchema'
 import { createFormRequest } from '@/utils/requestUtils'
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
 import NoAccessInformation from '@/components/NoAccessInformation/NoAccessInformation'
@@ -18,7 +18,7 @@ import { submitForm } from '@/server/actions/submitForm'
 import { useRouter } from 'next/navigation'
 import { isLocalOrDemo } from '@/constants/envs'
 import { getStatusDTOFixture, storeFormRequest } from '@/mocks/testScenarioUtils'
-import { MaxDateDTO } from '@/server/services/schemas/sykepengedagerInformasjonSchema'
+import { MaxDateDTO } from '@/server/schemas/sykepengedagerInformasjonSchema'
 
 type Step = { number: number; name: 'FREMTIDIG_SITUASJON' | 'INFO' | 'KONTAKT' }
 

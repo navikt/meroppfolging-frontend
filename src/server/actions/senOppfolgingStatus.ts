@@ -1,6 +1,6 @@
 'use server'
 
-import { SenOppfolgingStatusDTO, SenOppfolgingStatusSchema } from '@/server/services/schemas/statusSchema'
+import { SenOppfolgingStatusDTO, SenOppfolgingStatusSchema } from '@/server/schemas/statusSchema'
 import { getServerEnv, isLocalOrDemo } from '@/constants/envs'
 import { headers } from 'next/headers'
 import { getToken } from '@navikt/oasis'

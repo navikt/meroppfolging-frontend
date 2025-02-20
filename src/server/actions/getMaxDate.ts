@@ -1,4 +1,4 @@
-import { MaxDateDTO, maxDateSchema } from '@/server/services/schemas/sykepengedagerInformasjonSchema'
+import { MaxDateDTO, maxDateSchema } from '@/server/schemas/sykepengedagerInformasjonSchema'
 import { getServerEnv, isLocalOrDemo } from '@/constants/envs'
 import { exchangeIdportenTokenForSykepengedagerInformasjonTokenx } from '@/auth/tokenUtils'
 import { headers } from 'next/headers'
