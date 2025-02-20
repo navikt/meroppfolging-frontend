@@ -2,7 +2,6 @@ import { BodyLong, Heading, VStack } from '@navikt/ds-react'
 import React, { ReactElement } from 'react'
 
 import NoAccessInformation from '@/components/NoAccessInformation/NoAccessInformation'
-import Receipt from '@/components/Form/Receipt/Receipt'
 import MaxDateInfo from '@/components/LandingInfo/MaxDateInfo'
 import { SenOppfolgingStatusDTO } from '@/server/schemas/statusSchema'
 import { BeginFormButton } from '@/components/LandingInfo/BeginFormButton'
@@ -16,16 +15,6 @@ interface Props {
 export const Landing = ({ senOppfolgingStatus, maxDate }: Props): ReactElement => {
   if (!senOppfolgingStatus.hasAccessToSenOppfolging) {
     return <NoAccessInformation />
-  }
-
-  if (senOppfolgingStatus.response) {
-    return (
-      <Receipt
-        response={senOppfolgingStatus.response}
-        responseDateISOString={senOppfolgingStatus.responseDateTime}
-        maxDate={maxDate}
-      />
-    )
   }
 
   return (

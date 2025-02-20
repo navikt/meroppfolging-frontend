@@ -1,9 +1,5 @@
-'use client'
-
 import { ReactElement } from 'react'
 import { VStack } from '@navikt/ds-react'
-
-import { Form } from '@/server/schemas/formRequestSchema'
 import { BehovForOppfolgingAnswerTypes, FremtidigSituasjonAnswerTypes } from '@/domain/answerValues'
 import MaxDateInfo from '@/components/LandingInfo/MaxDateInfo'
 
@@ -15,15 +11,18 @@ import KontaktInformasjon from './contents/KontaktInformasjon'
 import { MaxDateDTO } from '@/server/schemas/sykepengedagerInformasjonSchema'
 
 interface Props {
-  response: Form
+  fremtidigSituasjonAnswer: FremtidigSituasjonAnswerTypes
+  behovForOppfolgingAnswer: BehovForOppfolgingAnswerTypes
   responseDateISOString: string | null
   maxDate: MaxDateDTO
 }
 
-function Receipt({ response, responseDateISOString, maxDate }: Props): ReactElement {
-  const fremtidigSituasjonAnswer: FremtidigSituasjonAnswerTypes = response[0].answerType
-  const behovForOppfolgingAnswer: BehovForOppfolgingAnswerTypes = response[1].answerType
-
+function Receipt({
+  fremtidigSituasjonAnswer,
+  behovForOppfolgingAnswer,
+  responseDateISOString,
+  maxDate,
+}: Props): ReactElement {
   return (
     <VStack gap="6">
       <ThankYouAlert responseDateISOString={responseDateISOString} />

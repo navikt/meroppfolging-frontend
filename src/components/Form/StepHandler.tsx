@@ -13,12 +13,8 @@ import { OnskerOppfolgingStep } from '@/components/Form/OppfolgingStep/OnskerOpp
 
 import { FremtidigSituasjonStep } from './FremtidigSituasjonStep/FremtidigSituasjonStep'
 import { InfoStep } from './InfoStep/InfoStep'
-import Receipt from './Receipt/Receipt'
 import { submitForm } from '@/server/actions/submitForm'
 import { useRouter } from 'next/navigation'
-import { isLocalOrDemo } from '@/constants/envs'
-import { getStatusDTOFixture, storeFormRequest } from '@/mocks/testScenarioUtils'
-import { MaxDateDTO } from '@/server/schemas/sykepengedagerInformasjonSchema'
 
 type Step = { number: number; name: 'FREMTIDIG_SITUASJON' | 'INFO' | 'KONTAKT' }
 
@@ -29,7 +25,6 @@ export type FormInputs = {
 
 interface LandingContentProps {
   senOppfolgingStatus: SenOppfolgingStatusDTO
-  maxDate: MaxDateDTO
 }
 
 const steps: Step[] = [
@@ -38,32 +33,15 @@ const steps: Step[] = [
   { number: 3, name: 'KONTAKT' },
 ]
 
-export const StepHandler = ({ senOppfolgingStatus, maxDate }: LandingContentProps): ReactElement => {
+export const StepHandler = ({ senOppfolgingStatus }: LandingContentProps): ReactElement => {
   const methods = useForm<FormInputs>()
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [displayErrorMessage, setDisplayErrorMessage] = useState(false)
   const router = useRouter()
 
-  if (isLocalOrDemo) {
-    const storedStatus = getStatusDTOFixture()
-    if (storedStatus) {
-      senOppfolgingStatus = storedStatus
-    }
-  }
-
   if (!senOppfolgingStatus.hasAccessToSenOppfolging) {
     return <NoAccessInformation />
-  }
-
-  if (senOppfolgingStatus.response) {
-    return (
-      <Receipt
-        response={senOppfolgingStatus.response}
-        responseDateISOString={senOppfolgingStatus.responseDateTime}
-        maxDate={maxDate}
-      />
-    )
   }
 
   const goToNextStep = (): void => {
@@ -109,15 +87,16 @@ export const StepHandler = ({ senOppfolgingStatus, maxDate }: LandingContentProp
 
     setDisplayErrorMessage(false)
     try {
-      if (isLocalOrDemo) {
-        storeFormRequest(request)
-      }
-
       await submitForm(request)
+      const queryParams = new URLSearchParams({
+        fremtidigSituasjon: data.FREMTIDIG_SITUASJON,
+        behovForOppfolging: data.BEHOV_FOR_OPPFOLGING,
+      }).toString()
+
+      router.push(`/snart-slutt-pa-sykepengene/kvittering?${queryParams}`)
     } catch (e) {
       setDisplayErrorMessage(true)
     } finally {
-      router.refresh()
       setIsSubmitting(false)
     }
   }
