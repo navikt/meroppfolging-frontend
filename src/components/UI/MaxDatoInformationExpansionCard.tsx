@@ -1,4 +1,5 @@
 'use client'
+
 import { ExpansionCard } from '@navikt/ds-react'
 
 import { ISODateStringToLongFormat } from '@/utils/dateUtils'

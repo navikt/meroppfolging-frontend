@@ -1,4 +1,3 @@
-'use server'
 import { logger } from '@navikt/next-logger'
 import { getToken, validateIdportenToken } from '@navikt/oasis'
 import { headers } from 'next/headers'

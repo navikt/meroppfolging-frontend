@@ -1,4 +1,5 @@
 'use client'
+
 import { Button, Modal } from '@navikt/ds-react'
 import React, { ReactElement, useState } from 'react'
 import { SunIcon } from '@navikt/aksel-icons'

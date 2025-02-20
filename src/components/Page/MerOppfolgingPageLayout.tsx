@@ -1,4 +1,5 @@
 'use client'
+
 import { Page } from '@navikt/ds-react'
 import React from 'react'
 import { TestScenarioSelector } from '@/components/TestscenarioSelector/TestScenarioSelector'
