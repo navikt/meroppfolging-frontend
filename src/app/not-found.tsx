@@ -1,3 +1,5 @@
+'use client'
+
 import { ReactElement } from 'react'
 import { BodyShort, Box, Button, Heading, List, Page, VStack } from '@navikt/ds-react'
 import Link from 'next/link'
