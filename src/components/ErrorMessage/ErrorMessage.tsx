@@ -1,5 +1,3 @@
-'use client'
-
 import { Alert, BodyLong, Heading } from '@navikt/ds-react'
 
 import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'

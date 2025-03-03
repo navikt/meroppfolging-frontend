@@ -1,17 +1,14 @@
-'use client'
-
 import { ExpansionCard } from '@navikt/ds-react'
 
 import { ISODateStringToLongFormat } from '@/utils/dateUtils'
 import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
-import { ReactElement } from 'react'
 
 interface Props {
   maxDato: string
   utbetaltTomDato?: string | null
 }
 
-function MaxDatoInformationExpansionCard({ maxDato, utbetaltTomDato }: Props): ReactElement {
+function MaxDatoInformationExpansionCard({ maxDato, utbetaltTomDato }: Props): React.ReactElement {
   return (
     <ExpansionCard
       size="small"

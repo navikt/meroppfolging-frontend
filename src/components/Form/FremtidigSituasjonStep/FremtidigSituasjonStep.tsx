@@ -1,7 +1,5 @@
-'use client'
-
 import React, { ReactElement, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/router'
 
 import RadioGroupForQuestion from '@/components/FormComponents/RadioGroupForQuestion'
 import { Step } from '@/components/Step/Step'

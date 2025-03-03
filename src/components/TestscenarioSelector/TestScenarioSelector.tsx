@@ -1,11 +1,10 @@
-'use client'
-
 import { Button, Modal } from '@navikt/ds-react'
 import React, { ReactElement, useState } from 'react'
 import { SunIcon } from '@navikt/aksel-icons'
 
+import { nukeFormRequests } from '@/mocks/testScenarioUtils'
+
 import styles from './testscenarioselector.module.css'
-import { publicEnv } from '@/constants/envs'
 
 export const TestScenarioSelector = (): ReactElement => {
   const [open, setOpen] = useState(false)
@@ -26,7 +25,8 @@ export const TestScenarioSelector = (): ReactElement => {
               id="VelgScenarioButton"
               variant="primary"
               onClick={() => {
-                window.location.href = publicEnv.NEXT_PUBLIC_BASE_PATH + '/snart-slutt-pa-sykepengene'
+                nukeFormRequests()
+                window.location.reload()
               }}
             >
               Slett svaret mitt og begynn på nytt

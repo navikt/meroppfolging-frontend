@@ -1,6 +1,6 @@
 import { FormInputs } from '@/components/Form/StepHandler'
 import { ANSWER_TEXTS, QUESTION_TEXTS, QuestionTypes } from '@/domain/formValues'
-import { FormRequest } from '@/server/schemas/formRequestSchema'
+import { FormRequest } from '@/server/services/schemas/formRequestSchema'
 
 type FormRecord<T extends QuestionTypes, U extends keyof (typeof ANSWER_TEXTS)[T]> = {
   questionType: T

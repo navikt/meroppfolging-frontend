@@ -1,5 +1,3 @@
-'use client'
-
 import { ReactElement } from 'react'
 import { Box, Heading, List } from '@navikt/ds-react'
 

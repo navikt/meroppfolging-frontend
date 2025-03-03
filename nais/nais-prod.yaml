@@ -18,11 +18,7 @@ spec:
     enabled: true
     sidecar:
       enabled: true
-      autoLogin: true
       level: Level4
-      autoLoginIgnorePaths:
-        - /syk/meroppfolging/api/isAlive
-        - /syk/meroppfolging/api/isReady
   liveness:
     path: syk/meroppfolging/api/isAlive
     initialDelay: 20

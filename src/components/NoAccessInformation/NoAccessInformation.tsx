@@ -1,5 +1,3 @@
-'use client'
-
 import { ReactElement } from 'react'
 import { BodyShort, Box, Button, Heading } from '@navikt/ds-react'
 import { logger } from '@navikt/next-logger'
