@@ -1,5 +1,3 @@
-'use client'
-
 import { ReactElement, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 
@@ -36,6 +34,7 @@ const getSituationInfo = (value: FremtidigSituasjonAnswerTypes): SituationInfo =
     case 'USIKKER':
       return { content: <Usikker />, heading: 'Kan dette hjelpe?' }
     default:
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const _exhaustiveCheck: never = value
       return { content: <div>Unknown situation</div>, heading: 'Unknown situation' }
   }

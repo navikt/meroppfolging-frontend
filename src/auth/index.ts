@@ -1,5 +1,6 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { logger } from '@navikt/next-logger'
+import { TRPCError } from '@trpc/server'
 import { getToken, validateIdportenToken } from '@navikt/oasis'
 
 import { isLocalOrDemo } from '@/constants/envs'
@@ -54,4 +55,32 @@ export function withAuthenticatedPage(handler: PageHandler = defaultPageHandler)
 
     return handler(context)
   }
+}
+
+/**
+ * Used to authenticate tRPC apis.
+ */
+export async function authenticateIdportenToken(bearerToken?: string): Promise<string> {
+  if (isLocalOrDemo) {
+    return '123'
+  }
+
+  if (!bearerToken) {
+    throw new TRPCError({
+      code: 'UNAUTHORIZED',
+      message: 'Access denied',
+    })
+  }
+
+  const validationResult = await validateIdportenToken(bearerToken)
+
+  if (!validationResult.ok) {
+    logger.error(`Invalid JWT token found, cause: ${validationResult.errorType} ${validationResult.error}`)
+    throw new TRPCError({
+      code: 'UNAUTHORIZED',
+      message: 'Access denied',
+    })
+  }
+
+  return bearerToken
 }

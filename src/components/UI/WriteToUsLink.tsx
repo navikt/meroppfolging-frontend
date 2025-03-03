@@ -1,5 +1,3 @@
-'use client'
-
 import { Link } from '@navikt/ds-react'
 import NextLink from 'next/link'
 

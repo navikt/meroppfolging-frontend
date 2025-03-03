@@ -1,9 +1,13 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { render, RenderOptions, screen, Screen } from '@testing-library/react'
-import { ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import open from 'open'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider'
 import { FormProvider, useForm } from 'react-hook-form'
+
+import { trpc } from '@/utils/trpc'
+import { ToggleProvider } from '@/contexts/toggleContext'
 import { FormInputs } from '@/components/Form/StepHandler'
 
 type CustomRenderReturnType = { user: ReturnType<typeof userEvent.setup> } & ReturnType<typeof render>
@@ -11,21 +15,36 @@ type CustomRenderReturnType = { user: ReturnType<typeof userEvent.setup> } & Ret
 const AllTheProviders = ({ children }: { children: ReactNode }): ReactElement => {
   const methods = useForm<FormInputs>()
 
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  })
+
   return (
     <MemoryRouterProvider>
-      <FormProvider {...methods}>{children}</FormProvider>
+      <ToggleProvider>
+        <FormProvider {...methods}>
+          <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        </FormProvider>
+      </ToggleProvider>
     </MemoryRouterProvider>
   )
 }
 
+const ProvidersWithTRPC = trpc.withTRPC(AllTheProviders)
+
 const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>): CustomRenderReturnType => {
   return {
     user: userEvent.setup({ delay: null }),
-    ...render(ui, { wrapper: AllTheProviders, ...options }),
+    ...render(ui, { wrapper: ProvidersWithTRPC, ...options }),
   }
 }
 
 export async function openPlayground(screen: Screen): Promise<void> {
+  // eslint-disable-next-line testing-library/no-debugging-utils
   await open(screen.logTestingPlaygroundURL())
 }
 

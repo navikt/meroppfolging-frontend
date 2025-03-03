@@ -1,5 +1,3 @@
-'use client'
-
 export const loginUser = (): void => {
   if (typeof window === 'undefined') return
 

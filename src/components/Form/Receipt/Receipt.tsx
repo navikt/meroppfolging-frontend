@@ -1,5 +1,7 @@
 import { ReactElement } from 'react'
 import { VStack } from '@navikt/ds-react'
+
+import { Form } from '@/server/services/schemas/formRequestSchema'
 import { BehovForOppfolgingAnswerTypes, FremtidigSituasjonAnswerTypes } from '@/domain/answerValues'
 import MaxDateInfo from '@/components/LandingInfo/MaxDateInfo'
 
@@ -8,21 +10,16 @@ import OppsummeringAvDineSvar from './contents/OppsummeringAvDineSvar'
 import HvaSkjerVidereTekst from './contents/HvaSkjerVidereTekst'
 import NyttigeLenker from './contents/NyttigeLenker'
 import KontaktInformasjon from './contents/KontaktInformasjon'
-import { MaxDateDTO } from '@/server/schemas/sykepengedagerInformasjonSchema'
 
 interface Props {
-  fremtidigSituasjonAnswer: FremtidigSituasjonAnswerTypes
-  behovForOppfolgingAnswer: BehovForOppfolgingAnswerTypes
+  response: Form
   responseDateISOString: string | null
-  maxDate: MaxDateDTO
 }
 
-function Receipt({
-  fremtidigSituasjonAnswer,
-  behovForOppfolgingAnswer,
-  responseDateISOString,
-  maxDate,
-}: Props): ReactElement {
+function Receipt({ response, responseDateISOString }: Props): ReactElement {
+  const fremtidigSituasjonAnswer: FremtidigSituasjonAnswerTypes = response[0].answerType
+  const behovForOppfolgingAnswer: BehovForOppfolgingAnswerTypes = response[1].answerType
+
   return (
     <VStack gap="6">
       <ThankYouAlert responseDateISOString={responseDateISOString} />
@@ -34,7 +31,7 @@ function Receipt({
 
       <HvaSkjerVidereTekst behovForOppfolgingAnswer={behovForOppfolgingAnswer} />
 
-      <MaxDateInfo maxDate={maxDate} />
+      <MaxDateInfo />
 
       <NyttigeLenker />
 
