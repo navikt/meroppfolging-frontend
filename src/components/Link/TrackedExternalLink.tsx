@@ -1,3 +1,5 @@
+'use client'
+
 import React, { ReactElement } from 'react'
 import { Link } from '@navikt/ds-react'
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
