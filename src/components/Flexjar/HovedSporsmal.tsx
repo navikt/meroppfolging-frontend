@@ -1,7 +1,6 @@
-import { Controller } from 'react-hook-form'
+import { Control, Controller } from 'react-hook-form'
 import { Radio, RadioGroup } from '@navikt/ds-react'
 import React, { ReactElement } from 'react'
-import { Control } from 'react-hook-form/dist/types'
 
 import { FormValues } from '@/components/Flexjar/flexjar'
 
