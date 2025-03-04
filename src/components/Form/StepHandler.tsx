@@ -1,11 +1,10 @@
+'use client'
+
 import React, { ReactElement, useState } from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-import { useRouter } from 'next/router'
 import { FormProgress } from '@navikt/ds-react'
-
 import { BehovForOppfolgingAnswerTypes, FremtidigSituasjonAnswerTypes } from '@/domain/answerValues'
-import { SenOppfolgingStatusDTO } from '@/server/services/schemas/statusSchema'
-import { trpc } from '@/utils/trpc'
+import { SenOppfolgingStatusDTO } from '@/server/schemas/statusSchema'
 import { createFormRequest } from '@/utils/requestUtils'
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
 import NoAccessInformation from '@/components/NoAccessInformation/NoAccessInformation'
@@ -14,7 +13,8 @@ import { OnskerOppfolgingStep } from '@/components/Form/OppfolgingStep/OnskerOpp
 
 import { FremtidigSituasjonStep } from './FremtidigSituasjonStep/FremtidigSituasjonStep'
 import { InfoStep } from './InfoStep/InfoStep'
-import Receipt from './Receipt/Receipt'
+import { submitForm } from '@/server/actions/submitForm'
+import { useRouter } from 'next/navigation'
 
 type Step = { number: number; name: 'FREMTIDIG_SITUASJON' | 'INFO' | 'KONTAKT' }
 
@@ -36,26 +36,12 @@ const steps: Step[] = [
 export const StepHandler = ({ senOppfolgingStatus }: LandingContentProps): ReactElement => {
   const methods = useForm<FormInputs>()
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [displayErrorMessage, setDisplayErrorMessage] = useState(false)
-  const { reload } = useRouter()
-
-  const mutation = trpc.submitForm.useMutation({
-    onError: () => {
-      setDisplayErrorMessage(true)
-    },
-    onSuccess: () => {
-      reload()
-    },
-  })
+  const router = useRouter()
 
   if (!senOppfolgingStatus.hasAccessToSenOppfolging) {
     return <NoAccessInformation />
-  }
-
-  if (senOppfolgingStatus.response) {
-    return (
-      <Receipt response={senOppfolgingStatus.response} responseDateISOString={senOppfolgingStatus.responseDateTime} />
-    )
   }
 
   const goToNextStep = (): void => {
@@ -83,7 +69,8 @@ export const StepHandler = ({ senOppfolgingStatus }: LandingContentProps): React
     setCurrentStepIndex(currentStepIndex - 1)
   }
 
-  const submitFormToMOBE = (data: FormInputs): void => {
+  const submitFormToMOBE = async (data: FormInputs): Promise<void> => {
+    setIsSubmitting(true)
     logAmplitudeEvent(
       {
         eventName: 'skjema fullført',
@@ -97,7 +84,21 @@ export const StepHandler = ({ senOppfolgingStatus }: LandingContentProps): React
       },
     )
     const request = createFormRequest(data)
-    mutation.mutate(request)
+
+    setDisplayErrorMessage(false)
+    try {
+      await submitForm(request)
+      const queryParams = new URLSearchParams({
+        fremtidigSituasjon: data.FREMTIDIG_SITUASJON,
+        behovForOppfolging: data.BEHOV_FOR_OPPFOLGING,
+      }).toString()
+
+      router.push(`/snart-slutt-pa-sykepengene/kvittering?${queryParams}`)
+    } catch (e) {
+      setDisplayErrorMessage(true)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
@@ -126,7 +127,7 @@ export const StepHandler = ({ senOppfolgingStatus }: LandingContentProps): React
               case 'INFO':
                 return <InfoStep goToPreviousStep={goToPreviousStep} />
               case 'KONTAKT':
-                return <OnskerOppfolgingStep goToPreviousStep={goToPreviousStep} isSubmitting={mutation.isLoading} />
+                return <OnskerOppfolgingStep goToPreviousStep={goToPreviousStep} isSubmitting={isSubmitting} />
               default:
                 return null
             }

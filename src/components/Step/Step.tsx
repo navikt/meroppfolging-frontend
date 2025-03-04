@@ -1,3 +1,5 @@
+'use client'
+
 import { Button, Heading, HStack, VStack } from '@navikt/ds-react'
 import React, { ReactElement, ReactNode } from 'react'
 import { ArrowLeftIcon, ArrowRightIcon } from '@navikt/aksel-icons'

@@ -1,3 +1,5 @@
+'use client'
+
 import { Radio, RadioGroup } from '@navikt/ds-react'
 import { useController } from 'react-hook-form'
 import { ReactElement } from 'react'
