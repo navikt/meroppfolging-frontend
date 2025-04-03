@@ -48,7 +48,7 @@
     "@navikt/aksel-stylelint": "^7.18.0",
     "@navikt/eslint-config-teamsykmelding": "^7.1.0",
     "@testing-library/dom": "^10.4.0",
-    "@testing-library/react": "^16.2.0",
+    "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/node": "22.14.0",
     "@types/react": "18.3.13",
