@@ -30,7 +30,7 @@
     "axios": "^1.9.0",
     "csp-header": "^6.1.0",
     "date-fns": "^4.1.0",
-    "html-react-parser": "^5.2.4",
+    "html-react-parser": "^5.2.5",
     "nanoid": "^5.1.5",
     "next": "15.3.2",
     "open": "^10.1.2",
