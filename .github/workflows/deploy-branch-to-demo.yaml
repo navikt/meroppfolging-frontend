@@ -1,0 +1,49 @@
+name: Deploy Copilot Branch to Demo
+on:
+  push:
+    branches:
+      - 'copilot/fix-462644d1-f122-4cde-b3d3-84e755d1f4ac'
+  workflow_dispatch:
+
+jobs:
+  test-and-verify:
+    name: Test and lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: navikt/teamesyfo-github-actions-workflows/actions/npm-cached@main
+        with:
+          NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm run lint && tsc
+      - run: npm run test
+
+  build-demo:
+    name: Build for demo
+    runs-on: ubuntu-latest
+    permissions:
+      packages: "write"
+      contents: "read"
+      id-token: "write"
+    outputs:
+      image: ${{ steps.build-and-publish.outputs.image }}
+    steps:
+      - uses: navikt/teamesyfo-github-actions-workflows/actions/next-to-docker@main
+        id: build-and-publish
+        with:
+          app: meroppfolging-frontend
+          env: demo
+          NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy-demo-branch:
+    name: Deploy copilot branch to demo
+    environment:
+      name: demo-copilot-branch
+      url: https://meroppfolging-frontend-demo-copilot.ekstern.dev.nav.no/syk/meroppfolging
+    runs-on: ubuntu-latest
+    needs: [test-and-verify, build-demo]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          RESOURCE: nais/nais-demo.yaml
+          VAR: image=${{ needs.build-demo.outputs.image }},ingress=https://meroppfolging-frontend-demo-copilot.ekstern.dev.nav.no/syk/meroppfolging,appname=meroppfolging-frontend-demo-copilot,replicas=1,branchState=alive,ttl=168h
