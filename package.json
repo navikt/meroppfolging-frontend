@@ -40,7 +40,7 @@
     "react-dom": "18.3.1",
     "react-hook-form": "^7.63.0",
     "remeda": "^2.32.0",
-    "typescript": "5.9.2",
+    "typescript": "5.9.3",
     "zod": "^3.25.73"
   },
   "devDependencies": {
