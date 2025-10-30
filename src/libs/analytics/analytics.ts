@@ -8,7 +8,7 @@ import { isLocalOrDemo } from '@/constants/envs'
 import { AnalyticsTaxonomyEvents } from './events'
 import { getAnalyticsInstance } from '@navikt/nav-dekoratoren-moduler'
 
-const analyticsLogger = getAnalyticsInstance('dekoratoren')
+const analyticsLogger = getAnalyticsInstance('snart-slutt-paa-sykepengene')
 
 const infoProperties = { team: 'eSyfo', app: 'meroppfolging-frontend' }
 

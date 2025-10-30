@@ -8,6 +8,7 @@ import Script from 'next/script'
 import { publicEnv } from '@/constants/envs'
 import { MerOppfolgingPageLayout } from '@/components/Page/MerOppfolgingPageLayout'
 import { Providers } from '@/app/providers'
+import { UmamiScript } from '@/libs/analytics/umamiScript'
 
 configureLogger({
   basePath: BASE_PATH,
@@ -41,13 +42,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="no">
       <head>
         <Decorator.HeadAssets />
-        <Script
-          defer
-          src="https://cdn.nav.no/team-researchops/sporing/sporing.js"
-          strategy="afterInteractive"
-          data-host-url="https://umami.nav.no"
-          data-website-id="c44a6db3-c974-4316-b433-214f87e80b4d"
-        />
+        <UmamiScript />
       </head>
       <body>
         <Decorator.Header />
