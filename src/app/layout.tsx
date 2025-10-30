@@ -8,6 +8,7 @@ import Script from 'next/script'
 import { publicEnv } from '@/constants/envs'
 import { MerOppfolgingPageLayout } from '@/components/Page/MerOppfolgingPageLayout'
 import { Providers } from '@/app/providers'
+import { UmamiScript } from '@/libs/analytics/umamiScript'
 
 configureLogger({
   basePath: BASE_PATH,
@@ -41,6 +42,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="no">
       <head>
         <Decorator.HeadAssets />
+        <UmamiScript />
       </head>
       <body>
         <Decorator.Header />
