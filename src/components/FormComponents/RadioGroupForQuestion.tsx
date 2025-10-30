@@ -5,7 +5,7 @@ import { useController } from 'react-hook-form'
 import { ReactElement } from 'react'
 
 import { ANSWER_TEXTS, QUESTION_TEXTS, QuestionTypes } from '@/domain/formValues'
-import { logCustomAmplitudeEvent } from '@/libs/amplitude/amplitude'
+import { logCustomAnalyticsEvent } from '@/libs/analytics/analytics'
 
 function RadioGroupForQuestion({
   questionName,
@@ -30,7 +30,7 @@ function RadioGroupForQuestion({
       key={value}
       value={value}
       onClick={() => {
-        logCustomAmplitudeEvent('RadioButton clicked', { questionText: { questionText }, radioName: { value } })
+        logCustomAnalyticsEvent('RadioButton clicked', { questionText: { questionText }, radioName: { value } })
       }}
     >
       {label}

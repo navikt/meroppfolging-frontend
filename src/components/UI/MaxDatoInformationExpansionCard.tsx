@@ -3,7 +3,7 @@
 import { ExpansionCard } from '@navikt/ds-react'
 
 import { ISODateStringToLongFormat } from '@/utils/dateUtils'
-import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
+import { logAnalyticsEvent } from '@/libs/analytics/analytics'
 import { ReactElement } from 'react'
 
 interface Props {
@@ -17,7 +17,7 @@ function MaxDatoInformationExpansionCard({ maxDato, utbetaltTomDato }: Props): R
       size="small"
       aria-label="Informasjon om beregnet slutt-dato for sykepenger"
       onToggle={(open: boolean) => {
-        logAmplitudeEvent({
+        logAnalyticsEvent({
           eventName: open ? 'accordion åpnet' : 'accordion lukket',
           data: {
             tekst: 'Informasjon om beregnet slutt-dato for sykepenger',

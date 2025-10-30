@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 
 import RadioGroupForQuestion from '@/components/FormComponents/RadioGroupForQuestion'
 import { Step } from '@/components/Step/Step'
-import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
+import { logAnalyticsEvent } from '@/libs/analytics/analytics'
 
 export const FremtidigSituasjonStep = (): ReactElement => {
   const router = useRouter()
@@ -15,7 +15,7 @@ export const FremtidigSituasjonStep = (): ReactElement => {
   }, [])
 
   const goToLanding = (): void => {
-    logAmplitudeEvent({
+    logAnalyticsEvent({
       eventName: 'navigere',
       data: {
         lenketekst: 'Forrige',

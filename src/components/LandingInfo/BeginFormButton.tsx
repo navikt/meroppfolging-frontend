@@ -3,7 +3,7 @@
 import { Button } from '@navikt/ds-react'
 import Link from 'next/link'
 import { ArrowRightIcon } from '@navikt/aksel-icons'
-import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
+import { logAnalyticsEvent } from '@/libs/analytics/analytics'
 import React, { ReactElement } from 'react'
 
 export const BeginFormButton = (): ReactElement => {
@@ -15,7 +15,7 @@ export const BeginFormButton = (): ReactElement => {
         icon={<ArrowRightIcon aria-hidden />}
         iconPosition="right"
         onClick={() => {
-          logAmplitudeEvent({
+          logAnalyticsEvent({
             eventName: 'skjema startet',
             data: {
               skjemanavn: 'Snart slutt på sykepengene',

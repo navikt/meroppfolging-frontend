@@ -4,7 +4,7 @@ import React, { ReactElement } from 'react'
 import { Link } from '@navikt/ds-react'
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 
-import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
+import { logAnalyticsEvent } from '@/libs/analytics/analytics'
 
 interface Props {
   href: string
@@ -22,7 +22,7 @@ export const TrackedExternalLink = ({
       href={href}
       target="_blank"
       onClick={() => {
-        logAmplitudeEvent({
+        logAnalyticsEvent({
           eventName: 'navigere',
           data: {
             lenketekst: children,

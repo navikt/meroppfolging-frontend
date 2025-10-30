@@ -1,5 +1,5 @@
 // Basert på https://github.com/navikt/analytics-taxonomy
-export type AmplitudeTaxonomyEvents =
+export type AnalyticsTaxonomyEvents =
   | { eventName: 'accordion lukket'; data: { tekst: string } }
   | { eventName: 'accordion åpnet'; data: { tekst: string } }
   | { eventName: 'alert vist'; data: { variant: string; tekst: string } }
