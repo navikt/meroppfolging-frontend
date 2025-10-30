@@ -1,19 +1,19 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { getAmplitudeInstance } from '@navikt/nav-dekoratoren-moduler'
 import { logger as pinoLogger } from '@navikt/next-logger'
 
 import { isLocalOrDemo } from '@/constants/envs'
 
-import { AmplitudeTaxonomyEvents } from './events'
+import { AnalyticsTaxonomyEvents } from './events'
+import { getAnalyticsInstance } from '@navikt/nav-dekoratoren-moduler'
 
-const dekoratorenAmplitudeLogger = getAmplitudeInstance('dekoratoren')
+const analyticsLogger = getAnalyticsInstance('dekoratoren')
 
 const infoProperties = { team: 'eSyfo', app: 'meroppfolging-frontend' }
 
-function taxonomyToAmplitudeEvent(
-  event: AmplitudeTaxonomyEvents,
+function taxonomyToAnalyticsEvent(
+  event: AnalyticsTaxonomyEvents,
   extraData: Record<string, unknown> | undefined,
 ): {
   eventType: string
@@ -31,8 +31,8 @@ function taxonomyToAmplitudeEvent(
   }
 }
 
-export function useLogAmplitudeEvent(
-  event: AmplitudeTaxonomyEvents,
+export function useLogAnalyticsEvent(
+  event: AnalyticsTaxonomyEvents,
   extraData?: Record<string, unknown>,
   condition: () => boolean = () => true,
 ): void {
@@ -42,42 +42,42 @@ export function useLogAmplitudeEvent(
 
   useEffect(() => {
     if (stableCondition.current()) {
-      logAmplitudeEvent(stableEvent.current, stableExtraData.current)
+      logAnalyticsEvent(stableEvent.current, stableExtraData.current)
     }
   }, [])
 }
 
-export async function logAmplitudeEvent(
-  event: AmplitudeTaxonomyEvents,
+export async function logAnalyticsEvent(
+  event: AnalyticsTaxonomyEvents,
   extraData?: Record<string, unknown>,
 ): Promise<void> {
-  const { eventType, eventProperties } = taxonomyToAmplitudeEvent(event, extraData)
+  const { eventType, eventProperties } = taxonomyToAnalyticsEvent(event, extraData)
 
-  await logAmplitudeEventUsingDekoratorenInstance(eventType, eventProperties)
+  await logAnalyticsEventUsingDekoratorenInstance(eventType, eventProperties)
 }
 
-export async function logCustomAmplitudeEvent(event: string, extraData?: Record<string, unknown>): Promise<void> {
+export async function logCustomAnalyticsEvent(event: string, extraData?: Record<string, unknown>): Promise<void> {
   const eventProperties = {
     ...infoProperties,
     ...extraData,
   }
 
-  await logAmplitudeEventUsingDekoratorenInstance(event, eventProperties)
+  await logAnalyticsEventUsingDekoratorenInstance(event, eventProperties)
 }
 
-async function logAmplitudeEventUsingDekoratorenInstance(
+async function logAnalyticsEventUsingDekoratorenInstance(
   event: string,
   eventProperties: Record<string, unknown>,
 ): Promise<void> {
   if (isLocalOrDemo) {
-    console.log(`Amplitude event: ${event}, eventProperties:\n${(JSON.stringify(eventProperties ?? {}), null, 2)}`)
+    console.log(`Analytics event: ${event}, eventProperties:\n${(JSON.stringify(eventProperties ?? {}), null, 2)}`)
     return
   }
 
   try {
     // This can throw an error (rejected promise), therefore try-catch
-    await dekoratorenAmplitudeLogger(event, eventProperties)
+    await analyticsLogger(event, eventProperties)
   } catch (error) {
-    pinoLogger.debug(`Could not log event to Amplitude. Message: ${(error as Error)?.message}`)
+    pinoLogger.debug(`Could not log event to Analytics. Message: ${(error as Error)?.message}`)
   }
 }

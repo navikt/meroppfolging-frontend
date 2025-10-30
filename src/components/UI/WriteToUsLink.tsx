@@ -3,7 +3,7 @@
 import { Link } from '@navikt/ds-react'
 import NextLink from 'next/link'
 
-import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
+import { logAnalyticsEvent } from '@/libs/analytics/analytics'
 import { CONTACT_NAV_URL } from '@/constants/appConstants'
 
 const DEFAULT_LINK_TEXT = 'skriv til oss her på nav.no'
@@ -21,7 +21,7 @@ function WriteToUsLink({ linkText }: Props): React.ReactElement {
       target="_blank"
       href={CONTACT_NAV_URL}
       onClick={() =>
-        logAmplitudeEvent(
+        logAnalyticsEvent(
           {
             eventName: 'navigere',
             data: {
