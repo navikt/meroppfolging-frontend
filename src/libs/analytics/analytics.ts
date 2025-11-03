@@ -78,6 +78,7 @@ async function logAnalyticsEventUsingDekoratorenInstance(
     // This can throw an error (rejected promise), therefore try-catch
     await analyticsLogger(event, eventProperties)
   } catch (error) {
-    pinoLogger.debug(`Could not log event to Analytics. Message: ${(error as Error)?.message}`)
+    console.log(error)
+    pinoLogger.error(`Could not log event to Analytics. Message: ${(error as Error)?.message}`)
   }
 }
