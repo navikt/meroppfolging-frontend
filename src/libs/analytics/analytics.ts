@@ -75,10 +75,12 @@ async function logAnalyticsEventUsingDekoratorenInstance(
   }
 
   try {
-    // This can throw an error (rejected promise), therefore try-catch
     await analyticsLogger(event, eventProperties)
   } catch (error) {
-    console.log(error)
-    pinoLogger.error(`Could not log event to Analytics. Message: ${(error as Error)?.message}`)
+    const msg = typeof error === 'string' ? error : (error as Error)?.message || ''
+    if (msg.includes('Analytics instance not found')) {
+      return // Ignore, user has not consented to analytics
+    }
+    pinoLogger.error(`Analytics logging failed. event=${event} message=${msg}`)
   }
 }
