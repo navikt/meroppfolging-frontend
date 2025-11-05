@@ -5,7 +5,7 @@ import { Accordion, BodyLong } from '@navikt/ds-react'
 
 import { alleredeSoktOmPengestotteContent } from '@/components/UI/AlleredeSoktOmPengestotteExpansionCard'
 import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'
-import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
+import { logAnalyticsEvent } from '@/libs/analytics/analytics'
 import { CONTACT_NAV_URL } from '@/constants/appConstants'
 import { NavPhoneNumber } from '@/components/UI/NavPhoneNumber'
 
@@ -16,7 +16,7 @@ export const Usikker = (): ReactElement => {
       <Accordion>
         <Accordion.Item
           onOpenChange={(open) => {
-            logAmplitudeEvent({
+            logAnalyticsEvent({
               eventName: open ? 'accordion åpnet' : 'accordion lukket',
               data: {
                 tekst: 'Jeg har allerede søkt om AAP eller en annen pengestøtte',
@@ -30,7 +30,7 @@ export const Usikker = (): ReactElement => {
 
         <Accordion.Item
           onOpenChange={(open) => {
-            logAmplitudeEvent({
+            logAnalyticsEvent({
               eventName: open ? 'accordion åpnet' : 'accordion lukket',
               data: {
                 tekst: 'Jeg planlegger å ta ut pensjon',
@@ -54,7 +54,7 @@ export const Usikker = (): ReactElement => {
 
         <Accordion.Item
           onOpenChange={(open) => {
-            logAmplitudeEvent({
+            logAnalyticsEvent({
               eventName: open ? 'accordion åpnet' : 'accordion lukket',
               data: {
                 tekst: 'Jeg skal i permisjon',
@@ -77,7 +77,7 @@ export const Usikker = (): ReactElement => {
 
         <Accordion.Item
           onOpenChange={(open) => {
-            logAmplitudeEvent({
+            logAnalyticsEvent({
               eventName: open ? 'accordion åpnet' : 'accordion lukket',
               data: {
                 tekst: 'Jeg venter på behandling og er usikker på min fremtidige situasjon',
@@ -101,7 +101,7 @@ export const Usikker = (): ReactElement => {
 
         <Accordion.Item
           onOpenChange={(open) => {
-            logAmplitudeEvent({
+            logAnalyticsEvent({
               eventName: open ? 'accordion åpnet' : 'accordion lukket',
               data: {
                 tekst: 'Jeg har andre spørsmål',

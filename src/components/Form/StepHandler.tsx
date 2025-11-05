@@ -8,7 +8,7 @@ import { SenOppfolgingStatusDTO } from '@/server/schemas/statusSchema'
 import { createFormRequest } from '@/utils/requestUtils'
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage'
 import NoAccessInformation from '@/components/NoAccessInformation/NoAccessInformation'
-import { logAmplitudeEvent } from '@/libs/amplitude/amplitude'
+import { logAnalyticsEvent } from '@/libs/analytics/analytics'
 import { OnskerOppfolgingStep } from '@/components/Form/OppfolgingStep/OnskerOppfolgingStep'
 
 import { FremtidigSituasjonStep } from './FremtidigSituasjonStep/FremtidigSituasjonStep'
@@ -45,7 +45,7 @@ export const StepHandler = ({ senOppfolgingStatus }: LandingContentProps): React
   }
 
   const goToNextStep = (): void => {
-    logAmplitudeEvent(
+    logAnalyticsEvent(
       {
         eventName: 'skjema steg fullført',
         data: {
@@ -59,7 +59,7 @@ export const StepHandler = ({ senOppfolgingStatus }: LandingContentProps): React
   }
 
   const goToPreviousStep = (): void => {
-    logAmplitudeEvent({
+    logAnalyticsEvent({
       eventName: 'navigere',
       data: {
         lenketekst: 'Forrige',
@@ -71,7 +71,7 @@ export const StepHandler = ({ senOppfolgingStatus }: LandingContentProps): React
 
   const submitFormToMOBE = async (data: FormInputs): Promise<void> => {
     setIsSubmitting(true)
-    logAmplitudeEvent(
+    logAnalyticsEvent(
       {
         eventName: 'skjema fullført',
         data: {
