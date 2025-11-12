@@ -11,7 +11,7 @@ on:
 
 jobs:
   next-app:
-    uses: navikt/teamesyfo-github-actions-workflows/.github/workflows/next-app.yaml@main
+    uses: navikt/teamesyfo-github-actions-workflows/.github/workflows/next-app.yaml@node-version-as-input
     permissions:
       contents: read
       id-token: write
@@ -20,3 +20,4 @@ jobs:
     with:
       app: meroppfolging-frontend
       base-path: /syk/meroppfolging
+      node-version: "24.x"
