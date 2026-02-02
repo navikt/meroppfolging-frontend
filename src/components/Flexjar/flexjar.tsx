@@ -92,7 +92,7 @@ export const Flexjar = ({ feedbackId, sporsmal }: Props): ReactElement => {
                     Du vil ikke få et svar fra oss.
                   </Alert>
 
-                  <Button type="submit" className="mr-auto mt-6" size="medium" variant="secondary-neutral">
+                  <Button data-color="neutral" type="submit" className="mr-auto mt-6" size="medium" variant="secondary">
                     Send tilbakemelding
                   </Button>
                 </div>

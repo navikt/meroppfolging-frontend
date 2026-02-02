@@ -19,7 +19,7 @@ const OppsummeringAvDineSvar = ({ fremtidigSituasjonAnswer, behovForOppfolgingAn
       Oppsummering av dine svar
     </Heading>
 
-    <Box padding="4" background="surface-info-subtle" borderRadius="medium">
+    <Box padding="space-16" borderRadius="4">
       <Label size="small">{QUESTION_TEXTS.FREMTIDIG_SITUASJON}</Label>
       <BodyShort size="small" spacing>
         {FREMTIDIG_SITUASJON_ANSWER_TEXTS[fremtidigSituasjonAnswer]}

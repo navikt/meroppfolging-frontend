@@ -13,7 +13,7 @@ export const MerOppfolgingPageLayout = ({
   footer: React.ReactNode
 }) => {
   return (
-    <Page background="bg-subtle" contentBlockPadding="none" footer={footer}>
+    <Page contentBlockPadding="none" footer={footer}>
       <main tabIndex={-1} id="maincontent">
         <div className="flex flex-col items-center w-full p-4 md:p-8">
           <Page.Block width="md" className="bg-bg-default p-4 py-8 md:p-12">

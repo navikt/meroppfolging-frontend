@@ -24,22 +24,16 @@ function Receipt({
   maxDate,
 }: Props): ReactElement {
   return (
-    <VStack gap="6">
+    <VStack gap="space-24">
       <ThankYouAlert responseDateISOString={responseDateISOString} />
-
       <OppsummeringAvDineSvar
         fremtidigSituasjonAnswer={fremtidigSituasjonAnswer}
         behovForOppfolgingAnswer={behovForOppfolgingAnswer}
       />
-
       <HvaSkjerVidereTekst behovForOppfolgingAnswer={behovForOppfolgingAnswer} />
-
       <MaxDateInfo maxDate={maxDate} />
-
       <NyttigeLenker />
-
       <KontaktInformasjon />
-
       {/*<Flexjar
         feedbackId={`meroppfolging-kvittering-${fremtidigSituasjonAnswer}`}
         sporsmal="Synes du at du har fått nok informasjon om hva som skjer etter at sykepengene tar slutt?"

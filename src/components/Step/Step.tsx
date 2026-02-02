@@ -23,12 +23,12 @@ export const Step = ({
 }: Props): ReactElement => {
   return (
     <>
-      <VStack gap="6">
+      <VStack gap="space-24">
         <Heading size={goToPreviousStep ? 'medium' : 'large'} level="1">
           {heading}
         </Heading>
         {children}
-        <HStack gap={{ xs: '4', sm: '6' }}>
+        <HStack gap={{ xs: 'space-16', sm: 'space-24' }}>
           {goToPreviousStep && (
             <Button
               variant="secondary"

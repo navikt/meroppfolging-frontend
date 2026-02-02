@@ -18,22 +18,18 @@ export const Landing = ({ senOppfolgingStatus, maxDate }: Props): ReactElement =
   }
 
   return (
-    <VStack gap="6">
+    <VStack gap="space-24">
       <Heading size="large" level="1">
         Sykepengene dine tar snart slutt
       </Heading>
-
       <MaxDateInfo maxDate={maxDate} />
-
       <BodyLong>
         Det er viktig at du tar stilling til din økonomiske situasjon i god tid før sykepengene tar slutt.
       </BodyLong>
-
       <BodyLong>
         Vi ber deg svare på to spørsmål, slik at vi best mulig kan gi deg informasjon som er relevant for deg. Du får
         også muligheten til å be om oppfølging fra en veileder.
       </BodyLong>
-
       <BeginFormButton />
     </VStack>
   )
