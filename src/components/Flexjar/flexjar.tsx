@@ -62,7 +62,7 @@ export const Flexjar = ({ feedbackId, sporsmal }: Props): ReactElement => {
     <section>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-10 w-full">
         <div className="w:full md:w-3/4">
-          <div className="mt-1 border-4 border-surface-subtle rounded-medium">
+          <div className="mt-1 border-4 border-ax-border-neutral-subtle rounded-[var(--ax-radius-8)]">
             <HeadingSection />
 
             <div className="px-6 py-8">

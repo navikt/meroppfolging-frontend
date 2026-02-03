@@ -4,7 +4,7 @@ import React, { ReactElement } from 'react'
 
 export const HeadingSection = (): ReactElement => {
   return (
-    <div className="bg-surface-subtle p-6 flex gap-4 items-center">
+    <div className="bg-ax-bg-neutral-soft p-6 flex gap-4 items-center">
       <div className="bg-gray-900 w-10 h-10 rounded-full flex justify-center items-center">
         <MagnifyingGlassIcon aria-hidden={true} className="text-white axe-exclude" />
       </div>
