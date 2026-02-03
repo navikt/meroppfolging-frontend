@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { BodyShort, Box, List } from '@navikt/ds-react'
+import { ListItem } from '@navikt/ds-react/List'
 
 import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'
 
@@ -8,11 +9,11 @@ export const BytteJobb = (): ReactElement => {
     <>
       <div className="[&_ul]:mt-0 [&_ul]:mb-0">
         <Box marginBlock="space-16" asChild>
-          <List data-aksel-migrated-v8>
-            <List.Item>Er det vanskelig for deg å utføre oppgavene du hadde før du ble syk?</List.Item>
-            <List.Item>
+          <List>
+            <ListItem>Er det vanskelig for deg å utføre oppgavene du hadde før du ble syk?</ListItem>
+            <ListItem>
               Er det andre forhold hos arbeidsgiveren din som gjør det vanskelig for deg å fungere i jobben?
-            </List.Item>
+            </ListItem>
           </List>
         </Box>
       </div>

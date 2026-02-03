@@ -38,9 +38,16 @@ export const TestScenarioSelector = (): ReactElement => {
         </Modal.Body>
       </Modal>
 
-      <div id="TestScenarioSelector" onClick={() => setOpen(!open)} className={styles.testscenariocontainer}>
-        <SunIcon title="a11y-title" fontSize="1.5rem" width={40} height={40} />
-      </div>
+      <Button
+        id="TestScenarioSelector"
+        type="button"
+        variant="tertiary"
+        className={styles.testscenariocontainer}
+        onClick={() => setOpen(!open)}
+        aria-label="Åpne testdatavelger"
+      >
+        <SunIcon aria-hidden fontSize="1.5rem" width={40} height={40} />
+      </Button>
     </>
   )
 }

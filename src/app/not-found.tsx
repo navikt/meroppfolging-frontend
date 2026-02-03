@@ -1,9 +1,10 @@
 import { BugIcon } from '@navikt/aksel-icons'
-import { BodyShort, Box, Button, Heading, Link, List, VStack } from '@navikt/ds-react'
+import { BodyShort, Box, Button, Heading, HStack, Link, List, VStack } from '@navikt/ds-react'
 import { ListItem } from '@navikt/ds-react/List'
 import { PageBlock } from '@navikt/ds-react/Page'
+import NextLink from 'next/link'
 
-async function NotFound() {
+function NotFound() {
   return (
     <PageBlock as="main" width="xl" gutters>
       <Box paddingBlock="space-24 space-16" data-aksel-template="404-v2">
@@ -17,28 +18,22 @@ async function NotFound() {
               <List>
                 <ListItem>Bruk gjerne søket eller menyen</ListItem>
                 <ListItem>
-                  <Link href="#">Gå til forsiden</Link>
+                  <Link as={NextLink} href="/">
+                    Gå til forsiden
+                  </Link>
                 </ListItem>
               </List>
             </div>
-            <Button as="a" href="#">
+            <Button as="a" href="https://www.nav.no/minside">
               Gå til Min side
             </Button>
-            <Link href="#">
-              <BugIcon aria-hidden />
-              Meld gjerne fra om at lenken ikke virker
+            <Link as="a" href="https://www.nav.no/skriv-til-oss">
+              <HStack as="span" gap="space-4" align="center">
+                <BugIcon aria-hidden />
+                Meld gjerne fra om at lenken ikke virker
+              </HStack>
             </Link>
           </VStack>
-
-          <div>
-            <Heading level="2" size="large" spacing>
-              Page not found
-            </Heading>
-            <BodyShort spacing>The page you requested cannot be found.</BodyShort>
-            <BodyShort>
-              Go to the <Link href="#">front page</Link>, or use one of the links in the menu.
-            </BodyShort>
-          </div>
         </VStack>
       </Box>
     </PageBlock>

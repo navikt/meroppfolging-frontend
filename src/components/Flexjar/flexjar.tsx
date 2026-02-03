@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 import React, { ReactElement } from 'react'
-import { Alert, Button, Textarea } from '@navikt/ds-react'
+import { Alert, Box, Button, Textarea, VStack } from '@navikt/ds-react'
 
 import {
   OpprettFeedbackData,
@@ -61,11 +61,11 @@ export const Flexjar = ({ feedbackId, sporsmal }: Props): ReactElement => {
   return (
     <section>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-10 w-full">
-        <div className="w:full md:w-3/4">
-          <div className="mt-1 border-4 border-ax-border-neutral-subtle rounded-[var(--ax-radius-8)]">
+        <div className="w-full md:w-3/4">
+          <Box borderWidth="4" borderColor="neutral-subtle" borderRadius="8" marginBlock="space-4 space-0">
             <HeadingSection />
 
-            <div className="px-6 py-8">
+            <Box paddingInline="space-24" paddingBlock="space-32">
               <HovedSporsmal
                 sporsmal={sporsmal}
                 control={control}
@@ -74,7 +74,7 @@ export const Flexjar = ({ feedbackId, sporsmal }: Props): ReactElement => {
               />
 
               {!isSubmitSuccessful && svar && (
-                <div className="mt-6 w-full space-y-6">
+                <VStack gap="space-24" marginBlock="space-24 space-0" align="start" width="100%">
                   <Textarea
                     {...register('svarBeskrivelse', {
                       required:
@@ -87,18 +87,18 @@ export const Flexjar = ({ feedbackId, sporsmal }: Props): ReactElement => {
                     minRows={3}
                   />
 
-                  <Alert variant="warning" className="mt-4">
+                  <Alert variant="warning">
                     Ikke skriv inn navn eller andre personopplysninger. Dette blir kun brukt til å forbedre tjenesten.
                     Du vil ikke få et svar fra oss.
                   </Alert>
 
-                  <Button data-color="neutral" type="submit" className="mr-auto mt-6" size="medium" variant="secondary">
+                  <Button data-color="neutral" type="submit" size="medium" variant="secondary">
                     Send tilbakemelding
                   </Button>
-                </div>
+                </VStack>
               )}
-            </div>
-          </div>
+            </Box>
+          </Box>
 
           {isSubmitSuccessful && <TakkForTilbakemeldingen />}
         </div>

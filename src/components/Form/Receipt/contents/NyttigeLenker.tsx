@@ -2,6 +2,7 @@
 
 import { ReactElement } from 'react'
 import { Box, Heading, List } from '@navikt/ds-react'
+import { ListItem } from '@navikt/ds-react/List'
 
 import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'
 
@@ -12,33 +13,33 @@ const NyttigeLenker = (): ReactElement => (
     </Heading>
 
     <Box marginBlock="space-16" asChild>
-      <List data-aksel-migrated-v8>
-        <List.Item>
+      <List>
+        <ListItem>
           <TrackedExternalLink href="https://www.nav.no/syk-lenge" openingInNewTabIconInsteadOfText>
             Når du har vært syk eller skadet lenge
           </TrackedExternalLink>
-        </List.Item>
-        <List.Item>
+        </ListItem>
+        <ListItem>
           <TrackedExternalLink href="https://www.nav.no/aap" openingInNewTabIconInsteadOfText>
             Arbeidsavklaringspenger (AAP)
           </TrackedExternalLink>
-        </List.Item>
-        <List.Item>
+        </ListItem>
+        <ListItem>
           <TrackedExternalLink
             href="https://www.nav.no/friskmelding-arbeidsformidling"
             openingInNewTabIconInsteadOfText
           >
             Friskmelding til arbeidsformidling
           </TrackedExternalLink>
-        </List.Item>
-        <List.Item>
+        </ListItem>
+        <ListItem>
           <TrackedExternalLink
             href="https://www.nav.no/varig-sykdom-skade#pengestotte"
             openingInNewTabIconInsteadOfText
           >
             Aktuelle pengestøtter når du ikke kan jobbe
           </TrackedExternalLink>
-        </List.Item>
+        </ListItem>
       </List>
     </Box>
   </Box>

@@ -1,19 +1,27 @@
 import { MagnifyingGlassIcon } from '@navikt/aksel-icons'
-import { BodyShort, Label } from '@navikt/ds-react'
+import { BodyShort, Box, Heading, HStack, VStack } from '@navikt/ds-react'
 import React, { ReactElement } from 'react'
 
 export const HeadingSection = (): ReactElement => {
   return (
-    <div className="bg-ax-bg-neutral-soft p-6 flex gap-4 items-center">
-      <div className="bg-gray-900 w-10 h-10 rounded-full flex justify-center items-center">
-        <MagnifyingGlassIcon aria-hidden={true} className="text-white axe-exclude" />
-      </div>
-      <div>
-        <Label as="h3" className="mb-2">
-          Hjelp oss med å gjøre denne siden bedre
-        </Label>
-        <BodyShort>Anonym tilbakemelding på tjenesten</BodyShort>
-      </div>
-    </div>
+    <Box background="neutral-soft" padding="space-24">
+      <HStack gap="space-16" align="center">
+        <HStack align="center" justify="center" asChild>
+          <Box background="neutral-strong" borderRadius="full" width="2.5rem" height="2.5rem">
+            <MagnifyingGlassIcon
+              aria-hidden={true}
+              className="axe-exclude"
+              style={{ color: 'var(--ax-text-neutral-contrast)' }}
+            />
+          </Box>
+        </HStack>
+        <VStack gap="space-4">
+          <Heading level="3" size="small">
+            Hjelp oss med å gjøre denne siden bedre
+          </Heading>
+          <BodyShort>Anonym tilbakemelding på tjenesten</BodyShort>
+        </VStack>
+      </HStack>
+    </Box>
   )
 }
