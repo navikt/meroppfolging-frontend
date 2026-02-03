@@ -16,11 +16,7 @@ export const MerOppfolgingPageLayout = ({
     <Box background="sunken" asChild>
       <Page contentBlockPadding="none" footer={footer}>
         <main tabIndex={-1} id="maincontent">
-          <VStack
-            align="center"
-            width="100%"
-            padding={{ xs: 'space-16', md: 'space-32' }}
-          >
+          <VStack align="center" width="100%" padding={{ xs: 'space-16', md: 'space-32' }}>
             <Box background="default" padding={{ xs: 'space-32', md: 'space-40' }} asChild>
               <Page.Block width="md">{children}</Page.Block>
             </Box>
