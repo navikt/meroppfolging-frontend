@@ -7,16 +7,14 @@ import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'
 export const BytteJobb = (): ReactElement => {
   return (
     <>
-      <div className="[&_ul]:mt-0 [&_ul]:mb-0">
-        <Box marginBlock="space-16" asChild>
-          <List>
-            <ListItem>Er det vanskelig for deg å utføre oppgavene du hadde før du ble syk?</ListItem>
-            <ListItem>
-              Er det andre forhold hos arbeidsgiveren din som gjør det vanskelig for deg å fungere i jobben?
-            </ListItem>
-          </List>
-        </Box>
-      </div>
+      <Box marginBlock="space-8" asChild>
+        <List>
+          <ListItem>Er det vanskelig for deg å utføre oppgavene du hadde før du ble syk?</ListItem>
+          <ListItem>
+            Er det andre forhold hos arbeidsgiveren din som gjør det vanskelig for deg å fungere i jobben?
+          </ListItem>
+        </List>
+      </Box>
       <BodyShort>
         Av og til fungerer man bedre i en annen jobb enn den man er sykmeldt fra. Det nærmer seg slutten på sykepengene
         dine, og derfor kan det være lurt å tenke på å bytte jobb allerede nå.
