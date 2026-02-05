@@ -63,8 +63,6 @@ spec:
       value: "http://flexjar-backend.flex"
     - name: FLEXJAR_BACKEND_CLIENT_ID
       value: prod-gcp:flex:flexjar-backend
-  envFrom:
-    - secret: meroppfolging-frontend-unleash-secrets
   accessPolicy:
     outbound:
       rules:
@@ -74,5 +72,3 @@ spec:
         - application: sykepengedager-informasjon
         - application: flexjar-backend
           namespace: flex
-      external:
-        - host: team-esyfo-unleash-api.nav.cloud.nais.io
