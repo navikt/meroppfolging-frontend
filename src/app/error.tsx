@@ -2,9 +2,9 @@
 
 import React, { useEffect } from 'react'
 import { logger } from '@navikt/next-logger'
-import Image from 'next/legacy/image'
+import Image from 'next/image'
 import pageErrorDad from '@/components/ErrorBoundary/Images/error-page-dad.svg'
-import { BodyLong, Button, Heading } from '@navikt/ds-react'
+import { BodyLong, Button, Heading, Stack, VStack } from '@navikt/ds-react'
 
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
@@ -14,26 +14,33 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
   const errorText = 'Beklager! Det har oppstått en uventet feil'
 
   return (
-    <div className="flex max-w-3xl max-[960px]:flex-col" role="status" aria-live="polite">
-      <Image src={pageErrorDad} alt="" className="max-[960px]:max-h[240px] mr-8 flex-[1_1_50%] max-[960px]:mb-4" />
+    <Stack
+      direction={{ xs: 'column', lg: 'row' }}
+      gap={{ xs: 'space-24', lg: 'space-32' }}
+      align={{ xs: 'center', lg: 'start' }}
+      maxWidth="48rem"
+      role="status"
+      aria-live="polite"
+    >
+      <Image src={pageErrorDad} alt="" width={320} height={240} style={{ maxHeight: 240 }} />
 
-      <div>
-        <Heading spacing size="large" level="1">
-          Oops!
-        </Heading>
-        <Heading spacing size="small" level="2">
-          {errorText}
-        </Heading>
+      <VStack gap="space-24" align="start">
+        <VStack gap="space-8" align="start">
+          <Heading size="large" level="1">
+            Oops!
+          </Heading>
+          <Heading size="small" level="2">
+            {errorText}
+          </Heading>
+          <BodyLong>
+            Sannsynligvis jobber vi med saken allerede, men ta kontakt med oss hvis det ikke har løst seg til i morgen.
+          </BodyLong>
+        </VStack>
 
-        <BodyLong spacing>
-          {' '}
-          Sannsynligvis jobber vi med saken allerede, men ta kontakt med oss hvis det ikke har løst seg til i morgen.
-        </BodyLong>
-      </div>
-
-      <Button variant="primary" onClick={() => reset()}>
-        Klikk her for å prøve igjen
-      </Button>
-    </div>
+        <Button variant="primary" onClick={() => reset()}>
+          Klikk her for å prøve igjen
+        </Button>
+      </VStack>
+    </Stack>
   )
 }

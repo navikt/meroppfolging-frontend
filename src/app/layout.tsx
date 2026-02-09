@@ -3,6 +3,7 @@ import { configureLogger } from '@navikt/next-logger'
 import type { Metadata } from 'next'
 import { BASE_PATH } from '@/constants/appConstants'
 import React from 'react'
+import { Theme } from '@navikt/ds-react'
 import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr'
 import Script from 'next/script'
 import { publicEnv } from '@/constants/envs'
@@ -43,11 +44,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Decorator.HeadAssets />
       </head>
       <body>
-        <Decorator.Header />
-        <Providers>
-          <MerOppfolgingPageLayout footer={<Decorator.Footer />}>{children}</MerOppfolgingPageLayout>
-        </Providers>
-        <Decorator.Scripts loader={Script} />
+        <Theme theme="light">
+          <Decorator.Header />
+          <Providers>
+            <MerOppfolgingPageLayout footer={<Decorator.Footer />}>{children}</MerOppfolgingPageLayout>
+          </Providers>
+          <Decorator.Scripts loader={Script} />
+        </Theme>
       </body>
     </html>
   )

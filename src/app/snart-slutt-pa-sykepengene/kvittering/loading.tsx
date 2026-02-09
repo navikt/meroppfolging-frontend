@@ -9,19 +9,16 @@ import { Skeleton, VStack } from '@navikt/ds-react'
 
 export default function Loading(): ReactElement {
   return (
-    <VStack gap="6">
+    <VStack gap="space-24">
       <Skeleton>
         <ThankYouAlert responseDateISOString={''} />
       </Skeleton>
-
       <Skeleton>
         <OppsummeringAvDineSvar fremtidigSituasjonAnswer={'TILBAKE_HOS_ARBEIDSGIVER'} behovForOppfolgingAnswer={'JA'} />
       </Skeleton>
-
       <Skeleton>
         <HvaSkjerVidereTekst behovForOppfolgingAnswer={'JA'} />
       </Skeleton>
-
       <Skeleton variant="rounded">
         <MaxDateInfo
           maxDate={{
@@ -31,9 +28,7 @@ export default function Loading(): ReactElement {
           }}
         />
       </Skeleton>
-
       <NyttigeLenker />
-
       <KontaktInformasjon />
     </VStack>
   )

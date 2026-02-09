@@ -5,7 +5,7 @@ import MaxDateInfo from '@/components/LandingInfo/MaxDateInfo'
 
 export default function Loading(): ReactElement {
   return (
-    <VStack gap="6">
+    <VStack gap="space-24">
       <Skeleton>
         <Heading size="large" level="1">
           Sykepengene dine tar snart slutt

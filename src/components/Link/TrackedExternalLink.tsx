@@ -21,6 +21,7 @@ export const TrackedExternalLink = ({
     <Link
       href={href}
       target="_blank"
+      rel="noopener noreferrer"
       onClick={() => {
         logAnalyticsEvent({
           eventName: 'navigere',

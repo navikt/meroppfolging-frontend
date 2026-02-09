@@ -1,7 +1,7 @@
 'use client'
 
-import { ReactElement } from 'react'
-import { BodyShort, Box, Button, Heading } from '@navikt/ds-react'
+import { ReactElement, useEffect } from 'react'
+import { BodyShort, Button, Heading, Stack, VStack } from '@navikt/ds-react'
 import { logger } from '@navikt/next-logger'
 import Image from 'next/image'
 
@@ -12,18 +12,20 @@ import { useLogAnalyticsEvent } from '@/libs/analytics/analytics'
 
 function NoAccessInformation(): ReactElement {
   const logMessage = "User visited SenOppfolging page, but does not have access. Showing 'You cannot access form' page."
-  logger.warn(logMessage)
   useLogAnalyticsEvent({ eventName: 'besøk' }, { info: logMessage })
+  useEffect(() => {
+    logger.warn(logMessage)
+  }, [logMessage])
 
   return (
-    <Box className="md:pt-20 md:pb-16 flex flex-col gap-8 items-start">
-      <div className="flex flex-col md:flex-row gap-6 max-md:items-center">
-        <Image width={202} height={240} src={pageErrorDad} alt="" className="max-md:h-[170px] h-[240px] w-[202px] " />
-        <div>
-          <Heading level="1" size="large" spacing>
+    <VStack gap="space-32" align="start" paddingBlock={{ md: 'space-80 space-64' }}>
+      <Stack direction={{ xs: 'column', md: 'row' }} gap="space-24" align={{ xs: 'center', md: 'start' }}>
+        <Image width={202} height={240} src={pageErrorDad} alt="" />
+        <VStack gap="space-16" align="start">
+          <Heading level="1" size="large">
             Beklager, du kan ikke svare på dette skjemaet nå.
           </Heading>
-          <BodyShort spacing>
+          <BodyShort>
             Dette skjemaet er ikke åpnet for deg. Skjemaet skal være åpnet dersom du er sykmeldt og nærmer deg slutten
             på perioden du kan motta sykepenger, og du har fått et varsel som lenker hit.
           </BodyShort>
@@ -31,12 +33,12 @@ function NoAccessInformation(): ReactElement {
             Hvis du mener det har skjedd en feil, prøv igjen senere. Hvis feilen vedvarer, ta kontakt med oss på tlf.{' '}
             <NavPhoneNumber /> eller på <WriteToUsLink /> (åpner i ny fane).
           </BodyShort>
-        </div>
-      </div>
+        </VStack>
+      </Stack>
       <Button as="a" href="https://www.nav.no/minside">
         Gå til Min side
       </Button>
-    </Box>
+    </VStack>
   )
 }
 
