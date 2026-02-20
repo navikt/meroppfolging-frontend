@@ -26,7 +26,6 @@
 		"@navikt/oasis": "^3.8.0",
 		"@tanstack/react-query": "^4.36.1",
 		"@tanstack/react-query-devtools": "^4.36.1",
-		"@types/open": "^6.2.1",
 		"@unleash/nextjs": "^1.6.2",
 		"axios": "^1.13.5",
 		"csp-header": "^6.3.0",
