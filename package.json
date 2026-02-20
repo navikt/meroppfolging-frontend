@@ -34,7 +34,7 @@
 		"html-react-parser": "^5.2.11",
 		"lefthook": "^2.1.1",
 		"nanoid": "^5.1.6",
-		"next": "^15.5.12",
+		"next": "^16.1.6",
 		"open": "^10.2.0",
 		"pino": "^9.13.0",
 		"prettier": "^3.7.4",
