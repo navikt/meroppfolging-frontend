@@ -40,4 +40,5 @@ run = "pnpm run test"
 
 [tasks.ci]
 description = "Full CI validation (lint + format + tests + build)"
-depends = ["check", "test", "build"]
+depends = ["install"]
+run = "mise run check && mise run test --no-watch && mise run build"
