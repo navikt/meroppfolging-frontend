@@ -1,15 +1,15 @@
-'use client'
+"use client";
 
-import React, { ReactElement } from 'react'
-import { Link } from '@navikt/ds-react'
-import { ExternalLinkIcon } from '@navikt/aksel-icons'
+import { ExternalLinkIcon } from "@navikt/aksel-icons";
+import { Link } from "@navikt/ds-react";
+import type { ReactElement } from "react";
 
-import { logAnalyticsEvent } from '@/libs/analytics/analytics'
+import { logAnalyticsEvent } from "@/libs/analytics/analytics";
 
 interface Props {
-  href: string
-  openingInNewTabIconInsteadOfText?: boolean
-  children: string
+  href: string;
+  openingInNewTabIconInsteadOfText?: boolean;
+  children: string;
 }
 
 export const TrackedExternalLink = ({
@@ -24,12 +24,12 @@ export const TrackedExternalLink = ({
       rel="noopener noreferrer"
       onClick={() => {
         logAnalyticsEvent({
-          eventName: 'navigere',
+          eventName: "navigere",
           data: {
             lenketekst: children,
             destinasjon: href,
           },
-        })
+        });
       }}
       inlineText
     >
@@ -42,5 +42,5 @@ export const TrackedExternalLink = ({
         <>{children} (åpner i ny fane)</>
       )}
     </Link>
-  )
-}
+  );
+};

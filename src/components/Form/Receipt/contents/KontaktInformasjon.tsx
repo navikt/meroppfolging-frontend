@@ -1,8 +1,9 @@
-import { ReactElement } from 'react'
-import { BodyLong, Box, Heading } from '@navikt/ds-react'
+import { BodyLong, Box, Heading } from "@navikt/ds-react";
+import type { ReactElement } from "react";
 
-import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'
-import { CONTACT_NAV_URL } from '@/constants/appConstants'
+import { TrackedExternalLink } from "@/components/Link/TrackedExternalLink";
+import { CONTACT_NAV_URL } from "@/constants/appConstants";
+
 const KontaktInformasjon = (): ReactElement => (
   <Box>
     <Heading size="medium" spacing>
@@ -10,10 +11,14 @@ const KontaktInformasjon = (): ReactElement => (
     </Heading>
 
     <BodyLong>
-      Du kan når som helst ta kontakt med oss på telefon 55&nbsp;55&nbsp;33&nbsp;33 eller{' '}
-      <TrackedExternalLink href={CONTACT_NAV_URL}>ved å skrive til oss</TrackedExternalLink>.
+      Du kan når som helst ta kontakt med oss på telefon
+      55&nbsp;55&nbsp;33&nbsp;33 eller{" "}
+      <TrackedExternalLink href={CONTACT_NAV_URL}>
+        ved å skrive til oss
+      </TrackedExternalLink>
+      .
     </BodyLong>
   </Box>
-)
+);
 
-export default KontaktInformasjon
+export default KontaktInformasjon;

@@ -10,7 +10,7 @@ Prefer one primary agent per task. If needed, switch primary agent or delegate e
 - Next.js App Router (Next 15)
 - React 18
 - TypeScript
-- ESLint + Prettier
+- Biome
 - Vitest
 - Aksel v8
 - Tailwind (v3)
@@ -20,10 +20,9 @@ Prefer one primary agent per task. If needed, switch primary agent or delegate e
 ## Commands
 
 ```sh
-npm run dev
-npm run lint
-npm test
-npx tsc --noEmit
+mise task # Check all available tasks
+mise dev # Run development server
+mise ci # Run full CI validation (lint + format + tests + build)
 ```
 
 ## Defaults

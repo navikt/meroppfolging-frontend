@@ -1,19 +1,18 @@
-'use client'
+"use client";
 
-import { Link } from '@navikt/ds-react'
-import NextLink from 'next/link'
+import { Link } from "@navikt/ds-react";
+import NextLink from "next/link";
+import { CONTACT_NAV_URL } from "@/constants/appConstants";
+import { logAnalyticsEvent } from "@/libs/analytics/analytics";
 
-import { logAnalyticsEvent } from '@/libs/analytics/analytics'
-import { CONTACT_NAV_URL } from '@/constants/appConstants'
-
-const DEFAULT_LINK_TEXT = 'skriv til oss her på nav.no'
+const DEFAULT_LINK_TEXT = "skriv til oss her på nav.no";
 
 interface Props {
-  linkText?: string
+  linkText?: string;
 }
 
 function WriteToUsLink({ linkText }: Props): React.ReactElement {
-  const linkTextToUse = linkText ?? DEFAULT_LINK_TEXT
+  const linkTextToUse = linkText ?? DEFAULT_LINK_TEXT;
 
   return (
     <Link
@@ -23,19 +22,19 @@ function WriteToUsLink({ linkText }: Props): React.ReactElement {
       onClick={() =>
         logAnalyticsEvent(
           {
-            eventName: 'navigere',
+            eventName: "navigere",
             data: {
               lenketekst: linkTextToUse,
-              destinasjon: 'Nav.no - skriv til oss',
+              destinasjon: "Nav.no - skriv til oss",
             },
           },
-          { fra: 'Landingsside' },
+          { fra: "Landingsside" },
         )
       }
     >
       {linkTextToUse}
     </Link>
-  )
+  );
 }
 
-export default WriteToUsLink
+export default WriteToUsLink;

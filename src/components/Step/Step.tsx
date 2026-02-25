@@ -1,16 +1,16 @@
-'use client'
+"use client";
 
-import { Button, Heading, HStack, VStack } from '@navikt/ds-react'
-import React, { ReactElement, ReactNode } from 'react'
-import { ArrowLeftIcon, ArrowRightIcon } from '@navikt/aksel-icons'
+import { ArrowLeftIcon, ArrowRightIcon } from "@navikt/aksel-icons";
+import { Button, Heading, HStack, VStack } from "@navikt/ds-react";
+import type { ReactElement, ReactNode } from "react";
 
 interface Props {
-  heading: string
-  children: ReactNode
-  goToPreviousStep?: () => void
-  customNextButtonLabel?: string
-  customNextButtonIcon?: ReactNode
-  isSubmitting?: boolean
+  heading: string;
+  children: ReactNode;
+  goToPreviousStep?: () => void;
+  customNextButtonLabel?: string;
+  customNextButtonIcon?: ReactNode;
+  isSubmitting?: boolean;
 }
 
 export const Step = ({
@@ -22,34 +22,32 @@ export const Step = ({
   isSubmitting = false,
 }: Props): ReactElement => {
   return (
-    <>
-      <VStack gap="space-24">
-        <Heading size={goToPreviousStep ? 'medium' : 'large'} level="1">
-          {heading}
-        </Heading>
-        {children}
-        <HStack gap={{ xs: 'space-16', sm: 'space-24' }}>
-          {goToPreviousStep && (
-            <Button
-              variant="secondary"
-              type="button"
-              onClick={goToPreviousStep}
-              icon={<ArrowLeftIcon aria-hidden />}
-              iconPosition="left"
-            >
-              Tilbake
-            </Button>
-          )}
+    <VStack gap="space-24">
+      <Heading size={goToPreviousStep ? "medium" : "large"} level="1">
+        {heading}
+      </Heading>
+      {children}
+      <HStack gap={{ xs: "space-16", sm: "space-24" }}>
+        {goToPreviousStep && (
           <Button
-            type="submit"
-            disabled={isSubmitting}
-            icon={customNextButtonIcon ?? <ArrowRightIcon aria-hidden />}
-            iconPosition="right"
+            variant="secondary"
+            type="button"
+            onClick={goToPreviousStep}
+            icon={<ArrowLeftIcon aria-hidden />}
+            iconPosition="left"
           >
-            {customNextButtonLabel ?? 'Neste'}
+            Tilbake
           </Button>
-        </HStack>
-      </VStack>
-    </>
-  )
-}
+        )}
+        <Button
+          type="submit"
+          disabled={isSubmitting}
+          icon={customNextButtonIcon ?? <ArrowRightIcon aria-hidden />}
+          iconPosition="right"
+        >
+          {customNextButtonLabel ?? "Neste"}
+        </Button>
+      </HStack>
+    </VStack>
+  );
+};

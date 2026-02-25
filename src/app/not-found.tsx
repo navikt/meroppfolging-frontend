@@ -1,8 +1,17 @@
-import { BugIcon } from '@navikt/aksel-icons'
-import { BodyShort, Box, Button, Heading, HStack, Link, List, VStack } from '@navikt/ds-react'
-import { ListItem } from '@navikt/ds-react/List'
-import { PageBlock } from '@navikt/ds-react/Page'
-import NextLink from 'next/link'
+import { BugIcon } from "@navikt/aksel-icons";
+import {
+  BodyShort,
+  Box,
+  Button,
+  Heading,
+  HStack,
+  Link,
+  List,
+  VStack,
+} from "@navikt/ds-react";
+import { ListItem } from "@navikt/ds-react/List";
+import { PageBlock } from "@navikt/ds-react/Page";
+import NextLink from "next/link";
 
 function NotFound() {
   return (
@@ -14,7 +23,10 @@ function NotFound() {
               <Heading level="1" size="large" spacing>
                 Beklager, vi fant ikke siden
               </Heading>
-              <BodyShort>Denne siden kan være slettet eller flyttet, eller det er en feil i lenken.</BodyShort>
+              <BodyShort>
+                Denne siden kan være slettet eller flyttet, eller det er en feil
+                i lenken.
+              </BodyShort>
               <List>
                 <ListItem>Bruk gjerne søket eller menyen</ListItem>
                 <ListItem>
@@ -37,7 +49,7 @@ function NotFound() {
         </VStack>
       </Box>
     </PageBlock>
-  )
+  );
 }
 
-export default NotFound
+export default NotFound;
