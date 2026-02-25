@@ -1,10 +1,10 @@
+import { logger } from "@navikt/next-logger";
 import {
   Component,
   type ErrorInfo,
   type PropsWithChildren,
   type ReactNode,
 } from "react";
-import { logger } from "@navikt/next-logger";
 
 import ErrorFallback from "./ErrorFallback";
 

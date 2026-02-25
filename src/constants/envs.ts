@@ -1,4 +1,4 @@
-import { z, ZodError } from "zod";
+import { ZodError, z } from "zod";
 
 export type PublicEnv = z.infer<typeof publicEnvSchema>;
 export const publicEnvSchema = z.object({

@@ -1,14 +1,14 @@
 "use server";
 
-import { getServerEnv, isLocalOrDemo } from "@/constants/envs";
-import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from "@/auth/tokenUtils";
-import { serverRequest } from "@/libs/axios";
 import { logger } from "@navikt/next-logger";
-import { headers } from "next/headers";
 import { getToken } from "@navikt/oasis";
-import type { FormRequest } from "@/server/schemas/formRequestSchema";
+import { headers } from "next/headers";
 import { validateIdPortenToken } from "@/auth/getIdPortenToken";
 import { navigateToLogin } from "@/auth/navigateToLogin";
+import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from "@/auth/tokenUtils";
+import { getServerEnv, isLocalOrDemo } from "@/constants/envs";
+import { serverRequest } from "@/libs/axios";
+import type { FormRequest } from "@/server/schemas/formRequestSchema";
 
 export async function submitForm(formRequest: FormRequest): Promise<void> {
   if (isLocalOrDemo) {

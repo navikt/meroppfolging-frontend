@@ -1,13 +1,12 @@
 "use client";
 
-import { type ReactElement, useEffect } from "react";
 import { BodyShort, Button, Heading, Stack, VStack } from "@navikt/ds-react";
 import { logger } from "@navikt/next-logger";
 import Image from "next/image";
-
-import WriteToUsLink from "@/components/UI/WriteToUsLink";
+import { type ReactElement, useEffect } from "react";
 import pageErrorDad from "@/components/ErrorBoundary/Images/error-page-dad.svg";
 import { NavPhoneNumber } from "@/components/UI/NavPhoneNumber";
+import WriteToUsLink from "@/components/UI/WriteToUsLink";
 import { useLogAnalyticsEvent } from "@/libs/analytics/analytics";
 
 function NoAccessInformation(): ReactElement {

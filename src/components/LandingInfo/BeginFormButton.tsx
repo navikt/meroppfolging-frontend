@@ -1,10 +1,10 @@
 "use client";
 
+import { ArrowRightIcon } from "@navikt/aksel-icons";
 import { Button } from "@navikt/ds-react";
 import Link from "next/link";
-import { ArrowRightIcon } from "@navikt/aksel-icons";
+import type { ReactElement } from "react";
 import { logAnalyticsEvent } from "@/libs/analytics/analytics";
-import React, { type ReactElement } from "react";
 
 export const BeginFormButton = (): ReactElement => {
   return (

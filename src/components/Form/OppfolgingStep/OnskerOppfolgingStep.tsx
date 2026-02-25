@@ -1,8 +1,8 @@
 "use client";
 
-import { type ReactElement, useEffect } from "react";
-import { BodyLong } from "@navikt/ds-react";
 import { PaperplaneIcon } from "@navikt/aksel-icons";
+import { BodyLong } from "@navikt/ds-react";
+import { type ReactElement, useEffect } from "react";
 
 import RadioGroupForQuestion from "@/components/FormComponents/RadioGroupForQuestion";
 import { Step } from "@/components/Step/Step";
@@ -14,14 +14,12 @@ interface Props {
 
 const Description = (): ReactElement => {
   return (
-    <>
-      <BodyLong>
-        En veileder kan hjelpe deg med å kartlegge mulighetene dine, og vurdere
-        hvilken hjelp og støtte du kan få fra Nav. Er du allerede i kontakt med
-        en veileder og får den oppfølgingen du trenger, kan du bare svare nei.
-        Du mister ikke kontakten du allerede har med veileder.
-      </BodyLong>
-    </>
+    <BodyLong>
+      En veileder kan hjelpe deg med å kartlegge mulighetene dine, og vurdere
+      hvilken hjelp og støtte du kan få fra Nav. Er du allerede i kontakt med en
+      veileder og får den oppfølgingen du trenger, kan du bare svare nei. Du
+      mister ikke kontakten du allerede har med veileder.
+    </BodyLong>
   );
 };
 

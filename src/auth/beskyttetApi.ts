@@ -1,7 +1,7 @@
 import { logger } from "@navikt/next-logger";
-import type { NextApiRequest, NextApiResponse } from "next";
 import { validateIdportenToken } from "@navikt/oasis";
 import { AxiosError } from "axios";
+import type { NextApiRequest, NextApiResponse } from "next";
 
 import { isLocalOrDemo } from "@/constants/envs";
 import { cleanPathForMetric } from "@/metrics/metrics";
@@ -16,7 +16,7 @@ export function beskyttetApi(handler: ApiHandler): ApiHandler {
     try {
       if (!isLocalOrDemo) {
         const bearerToken: string | null | undefined =
-          req.headers["authorization"];
+          req.headers.authorization;
 
         if (!bearerToken) {
           return res.status(401).json({ message: "Access denied" });

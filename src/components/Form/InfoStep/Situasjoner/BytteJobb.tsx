@@ -1,6 +1,6 @@
-import React, { type ReactElement } from "react";
 import { BodyShort, List } from "@navikt/ds-react";
 import { ListItem } from "@navikt/ds-react/List";
+import type { ReactElement } from "react";
 
 import { TrackedExternalLink } from "@/components/Link/TrackedExternalLink";
 

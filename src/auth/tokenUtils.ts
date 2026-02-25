@@ -54,7 +54,7 @@ export async function getIdportenToken(req: NextApiRequest): Promise<string> {
     return "sometoken";
   }
 
-  const bearerToken = req.headers["authorization"];
+  const bearerToken = req.headers.authorization;
 
   if (!bearerToken) {
     throw new Error("Missing idporten token");

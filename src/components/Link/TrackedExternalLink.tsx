@@ -1,8 +1,8 @@
 "use client";
 
-import React, { type ReactElement } from "react";
-import { Link } from "@navikt/ds-react";
 import { ExternalLinkIcon } from "@navikt/aksel-icons";
+import { Link } from "@navikt/ds-react";
+import type { ReactElement } from "react";
 
 import { logAnalyticsEvent } from "@/libs/analytics/analytics";
 

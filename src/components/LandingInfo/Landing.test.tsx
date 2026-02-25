@@ -1,13 +1,11 @@
 import { describe, expect, it } from "vitest";
-
-import { render, screen } from "@/test/testUtils";
+import { Landing } from "@/components/LandingInfo/Landing";
 import {
   IkkeSvart,
   IkkeSvartAndShouldNotHaveAccess,
 } from "@/mocks/data/fixtures/statusDtoFixtures";
-import { Landing } from "@/components/LandingInfo/Landing";
 import { maxDateDTO } from "@/mocks/data/fixtures/sykepengedagerInformasjonDTO";
-import React from "react";
+import { render, screen } from "@/test/testUtils";
 
 describe("SnartSlutt", () => {
   it("should display start page", async () => {

@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect } from "react";
+import { BodyLong, Button, Heading, Stack, VStack } from "@navikt/ds-react";
 import { logger } from "@navikt/next-logger";
 import Image from "next/image";
+import { useEffect } from "react";
 import pageErrorDad from "@/components/ErrorBoundary/Images/error-page-dad.svg";
-import { BodyLong, Button, Heading, Stack, VStack } from "@navikt/ds-react";
 
 export default function ErrorPage({
   error,

@@ -2,9 +2,8 @@
 
 import { Link } from "@navikt/ds-react";
 import NextLink from "next/link";
-
-import { logAnalyticsEvent } from "@/libs/analytics/analytics";
 import { CONTACT_NAV_URL } from "@/constants/appConstants";
+import { logAnalyticsEvent } from "@/libs/analytics/analytics";
 
 const DEFAULT_LINK_TEXT = "skriv til oss her på nav.no";
 

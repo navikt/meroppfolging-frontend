@@ -1,8 +1,7 @@
-import React, { type ReactElement } from "react";
 import { BodyShort } from "@navikt/ds-react";
-
-import AlleredeSoktOmPengestotteExpansionCard from "@/components/UI/AlleredeSoktOmPengestotteExpansionCard";
+import type { ReactElement } from "react";
 import { TrackedExternalLink } from "@/components/Link/TrackedExternalLink";
+import AlleredeSoktOmPengestotteExpansionCard from "@/components/UI/AlleredeSoktOmPengestotteExpansionCard";
 
 export const TilbakeGradert = (): ReactElement => {
   return (

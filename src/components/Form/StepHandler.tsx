@@ -1,23 +1,22 @@
 "use client";
 
-import React, { type ReactElement, useState } from "react";
-import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { FormProgress } from "@navikt/ds-react";
+import { useRouter } from "next/navigation";
+import { type ReactElement, useState } from "react";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
+import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
+import { OnskerOppfolgingStep } from "@/components/Form/OppfolgingStep/OnskerOppfolgingStep";
+import NoAccessInformation from "@/components/NoAccessInformation/NoAccessInformation";
 import type {
   BehovForOppfolgingAnswerTypes,
   FremtidigSituasjonAnswerTypes,
 } from "@/domain/answerValues";
+import { logAnalyticsEvent } from "@/libs/analytics/analytics";
+import { submitForm } from "@/server/actions/submitForm";
 import type { SenOppfolgingStatusDTO } from "@/server/schemas/statusSchema";
 import { createFormRequest } from "@/utils/requestUtils";
-import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
-import NoAccessInformation from "@/components/NoAccessInformation/NoAccessInformation";
-import { logAnalyticsEvent } from "@/libs/analytics/analytics";
-import { OnskerOppfolgingStep } from "@/components/Form/OppfolgingStep/OnskerOppfolgingStep";
-
 import { FremtidigSituasjonStep } from "./FremtidigSituasjonStep/FremtidigSituasjonStep";
 import { InfoStep } from "./InfoStep/InfoStep";
-import { submitForm } from "@/server/actions/submitForm";
-import { useRouter } from "next/navigation";
 
 type Step = {
   number: number;
@@ -102,7 +101,7 @@ export const StepHandler = ({
       }).toString();
 
       router.push(`/snart-slutt-pa-sykepengene/kvittering?${queryParams}`);
-    } catch (e) {
+    } catch (_e) {
       setDisplayErrorMessage(true);
     } finally {
       setIsSubmitting(false);

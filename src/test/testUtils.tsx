@@ -1,13 +1,13 @@
 import {
-  render,
   type RenderOptions,
-  screen,
+  render,
   type Screen,
+  screen,
 } from "@testing-library/react";
-import type { ReactElement, ReactNode } from "react";
-import open from "open";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouterProvider } from "next-router-mock/MemoryRouterProvider";
+import open from "open";
+import type { ReactElement, ReactNode } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import type { FormInputs } from "@/components/Form/StepHandler";
 

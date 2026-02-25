@@ -1,8 +1,8 @@
 "use client";
 
-import type { ReactElement } from "react";
 import { Box, Heading, List } from "@navikt/ds-react";
 import { ListItem } from "@navikt/ds-react/List";
+import type { ReactElement } from "react";
 
 import { TrackedExternalLink } from "@/components/Link/TrackedExternalLink";
 

@@ -1,9 +1,8 @@
-import type { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { logger } from "@navikt/next-logger";
 import { getToken, validateIdportenToken } from "@navikt/oasis";
-
-import { isLocalOrDemo } from "@/constants/envs";
+import type { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { BASE_PATH } from "@/constants/appConstants";
+import { isLocalOrDemo } from "@/constants/envs";
 
 type PageHandler = (
   context: GetServerSidePropsContext,

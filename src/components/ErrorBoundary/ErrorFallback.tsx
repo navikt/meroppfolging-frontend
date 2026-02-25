@@ -1,6 +1,6 @@
-import React, { type ReactNode } from "react";
-import Image from "next/image";
 import { BodyLong, Heading, Stack, VStack } from "@navikt/ds-react";
+import Image from "next/image";
+import type { ReactNode } from "react";
 
 import pageErrorDad from "./Images/error-page-dad.svg";
 import notFoundMom from "./Images/not-found-mom.svg";

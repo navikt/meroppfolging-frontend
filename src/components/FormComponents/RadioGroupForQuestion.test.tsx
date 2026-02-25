@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
-
-import { render, screen } from "@/test/testUtils";
 import RadioGroupForQuestion from "@/components/FormComponents/RadioGroupForQuestion";
+import { render, screen } from "@/test/testUtils";
 
 describe("RadioGroupForQuestion", () => {
   it("should render", async () => {

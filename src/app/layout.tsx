@@ -1,14 +1,14 @@
 import "./globals.css";
-import { configureLogger } from "@navikt/next-logger";
-import type { Metadata } from "next";
-import { BASE_PATH } from "@/constants/appConstants";
-import type React from "react";
 import { Theme } from "@navikt/ds-react";
 import { fetchDecoratorReact } from "@navikt/nav-dekoratoren-moduler/ssr";
+import { configureLogger } from "@navikt/next-logger";
+import type { Metadata } from "next";
 import Script from "next/script";
-import { publicEnv } from "@/constants/envs";
-import { MerOppfolgingPageLayout } from "@/components/Page/MerOppfolgingPageLayout";
+import type React from "react";
 import { Providers } from "@/app/providers";
+import { MerOppfolgingPageLayout } from "@/components/Page/MerOppfolgingPageLayout";
+import { BASE_PATH } from "@/constants/appConstants";
+import { publicEnv } from "@/constants/envs";
 
 configureLogger({
   basePath: BASE_PATH,

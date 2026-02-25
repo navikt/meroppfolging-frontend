@@ -2,16 +2,14 @@
 
 import { type ReactElement, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-
-import type { FremtidigSituasjonAnswerTypes } from "@/domain/answerValues";
 import { Step } from "@/components/Step/Step";
+import type { FremtidigSituasjonAnswerTypes } from "@/domain/answerValues";
 
 import type { FormInputs } from "../StepHandler";
-
-import { TilbakeHosArbeidsgiver } from "./Situasjoner/TilbakeHosArbeidsgiver";
-import { TilbakeGradert } from "./Situasjoner/TilbakeGradert";
 import { BytteJobb } from "./Situasjoner/BytteJobb";
 import { FortsattSyk } from "./Situasjoner/FortsattSyk";
+import { TilbakeGradert } from "./Situasjoner/TilbakeGradert";
+import { TilbakeHosArbeidsgiver } from "./Situasjoner/TilbakeHosArbeidsgiver";
 import { Usikker } from "./Situasjoner/Usikker";
 
 interface Props {

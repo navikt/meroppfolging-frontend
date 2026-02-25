@@ -1,12 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { logger as pinoLogger } from "@navikt/next-logger";
-
-import { isLocalOrDemo } from "@/constants/envs";
-
-import type { AnalyticsTaxonomyEvents } from "./events";
 import { getAnalyticsInstance } from "@navikt/nav-dekoratoren-moduler";
+import { logger as pinoLogger } from "@navikt/next-logger";
+import { useEffect, useRef } from "react";
+import { isLocalOrDemo } from "@/constants/envs";
+import type { AnalyticsTaxonomyEvents } from "./events";
 
 const analyticsLogger = getAnalyticsInstance("snart-slutt-paa-sykepengene");
 

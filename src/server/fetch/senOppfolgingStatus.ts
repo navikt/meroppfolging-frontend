@@ -1,16 +1,16 @@
+import { logger } from "@navikt/next-logger";
+import { getToken } from "@navikt/oasis";
+import { nanoid } from "nanoid";
+import { headers } from "next/headers";
+import { validateIdPortenToken } from "@/auth/getIdPortenToken";
+import { navigateToLogin } from "@/auth/navigateToLogin";
+import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from "@/auth/tokenUtils";
+import { getServerEnv, isLocalOrDemo } from "@/constants/envs";
+import * as statusDtoFixtures from "@/mocks/data/fixtures/statusDtoFixtures";
 import {
   type SenOppfolgingStatusDTO,
   SenOppfolgingStatusSchema,
 } from "@/server/schemas/statusSchema";
-import { getServerEnv, isLocalOrDemo } from "@/constants/envs";
-import { headers } from "next/headers";
-import { getToken } from "@navikt/oasis";
-import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from "@/auth/tokenUtils";
-import * as statusDtoFixtures from "@/mocks/data/fixtures/statusDtoFixtures";
-import { nanoid } from "nanoid";
-import { validateIdPortenToken } from "@/auth/getIdPortenToken";
-import { navigateToLogin } from "@/auth/navigateToLogin";
-import { logger } from "@navikt/next-logger";
 
 export async function senOppfolgingStatus(): Promise<SenOppfolgingStatusDTO> {
   if (isLocalOrDemo) {
@@ -49,7 +49,7 @@ export async function senOppfolgingStatus(): Promise<SenOppfolgingStatusDTO> {
   const parsed = SenOppfolgingStatusSchema.safeParse(data);
 
   if (!parsed.success) {
-    logger.error("Failed to parse result! " + parsed.error);
+    logger.error(`Failed to parse result! ${parsed.error}`);
     throw parsed.error;
   }
 

@@ -1,11 +1,10 @@
 "use client";
 
-import { Button, Modal } from "@navikt/ds-react";
-import React, { type ReactElement, useState } from "react";
 import { SunIcon } from "@navikt/aksel-icons";
-
-import styles from "./testscenarioselector.module.css";
+import { Button, Modal } from "@navikt/ds-react";
+import { type ReactElement, useState } from "react";
 import { publicEnv } from "@/constants/envs";
+import styles from "./testscenarioselector.module.css";
 
 export const TestScenarioSelector = (): ReactElement => {
   const [open, setOpen] = useState(false);

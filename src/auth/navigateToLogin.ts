@@ -1,6 +1,6 @@
 import { logger } from "@navikt/next-logger";
-import { BASE_PATH } from "@/constants/appConstants";
 import { NextResponse } from "next/server";
+import { BASE_PATH } from "@/constants/appConstants";
 
 export const navigateToLogin = () => {
   logger.info("User is not authenticated. Redirecting to login page");

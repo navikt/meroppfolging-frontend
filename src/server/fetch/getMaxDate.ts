@@ -1,16 +1,16 @@
+import { logger } from "@navikt/next-logger";
+import { getToken } from "@navikt/oasis";
+import { nanoid } from "nanoid";
+import { headers } from "next/headers";
+import { validateIdPortenToken } from "@/auth/getIdPortenToken";
+import { navigateToLogin } from "@/auth/navigateToLogin";
+import { exchangeIdportenTokenForSykepengedagerInformasjonTokenx } from "@/auth/tokenUtils";
+import { getServerEnv, isLocalOrDemo } from "@/constants/envs";
+import { maxDateDTO } from "@/mocks/data/fixtures/sykepengedagerInformasjonDTO";
 import {
   type MaxDateDTO,
   maxDateSchema,
 } from "@/server/schemas/sykepengedagerInformasjonSchema";
-import { getServerEnv, isLocalOrDemo } from "@/constants/envs";
-import { exchangeIdportenTokenForSykepengedagerInformasjonTokenx } from "@/auth/tokenUtils";
-import { headers } from "next/headers";
-import { getToken } from "@navikt/oasis";
-import { maxDateDTO } from "@/mocks/data/fixtures/sykepengedagerInformasjonDTO";
-import { nanoid } from "nanoid";
-import { validateIdPortenToken } from "@/auth/getIdPortenToken";
-import { navigateToLogin } from "@/auth/navigateToLogin";
-import { logger } from "@navikt/next-logger";
 
 export async function getMaxDate(): Promise<MaxDateDTO> {
   if (isLocalOrDemo) {
@@ -51,7 +51,7 @@ export async function getMaxDate(): Promise<MaxDateDTO> {
   const parsed = maxDateSchema.safeParse(data);
 
   if (!parsed.success) {
-    logger.error("Failed to parse result! " + parsed.error);
+    logger.error(`Failed to parse result! ${parsed.error}`);
     throw parsed.error;
   }
 

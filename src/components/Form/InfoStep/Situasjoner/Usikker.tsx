@@ -1,13 +1,12 @@
 "use client";
 
-import React, { type ReactElement } from "react";
 import { Accordion, BodyLong } from "@navikt/ds-react";
-
-import { alleredeSoktOmPengestotteContent } from "@/components/UI/AlleredeSoktOmPengestotteExpansionCard";
+import type { ReactElement } from "react";
 import { TrackedExternalLink } from "@/components/Link/TrackedExternalLink";
-import { logAnalyticsEvent } from "@/libs/analytics/analytics";
-import { CONTACT_NAV_URL } from "@/constants/appConstants";
+import { alleredeSoktOmPengestotteContent } from "@/components/UI/AlleredeSoktOmPengestotteExpansionCard";
 import { NavPhoneNumber } from "@/components/UI/NavPhoneNumber";
+import { CONTACT_NAV_URL } from "@/constants/appConstants";
+import { logAnalyticsEvent } from "@/libs/analytics/analytics";
 
 export const Usikker = (): ReactElement => {
   return (

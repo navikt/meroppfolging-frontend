@@ -1,7 +1,7 @@
 import { Alert, BodyLong, Heading } from "@navikt/ds-react";
-import type { ReactElement } from "react";
-import Link from "next/link";
 import { logger } from "@navikt/next-logger";
+import Link from "next/link";
+import type { ReactElement } from "react";
 
 import MaxDatoInformationExpansionCard from "@/components/UI/MaxDatoInformationExpansionCard";
 import type { MaxDateDTO } from "@/server/schemas/sykepengedagerInformasjonSchema";
@@ -38,12 +38,10 @@ function MaxDateInfo({ maxDate }: Props): ReactElement {
   }
 
   return (
-    <>
-      <MaxDatoInformationExpansionCard
-        utbetaltTomDato={maxDate.utbetaltTom}
-        maxDato={maxDate.maxDate}
-      />
-    </>
+    <MaxDatoInformationExpansionCard
+      utbetaltTomDato={maxDate.utbetaltTom}
+      maxDato={maxDate.maxDate}
+    />
   );
 }
 

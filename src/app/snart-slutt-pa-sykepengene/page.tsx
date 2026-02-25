@@ -1,14 +1,13 @@
-import React from "react";
-import { senOppfolgingStatus } from "@/server/fetch/senOppfolgingStatus";
+import Receipt from "@/components/Form/Receipt/Receipt";
 import { Landing } from "@/components/LandingInfo/Landing";
-import { getMaxDate } from "@/server/fetch/getMaxDate";
-import type { SenOppfolgingStatusDTO } from "@/server/schemas/statusSchema";
-import type { MaxDateDTO } from "@/server/schemas/sykepengedagerInformasjonSchema";
 import type {
   BehovForOppfolgingAnswerTypes,
   FremtidigSituasjonAnswerTypes,
 } from "@/domain/answerValues";
-import Receipt from "@/components/Form/Receipt/Receipt";
+import { getMaxDate } from "@/server/fetch/getMaxDate";
+import { senOppfolgingStatus } from "@/server/fetch/senOppfolgingStatus";
+import type { SenOppfolgingStatusDTO } from "@/server/schemas/statusSchema";
+import type { MaxDateDTO } from "@/server/schemas/sykepengedagerInformasjonSchema";
 
 export default async function Page() {
   const status: SenOppfolgingStatusDTO = await senOppfolgingStatus();

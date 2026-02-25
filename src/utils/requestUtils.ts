@@ -31,8 +31,8 @@ function createFormRecord<
 export function createFormRequest(form: FormInputs): FormRequest {
   return {
     senOppfolgingFormV2: [
-      createFormRecord("FREMTIDIG_SITUASJON", form["FREMTIDIG_SITUASJON"]),
-      createFormRecord("BEHOV_FOR_OPPFOLGING", form["BEHOV_FOR_OPPFOLGING"]),
+      createFormRecord("FREMTIDIG_SITUASJON", form.FREMTIDIG_SITUASJON),
+      createFormRecord("BEHOV_FOR_OPPFOLGING", form.BEHOV_FOR_OPPFOLGING),
     ],
   };
 }

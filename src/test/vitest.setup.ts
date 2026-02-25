@@ -3,8 +3,8 @@ import "vitest-dom/extend-expect";
 
 import dotenv from "dotenv";
 import { expect, vi } from "vitest";
-import * as matchers from "vitest-dom/matchers";
 import * as vitestAxeMatchers from "vitest-axe/matchers";
+import * as matchers from "vitest-dom/matchers";
 
 expect.extend(matchers);
 expect.extend(vitestAxeMatchers);

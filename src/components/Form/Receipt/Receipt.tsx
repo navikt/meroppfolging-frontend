@@ -1,17 +1,16 @@
-import type { ReactElement } from "react";
 import { VStack } from "@navikt/ds-react";
+import type { ReactElement } from "react";
+import MaxDateInfo from "@/components/LandingInfo/MaxDateInfo";
 import type {
   BehovForOppfolgingAnswerTypes,
   FremtidigSituasjonAnswerTypes,
 } from "@/domain/answerValues";
-import MaxDateInfo from "@/components/LandingInfo/MaxDateInfo";
-
-import ThankYouAlert from "./contents/ThankYouAlert";
-import OppsummeringAvDineSvar from "./contents/OppsummeringAvDineSvar";
-import HvaSkjerVidereTekst from "./contents/HvaSkjerVidereTekst";
-import NyttigeLenker from "./contents/NyttigeLenker";
-import KontaktInformasjon from "./contents/KontaktInformasjon";
 import type { MaxDateDTO } from "@/server/schemas/sykepengedagerInformasjonSchema";
+import HvaSkjerVidereTekst from "./contents/HvaSkjerVidereTekst";
+import KontaktInformasjon from "./contents/KontaktInformasjon";
+import NyttigeLenker from "./contents/NyttigeLenker";
+import OppsummeringAvDineSvar from "./contents/OppsummeringAvDineSvar";
+import ThankYouAlert from "./contents/ThankYouAlert";
 
 interface Props {
   fremtidigSituasjonAnswer: FremtidigSituasjonAnswerTypes;

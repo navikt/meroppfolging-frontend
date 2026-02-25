@@ -1,10 +1,9 @@
 "use client";
 
 import { ExpansionCard } from "@navikt/ds-react";
-
-import { ISODateStringToLongFormat } from "@/utils/dateUtils";
-import { logAnalyticsEvent } from "@/libs/analytics/analytics";
 import type { ReactElement } from "react";
+import { logAnalyticsEvent } from "@/libs/analytics/analytics";
+import { ISODateStringToLongFormat } from "@/utils/dateUtils";
 
 interface Props {
   maxDato: string;
