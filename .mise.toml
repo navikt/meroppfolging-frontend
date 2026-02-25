@@ -38,7 +38,7 @@ description = "Run tests"
 depends = ["install"]
 run = "pnpm run test"
 
-[tasks.ci]
+[tasks.verify]
 description = "Full CI validation (lint + format + tests + build)"
 depends = ["install"]
 run = "mise run check && mise run test --no-watch && mise run build"
