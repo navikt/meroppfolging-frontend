@@ -1,53 +1,54 @@
-import { SenOppfolgingStatusDTO } from '@/server/schemas/statusSchema'
+import { SenOppfolgingStatusDTO } from "@/server/schemas/statusSchema";
 
-const responseDateTime = new Date().toISOString()
+const responseDateTime = new Date().toISOString();
 
 export const IkkeSvart: SenOppfolgingStatusDTO = {
   response: null,
   responseDateTime: null,
   hasAccessToSenOppfolging: true,
-}
+};
 
 export const IkkeSvartAndShouldNotHaveAccess: SenOppfolgingStatusDTO = {
   response: null,
   responseDateTime: null,
   hasAccessToSenOppfolging: false,
-}
+};
 
 export const SvartFortsattSykOgTrengerOppfolging: SenOppfolgingStatusDTO = {
   hasAccessToSenOppfolging: true,
   response: [
     {
-      questionType: 'FREMTIDIG_SITUASJON',
-      questionText: 'Hva tenker du om fremtiden?',
-      answerType: 'FORTSATT_SYK',
-      answerText: 'syk',
+      questionType: "FREMTIDIG_SITUASJON",
+      questionText: "Hva tenker du om fremtiden?",
+      answerType: "FORTSATT_SYK",
+      answerText: "syk",
     },
     {
-      questionType: 'BEHOV_FOR_OPPFOLGING',
-      questionText: 'Trenger du oppfølging fra Nav?',
-      answerType: 'JA',
-      answerText: 'ja',
+      questionType: "BEHOV_FOR_OPPFOLGING",
+      questionText: "Trenger du oppfølging fra Nav?",
+      answerType: "JA",
+      answerText: "ja",
     },
   ],
   responseDateTime,
-}
+};
 
-export const SvartTilbakeHosArbeidsgiverOgTrengerIkkeOppfolging: SenOppfolgingStatusDTO = {
-  hasAccessToSenOppfolging: true,
-  response: [
-    {
-      questionType: 'FREMTIDIG_SITUASJON',
-      questionText: 'Hva tenker du om fremtiden?',
-      answerType: 'TILBAKE_HOS_ARBEIDSGIVER',
-      answerText: 'Jeg er frisk og tilbake hos arbeidsgiver',
-    },
-    {
-      questionType: 'BEHOV_FOR_OPPFOLGING',
-      questionText: 'Trenger du oppfølging fra Nav?',
-      answerType: 'NEI',
-      answerText: 'nei',
-    },
-  ],
-  responseDateTime,
-}
+export const SvartTilbakeHosArbeidsgiverOgTrengerIkkeOppfolging: SenOppfolgingStatusDTO =
+  {
+    hasAccessToSenOppfolging: true,
+    response: [
+      {
+        questionType: "FREMTIDIG_SITUASJON",
+        questionText: "Hva tenker du om fremtiden?",
+        answerType: "TILBAKE_HOS_ARBEIDSGIVER",
+        answerText: "Jeg er frisk og tilbake hos arbeidsgiver",
+      },
+      {
+        questionType: "BEHOV_FOR_OPPFOLGING",
+        questionText: "Trenger du oppfølging fra Nav?",
+        answerType: "NEI",
+        answerText: "nei",
+      },
+    ],
+    responseDateTime,
+  };

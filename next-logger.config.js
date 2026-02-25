@@ -1,5 +1,5 @@
-const { backendLogger } = require('@navikt/next-logger')
+const { backendLogger } = require("@navikt/next-logger");
 
 module.exports = {
   logger: backendLogger,
-}
+};

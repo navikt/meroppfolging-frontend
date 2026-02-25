@@ -1,14 +1,14 @@
-'use client'
+"use client";
 
-import { Button, Modal } from '@navikt/ds-react'
-import React, { ReactElement, useState } from 'react'
-import { SunIcon } from '@navikt/aksel-icons'
+import { Button, Modal } from "@navikt/ds-react";
+import React, { ReactElement, useState } from "react";
+import { SunIcon } from "@navikt/aksel-icons";
 
-import styles from './testscenarioselector.module.css'
-import { publicEnv } from '@/constants/envs'
+import styles from "./testscenarioselector.module.css";
+import { publicEnv } from "@/constants/envs";
 
 export const TestScenarioSelector = (): ReactElement => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -17,7 +17,7 @@ export const TestScenarioSelector = (): ReactElement => {
         aria-label="Testdatavelger"
         onClose={() => setOpen(false)}
         header={{
-          heading: 'Ønsker du å slette svaret ditt og begynne på nytt?',
+          heading: "Ønsker du å slette svaret ditt og begynne på nytt?",
         }}
       >
         <Modal.Body>
@@ -26,7 +26,9 @@ export const TestScenarioSelector = (): ReactElement => {
               id="VelgScenarioButton"
               variant="primary"
               onClick={() => {
-                window.location.href = publicEnv.NEXT_PUBLIC_BASE_PATH + '/snart-slutt-pa-sykepengene'
+                window.location.href =
+                  publicEnv.NEXT_PUBLIC_BASE_PATH +
+                  "/snart-slutt-pa-sykepengene";
               }}
             >
               Slett svaret mitt og begynn på nytt
@@ -49,5 +51,5 @@ export const TestScenarioSelector = (): ReactElement => {
         <SunIcon aria-hidden fontSize="1.5rem" width={40} height={40} />
       </Button>
     </>
-  )
-}
+  );
+};

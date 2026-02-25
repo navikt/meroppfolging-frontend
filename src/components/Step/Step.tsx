@@ -1,16 +1,16 @@
-'use client'
+"use client";
 
-import { Button, Heading, HStack, VStack } from '@navikt/ds-react'
-import React, { ReactElement, ReactNode } from 'react'
-import { ArrowLeftIcon, ArrowRightIcon } from '@navikt/aksel-icons'
+import { Button, Heading, HStack, VStack } from "@navikt/ds-react";
+import React, { ReactElement, ReactNode } from "react";
+import { ArrowLeftIcon, ArrowRightIcon } from "@navikt/aksel-icons";
 
 interface Props {
-  heading: string
-  children: ReactNode
-  goToPreviousStep?: () => void
-  customNextButtonLabel?: string
-  customNextButtonIcon?: ReactNode
-  isSubmitting?: boolean
+  heading: string;
+  children: ReactNode;
+  goToPreviousStep?: () => void;
+  customNextButtonLabel?: string;
+  customNextButtonIcon?: ReactNode;
+  isSubmitting?: boolean;
 }
 
 export const Step = ({
@@ -24,11 +24,11 @@ export const Step = ({
   return (
     <>
       <VStack gap="space-24">
-        <Heading size={goToPreviousStep ? 'medium' : 'large'} level="1">
+        <Heading size={goToPreviousStep ? "medium" : "large"} level="1">
           {heading}
         </Heading>
         {children}
-        <HStack gap={{ xs: 'space-16', sm: 'space-24' }}>
+        <HStack gap={{ xs: "space-16", sm: "space-24" }}>
           {goToPreviousStep && (
             <Button
               variant="secondary"
@@ -46,10 +46,10 @@ export const Step = ({
             icon={customNextButtonIcon ?? <ArrowRightIcon aria-hidden />}
             iconPosition="right"
           >
-            {customNextButtonLabel ?? 'Neste'}
+            {customNextButtonLabel ?? "Neste"}
           </Button>
         </HStack>
       </VStack>
     </>
-  )
-}
+  );
+};

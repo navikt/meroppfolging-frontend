@@ -1,3 +1,3 @@
-import { createFeatureToggle } from '@/mocks/data/factories/featureToggle'
+import { createFeatureToggle } from "@/mocks/data/factories/featureToggle";
 
-export const disabledFeatureToggles = [createFeatureToggle()]
+export const disabledFeatureToggles = [createFeatureToggle()];

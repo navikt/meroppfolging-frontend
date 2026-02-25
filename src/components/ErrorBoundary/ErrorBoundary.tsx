@@ -1,24 +1,24 @@
-import { Component, ErrorInfo, PropsWithChildren, ReactNode } from 'react'
-import { logger } from '@navikt/next-logger'
+import { Component, ErrorInfo, PropsWithChildren, ReactNode } from "react";
+import { logger } from "@navikt/next-logger";
 
-import ErrorFallback from './ErrorFallback'
+import ErrorFallback from "./ErrorFallback";
 
 interface State {
-  hasError: boolean
+  hasError: boolean;
 }
 
 class ErrorBoundary extends Component<PropsWithChildren<unknown>, State> {
   constructor(props: PropsWithChildren<unknown>) {
-    super(props)
-    this.state = { hasError: false }
+    super(props);
+    this.state = { hasError: false };
   }
 
   static getDerivedStateFromError(): State {
-    return { hasError: true }
+    return { hasError: true };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    logger.error({ error, errorInfo })
+    logger.error({ error, errorInfo });
   }
 
   render(): ReactNode {
@@ -29,10 +29,10 @@ class ErrorBoundary extends Component<PropsWithChildren<unknown>, State> {
             <ErrorFallback />
           </div>
         </div>
-      )
+      );
     }
-    return this.props.children
+    return this.props.children;
   }
 }
 
-export default ErrorBoundary
+export default ErrorBoundary;

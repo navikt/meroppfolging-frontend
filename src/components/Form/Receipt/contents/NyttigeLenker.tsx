@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
-import { ReactElement } from 'react'
-import { Box, Heading, List } from '@navikt/ds-react'
-import { ListItem } from '@navikt/ds-react/List'
+import { ReactElement } from "react";
+import { Box, Heading, List } from "@navikt/ds-react";
+import { ListItem } from "@navikt/ds-react/List";
 
-import { TrackedExternalLink } from '@/components/Link/TrackedExternalLink'
+import { TrackedExternalLink } from "@/components/Link/TrackedExternalLink";
 
 const NyttigeLenker = (): ReactElement => (
   <Box>
@@ -15,12 +15,18 @@ const NyttigeLenker = (): ReactElement => (
     <Box marginBlock="space-16" asChild>
       <List>
         <ListItem>
-          <TrackedExternalLink href="https://www.nav.no/syk-lenge" openingInNewTabIconInsteadOfText>
+          <TrackedExternalLink
+            href="https://www.nav.no/syk-lenge"
+            openingInNewTabIconInsteadOfText
+          >
             Når du har vært syk eller skadet lenge
           </TrackedExternalLink>
         </ListItem>
         <ListItem>
-          <TrackedExternalLink href="https://www.nav.no/aap" openingInNewTabIconInsteadOfText>
+          <TrackedExternalLink
+            href="https://www.nav.no/aap"
+            openingInNewTabIconInsteadOfText
+          >
             Arbeidsavklaringspenger (AAP)
           </TrackedExternalLink>
         </ListItem>
@@ -43,6 +49,6 @@ const NyttigeLenker = (): ReactElement => (
       </List>
     </Box>
   </Box>
-)
+);
 
-export default NyttigeLenker
+export default NyttigeLenker;

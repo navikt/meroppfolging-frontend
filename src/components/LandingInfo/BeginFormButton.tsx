@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
-import { Button } from '@navikt/ds-react'
-import Link from 'next/link'
-import { ArrowRightIcon } from '@navikt/aksel-icons'
-import { logAnalyticsEvent } from '@/libs/analytics/analytics'
-import React, { ReactElement } from 'react'
+import { Button } from "@navikt/ds-react";
+import Link from "next/link";
+import { ArrowRightIcon } from "@navikt/aksel-icons";
+import { logAnalyticsEvent } from "@/libs/analytics/analytics";
+import React, { ReactElement } from "react";
 
 export const BeginFormButton = (): ReactElement => {
   return (
@@ -16,15 +16,15 @@ export const BeginFormButton = (): ReactElement => {
         iconPosition="right"
         onClick={() => {
           logAnalyticsEvent({
-            eventName: 'skjema startet',
+            eventName: "skjema startet",
             data: {
-              skjemanavn: 'Snart slutt på sykepengene',
+              skjemanavn: "Snart slutt på sykepengene",
             },
-          })
+          });
         }}
       >
         Gå videre
       </Button>
     </div>
-  )
-}
+  );
+};
