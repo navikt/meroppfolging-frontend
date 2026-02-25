@@ -27,7 +27,6 @@ export function beskyttetApi(handler: ApiHandler): ApiHandler {
       }
 
       return await handler(req, res)
-      // eslint-disable-next-line
     } catch (error: any) {
       if (error instanceof AxiosError && error.response) {
         const responseStatus = error.response.status
