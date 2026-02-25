@@ -15,7 +15,7 @@ function NoAccessInformation(): ReactElement {
   useLogAnalyticsEvent({ eventName: "besøk" }, { info: logMessage });
   useEffect(() => {
     logger.warn(logMessage);
-  }, [logMessage]);
+  }, []);
 
   return (
     <VStack
