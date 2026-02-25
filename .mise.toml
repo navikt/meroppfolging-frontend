@@ -19,12 +19,12 @@ depends = ["install"]
 run = "pnpm run dev"
 
 [tasks.lint]
-description = "Run linter"
+description = "Run linter with fixing enabled"
 depends = ["install"]
 run = "pnpm run lint:fix"
 
 [tasks.format]
-description = "Run formatter"
+description = "Run formatter with fixing enabled"
 depends = ["install"]
 run = "pnpm run format:fix"
 
@@ -39,6 +39,6 @@ depends = ["install"]
 run = "pnpm run test"
 
 [tasks.verify]
-description = "Full CI validation (lint + format + tests + build)"
+description = "Verify code quality, run tests and build"
 depends = ["install"]
 run = "mise run check && mise run test --no-watch && mise run build"
