@@ -75,7 +75,7 @@ async function logAnalyticsEventUsingDekoratorenInstance(
 ): Promise<void> {
   if (isLocalOrDemo) {
     console.log(
-      `Analytics event: ${event}, eventProperties:\n${(JSON.stringify(eventProperties ?? {}), null, 2)}`,
+      `Analytics event: ${event}, eventProperties:\n${JSON.stringify(eventProperties ?? {}, null, 2)}`,
     );
     return;
   }
