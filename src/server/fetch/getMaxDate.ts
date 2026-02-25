@@ -1,5 +1,5 @@
 import {
-  MaxDateDTO,
+  type MaxDateDTO,
   maxDateSchema,
 } from "@/server/schemas/sykepengedagerInformasjonSchema";
 import { getServerEnv, isLocalOrDemo } from "@/constants/envs";

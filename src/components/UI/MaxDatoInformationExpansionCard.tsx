@@ -4,7 +4,7 @@ import { ExpansionCard } from "@navikt/ds-react";
 
 import { ISODateStringToLongFormat } from "@/utils/dateUtils";
 import { logAnalyticsEvent } from "@/libs/analytics/analytics";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
 interface Props {
   maxDato: string;

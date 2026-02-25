@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { type ReactElement } from "react";
 import { BodyShort, List } from "@navikt/ds-react";
 import { ListItem } from "@navikt/ds-react/List";
 

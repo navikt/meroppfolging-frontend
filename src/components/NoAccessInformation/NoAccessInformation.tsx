@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactElement, useEffect } from "react";
+import { type ReactElement, useEffect } from "react";
 import { BodyShort, Button, Heading, Stack, VStack } from "@navikt/ds-react";
 import { logger } from "@navikt/next-logger";
 import Image from "next/image";

@@ -1,6 +1,6 @@
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 import { VStack } from "@navikt/ds-react";
-import {
+import type {
   BehovForOppfolgingAnswerTypes,
   FremtidigSituasjonAnswerTypes,
 } from "@/domain/answerValues";
@@ -11,7 +11,7 @@ import OppsummeringAvDineSvar from "./contents/OppsummeringAvDineSvar";
 import HvaSkjerVidereTekst from "./contents/HvaSkjerVidereTekst";
 import NyttigeLenker from "./contents/NyttigeLenker";
 import KontaktInformasjon from "./contents/KontaktInformasjon";
-import { MaxDateDTO } from "@/server/schemas/sykepengedagerInformasjonSchema";
+import type { MaxDateDTO } from "@/server/schemas/sykepengedagerInformasjonSchema";
 
 interface Props {
   fremtidigSituasjonAnswer: FremtidigSituasjonAnswerTypes;

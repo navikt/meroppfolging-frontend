@@ -2,9 +2,9 @@ import { BodyShort, Box, Heading, Label } from "@navikt/ds-react";
 
 import {
   BEHOV_FOR_OPPFOLGING_ANSWER_TEXTS,
-  BehovForOppfolgingAnswerTypes,
+  type BehovForOppfolgingAnswerTypes,
   FREMTIDIG_SITUASJON_ANSWER_TEXTS,
-  FremtidigSituasjonAnswerTypes,
+  type FremtidigSituasjonAnswerTypes,
 } from "@/domain/answerValues";
 import { QUESTION_TEXTS } from "@/domain/formValues";
 

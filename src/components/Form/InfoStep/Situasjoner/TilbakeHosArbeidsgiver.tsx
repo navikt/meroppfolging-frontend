@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { type ReactElement } from "react";
 import { BodyLong } from "@navikt/ds-react";
 
 import { TrackedExternalLink } from "@/components/Link/TrackedExternalLink";

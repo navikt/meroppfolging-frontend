@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  Faro,
+  type Faro,
   getWebInstrumentations,
   initializeFaro,
 } from "@grafana/faro-web-sdk";

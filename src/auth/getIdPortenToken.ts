@@ -2,7 +2,7 @@ import { logger } from "@navikt/next-logger";
 import { getToken, validateIdportenToken } from "@navikt/oasis";
 import { headers } from "next/headers";
 
-export const validateIdPortenToken = async (): Promise<Boolean> => {
+export const validateIdPortenToken = async (): Promise<boolean> => {
   const headersList = await headers();
   const idportenToken = getToken(headersList);
 

@@ -1,5 +1,5 @@
 import { requestOboToken } from "@navikt/oasis";
-import { NextApiRequest } from "next";
+import type { NextApiRequest } from "next";
 
 import { getServerEnv, isLocalOrDemo } from "@/constants/envs";
 

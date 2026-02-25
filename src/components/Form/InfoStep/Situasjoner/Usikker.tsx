@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactElement } from "react";
+import React, { type ReactElement } from "react";
 import { Accordion, BodyLong } from "@navikt/ds-react";
 
 import { alleredeSoktOmPengestotteContent } from "@/components/UI/AlleredeSoktOmPengestotteExpansionCard";

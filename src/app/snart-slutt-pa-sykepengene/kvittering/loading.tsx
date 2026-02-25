@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { type ReactElement } from "react";
 import ThankYouAlert from "@/components/Form/Receipt/contents/ThankYouAlert";
 import OppsummeringAvDineSvar from "@/components/Form/Receipt/contents/OppsummeringAvDineSvar";
 import HvaSkjerVidereTekst from "@/components/Form/Receipt/contents/HvaSkjerVidereTekst";

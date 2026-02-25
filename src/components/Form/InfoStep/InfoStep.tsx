@@ -1,12 +1,12 @@
 "use client";
 
-import { ReactElement, useEffect } from "react";
+import { type ReactElement, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 
-import { FremtidigSituasjonAnswerTypes } from "@/domain/answerValues";
+import type { FremtidigSituasjonAnswerTypes } from "@/domain/answerValues";
 import { Step } from "@/components/Step/Step";
 
-import { FormInputs } from "../StepHandler";
+import type { FormInputs } from "../StepHandler";
 
 import { TilbakeHosArbeidsgiver } from "./Situasjoner/TilbakeHosArbeidsgiver";
 import { TilbakeGradert } from "./Situasjoner/TilbakeGradert";
@@ -46,12 +46,13 @@ const getSituationInfo = (
       };
     case "USIKKER":
       return { content: <Usikker />, heading: "Kan dette hjelpe?" };
-    default:
+    default: {
       const _exhaustiveCheck: never = value;
       return {
         content: <div>Unknown situation</div>,
         heading: "Unknown situation",
       };
+    }
   }
 };
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, Page, VStack } from "@navikt/ds-react";
-import React from "react";
+import type React from "react";
 import { TestScenarioSelector } from "@/components/TestscenarioSelector/TestScenarioSelector";
 import { isLocalOrDemo } from "@/constants/envs";
 

@@ -4,7 +4,7 @@ import { Button } from "@navikt/ds-react";
 import Link from "next/link";
 import { ArrowRightIcon } from "@navikt/aksel-icons";
 import { logAnalyticsEvent } from "@/libs/analytics/analytics";
-import React, { ReactElement } from "react";
+import React, { type ReactElement } from "react";
 
 export const BeginFormButton = (): ReactElement => {
   return (

@@ -5,7 +5,7 @@ import { logger as pinoLogger } from "@navikt/next-logger";
 
 import { isLocalOrDemo } from "@/constants/envs";
 
-import { AnalyticsTaxonomyEvents } from "./events";
+import type { AnalyticsTaxonomyEvents } from "./events";
 import { getAnalyticsInstance } from "@navikt/nav-dekoratoren-moduler";
 
 const analyticsLogger = getAnalyticsInstance("snart-slutt-paa-sykepengene");

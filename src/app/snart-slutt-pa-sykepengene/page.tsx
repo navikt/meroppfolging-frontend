@@ -2,9 +2,9 @@ import React from "react";
 import { senOppfolgingStatus } from "@/server/fetch/senOppfolgingStatus";
 import { Landing } from "@/components/LandingInfo/Landing";
 import { getMaxDate } from "@/server/fetch/getMaxDate";
-import { SenOppfolgingStatusDTO } from "@/server/schemas/statusSchema";
-import { MaxDateDTO } from "@/server/schemas/sykepengedagerInformasjonSchema";
-import {
+import type { SenOppfolgingStatusDTO } from "@/server/schemas/statusSchema";
+import type { MaxDateDTO } from "@/server/schemas/sykepengedagerInformasjonSchema";
+import type {
   BehovForOppfolgingAnswerTypes,
   FremtidigSituasjonAnswerTypes,
 } from "@/domain/answerValues";

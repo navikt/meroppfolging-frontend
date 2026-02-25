@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { type ReactNode } from "react";
 import Image from "next/image";
 import { BodyLong, Heading, Stack, VStack } from "@navikt/ds-react";
 

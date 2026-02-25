@@ -2,7 +2,7 @@ import "./globals.css";
 import { configureLogger } from "@navikt/next-logger";
 import type { Metadata } from "next";
 import { BASE_PATH } from "@/constants/appConstants";
-import React from "react";
+import type React from "react";
 import { Theme } from "@navikt/ds-react";
 import { fetchDecoratorReact } from "@navikt/nav-dekoratoren-moduler/ssr";
 import Script from "next/script";

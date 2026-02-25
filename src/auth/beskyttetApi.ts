@@ -1,5 +1,5 @@
 import { logger } from "@navikt/next-logger";
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 import { validateIdportenToken } from "@navikt/oasis";
 import { AxiosError } from "axios";
 

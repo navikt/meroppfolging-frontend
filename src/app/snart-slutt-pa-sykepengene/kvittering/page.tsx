@@ -1,7 +1,7 @@
 import React from "react";
 import { getMaxDate } from "@/server/fetch/getMaxDate";
 import Receipt from "@/components/Form/Receipt/Receipt";
-import {
+import type {
   BehovForOppfolgingAnswerTypes,
   FremtidigSituasjonAnswerTypes,
 } from "@/domain/answerValues";

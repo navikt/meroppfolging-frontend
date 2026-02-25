@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactElement, useEffect } from "react";
+import { type ReactElement, useEffect } from "react";
 import { BodyLong } from "@navikt/ds-react";
 import { PaperplaneIcon } from "@navikt/aksel-icons";
 

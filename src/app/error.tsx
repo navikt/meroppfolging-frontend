@@ -6,7 +6,7 @@ import Image from "next/image";
 import pageErrorDad from "@/components/ErrorBoundary/Images/error-page-dad.svg";
 import { BodyLong, Button, Heading, Stack, VStack } from "@navikt/ds-react";
 
-export default function Error({
+export default function ErrorPage({
   error,
   reset,
 }: {

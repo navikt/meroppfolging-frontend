@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 import { Box, Heading, List } from "@navikt/ds-react";
 import { ListItem } from "@navikt/ds-react/List";
 

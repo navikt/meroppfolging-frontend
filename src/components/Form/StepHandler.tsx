@@ -1,13 +1,13 @@
 "use client";
 
-import React, { ReactElement, useState } from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import React, { type ReactElement, useState } from "react";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { FormProgress } from "@navikt/ds-react";
-import {
+import type {
   BehovForOppfolgingAnswerTypes,
   FremtidigSituasjonAnswerTypes,
 } from "@/domain/answerValues";
-import { SenOppfolgingStatusDTO } from "@/server/schemas/statusSchema";
+import type { SenOppfolgingStatusDTO } from "@/server/schemas/statusSchema";
 import { createFormRequest } from "@/utils/requestUtils";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import NoAccessInformation from "@/components/NoAccessInformation/NoAccessInformation";

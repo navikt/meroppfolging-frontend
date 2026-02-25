@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { type ReactElement } from "react";
 import { BodyLong, BodyShort, GuidePanel, Heading } from "@navikt/ds-react";
 
 import AlleredeSoktOmPengestotteExpansionCard from "@/components/UI/AlleredeSoktOmPengestotteExpansionCard";

@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { type ReactElement } from "react";
 import { BodyLong, Heading, Skeleton, VStack } from "@navikt/ds-react";
 import { BeginFormButton } from "@/components/LandingInfo/BeginFormButton";
 import MaxDateInfo from "@/components/LandingInfo/MaxDateInfo";

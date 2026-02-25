@@ -2,12 +2,12 @@
 
 import { Radio, RadioGroup } from "@navikt/ds-react";
 import { useController } from "react-hook-form";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
 import {
   ANSWER_TEXTS,
   QUESTION_TEXTS,
-  QuestionTypes,
+  type QuestionTypes,
 } from "@/domain/formValues";
 import { logCustomAnalyticsEvent } from "@/libs/analytics/analytics";
 

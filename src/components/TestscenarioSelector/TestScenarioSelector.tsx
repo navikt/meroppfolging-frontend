@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Modal } from "@navikt/ds-react";
-import React, { ReactElement, useState } from "react";
+import React, { type ReactElement, useState } from "react";
 import { SunIcon } from "@navikt/aksel-icons";
 
 import styles from "./testscenarioselector.module.css";

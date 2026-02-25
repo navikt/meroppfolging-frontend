@@ -1,5 +1,5 @@
 import {
-  SenOppfolgingStatusDTO,
+  type SenOppfolgingStatusDTO,
   SenOppfolgingStatusSchema,
 } from "@/server/schemas/statusSchema";
 import { getServerEnv, isLocalOrDemo } from "@/constants/envs";

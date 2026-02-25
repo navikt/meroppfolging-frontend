@@ -1,4 +1,4 @@
-import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
+import type { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { logger } from "@navikt/next-logger";
 import { getToken, validateIdportenToken } from "@navikt/oasis";
 

@@ -1,11 +1,11 @@
 import { BodyLong, Heading, VStack } from "@navikt/ds-react";
-import React, { ReactElement } from "react";
+import React, { type ReactElement } from "react";
 
 import NoAccessInformation from "@/components/NoAccessInformation/NoAccessInformation";
 import MaxDateInfo from "@/components/LandingInfo/MaxDateInfo";
-import { SenOppfolgingStatusDTO } from "@/server/schemas/statusSchema";
+import type { SenOppfolgingStatusDTO } from "@/server/schemas/statusSchema";
 import { BeginFormButton } from "@/components/LandingInfo/BeginFormButton";
-import { MaxDateDTO } from "@/server/schemas/sykepengedagerInformasjonSchema";
+import type { MaxDateDTO } from "@/server/schemas/sykepengedagerInformasjonSchema";
 
 interface Props {
   senOppfolgingStatus: SenOppfolgingStatusDTO;

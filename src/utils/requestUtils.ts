@@ -1,10 +1,10 @@
-import { FormInputs } from "@/components/Form/StepHandler";
+import type { FormInputs } from "@/components/Form/StepHandler";
 import {
   ANSWER_TEXTS,
   QUESTION_TEXTS,
-  QuestionTypes,
+  type QuestionTypes,
 } from "@/domain/formValues";
-import { FormRequest } from "@/server/schemas/formRequestSchema";
+import type { FormRequest } from "@/server/schemas/formRequestSchema";
 
 type FormRecord<
   T extends QuestionTypes,

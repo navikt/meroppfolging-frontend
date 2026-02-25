@@ -1,7 +1,7 @@
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 import { BodyLong, Box, Heading } from "@navikt/ds-react";
 
-import { BehovForOppfolgingAnswerTypes } from "@/domain/answerValues";
+import type { BehovForOppfolgingAnswerTypes } from "@/domain/answerValues";
 import { TrackedExternalLink } from "@/components/Link/TrackedExternalLink";
 import { CONTACT_NAV_URL } from "@/constants/appConstants";
 import { NavPhoneNumber } from "@/components/UI/NavPhoneNumber";

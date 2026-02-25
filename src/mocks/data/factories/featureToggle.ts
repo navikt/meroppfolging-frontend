@@ -1,4 +1,4 @@
-import { IToggle } from "@unleash/nextjs";
+import type { IToggle } from "@unleash/nextjs";
 
 export function createFeatureToggle(overrides?: Partial<IToggle>): IToggle {
   return {
