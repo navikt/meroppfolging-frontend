@@ -37,7 +37,7 @@
     "csp-header": "^6.3.1",
     "date-fns": "^4.1.0",
     "html-react-parser": "^5.2.11",
-    "nanoid": "^5.1.6",
+    "nanoid": "^5.1.7",
     "next": "^15.5.12",
     "open": "^10.2.0",
     "pino": "^9.13.0",
