@@ -30,8 +30,8 @@ importers:
         specifier: ^8.8.0
         version: 8.8.0
       '@navikt/nav-dekoratoren-moduler':
-        specifier: ^3.6.3
-        version: 3.6.3(csp-header@6.3.1)(html-react-parser@5.2.17(@types/react@18.3.13)(react@18.3.1))(jsdom@26.1.0)(react@18.3.1)
+        specifier: ^3.7.0
+        version: 3.7.0(html-react-parser@5.2.17(@types/react@18.3.13)(react@18.3.1))(react@18.3.1)
       '@navikt/next-logger':
         specifier: ^4.4.5
         version: 4.5.1(next@15.5.14(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(pino@9.14.0)
@@ -827,13 +827,11 @@ packages:
   '@navikt/ds-tokens@8.8.0':
     resolution: {integrity: sha512-xrX+4l4EOOSdLXy4NdIft87052I95m3tLDNPjTuyOBMyZZdEivLskc8KbemLhTGJJZ2TfiDe6jpkYwP0iFFLGA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/8.8.0/1b64643ec409921069ede0fc5eab1850afa23393}
 
-  '@navikt/nav-dekoratoren-moduler@3.6.3':
-    resolution: {integrity: sha512-NDPgv2G0qlrfwurHAjeXo+0hXKCpWn0RxyCgRYmxLPeDJKEL0GC3EAMsvAKM+0eGQmeOkZFUb9DOoNowcCCDgg==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/3.6.3/fe2fc4979ca3fbd5e38c2f25d985ae58e867a23f}
+  '@navikt/nav-dekoratoren-moduler@3.7.0':
+    resolution: {integrity: sha512-rjfxpj1Jp/x3P81ObKXLVlLoeO1Q0IJKiSHLVDGaLHKl5e6als5ulbF/+DkSeOrAUEVvVaFPOtEPlurHgAkUrA==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/3.7.0/b952fa030ae739b3bddd270db628fa98c8f7554c}
     engines: {node: 24.x}
     peerDependencies:
-      csp-header: '>=5.x'
       html-react-parser: '>=5.x'
-      jsdom: '>=16.x'
       react: '>=17.x'
 
   '@navikt/next-logger@4.5.1':
@@ -3771,12 +3769,11 @@ snapshots:
 
   '@navikt/ds-tokens@8.8.0': {}
 
-  '@navikt/nav-dekoratoren-moduler@3.6.3(csp-header@6.3.1)(html-react-parser@5.2.17(@types/react@18.3.13)(react@18.3.1))(jsdom@26.1.0)(react@18.3.1)':
+  '@navikt/nav-dekoratoren-moduler@3.7.0(html-react-parser@5.2.17(@types/react@18.3.13)(react@18.3.1))(react@18.3.1)':
     dependencies:
       csp-header: 6.3.1
       html-react-parser: 5.2.17(@types/react@18.3.13)(react@18.3.1)
       js-cookie: 3.0.5
-      jsdom: 26.1.0
       react: 18.3.1
 
   '@navikt/next-logger@4.5.1(next@15.5.14(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(pino@9.14.0)':
