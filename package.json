@@ -61,7 +61,7 @@
     "@types/react-dom": "18.3.1",
     "@vitejs/plugin-react": "^4.7.0",
     "autoprefixer": "^10.4.27",
-    "dotenv": "^16.6.0",
+    "dotenv": "^17.4.0",
     "jsdom": "26.1.0",
     "lefthook": "^2.1.4",
     "next-router-mock": "^1.0.5",
