@@ -125,7 +125,7 @@ importers:
         version: 6.0.1(vite@8.0.10(@types/node@22.15.30)(esbuild@0.27.3)(jiti@1.21.7))
       autoprefixer:
         specifier: ^10.5.0
-        version: 10.5.0(postcss@8.5.10)
+        version: 10.5.0(postcss@8.5.12)
       dotenv:
         specifier: ^16.6.0
         version: 16.6.1
@@ -146,7 +146,7 @@ importers:
         version: 13.1.3
       postcss:
         specifier: ^8.5.10
-        version: 8.5.10
+        version: 8.5.12
       stylelint:
         specifier: ^16.26.1
         version: 16.26.1(typescript@5.9.3)
@@ -793,9 +793,6 @@ packages:
       '@types/react': ^17.0.30 || ^18 || ^19
       react: ^17 || ^18 || ^19
       react-dom: ^17 || ^18 || ^19
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
 
   '@navikt/ds-tailwind@8.9.1':
     resolution: {integrity: sha512-Ye3j0uK/StBVfGZmafwyswh4FAbfOC+jkEjRj2e3/JIH1yxGJGJ9wvsWooTw5WUqnEUGALFGcaisZLbc8EOzNA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tailwind/8.9.1/f8b730a978199467fa2718f9c2bd768a1622bbb7}
@@ -809,9 +806,6 @@ packages:
     peerDependencies:
       html-react-parser: '>=5.x'
       react: '>=17.x'
-    peerDependenciesMeta:
-      react:
-        optional: true
 
   '@navikt/next-logger@4.5.1':
     resolution: {integrity: sha512-qfiBT/kPK92sCVKGHlUeD2N9vDvJzEFpjn2qRVZiatQivD9IE+qRZwsdCpuvdU1Hylsc/fcF9/i03YQzXBf0iQ==, tarball: https://npm.pkg.github.com/download/@navikt/next-logger/4.5.1/e8c32873a7931396b0871c77b94673cbfb12d376}
@@ -2528,8 +2522,8 @@ packages:
     resolution: {integrity: sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ==}
     engines: {node: ^10 || ^12 || >=14}
 
-  postcss@8.5.10:
-    resolution: {integrity: sha512-pMMHxBOZKFU6HgAZ4eyGnwXF/EvPGGqUr0MnZ5+99485wwW41kW91A4LOGxSHhgugZmSChL5AlElNdwlNgcnLQ==}
+  postcss@8.5.12:
+    resolution: {integrity: sha512-W62t/Se6rA0Az3DfCL0AqJwXuKwBeYg6nOaIgzP+xZ7N5BFCI7DYi1qs6ygUYT6rvfi6t9k65UMLJC+PHZpDAA==}
     engines: {node: ^10 || ^12 || >=14}
 
   precond@0.2.3:
@@ -3708,12 +3702,11 @@ snapshots:
       '@floating-ui/react-dom': 2.1.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@navikt/aksel-icons': 8.9.1
       '@navikt/ds-tokens': 8.9.1
+      '@types/react': 18.3.13
       date-fns: 4.1.0
       react: 18.3.1
       react-day-picker: 9.7.0(react@18.3.1)
       react-dom: 18.3.1(react@18.3.1)
-    optionalDependencies:
-      '@types/react': 18.3.13
 
   '@navikt/ds-tailwind@8.9.1': {}
 
@@ -3724,7 +3717,6 @@ snapshots:
       csp-header: 6.3.1
       html-react-parser: 5.2.17(@types/react@18.3.13)(react@18.3.1)
       js-cookie: 3.0.5
-    optionalDependencies:
       react: 18.3.1
 
   '@navikt/next-logger@4.5.1(next@15.5.15(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(pino@9.14.0)':
@@ -4216,13 +4208,13 @@ snapshots:
 
   atomic-sleep@1.0.0: {}
 
-  autoprefixer@10.5.0(postcss@8.5.10):
+  autoprefixer@10.5.0(postcss@8.5.12):
     dependencies:
       browserslist: 4.28.2
       caniuse-lite: 1.0.30001788
       fraction.js: 5.3.4
       picocolors: 1.1.1
-      postcss: 8.5.10
+      postcss: 8.5.12
       postcss-value-parser: 4.2.0
 
   axe-core@4.11.1: {}
@@ -5251,35 +5243,35 @@ snapshots:
 
   pirates@4.0.7: {}
 
-  postcss-import@15.1.0(postcss@8.5.10):
+  postcss-import@15.1.0(postcss@8.5.12):
     dependencies:
-      postcss: 8.5.10
+      postcss: 8.5.12
       postcss-value-parser: 4.2.0
       read-cache: 1.0.0
       resolve: 1.22.11
 
-  postcss-js@4.1.0(postcss@8.5.10):
+  postcss-js@4.1.0(postcss@8.5.12):
     dependencies:
       camelcase-css: 2.0.1
-      postcss: 8.5.10
+      postcss: 8.5.12
 
-  postcss-load-config@6.0.1(jiti@1.21.7)(postcss@8.5.10):
+  postcss-load-config@6.0.1(jiti@1.21.7)(postcss@8.5.12):
     dependencies:
       lilconfig: 3.1.3
     optionalDependencies:
       jiti: 1.21.7
-      postcss: 8.5.10
+      postcss: 8.5.12
 
-  postcss-nested@6.2.0(postcss@8.5.10):
+  postcss-nested@6.2.0(postcss@8.5.12):
     dependencies:
-      postcss: 8.5.10
+      postcss: 8.5.12
       postcss-selector-parser: 6.1.2
 
   postcss-resolve-nested-selector@0.1.6: {}
 
-  postcss-safe-parser@7.0.1(postcss@8.5.10):
+  postcss-safe-parser@7.0.1(postcss@8.5.12):
     dependencies:
-      postcss: 8.5.10
+      postcss: 8.5.12
 
   postcss-selector-parser@6.1.2:
     dependencies:
@@ -5299,7 +5291,7 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  postcss@8.5.10:
+  postcss@8.5.12:
     dependencies:
       nanoid: 3.3.11
       picocolors: 1.1.1
@@ -5646,9 +5638,9 @@ snapshots:
       micromatch: 4.0.8
       normalize-path: 3.0.0
       picocolors: 1.1.1
-      postcss: 8.5.10
+      postcss: 8.5.12
       postcss-resolve-nested-selector: 0.1.6
-      postcss-safe-parser: 7.0.1(postcss@8.5.10)
+      postcss-safe-parser: 7.0.1(postcss@8.5.12)
       postcss-selector-parser: 7.1.1
       postcss-value-parser: 4.2.0
       resolve-from: 5.0.0
@@ -5718,11 +5710,11 @@ snapshots:
       normalize-path: 3.0.0
       object-hash: 3.0.0
       picocolors: 1.1.1
-      postcss: 8.5.10
-      postcss-import: 15.1.0(postcss@8.5.10)
-      postcss-js: 4.1.0(postcss@8.5.10)
-      postcss-load-config: 6.0.1(jiti@1.21.7)(postcss@8.5.10)
-      postcss-nested: 6.2.0(postcss@8.5.10)
+      postcss: 8.5.12
+      postcss-import: 15.1.0(postcss@8.5.12)
+      postcss-js: 4.1.0(postcss@8.5.12)
+      postcss-load-config: 6.0.1(jiti@1.21.7)(postcss@8.5.12)
+      postcss-nested: 6.2.0(postcss@8.5.12)
       postcss-selector-parser: 6.1.2
       resolve: 1.22.11
       sucrase: 3.35.1
@@ -5853,7 +5845,7 @@ snapshots:
     dependencies:
       lightningcss: 1.32.0
       picomatch: 4.0.4
-      postcss: 8.5.10
+      postcss: 8.5.12
       rolldown: 1.0.0-rc.17
       tinyglobby: 0.2.16
     optionalDependencies:
