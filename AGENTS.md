@@ -14,10 +14,10 @@ Start with one primary agent. If a task spans multiple domains, either switch pr
 ## Commands
 
 ```sh
-npm run dev
-npm run lint
-npm test
-npx tsc --noEmit
+pnpm run dev
+pnpm run lint
+pnpm test
+pnpm exec tsc --noEmit
 ```
 
 ## Defaults
