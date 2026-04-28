@@ -30,8 +30,8 @@ importers:
         specifier: ^8.10.3
         version: 8.10.3
       '@navikt/nav-dekoratoren-moduler':
-        specifier: ^3.7.1
-        version: 3.7.1(html-react-parser@6.0.1(@types/react@18.3.13)(react@18.3.1))(react@18.3.1)
+        specifier: ^4.0.0
+        version: 4.0.0(html-react-parser@6.0.1(@types/react@18.3.13)(react@18.3.1))(react@18.3.1)
       '@navikt/next-logger':
         specifier: ^5.0.0
         version: 5.0.0(next@15.5.15(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(pino@10.3.1)
@@ -817,6 +817,10 @@ packages:
     resolution: {integrity: sha512-K682XglfEUMSmEoTAr9WClyolXzHYkkIAnKPv9kyIZ5knD15mVm0Gb01HBTvgSrCta6H2EEbWahsazU1TA/8Zw==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-stylelint/8.10.3/795d84ced02658bc4a7fcc72844c4aa63b6b7d8c}
     engines: {node: '>=18.12.0'}
 
+  '@navikt/analytics-types@0.0.9':
+    resolution: {integrity: sha512-bopCvqEogyFcmrJiBxK/Mr25d6yPKF7GR36MGrJqiHCPJYf1rDu6lK4cpooTG4Q//D/1xTkHRom8ZH5BI6dTew==, tarball: https://npm.pkg.github.com/download/@navikt/analytics-types/0.0.9/5919241a6dbb782eb101fff3234ce5c36d16e942}
+    engines: {node: '>=20.0.0', npm: '>=9.0.0'}
+
   '@navikt/ds-css@8.10.3':
     resolution: {integrity: sha512-y/0tArSJf5vyqYdYu7gzfcQmAy+JrX7lPxKl2XiHWr0ae/STNyq7owrK2r6CfVAKSo57SOuNfll58T2SftHuvg==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/8.10.3/2c6d65719d3a85ff0f59aa178c3f8c77c78f9bca}
 
@@ -836,15 +840,12 @@ packages:
   '@navikt/ds-tokens@8.10.3':
     resolution: {integrity: sha512-b35JJxZS3KbxQfKCHAK/AwAsCQsUr8CD+CuKFbEfJtZ02kjejt+n+RbUGM6ej30Jle7Myto7gU0r+kpCrS+NJA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/8.10.3/1c8cb263d04f4002c5a1f40b8c5d68366b4613b9}
 
-  '@navikt/nav-dekoratoren-moduler@3.7.1':
-    resolution: {integrity: sha512-MQLxR4uoADCd6i0hFnWHN/XLPevEfxkBK9yEgbtcY0v2gsj69nALH/7DvTKqSxqRovxOHibVa7mZKZEBAMRBvg==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/3.7.1/09490a131cedd7779e35d413d20c36bd01ef57a0}
+  '@navikt/nav-dekoratoren-moduler@4.0.0':
+    resolution: {integrity: sha512-jsZmmEnXT63gwy0Or6skvdrxVG+acFmK55SURFah9LuPn8KAmrQa3EHhUhRZNsdt+tP5UgsnPA8HVoyurwLPXA==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/4.0.0/65595610e69365df6008576d13e7f24511715683}
     engines: {node: 24.x}
     peerDependencies:
       html-react-parser: '>=5.x'
       react: '>=17.x'
-    peerDependenciesMeta:
-      react:
-        optional: true
 
   '@navikt/next-logger@5.0.0':
     resolution: {integrity: sha512-VQ2VM/k5uDYnb7BYG3ITJZgMZq8B3TECOnhdvNOQeltJyy8+KQzGqLsrYajKPWuUiPuLjYFk0HbU2W22onB9mQ==, tarball: https://npm.pkg.github.com/download/@navikt/next-logger/5.0.0/510dccac519d1227515e4c8a8268570d90305b3e}
@@ -3761,6 +3762,8 @@ snapshots:
 
   '@navikt/aksel-stylelint@8.10.3': {}
 
+  '@navikt/analytics-types@0.0.9': {}
+
   '@navikt/ds-css@8.10.3': {}
 
   '@navikt/ds-react@8.10.3(@types/react@18.3.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
@@ -3780,12 +3783,12 @@ snapshots:
 
   '@navikt/ds-tokens@8.10.3': {}
 
-  '@navikt/nav-dekoratoren-moduler@3.7.1(html-react-parser@6.0.1(@types/react@18.3.13)(react@18.3.1))(react@18.3.1)':
+  '@navikt/nav-dekoratoren-moduler@4.0.0(html-react-parser@6.0.1(@types/react@18.3.13)(react@18.3.1))(react@18.3.1)':
     dependencies:
+      '@navikt/analytics-types': 0.0.9
       csp-header: 6.3.1
       html-react-parser: 6.0.1(@types/react@18.3.13)(react@18.3.1)
       js-cookie: 3.0.5
-    optionalDependencies:
       react: 18.3.1
 
   '@navikt/next-logger@5.0.0(next@15.5.15(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(pino@10.3.1)':

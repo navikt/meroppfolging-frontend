@@ -6,7 +6,14 @@ import { useEffect, useRef } from "react";
 import { isLocalOrDemo } from "@/constants/envs";
 import type { AnalyticsTaxonomyEvents } from "./events";
 
-const analyticsLogger = getAnalyticsInstance("snart-slutt-paa-sykepengene");
+type AnalyticsLogger = (
+  eventName: string,
+  eventData?: Record<string, unknown>,
+) => Promise<unknown>;
+
+const analyticsLogger = getAnalyticsInstance(
+  "snart-slutt-paa-sykepengene",
+) as AnalyticsLogger;
 
 const infoProperties = { team: "eSyfo", app: "meroppfolging-frontend" };
 
