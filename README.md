@@ -16,7 +16,7 @@ Meroppfølging frontendapp er en Next.js-app for personer som er sykmeldt og næ
 
 🎬 [Demo](https://demo.ekstern.dev.nav.no/syk/meroppfolging/snart-slutt-pa-sykepengene)
 
-Appen ligger bak base path `/syk/meroppfolging`. Eldre lenker under `/syk/info/snart-slutt-pa-sykepengene` videresendes til dagens URL i både dev og prod.
+Appen ligger bak **basePath**[^basepath]. Eldre lenker under `/syk/info/snart-slutt-pa-sykepengene` videresendes til dagens URL i både dev og prod.
 
 ## Formålet med appen
 
