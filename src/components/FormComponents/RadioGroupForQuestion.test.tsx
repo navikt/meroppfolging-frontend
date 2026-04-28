@@ -12,7 +12,9 @@ describe("RadioGroupForQuestion", () => {
     );
 
     expect(
-      screen.getByRole("group", { name: /Ønsker du å be om oppfølging\?/ }),
+      screen.getByRole("radiogroup", {
+        name: /Ønsker du å be om oppfølging\?/,
+      }),
     ).toBeInTheDocument();
     expect(screen.getByText("Test description")).toBeInTheDocument();
     expect(
