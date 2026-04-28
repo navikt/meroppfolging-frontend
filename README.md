@@ -1,38 +1,76 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Meroppfølging frontendapp
 
-## Getting Started
+[![CI](https://github.com/navikt/meroppfolging-frontend/actions/workflows/build-and-deploy.yaml/badge.svg)](https://github.com/navikt/meroppfolging-frontend/actions/workflows/build-and-deploy.yaml)
+[![Next.js](https://img.shields.io/badge/Next.js-000000?logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Biome](https://img.shields.io/badge/Biome-lint%20%26%20format-60A5FA?logo=biome)](https://biomejs.dev/)
+[![Vitest](https://img.shields.io/badge/Vitest-test-6E9F18?logo=vitest&logoColor=white)](https://vitest.dev/)
 
-First, run the development server:
+Meroppfølging frontendapp er en Next.js-app for personer som er sykmeldt og nærmer seg slutten på sykepengeperioden. Appen viser maksdato for sykepenger, samler inn svar om situasjonen videre og lar brukeren be om oppfølging fra Nav.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+## Miljøer
+
+🚀 [Produksjon](https://www.nav.no/syk/meroppfolging/snart-slutt-pa-sykepengene)
+
+🛠️ [Utvikling](https://www.ekstern.dev.nav.no/syk/meroppfolging/snart-slutt-pa-sykepengene)
+
+🎬 [Demo](https://demo.ekstern.dev.nav.no/syk/meroppfolging/snart-slutt-pa-sykepengene)
+
+Appen ligger bak **basePath**[^basepath]. Eldre lenker under `/syk/info/snart-slutt-pa-sykepengene` videresendes til dagens URL i både dev og prod.
+
+## Formålet med appen
+
+Appen er laget for privatpersoner som har fått tilgang til skjemaet fordi sykepengene snart tar slutt.
+
+Brukeren kan:
+
+- se informasjon om når sykepengene tar slutt
+- svare på spørsmål om situasjonen når sykepengene er brukt opp
+- be om oppfølging fra en veileder
+- se kvittering hvis svar allerede er sendt inn
+
+Hvis brukeren ikke har tilgang, viser appen en egen informasjonsside i stedet for skjemaet.
+
+## Arkitektur
+
+```mermaid
+flowchart LR
+    U[Bruker] --> F[meroppfolging-frontend]
+    F --> I[IdPorten sidecar + OASIS]
+    F --> D[NAV-dekoratøren]
+    F -->|TokenX OBO| M[meroppfolging-backend]
+    F -->|TokenX OBO| S[sykepengedager-informasjon]
+    F --> L["@navikt/next-logger"]
+    F --> T[Grafana Faro]
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Backend-referanser
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### [meroppfolging-backend](https://github.com/navikt/meroppfolging-backend)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Lagrer og henter brukerens svar i flyten for sen oppfølging.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- **GET** `/api/v2/senoppfolging/status`
+- **POST** `/api/v2/senoppfolging/submitform`
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### [sykepengedager-informasjon](https://github.com/navikt/sykepengedager-informasjon)
 
-## Learn More
+Leverer maksdato for sykepenger som vises i landingssiden og kvitteringen.
 
-To learn more about Next.js, take a look at the following resources:
+- **GET** `/api/v1/sykepenger/maxdate` (`?isoformat=true` legges til i appkoden)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`flexjar-backend` er satt opp i NAIS-manifestet med `accessPolicy` og miljøvariabler, men brukes ikke i applikasjonskoden per i dag.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Utvikling (kjøre lokalt)
 
-## Deploy on Vercel
+For å komme i gang med å bygge og kjøre appen, se vår [Wiki for frontendapper](https://navikt.github.io/team-esyfo/utvikling/frontend/).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**basePath**[^basepath] `/syk/meroppfolging`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## For Nav-ansatte
+
+Interne henvendelser kan sendes via Slack i kanalen [#esyfo](https://nav-it.slack.com/archives/C012X796B4L).
+
+---
+
+[^basepath]: `basePath`-verdien settes i Next.js-konfigurasjonen i `next.config.js` og angir URL-prefikset som hele appen lever under.
