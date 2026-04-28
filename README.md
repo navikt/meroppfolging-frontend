@@ -40,7 +40,7 @@ flowchart LR
     F --> D[NAV-dekoratøren]
     F -->|TokenX OBO| M[meroppfolging-backend]
     F -->|TokenX OBO| S[sykepengedager-informasjon]
-    F --> L[@navikt/next-logger]
+    F --> L["@navikt/next-logger"]
     F --> T[Grafana Faro]
 ```
 
