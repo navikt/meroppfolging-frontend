@@ -1,10 +1,13 @@
-/** @type {import('next').NextConfig} */
+import type { NextConfig } from "next";
 
-const nextConfig = {
+export const basePath = process.env.NEXT_PUBLIC_BASE_PATH;
+const assetPrefix = process.env.NEXT_PUBLIC_ASSET_PREFIX;
+
+const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: "standalone",
-  basePath: process.env.NEXT_PUBLIC_BASE_PATH,
-  assetPrefix: process.env.NEXT_PUBLIC_ASSET_PREFIX,
+  ...(basePath !== undefined ? { basePath } : {}),
+  ...(assetPrefix !== undefined ? { assetPrefix } : {}),
   productionBrowserSourceMaps: true,
   experimental: {
     optimizePackageImports: ["@navikt/aksel-icons", "@navikt/ds-react"],
@@ -69,4 +72,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
