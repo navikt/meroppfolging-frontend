@@ -11,6 +11,7 @@ import {
 } from "@navikt/ds-react";
 import { ListItem } from "@navikt/ds-react/List";
 import { PageBlock } from "@navikt/ds-react/Page";
+import NextLink from "next/link";
 
 function NotFound() {
   return (
@@ -29,7 +30,7 @@ function NotFound() {
               <List>
                 <ListItem>Bruk gjerne søket eller menyen</ListItem>
                 <ListItem>
-                  <Link href="/">Gå til forsiden</Link>
+                  <NextLink href="/">Gå til forsiden</NextLink>
                 </ListItem>
               </List>
             </div>
