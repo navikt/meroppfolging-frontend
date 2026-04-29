@@ -37,7 +37,7 @@
     "date-fns": "^4.1.0",
     "html-react-parser": "^6.0.1",
     "nanoid": "^5.1.9",
-    "next": "^15.5.15",
+    "next": "^16.2.4",
     "open": "^11.0.0",
     "pino": "^10.3.1",
     "prettier": "^3.8.3",
