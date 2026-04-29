@@ -30,7 +30,9 @@ function NotFound() {
               <List>
                 <ListItem>Bruk gjerne søket eller menyen</ListItem>
                 <ListItem>
-                  <NextLink href="/">Gå til forsiden</NextLink>
+                  <NextLink href="/" className="aksel-link">
+                    Gå til forsiden
+                  </NextLink>
                 </ListItem>
               </List>
             </div>
