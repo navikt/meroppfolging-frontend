@@ -1,13 +1,12 @@
 import type { NextConfig } from "next";
 
 export const basePath = process.env.NEXT_PUBLIC_BASE_PATH;
-const assetPrefix = process.env.NEXT_PUBLIC_ASSET_PREFIX;
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: "standalone",
-  ...(basePath !== undefined ? { basePath } : {}),
-  ...(assetPrefix !== undefined ? { assetPrefix } : {}),
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH as string,
+  assetPrefix: process.env.NEXT_PUBLIC_ASSET_PREFIX || "",
   productionBrowserSourceMaps: true,
   experimental: {
     optimizePackageImports: ["@navikt/aksel-icons", "@navikt/ds-react"],
