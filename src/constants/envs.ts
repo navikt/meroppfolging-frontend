@@ -70,7 +70,7 @@ export function getServerEnv(): ServerEnv & PublicEnv {
     if (e instanceof ZodError) {
       throw new Error(
         `The following envs are missing: ${
-          e.errors
+          e.issues
             .filter((it) => it.message === "Required")
             .map((it) => it.path.join("."))
             .join(", ") ||
