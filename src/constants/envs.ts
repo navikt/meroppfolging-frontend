@@ -54,6 +54,18 @@ const getMissingEnvMessage = (error: ZodError, rawConfig: unknown): string => {
   );
 };
 
+const getInvalidEnvMessage = (error: ZodError, rawConfig: unknown): string => {
+  const invalidEnvPaths = [
+    ...new Set(
+      error.issues
+        .filter((issue) => getValueAtPath(rawConfig, issue.path) !== undefined)
+        .map((issue) => issue.path.join(".")),
+    ),
+  ];
+
+  return invalidEnvPaths.join(", ");
+};
+
 const parseEnv = <TSchema extends z.ZodType>(
   schema: TSchema,
   rawConfig: unknown,
@@ -62,8 +74,19 @@ const parseEnv = <TSchema extends z.ZodType>(
     return schema.parse(rawConfig);
   } catch (e) {
     if (e instanceof ZodError) {
+      const missingEnvMessage = getMissingEnvMessage(e, rawConfig);
+      const invalidEnvMessage = getInvalidEnvMessage(e, rawConfig);
+      const errorMessages = [
+        missingEnvMessage !==
+        "None are missing, but zod is not happy. Look at cause"
+          ? `Missing envs: ${missingEnvMessage}`
+          : undefined,
+        invalidEnvMessage ? `Invalid envs: ${invalidEnvMessage}` : undefined,
+      ].filter(Boolean);
+
       throw new Error(
-        `The following envs are missing: ${getMissingEnvMessage(e, rawConfig)}`,
+        errorMessages.join(". ") ||
+          "Environment validation failed. Look at cause for details",
         { cause: e },
       );
     }
@@ -72,7 +95,7 @@ const parseEnv = <TSchema extends z.ZodType>(
   }
 };
 
-const getRawPublicConfig = (): Partial<unknown> =>
+const getRawPublicConfig = (): Record<keyof PublicEnv, string | undefined> =>
   ({
     NEXT_PUBLIC_RUNTIME_ENVIRONMENT:
       process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT,
@@ -88,7 +111,7 @@ const getRawPublicConfig = (): Partial<unknown> =>
  */
 export const publicEnv = parseEnv(publicEnvSchema, getRawPublicConfig());
 
-const getRawServerConfig = (): Partial<unknown> =>
+const getRawServerConfig = (): Record<keyof ServerEnv, string | undefined> =>
   ({
     // Provided by nais-*.yml
     SYKEPENGEDAGER_INFORMASJON_MAX_DATE_API_URL:
