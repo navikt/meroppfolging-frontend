@@ -16,6 +16,7 @@ function WriteToUsLink({ linkText }: Props): React.ReactElement {
   return (
     <Link
       target="_blank"
+      rel="noopener noreferrer"
       href={CONTACT_NAV_URL}
       onClick={() =>
         logAnalyticsEvent(
