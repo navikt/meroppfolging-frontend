@@ -71,7 +71,12 @@ export function getServerEnv(): ServerEnv & PublicEnv {
       throw new Error(
         `The following envs are missing: ${
           e.issues
-            .filter((it) => it.message === "Required")
+            .filter(
+              (it) =>
+                it.code === "invalid_type" &&
+                it.expected === "string" &&
+                it.input === undefined,
+            )
             .map((it) => it.path.join("."))
             .join(", ") ||
           "None are missing, but zod is not happy. Look at cause"
