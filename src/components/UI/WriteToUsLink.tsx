@@ -1,7 +1,6 @@
 "use client";
 
 import { Link } from "@navikt/ds-react";
-import NextLink from "next/link";
 import { CONTACT_NAV_URL } from "@/constants/appConstants";
 import { logAnalyticsEvent } from "@/libs/analytics/analytics";
 
@@ -16,7 +15,6 @@ function WriteToUsLink({ linkText }: Props): React.ReactElement {
 
   return (
     <Link
-      as={NextLink}
       target="_blank"
       href={CONTACT_NAV_URL}
       onClick={() =>
