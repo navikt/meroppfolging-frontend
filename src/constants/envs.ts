@@ -30,17 +30,63 @@ export const serverEnvSchema = z.object({
   NAIS_CLUSTER_NAME: z.string(),
 });
 
+const getValueAtPath = (input: unknown, path: PropertyKey[]): unknown =>
+  path.reduce<unknown>((current, segment) => {
+    if (current && typeof current === "object" && segment in current) {
+      return (current as Record<PropertyKey, unknown>)[segment];
+    }
+
+    return undefined;
+  }, input);
+
+const getMissingEnvMessage = (error: ZodError, rawConfig: unknown): string => {
+  const missingEnvPaths = [
+    ...new Set(
+      error.issues
+        .filter((issue) => getValueAtPath(rawConfig, issue.path) === undefined)
+        .map((issue) => issue.path.join(".")),
+    ),
+  ];
+
+  return (
+    missingEnvPaths.join(", ") ||
+    "None are missing, but zod is not happy. Look at cause"
+  );
+};
+
+const parseEnv = <TSchema extends z.ZodType>(
+  schema: TSchema,
+  rawConfig: unknown,
+): z.infer<TSchema> => {
+  try {
+    return schema.parse(rawConfig);
+  } catch (e) {
+    if (e instanceof ZodError) {
+      throw new Error(
+        `The following envs are missing: ${getMissingEnvMessage(e, rawConfig)}`,
+        { cause: e },
+      );
+    }
+
+    throw e;
+  }
+};
+
+const getRawPublicConfig = (): Partial<unknown> =>
+  ({
+    NEXT_PUBLIC_RUNTIME_ENVIRONMENT:
+      process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT,
+    NEXT_PUBLIC_ASSET_PREFIX: process.env.NEXT_PUBLIC_ASSET_PREFIX,
+    NEXT_PUBLIC_TELEMETRY_URL: process.env.NEXT_PUBLIC_TELEMETRY_URL,
+    NEXT_PUBLIC_BASE_PATH: process.env.NEXT_PUBLIC_BASE_PATH,
+  }) satisfies Record<keyof PublicEnv, string | undefined>;
+
 /**
  * These envs are available in the browser. They are replaced during the bundling step by NextJS.
  *
  * They MUST be provided during the build step.
  */
-export const publicEnv = publicEnvSchema.parse({
-  NEXT_PUBLIC_RUNTIME_ENVIRONMENT: process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT,
-  NEXT_PUBLIC_ASSET_PREFIX: process.env.NEXT_PUBLIC_ASSET_PREFIX,
-  NEXT_PUBLIC_TELEMETRY_URL: process.env.NEXT_PUBLIC_TELEMETRY_URL,
-  NEXT_PUBLIC_BASE_PATH: process.env.NEXT_PUBLIC_BASE_PATH,
-} satisfies Record<keyof PublicEnv, string | undefined>);
+export const publicEnv = parseEnv(publicEnvSchema, getRawPublicConfig());
 
 const getRawServerConfig = (): Partial<unknown> =>
   ({
@@ -61,32 +107,10 @@ const getRawServerConfig = (): Partial<unknown> =>
   }) satisfies Record<keyof ServerEnv, string | undefined>;
 
 export function getServerEnv(): ServerEnv & PublicEnv {
-  try {
-    return {
-      ...serverEnvSchema.parse(getRawServerConfig()),
-      ...publicEnvSchema.parse(publicEnv),
-    };
-  } catch (e) {
-    if (e instanceof ZodError) {
-      throw new Error(
-        `The following envs are missing: ${
-          e.issues
-            .filter(
-              (it) =>
-                it.code === "invalid_type" &&
-                it.expected === "string" &&
-                it.input === undefined,
-            )
-            .map((it) => it.path.join("."))
-            .join(", ") ||
-          "None are missing, but zod is not happy. Look at cause"
-        }`,
-        { cause: e },
-      );
-    } else {
-      throw e;
-    }
-  }
+  return {
+    ...parseEnv(serverEnvSchema, getRawServerConfig()),
+    ...publicEnv,
+  };
 }
 
 export const isLocalOrDemo =
