@@ -38,9 +38,6 @@ importers:
       '@navikt/oasis':
         specifier: ^4.1.4
         version: 4.1.4
-      '@unleash/nextjs':
-        specifier: ^1.6.2
-        version: 1.6.4(next@16.2.4(@opentelemetry/api@1.9.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       axios:
         specifier: ^1.15.2
         version: 1.15.2
@@ -242,10 +239,6 @@ packages:
     resolution: {integrity: sha512-ctxtJ/eA+t+6q2++vj5j7FYX3nRu311q1wfYH3xjlLOsczhlhxAg2FWNUXhpGvAw3BWo1xBcvOV6/YLc2r5FJw==}
     hasBin: true
 
-  '@commander-js/extra-typings@12.1.0':
-    resolution: {integrity: sha512-wf/lwQvWAA0goIghcb91dQYpkLBcyhOhQNqG/VgWhnKzgt+UOMvra7EX/2fv70arm5RW+PUHoQHHDa6/p77Eqg==}
-    peerDependencies:
-      commander: ~12.1.0
 
   '@csstools/color-helpers@6.0.2':
     resolution: {integrity: sha512-LMGQLS9EuADloEFkcTBR3BwV/CGHV7zyDxVRtVDTwdI2Ca4it0CCVTT9wCkxSgokjE5Ho41hEPgb8OEUwoXr6Q==}
@@ -1193,19 +1186,7 @@ packages:
   '@types/react@19.2.14':
     resolution: {integrity: sha512-ilcTH/UniCkMdtexkoCN0bI7pMcJDvmQFPvuPvmEaYA/NSfFTAgdUSLAoVjaRJm7+6PvcM+q1zYOwS4wTYMF9w==}
 
-  '@unleash/nextjs@1.6.4':
-    resolution: {integrity: sha512-ZBZwehJ0jgOlSQchQ0DfjlQAdvQDVrZ+kM1nq2lVyfcblUAff0O14WBjrQjJcSHTqrr+BGbx/pBI5VRzkJjClA==}
-    hasBin: true
-    peerDependencies:
-      next: '>=12'
-      react: '>=17'
-      react-dom: '>=17'
 
-  '@unleash/proxy-client-react@5.0.0':
-    resolution: {integrity: sha512-f00yLXSdA2ifB1RvqD1T4Il3Yk0CjVibKYS4cdOeLb6LhyH4kIeyJwtQO1slUrKRUy8VBt8Hmm2Rh1JEGlkfSQ==}
-    engines: {node: '>=16.0.0'}
-    peerDependencies:
-      unleash-proxy-client: ^3.7.3
 
   '@vitejs/plugin-react@6.0.1':
     resolution: {integrity: sha512-l9X/E3cDb+xY3SWzlG1MOGt2usfEHGMNIaegaUGFsLkb3RCn/k8/TOXBcab+OndDI4TBtktT8/9BwwW8Vi9KUQ==}
@@ -1700,9 +1681,6 @@ packages:
       canvas:
         optional: true
 
-  launchdarkly-eventsource@2.2.0:
-    resolution: {integrity: sha512-u38fYlLSq/m6oFz0MS1/76Sj2xzlYhTKZ+sf/vju6PA86PMc6fPlY5k8CdU79edLXjNwsvIQTDvDNy3llDqB8A==}
-    engines: {node: '>=0.12.0'}
 
   lefthook-darwin-arm64@2.1.6:
     resolution: {integrity: sha512-hyB7eeiX78BS66f70byTJacDLC/xV1vgMv9n+idFUsrM7J3Udd/ag9Ag5NP3t0eN0EqQqAtrNnt35EH01lxnRQ==}
@@ -1921,9 +1899,6 @@ packages:
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
-  murmurhash3js@3.0.1:
-    resolution: {integrity: sha512-KL8QYUaxq7kUbcl0Yto51rMcYt7E/4N4BG3/c96Iqw1PQrTRspu8Cpx4TZ4Nunib1d4bEkIH3gjCYlP2RLBdow==}
-    engines: {node: '>=0.10.0'}
 
   nanoid@3.3.11:
     resolution: {integrity: sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==}
@@ -2287,8 +2262,6 @@ packages:
   through2@4.0.2:
     resolution: {integrity: sha512-iOqSav00cVxEEICeD7TjLB1sueEL+81Wpzp2bY17uZjZN0pWZPuo4suZ/61VujxmqSGFfgOcNuTZ85QJwNZQpw==}
 
-  tiny-emitter@2.1.0:
-    resolution: {integrity: sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==}
 
   tinybench@2.9.0:
     resolution: {integrity: sha512-0+DUvqWMValLmha6lr4kD8iAMK1HzV0/aKnCtWb9v9641TnP/MFb7Pc2bxoxQjTXAErryXVgUOfv2YqNllqGeg==}
@@ -2350,12 +2323,7 @@ packages:
     resolution: {integrity: sha512-4Lup7Ezn8W3d52/xBhZBVdx323ckxa7DEvd9kPQHppTkLoJXw6ltrBCyj5pnrxj0qKDxYMJ56CoxNuFCscdTiw==}
     engines: {node: ^20.17.0 || >=22.9.0}
 
-  unleash-client@6.9.6:
-    resolution: {integrity: sha512-Ecfb3GT61Z7CCARXeSG+aMAnO4SpwNwcCFSx39Z02IP+I3ZkDVnflNQZF8K6v9V2kQKN5bvJNLtLW/yGBxSs0Q==}
-    engines: {node: '>=20'}
 
-  unleash-proxy-client@3.7.8:
-    resolution: {integrity: sha512-VX0jDcOporeVb1nh4+HGpEZIwcwHl/HP/7cyZxQq3umffN0hx44Tw1u4nmdopmm9s7Hb2BES0pFCIntr/lh3vQ==}
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
@@ -2578,9 +2546,6 @@ snapshots:
     dependencies:
       css-tree: 3.2.1
 
-  '@commander-js/extra-typings@12.1.0(commander@12.1.0)':
-    dependencies:
-      commander: 12.1.0
 
   '@csstools/color-helpers@6.0.2': {}
 
@@ -3316,25 +3281,7 @@ snapshots:
     dependencies:
       csstype: 3.2.3
 
-  '@unleash/nextjs@1.6.4(next@16.2.4(@opentelemetry/api@1.9.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
-    dependencies:
-      '@commander-js/extra-typings': 12.1.0(commander@12.1.0)
-      '@next/env': 14.2.13
-      '@unleash/proxy-client-react': 5.0.0(unleash-proxy-client@3.7.8)
-      commander: 12.1.0
-      murmurhash3js: 3.0.1
-      next: 16.2.4(@opentelemetry/api@1.9.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      react: 19.2.5
-      react-dom: 19.2.5(react@19.2.5)
-      semver: 7.6.3
-      unleash-client: 6.9.6
-      unleash-proxy-client: 3.7.8
-    transitivePeerDependencies:
-      - supports-color
 
-  '@unleash/proxy-client-react@5.0.0(unleash-proxy-client@3.7.8)':
-    dependencies:
-      unleash-proxy-client: 3.7.8
 
   '@vitejs/plugin-react@6.0.1(vite@8.0.10(@types/node@24.12.2)(esbuild@0.27.3)(jiti@2.6.1))':
     dependencies:
@@ -3822,7 +3769,6 @@ snapshots:
     transitivePeerDependencies:
       - '@noble/hashes'
 
-  launchdarkly-eventsource@2.2.0: {}
 
   lefthook-darwin-arm64@2.1.6:
     optional: true
@@ -4002,7 +3948,6 @@ snapshots:
 
   ms@2.1.3: {}
 
-  murmurhash3js@3.0.1: {}
 
   nanoid@3.3.11: {}
 
@@ -4414,7 +4359,6 @@ snapshots:
       readable-stream: 3.6.2
     optional: true
 
-  tiny-emitter@2.1.0: {}
 
   tinybench@2.9.0: {}
 
@@ -4461,23 +4405,7 @@ snapshots:
     dependencies:
       imurmurhash: 0.1.4
 
-  unleash-client@6.9.6:
-    dependencies:
-      http-proxy-agent: 7.0.2
-      https-proxy-agent: 7.0.6
-      ip-address: 9.0.5
-      launchdarkly-eventsource: 2.2.0
-      make-fetch-happen: 15.0.3
-      murmurhash3js: 3.0.1
-      proxy-from-env: 1.1.0
-      semver: 7.7.4
-    transitivePeerDependencies:
-      - supports-color
 
-  unleash-proxy-client@3.7.8:
-    dependencies:
-      tiny-emitter: 2.1.0
-      uuid: 9.0.1
 
   util-deprecate@1.0.2:
     optional: true
