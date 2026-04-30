@@ -12,7 +12,7 @@ interface Props {
   action?: ReactNode | null;
 }
 
-const PageError = ({ graphic = "dad", text, details }: Props): JSX.Element => {
+const PageError = ({ graphic = "dad", text, details }: Props) => {
   const errorText = text ?? "Beklager! Det har oppstått en uventet feil";
 
   return (

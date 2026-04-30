@@ -2,7 +2,7 @@
 
 import { ArrowRightIcon } from "@navikt/aksel-icons";
 import { Button } from "@navikt/ds-react";
-import Link from "next/link";
+import NextLink from "next/link";
 import type { ReactElement } from "react";
 import { logAnalyticsEvent } from "@/libs/analytics/analytics";
 
@@ -10,7 +10,7 @@ export const BeginFormButton = (): ReactElement => {
   return (
     <div>
       <Button
-        as={Link}
+        as={NextLink}
         href="/snart-slutt-pa-sykepengene/skjema"
         icon={<ArrowRightIcon aria-hidden />}
         iconPosition="right"
