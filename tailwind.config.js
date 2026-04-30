@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  // Disable Tailwind preflight so it does not override Aksel v8 layered CSS.
-  corePlugins: { preflight: false },
+  // Preflight is disabled by importing tailwindcss/theme + tailwindcss/utilities
+  // separately in globals.css (skipping tailwindcss/preflight).
   plugins: [],
   presets: [require("@navikt/ds-tailwind")],
 };
