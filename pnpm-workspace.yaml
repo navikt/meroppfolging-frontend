@@ -1,0 +1,8 @@
+allowBuilds:
+  esbuild: true
+  lefthook: false
+  protobufjs: false
+  sharp: true
+
+minimumReleaseAge: 4320
+blockExoticSubdeps: true
