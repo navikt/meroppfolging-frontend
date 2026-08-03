@@ -55,7 +55,7 @@
     "@vitejs/plugin-react": "^6.0.4",
     "@tailwindcss/postcss": "^4.3.3",
     "dotenv": "^17.4.2",
-    "jsdom": "29.1.1",
+    "jsdom": "30.0.0",
     "lefthook": "^2.1.10",
     "next-router-mock": "^1.0.5",
     "path": "^0.12.7",
