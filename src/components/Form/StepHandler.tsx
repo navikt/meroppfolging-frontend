@@ -6,12 +6,15 @@ import { type ReactElement, useState } from "react";
 import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import { OnskerOppfolgingStep } from "@/components/Form/OppfolgingStep/OnskerOppfolgingStep";
+import Receipt from "@/components/Form/Receipt/Receipt";
 import NoAccessInformation from "@/components/NoAccessInformation/NoAccessInformation";
+import { isLocalOrDemo } from "@/constants/envs";
 import type {
   BehovForOppfolgingAnswerTypes,
   FremtidigSituasjonAnswerTypes,
 } from "@/domain/answerValues";
 import { logAnalyticsEvent } from "@/libs/analytics/analytics";
+import { maxDateDTO } from "@/mocks/data/fixtures/sykepengedagerInformasjonDTO";
 import { submitForm } from "@/server/actions/submitForm";
 import type { SenOppfolgingStatusDTO } from "@/server/schemas/statusSchema";
 import { createFormRequest } from "@/utils/requestUtils";
@@ -45,10 +48,24 @@ export const StepHandler = ({
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [displayErrorMessage, setDisplayErrorMessage] = useState(false);
+  const [submittedAnswers, setSubmittedAnswers] = useState<FormInputs | null>(
+    null,
+  );
   const router = useRouter();
 
   if (!senOppfolgingStatus.hasAccessToSenOppfolging) {
     return <NoAccessInformation />;
+  }
+
+  if (submittedAnswers) {
+    return (
+      <Receipt
+        fremtidigSituasjonAnswer={submittedAnswers.FREMTIDIG_SITUASJON}
+        behovForOppfolgingAnswer={submittedAnswers.BEHOV_FOR_OPPFOLGING}
+        responseDateISOString={new Date().toISOString()}
+        maxDate={maxDateDTO}
+      />
+    );
   }
 
   const goToNextStep = (): void => {
@@ -95,12 +112,12 @@ export const StepHandler = ({
     setDisplayErrorMessage(false);
     try {
       await submitForm(request);
-      const queryParams = new URLSearchParams({
-        fremtidigSituasjon: data.FREMTIDIG_SITUASJON,
-        behovForOppfolging: data.BEHOV_FOR_OPPFOLGING,
-      }).toString();
+      if (isLocalOrDemo) {
+        setSubmittedAnswers(data);
+        return;
+      }
 
-      router.push(`/snart-slutt-pa-sykepengene/kvittering?${queryParams}`);
+      router.push("/snart-slutt-pa-sykepengene");
     } catch (_e) {
       setDisplayErrorMessage(true);
     } finally {

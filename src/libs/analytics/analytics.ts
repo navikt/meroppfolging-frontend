@@ -16,6 +16,11 @@ const analyticsLogger = getAnalyticsInstance(
 ) as AnalyticsLogger;
 
 const infoProperties = { team: "eSyfo", app: "meroppfolging-frontend" };
+const analyticsFailureContext = {
+  event: "analytics_event_failed",
+  operation: "log_analytics_event",
+  upstream: "nav-dekoratoren",
+} as const;
 
 function taxonomyToAnalyticsEvent(
   event: AnalyticsTaxonomyEvents,
@@ -81,9 +86,6 @@ async function logAnalyticsEventUsingDekoratorenInstance(
   eventProperties: Record<string, unknown>,
 ): Promise<void> {
   if (isLocalOrDemo) {
-    console.log(
-      `Analytics event: ${event}, eventProperties:\n${JSON.stringify(eventProperties ?? {}, null, 2)}`,
-    );
     return;
   }
 
@@ -95,6 +97,6 @@ async function logAnalyticsEventUsingDekoratorenInstance(
     if (msg.includes("Analytics instance not found")) {
       return; // Ignore, user has not consented to analytics
     }
-    pinoLogger.error(`Analytics logging failed. event=${event} message=${msg}`);
+    pinoLogger.error(analyticsFailureContext, "Analytics logging failed");
   }
 }

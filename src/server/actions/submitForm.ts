@@ -10,6 +10,12 @@ import { getServerEnv, isLocalOrDemo } from "@/constants/envs";
 import { serverRequest } from "@/libs/axios";
 import type { FormRequest } from "@/server/schemas/formRequestSchema";
 
+const submitFormFailureContext = {
+  event: "submit_form_failed",
+  operation: "submit_sen_oppfolging_form",
+  upstream: "meroppfolging-backend",
+} as const;
+
 export async function submitForm(formRequest: FormRequest): Promise<void> {
   if (isLocalOrDemo) {
     return Promise.resolve();
@@ -32,10 +38,8 @@ export async function submitForm(formRequest: FormRequest): Promise<void> {
       method: "post",
       data: formRequest,
     });
-  } catch (e) {
-    logger.error(
-      `Failed to submit registration: ${e}. Payload: ${JSON.stringify(formRequest)}`,
-    );
-    throw new Error(`Failed to submit registration: ${e}`);
+  } catch {
+    logger.error(submitFormFailureContext, "Failed to submit registration");
+    throw new Error("Failed to submit registration");
   }
 }
