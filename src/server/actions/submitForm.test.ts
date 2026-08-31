@@ -10,7 +10,8 @@ vi.mock("@navikt/next-logger", () => ({
   },
 }));
 
-vi.mock("axios", () => ({
+vi.mock("axios", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("axios")>()),
   default: vi.fn(),
 }));
 
@@ -71,8 +72,8 @@ describe("submitForm", () => {
     vi.mocked(axios).mockRejectedValueOnce(
       Object.assign(new Error(`${SYNTHETIC_CANARY}-upstream-error`), {
         config: { data: formRequest },
-        response: { data: formRequest },
-        status: 500,
+        isAxiosError: true,
+        response: { data: formRequest, status: 503 },
       }),
     );
 
@@ -91,11 +92,82 @@ describe("submitForm", () => {
       [
         {
           event: "submit_form_failed",
+          failure_kind: "upstream_http_error",
+          http_status: 503,
           operation: "submit_sen_oppfolging_form",
           upstream: "meroppfolging-backend",
         },
         "Failed to submit registration",
       ],
     ]);
+    expect(JSON.stringify(vi.mocked(logger.error).mock.calls)).not.toContain(
+      SYNTHETIC_CANARY,
+    );
   });
+
+  it.each([
+    {
+      error: Object.assign(new Error(`${SYNTHETIC_CANARY}-invalid-status`), {
+        config: { data: formRequest },
+        isAxiosError: true,
+        response: {
+          data: formRequest,
+          status: `${SYNTHETIC_CANARY}-status`,
+        },
+      }),
+      expectedFailureKind: "upstream_http_error",
+    },
+    {
+      error: Object.assign(new Error(`${SYNTHETIC_CANARY}-timeout`), {
+        code: "ETIMEDOUT",
+        config: { data: formRequest },
+        isAxiosError: true,
+        request: { body: formRequest },
+      }),
+      expectedFailureKind: "upstream_timeout",
+    },
+    {
+      error: Object.assign(new Error(`${SYNTHETIC_CANARY}-network`), {
+        config: { data: formRequest },
+        isAxiosError: true,
+        request: { body: formRequest },
+      }),
+      expectedFailureKind: "upstream_network_error",
+    },
+    {
+      error: Object.assign(new Error(`${SYNTHETIC_CANARY}-request`), {
+        config: { data: formRequest },
+        isAxiosError: true,
+      }),
+      expectedFailureKind: "upstream_request_error",
+    },
+    {
+      error: new Error(`${SYNTHETIC_CANARY}-unexpected`),
+      expectedFailureKind: "unexpected_error",
+    },
+  ])(
+    "classifies failures as $expectedFailureKind without exposing the error",
+    async ({ error, expectedFailureKind }) => {
+      vi.mocked(axios).mockRejectedValueOnce(error);
+
+      await expect(submitForm(formRequest)).rejects.toThrow(
+        "Failed to submit registration",
+      );
+
+      expect(vi.mocked(logger.error).mock.calls).toEqual([
+        [
+          {
+            event: "submit_form_failed",
+            failure_kind: expectedFailureKind,
+            operation: "submit_sen_oppfolging_form",
+            upstream: "meroppfolging-backend",
+          },
+          "Failed to submit registration",
+        ],
+      ]);
+      expect(JSON.stringify(vi.mocked(logger.error).mock.calls)).not.toContain(
+        SYNTHETIC_CANARY,
+      );
+    },
+  );
 });
