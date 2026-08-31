@@ -2,13 +2,51 @@
 
 import { logger } from "@navikt/next-logger";
 import { getToken } from "@navikt/oasis";
+import { isAxiosError } from "axios";
 import { headers } from "next/headers";
 import { validateIdPortenToken } from "@/auth/getIdPortenToken";
 import { navigateToLogin } from "@/auth/navigateToLogin";
 import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from "@/auth/tokenUtils";
 import { getServerEnv, isLocalOrDemo } from "@/constants/envs";
+import {
+  RuntimeErrorCode,
+  RuntimeErrorEvent,
+} from "@/constants/runtimeErrorContract";
 import { serverRequest } from "@/libs/axios";
 import type { FormRequest } from "@/server/schemas/formRequestSchema";
+
+const submitFormFailureContext = {
+  event_type: RuntimeErrorEvent.SEN_OPPFOLGING_SVAR_SUBMIT_FAILED,
+  operation: "submit_sen_oppfolging_svar",
+  upstream: "meroppfolging-backend",
+} as const;
+
+function getSubmitFormFailureDetails(error: unknown) {
+  if (!isAxiosError(error)) {
+    return { error_code: RuntimeErrorCode.UNEXPECTED_ERROR } as const;
+  }
+
+  if (error.response) {
+    const httpStatus = error.response.status;
+    return {
+      error_code: RuntimeErrorCode.UPSTREAM_HTTP_ERROR,
+      ...(typeof httpStatus === "number" &&
+        Number.isInteger(httpStatus) &&
+        httpStatus >= 100 &&
+        httpStatus <= 599 && { status: httpStatus }),
+    } as const;
+  }
+
+  if (error.code === "ECONNABORTED" || error.code === "ETIMEDOUT") {
+    return { error_code: RuntimeErrorCode.UPSTREAM_TIMEOUT } as const;
+  }
+
+  if (error.request) {
+    return { error_code: RuntimeErrorCode.UPSTREAM_NETWORK_ERROR } as const;
+  }
+
+  return { error_code: RuntimeErrorCode.UPSTREAM_REQUEST_ERROR } as const;
+}
 
 export async function submitForm(formRequest: FormRequest): Promise<void> {
   if (isLocalOrDemo) {
@@ -32,10 +70,14 @@ export async function submitForm(formRequest: FormRequest): Promise<void> {
       method: "post",
       data: formRequest,
     });
-  } catch (e) {
+  } catch (error) {
     logger.error(
-      `Failed to submit registration: ${e}. Payload: ${JSON.stringify(formRequest)}`,
+      {
+        ...submitFormFailureContext,
+        ...getSubmitFormFailureDetails(error),
+      },
+      "Failed to submit registration",
     );
-    throw new Error(`Failed to submit registration: ${e}`);
+    throw new Error("Failed to submit registration");
   }
 }
