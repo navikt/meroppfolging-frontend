@@ -36,8 +36,9 @@ describe("logAnalyticsEvent", () => {
     expect(mocks.errorLogger.mock.calls).toEqual([
       [
         {
-          event: "analytics_event_failed",
-          operation: "log_analytics_event",
+          event_type: "analytics_event_send_failed",
+          operation: "send_analytics_event",
+          error_code: "ANALYTICS_CLIENT_ERROR",
           upstream: "nav-dekoratoren",
         },
         "Analytics logging failed",

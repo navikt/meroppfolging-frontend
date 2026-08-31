@@ -4,6 +4,10 @@ import { getAnalyticsInstance } from "@navikt/nav-dekoratoren-moduler";
 import { logger as pinoLogger } from "@navikt/next-logger";
 import { useEffect, useRef } from "react";
 import { isLocalOrDemo } from "@/constants/envs";
+import {
+  RuntimeErrorCode,
+  RuntimeErrorEvent,
+} from "@/constants/runtimeErrorContract";
 import type { AnalyticsTaxonomyEvents } from "./events";
 
 type AnalyticsLogger = (
@@ -17,8 +21,9 @@ const analyticsLogger = getAnalyticsInstance(
 
 const infoProperties = { team: "eSyfo", app: "meroppfolging-frontend" };
 const analyticsFailureContext = {
-  event: "analytics_event_failed",
-  operation: "log_analytics_event",
+  event_type: RuntimeErrorEvent.ANALYTICS_EVENT_SEND_FAILED,
+  operation: "send_analytics_event",
+  error_code: RuntimeErrorCode.ANALYTICS_CLIENT_ERROR,
   upstream: "nav-dekoratoren",
 } as const;
 

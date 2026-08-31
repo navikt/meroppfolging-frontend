@@ -91,10 +91,10 @@ describe("submitForm", () => {
     expect(vi.mocked(logger.error).mock.calls).toEqual([
       [
         {
-          event: "submit_form_failed",
-          failure_kind: "upstream_http_error",
-          http_status: 503,
-          operation: "submit_sen_oppfolging_form",
+          event_type: "sen_oppfolging_svar_submit_failed",
+          error_code: "UPSTREAM_HTTP_ERROR",
+          status: 503,
+          operation: "submit_sen_oppfolging_svar",
           upstream: "meroppfolging-backend",
         },
         "Failed to submit registration",
@@ -115,7 +115,7 @@ describe("submitForm", () => {
           status: `${SYNTHETIC_CANARY}-status`,
         },
       }),
-      expectedFailureKind: "upstream_http_error",
+      expectedErrorCode: "UPSTREAM_HTTP_ERROR",
     },
     {
       error: Object.assign(new Error(`${SYNTHETIC_CANARY}-timeout`), {
@@ -124,7 +124,7 @@ describe("submitForm", () => {
         isAxiosError: true,
         request: { body: formRequest },
       }),
-      expectedFailureKind: "upstream_timeout",
+      expectedErrorCode: "UPSTREAM_TIMEOUT",
     },
     {
       error: Object.assign(new Error(`${SYNTHETIC_CANARY}-network`), {
@@ -132,22 +132,22 @@ describe("submitForm", () => {
         isAxiosError: true,
         request: { body: formRequest },
       }),
-      expectedFailureKind: "upstream_network_error",
+      expectedErrorCode: "UPSTREAM_NETWORK_ERROR",
     },
     {
       error: Object.assign(new Error(`${SYNTHETIC_CANARY}-request`), {
         config: { data: formRequest },
         isAxiosError: true,
       }),
-      expectedFailureKind: "upstream_request_error",
+      expectedErrorCode: "UPSTREAM_REQUEST_ERROR",
     },
     {
       error: new Error(`${SYNTHETIC_CANARY}-unexpected`),
-      expectedFailureKind: "unexpected_error",
+      expectedErrorCode: "UNEXPECTED_ERROR",
     },
   ])(
-    "classifies failures as $expectedFailureKind without exposing the error",
-    async ({ error, expectedFailureKind }) => {
+    "classifies failures as $expectedErrorCode without exposing the error",
+    async ({ error, expectedErrorCode }) => {
       vi.mocked(axios).mockRejectedValueOnce(error);
 
       await expect(submitForm(formRequest)).rejects.toThrow(
@@ -157,9 +157,9 @@ describe("submitForm", () => {
       expect(vi.mocked(logger.error).mock.calls).toEqual([
         [
           {
-            event: "submit_form_failed",
-            failure_kind: expectedFailureKind,
-            operation: "submit_sen_oppfolging_form",
+            event_type: "sen_oppfolging_svar_submit_failed",
+            error_code: expectedErrorCode,
+            operation: "submit_sen_oppfolging_svar",
             upstream: "meroppfolging-backend",
           },
           "Failed to submit registration",

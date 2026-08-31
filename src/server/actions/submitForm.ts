@@ -8,40 +8,44 @@ import { validateIdPortenToken } from "@/auth/getIdPortenToken";
 import { navigateToLogin } from "@/auth/navigateToLogin";
 import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from "@/auth/tokenUtils";
 import { getServerEnv, isLocalOrDemo } from "@/constants/envs";
+import {
+  RuntimeErrorCode,
+  RuntimeErrorEvent,
+} from "@/constants/runtimeErrorContract";
 import { serverRequest } from "@/libs/axios";
 import type { FormRequest } from "@/server/schemas/formRequestSchema";
 
 const submitFormFailureContext = {
-  event: "submit_form_failed",
-  operation: "submit_sen_oppfolging_form",
+  event_type: RuntimeErrorEvent.SEN_OPPFOLGING_SVAR_SUBMIT_FAILED,
+  operation: "submit_sen_oppfolging_svar",
   upstream: "meroppfolging-backend",
 } as const;
 
 function getSubmitFormFailureDetails(error: unknown) {
   if (!isAxiosError(error)) {
-    return { failure_kind: "unexpected_error" } as const;
+    return { error_code: RuntimeErrorCode.UNEXPECTED_ERROR } as const;
   }
 
   if (error.response) {
     const httpStatus = error.response.status;
     return {
-      failure_kind: "upstream_http_error",
+      error_code: RuntimeErrorCode.UPSTREAM_HTTP_ERROR,
       ...(typeof httpStatus === "number" &&
         Number.isInteger(httpStatus) &&
         httpStatus >= 100 &&
-        httpStatus <= 599 && { http_status: httpStatus }),
+        httpStatus <= 599 && { status: httpStatus }),
     } as const;
   }
 
   if (error.code === "ECONNABORTED" || error.code === "ETIMEDOUT") {
-    return { failure_kind: "upstream_timeout" } as const;
+    return { error_code: RuntimeErrorCode.UPSTREAM_TIMEOUT } as const;
   }
 
   if (error.request) {
-    return { failure_kind: "upstream_network_error" } as const;
+    return { error_code: RuntimeErrorCode.UPSTREAM_NETWORK_ERROR } as const;
   }
 
-  return { failure_kind: "upstream_request_error" } as const;
+  return { error_code: RuntimeErrorCode.UPSTREAM_REQUEST_ERROR } as const;
 }
 
 export async function submitForm(formRequest: FormRequest): Promise<void> {
