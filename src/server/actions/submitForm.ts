@@ -10,16 +10,12 @@ import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from "@/auth/token
 import { getServerEnv, isLocalOrDemo } from "@/constants/envs";
 import {
   RuntimeErrorCode,
-  RuntimeErrorEvent,
+  RuntimeErrorContext,
 } from "@/constants/runtimeErrorContract";
 import { serverRequest } from "@/libs/axios";
 import type { FormRequest } from "@/server/schemas/formRequestSchema";
 
-const submitFormFailureContext = {
-  event_type: RuntimeErrorEvent.SEN_OPPFOLGING_SVAR_SUBMIT_FAILED,
-  operation: "submit_sen_oppfolging_svar",
-  upstream: "meroppfolging-backend",
-} as const;
+const submitFormFailureContext = RuntimeErrorContext.SEN_OPPFOLGING_SVAR_SUBMIT;
 
 function getSubmitFormFailureDetails(error: unknown) {
   if (!isAxiosError(error)) {
@@ -33,7 +29,7 @@ function getSubmitFormFailureDetails(error: unknown) {
       ...(typeof httpStatus === "number" &&
         Number.isInteger(httpStatus) &&
         httpStatus >= 100 &&
-        httpStatus <= 599 && { status: httpStatus }),
+        httpStatus <= 599 && { upstream_status: httpStatus }),
     } as const;
   }
 

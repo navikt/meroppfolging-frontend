@@ -1,4 +1,3 @@
-import { logger } from "@navikt/next-logger";
 import { getToken } from "@navikt/oasis";
 import { nanoid } from "nanoid";
 import { headers } from "next/headers";
@@ -6,7 +5,9 @@ import { validateIdPortenToken } from "@/auth/getIdPortenToken";
 import { navigateToLogin } from "@/auth/navigateToLogin";
 import { exchangeIdportenTokenForSykepengedagerInformasjonTokenx } from "@/auth/tokenUtils";
 import { getServerEnv, isLocalOrDemo } from "@/constants/envs";
+import { RuntimeErrorContext } from "@/constants/runtimeErrorContract";
 import { maxDateDTO } from "@/mocks/data/fixtures/sykepengedagerInformasjonDTO";
+import { fetchValidatedJson } from "@/server/fetch/fetchValidatedJson";
 import {
   type MaxDateDTO,
   maxDateSchema,
@@ -28,32 +29,16 @@ export async function getMaxDate(): Promise<MaxDateDTO> {
     await exchangeIdportenTokenForSykepengedagerInformasjonTokenx(
       idportenToken,
     );
-  const response = await fetch(endpoint, {
-    method: "GET",
+  return fetchValidatedJson({
+    context: RuntimeErrorContext.MAKSDATO_FETCH,
+    endpoint,
+    errorMessage: "Failed to fetch maksdato",
     headers: {
       Authorization: `Bearer ${exchangedToken}`,
       "Nav-Consumer-Id": "meroppfolging-frontend",
       "Nav-Call-Id": nanoid(),
       "Content-Type": "application/json",
     },
+    schema: maxDateSchema,
   });
-
-  if (!response.ok) {
-    logger.error(
-      `Failed to fetch data from ${endpoint}: ${response.statusText}`,
-    );
-    throw new Error(
-      `Failed to fetch data from ${endpoint}: ${response.statusText}`,
-    );
-  }
-
-  const data = await response.json();
-  const parsed = maxDateSchema.safeParse(data);
-
-  if (!parsed.success) {
-    logger.error(`Failed to parse result! ${parsed.error}`);
-    throw parsed.error;
-  }
-
-  return parsed.data;
 }
