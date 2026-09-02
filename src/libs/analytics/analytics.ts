@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
 import { isLocalOrDemo } from "@/constants/envs";
 import {
   RuntimeErrorCode,
-  RuntimeErrorEvent,
+  RuntimeErrorContext,
 } from "@/constants/runtimeErrorContract";
 import type { AnalyticsTaxonomyEvents } from "./events";
 
@@ -21,10 +21,8 @@ const analyticsLogger = getAnalyticsInstance(
 
 const infoProperties = { team: "eSyfo", app: "meroppfolging-frontend" };
 const analyticsFailureContext = {
-  event_type: RuntimeErrorEvent.ANALYTICS_EVENT_SEND_FAILED,
-  operation: "send_analytics_event",
+  ...RuntimeErrorContext.ANALYTICS_EVENT_SEND,
   error_code: RuntimeErrorCode.ANALYTICS_CLIENT_ERROR,
-  upstream: "nav-dekoratoren",
 } as const;
 
 function taxonomyToAnalyticsEvent(

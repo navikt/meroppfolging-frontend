@@ -93,7 +93,7 @@ describe("submitForm", () => {
         {
           event_type: "sen_oppfolging_svar_submit_failed",
           error_code: "UPSTREAM_HTTP_ERROR",
-          status: 503,
+          upstream_status: 503,
           operation: "submit_sen_oppfolging_svar",
           upstream: "meroppfolging-backend",
         },
