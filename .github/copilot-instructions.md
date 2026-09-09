@@ -1,38 +1,23 @@
-# Copilot instructions for meroppfolging-frontend
-
-## Scope
-
-Store Copilot guidance under `./.github/`. `AGENTS.md` is allowed as the agent runbook, but avoid duplicating Copilot-specific rules outside `.github`.
-Prefer one primary agent per task. If needed, switch primary agent or delegate explicitly, but avoid conflicting guidance.
-
-## Stack
-
-- Next.js App Router (Next 15)
-- React 18
-- TypeScript
-- Biome
-- Vitest
-- Aksel v8
-- Tailwind (v3)
-- Auth: OASIS + TokenX + IdPorten
-- Logging: `@navikt/next-logger`
-
-## Commands
+# meroppfolging-frontend
 
 ```sh
-mise task # Check all available tasks
-mise dev # Run development server
-mise ci # Run full CI validation (lint + format + tests + build)
+pnpm dev
+pnpm test --run
+pnpm lint
+pnpm build
 ```
 
-## Defaults
+`mise run verify` runs fixing commands and can change files.
 
-- Prefer Aksel components and spacing tokens.
-- Tailwind is allowed only when Aksel cannot express the layout or a small one-off style.
-- Keep RSC/client boundaries correct: add "use client" only when needed.
-- Use `@navikt/next-logger` for server-side logs.
-
-## Use these agents when relevant
-
-- `aksel-agent`: Aksel components and spacing tokens (v8).
-
+- Keep redirects and frontend URLs under `publicEnv.NEXT_PUBLIC_BASE_PATH`.
+- `src/constants/envs.ts` owns validated environment values and
+  `isLocalOrDemo`. Only local/demo may use fixture status/maksdato or skip
+  actual form submission.
+- Maksdato and senoppfølging call different backends and use different
+  TokenX audiences. Keep their separate exchange helpers in `src/auth/tokenUtils.ts`.
+- Preserve `?isoformat=true` on the maksdato call; the response schema expects
+  that date representation.
+- Use `fetchValidatedJson` for the existing backend response/error contract.
+  Error logging keeps allowlisted fields from `runtimeErrorContract` and
+  numeric upstream status; raw Axios/fetch errors can expose form data and
+  tokens and must not be serialized.
