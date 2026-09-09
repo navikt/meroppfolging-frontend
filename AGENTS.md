@@ -1,41 +1,6 @@
-# meroppfolging-frontend agents guide
+# meroppfolging-frontend
 
-Start with one primary agent. If a task spans multiple domains, either switch primary agent or delegate explicitly, but avoid conflicting guidance.
-
-## Quick map
-
-- App Router: `src/app/*`
-- Auth: `src/auth/*`
-- Components: `src/components/*`
-- Server: `src/server/*`
-- Env validation: `src/constants/envs.ts`
-- NAIS config: `nais/*`
-
-## Commands
-
-```sh
-pnpm run dev
-pnpm run lint
-pnpm test
-pnpm exec tsc --noEmit
-```
-
-## Defaults
-
-- Prefer Aksel components and spacing tokens.
-- Use Tailwind only when Aksel cannot express a layout or a small one-off style.
-- Log with `@navikt/next-logger` on the server; avoid `console.*` in app code.
-
-## Boundaries
-
-### Always
-- Keep RSC/client boundaries intact.
-- Use env helpers for environment variables.
-
-### Ask first
-- Changes to auth flow (OASIS/TokenX/IdPorten).
-- Changes to CSP/basePath handling.
-
-### Never
-- Log tokens, headers, or PII.
-- Edit `.github/*` without explicit approval.
+Read `.github/copilot-instructions.md` before working in this repository. It
+owns the source map, commands, conventions and boundaries. For affected files,
+read the files in `.github/instructions/` whose frontmatter `applyTo` patterns
+match those paths. Keep the detailed guidance in those canonical files.
