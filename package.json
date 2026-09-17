@@ -41,7 +41,7 @@
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-hook-form": "^7.87.0",
-    "remeda": "^2.47.0",
+    "remeda": "^2.48.0",
     "zod": "^4.6.1"
   },
   "devDependencies": {
