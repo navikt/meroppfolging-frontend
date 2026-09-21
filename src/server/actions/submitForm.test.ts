@@ -139,7 +139,7 @@ describe("submitForm", () => {
         isAxiosError: true,
         request: { body: formRequest },
       }),
-      expectedErrorCode: "UPSTREAM_TIMEOUT",
+      expectedErrorCode: "ETIMEDOUT",
     },
     {
       error: Object.assign(new Error(`${SYNTHETIC_CANARY}-network`), {
@@ -245,14 +245,9 @@ describe("submitForm", () => {
     expect(serializedLogLines[0]).not.toContain(SYNTHETIC_CANARY);
   });
 
-  it.each([
-    ["ENOTFOUND", "dns", "UPSTREAM_DNS_FAILURE"],
-    ["ETIMEDOUT", "timeout", "UPSTREAM_TIMEOUT"],
-    ["ECONNREFUSED", "connection", "UPSTREAM_CONNECTION_FAILED"],
-    ["CERT_HAS_EXPIRED", "tls", "UPSTREAM_TLS_FAILED"],
-  ])(
+  it.each(["ENOTFOUND", "ETIMEDOUT", "ECONNREFUSED", "CERT_HAS_EXPIRED"])(
     "preserves %s diagnosis through Axios cause without logging its payload",
-    async (code, kind, errorCode) => {
+    async (code) => {
       vi.mocked(axios).mockRejectedValueOnce(
         Object.assign(
           new Error(SYNTHETIC_CANARY, {
@@ -268,8 +263,7 @@ describe("submitForm", () => {
       await expect(submitForm(formRequest)).rejects.toThrow();
       expect(serializedLogLines).toHaveLength(1);
       expect(JSON.parse(serializedLogLines[0])).toMatchObject({
-        error_code: errorCode,
-        failure_kind: kind,
+        error_code: code,
         failure_stage: "request",
         cause_type: "Error",
       });

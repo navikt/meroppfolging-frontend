@@ -32,9 +32,9 @@ function logFetchFailure({
   errorCode: string;
   errorMessage: string;
   upstreamStatus?: number;
-  validationErrors?: { code: string; path: string }[];
+  validationErrors?: { code: string }[];
   diagnostics: {
-    failure_kind: string;
+    failure_kind?: string;
     failure_stage: string;
     cause_type?: string;
   };
@@ -75,7 +75,8 @@ export async function fetchValidatedJson<T>({
     logFetchFailure({
       context,
       diagnostics: { ...diagnostics, failure_stage: "request" },
-      errorCode: diagnostics.error_code,
+      errorCode:
+        diagnostics.error_code ?? RuntimeErrorCode.UPSTREAM_NETWORK_ERROR,
       errorMessage,
     });
     throw new Error(errorMessage);
@@ -114,7 +115,7 @@ export async function fetchValidatedJson<T>({
     logFetchFailure({
       context,
       errorCode: RuntimeErrorCode.UPSTREAM_RESPONSE_SCHEMA_MISMATCH,
-      validationErrors: schemaFailureDiagnostics(parsed.error, context),
+      validationErrors: schemaFailureDiagnostics(parsed.error),
       diagnostics: {
         failure_kind: "invalid_response",
         failure_stage: "response_validation",
@@ -128,24 +129,6 @@ export async function fetchValidatedJson<T>({
   return parsed.data;
 }
 
-const validationPaths: Record<
-  RuntimeFetchErrorContext["operation"],
-  readonly string[]
-> = {
-  fetch_maksdato: ["$", "maxDate", "utbetaltTom", "gjenstaendeSykedager"],
-  fetch_sen_oppfolging_status: [
-    "$",
-    "response",
-    "responseDateTime",
-    "hasAccessToSenOppfolging",
-    ...[0, 1].flatMap((index) => [
-      `response.${index}`,
-      ...["questionType", "questionText", "answerType", "answerText"].map(
-        (field) => `response.${index}.${field}`,
-      ),
-    ]),
-  ],
-};
 const issueCodes = new Set([
   "invalid_type",
   "invalid_value",
@@ -160,16 +143,8 @@ const issueCodes = new Set([
   "custom",
 ]);
 
-function schemaFailureDiagnostics(
-  error: z.ZodError,
-  context: RuntimeFetchErrorContext,
-): { code: string; path: string }[] {
-  const paths = validationPaths[context.operation];
-  return error.issues.slice(0, 20).map((issue) => {
-    const path = issue.path.length === 0 ? "$" : issue.path.join(".");
-    return {
-      code: issueCodes.has(issue.code) ? issue.code : "unknown",
-      path: paths.includes(path) ? path : "unknown",
-    };
-  });
+function schemaFailureDiagnostics(error: z.ZodError): { code: string }[] {
+  return error.issues.slice(0, 20).map((issue) => ({
+    code: issueCodes.has(issue.code) ? issue.code : "unknown",
+  }));
 }

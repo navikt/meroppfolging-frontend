@@ -78,9 +78,9 @@ describe("TokenX diagnostics preserve the existing target audiences", () => {
     ).rejects.toThrow("TokenX OBO exchange failed");
     expect(lines).toHaveLength(1);
     expect(JSON.parse(lines[0])).toMatchObject({
-      failure_kind: "dns",
+      failure_kind: "token",
       failure_stage: "token_exchange",
-      error_code: "UPSTREAM_DNS_FAILURE",
+      error_code: "ENOTFOUND",
     });
     expect(lines[0]).not.toContain(secret);
   });

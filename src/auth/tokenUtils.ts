@@ -64,16 +64,10 @@ async function exchangeToken(
     logger.error(
       {
         ...diagnostics,
-        failure_kind:
-          diagnostics.failure_kind === "unknown"
-            ? "token"
-            : diagnostics.failure_kind,
+        failure_kind: "token",
         event_type: "tokenx_obo_exchange_failed",
         operation: "exchange_tokenx_obo",
-        error_code:
-          diagnostics.failure_kind === "unknown"
-            ? "TOKENX_OBO_EXCHANGE_ERROR"
-            : diagnostics.error_code,
+        error_code: diagnostics.error_code ?? "TOKENX_OBO_EXCHANGE_ERROR",
         failure_stage: "token_exchange",
         dependency: "tokenx",
         upstream,

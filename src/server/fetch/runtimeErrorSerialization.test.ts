@@ -198,7 +198,7 @@ describe("serialized runtime errors for server fetches", () => {
     expectPrivateDataAbsent(line, record);
   });
 
-  it("serializes the exact schema field and issue code without payload or raw Zod details", async () => {
+  it("serializes the schema issue code without payload, paths or raw Zod details", async () => {
     const traceId = "2234567890abcdef1234567890abcdef";
     fetchMock.mockResolvedValueOnce(
       new Response(
@@ -229,12 +229,12 @@ describe("serialized runtime errors for server fetches", () => {
       upstream_status: 200,
       trace_id: traceId,
       message: "Failed to fetch maksdato",
-      validation_errors: [{ code: "invalid_type", path: "maxDate" }],
+      validation_errors: [{ code: "invalid_type" }],
     });
     expectPrivateDataAbsent(line, record);
   });
 
-  it("distinguishes a status field mismatch without logging form text", async () => {
+  it("identifies a status schema mismatch without logging form text", async () => {
     fetchMock.mockResolvedValueOnce(
       Response.json({
         response: null,
@@ -246,9 +246,7 @@ describe("serialized runtime errors for server fetches", () => {
       "Failed to fetch sen oppfolging status",
     );
     const { line, record } = onlySerializedLog();
-    expect(record.validation_errors).toEqual([
-      { code: "invalid_type", path: "hasAccessToSenOppfolging" },
-    ]);
+    expect(record.validation_errors).toEqual([{ code: "invalid_type" }]);
     expectPrivateDataAbsent(line, record);
   });
 

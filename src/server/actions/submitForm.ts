@@ -21,8 +21,8 @@ const submitFormFailureContext = RuntimeErrorContext.SEN_OPPFOLGING_SVAR_SUBMIT;
 function getSubmitFormFailureDetails(error: unknown) {
   if (!isAxiosError(error)) {
     return {
-      ...transportFailureDiagnostics(error),
       error_code: RuntimeErrorCode.UNEXPECTED_ERROR,
+      ...transportFailureDiagnostics(error),
       failure_stage: "request",
     } as const;
   }
@@ -55,9 +55,10 @@ function getSubmitFormFailureDetails(error: unknown) {
   return {
     ...diagnostics,
     error_code:
-      diagnostics.failure_kind !== "unknown" || error.request
-        ? diagnostics.error_code
-        : RuntimeErrorCode.UPSTREAM_REQUEST_ERROR,
+      diagnostics.error_code ??
+      (error.request
+        ? RuntimeErrorCode.UPSTREAM_NETWORK_ERROR
+        : RuntimeErrorCode.UPSTREAM_REQUEST_ERROR),
     failure_stage: "request",
   };
 }
