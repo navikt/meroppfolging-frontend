@@ -13,19 +13,37 @@ import {
   RuntimeErrorContext,
 } from "@/constants/runtimeErrorContract";
 import { serverRequest } from "@/libs/axios";
+import { transportFailureDiagnostics } from "@/server/observability/failureDiagnostics";
 import type { FormRequest } from "@/server/schemas/formRequestSchema";
 
 const submitFormFailureContext = RuntimeErrorContext.SEN_OPPFOLGING_SVAR_SUBMIT;
 
 function getSubmitFormFailureDetails(error: unknown) {
   if (!isAxiosError(error)) {
-    return { error_code: RuntimeErrorCode.UNEXPECTED_ERROR } as const;
+    return {
+      ...transportFailureDiagnostics(error),
+      error_code: RuntimeErrorCode.UNEXPECTED_ERROR,
+      failure_stage: "request",
+    } as const;
   }
 
   if (error.response) {
     const httpStatus = error.response.status;
+    const body: unknown = error.response.data;
+    const rejection =
+      httpStatus === 409 &&
+      typeof body === "object" &&
+      body !== null &&
+      "error_code" in body &&
+      (body.error_code === "ALREADY_RESPONDED" ||
+        body.error_code === "NO_UTSENDT_VARSEL")
+        ? body.error_code
+        : undefined;
     return {
-      error_code: RuntimeErrorCode.UPSTREAM_HTTP_ERROR,
+      error_code: rejection ?? RuntimeErrorCode.UPSTREAM_HTTP_ERROR,
+      failure_kind: rejection ? "domain" : "http",
+      failure_stage: "response",
+      ...(rejection ? { rejection_reason: rejection } : {}),
       ...(typeof httpStatus === "number" &&
         Number.isInteger(httpStatus) &&
         httpStatus >= 100 &&
@@ -33,15 +51,15 @@ function getSubmitFormFailureDetails(error: unknown) {
     } as const;
   }
 
-  if (error.code === "ECONNABORTED" || error.code === "ETIMEDOUT") {
-    return { error_code: RuntimeErrorCode.UPSTREAM_TIMEOUT } as const;
-  }
-
-  if (error.request) {
-    return { error_code: RuntimeErrorCode.UPSTREAM_NETWORK_ERROR } as const;
-  }
-
-  return { error_code: RuntimeErrorCode.UPSTREAM_REQUEST_ERROR } as const;
+  const diagnostics = transportFailureDiagnostics(error);
+  return {
+    ...diagnostics,
+    error_code:
+      diagnostics.failure_kind !== "unknown" || error.request
+        ? diagnostics.error_code
+        : RuntimeErrorCode.UPSTREAM_REQUEST_ERROR,
+    failure_stage: "request",
+  };
 }
 
 export async function submitForm(formRequest: FormRequest): Promise<void> {
@@ -67,12 +85,24 @@ export async function submitForm(formRequest: FormRequest): Promise<void> {
       data: formRequest,
     });
   } catch (error) {
-    logger.error(
+    const diagnostics = getSubmitFormFailureDetails(error);
+    const rejected =
+      "rejection_reason" in diagnostics &&
+      diagnostics.rejection_reason !== undefined;
+    const write = rejected
+      ? logger.warn.bind(logger)
+      : logger.error.bind(logger);
+    write(
       {
         ...submitFormFailureContext,
-        ...getSubmitFormFailureDetails(error),
+        ...diagnostics,
+        ...(rejected
+          ? { event_type: "api_request_rejected", outcome: "rejected" }
+          : { outcome: "failed" }),
       },
-      "Failed to submit registration",
+      rejected
+        ? "Svar på sen oppfølging ble avvist av en kjent domeneregel"
+        : "Kunne ikke sende svar på sen oppfølging",
     );
     throw new Error("Failed to submit registration");
   }

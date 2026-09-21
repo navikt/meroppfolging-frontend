@@ -4,11 +4,25 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { FormRequest } from "@/server/schemas/formRequestSchema";
 import { submitForm } from "./submitForm";
 
-vi.mock("@navikt/next-logger", () => ({
-  logger: {
-    error: vi.fn(),
-  },
-}));
+const serializedLogLines = vi.hoisted((): string[] => []);
+vi.mock("@navikt/next-logger", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@navikt/next-logger")>();
+  const backend = actual.backendLogger(
+    {},
+    {
+      write(line: string) {
+        serializedLogLines.push(line);
+      },
+    },
+  );
+  return {
+    ...actual,
+    logger: {
+      error: vi.fn(backend.error.bind(backend)),
+      warn: vi.fn(backend.warn.bind(backend)),
+    },
+  };
+});
 
 vi.mock("axios", async (importOriginal) => ({
   ...(await importOriginal<typeof import("axios")>()),
@@ -66,6 +80,7 @@ const formRequest: FormRequest = {
 describe("submitForm", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    serializedLogLines.length = 0;
   });
 
   it("exposes only allowlisted diagnostics when submission fails", async () => {
@@ -90,14 +105,14 @@ describe("submitForm", () => {
     expect(rejection.cause).toBeUndefined();
     expect(vi.mocked(logger.error).mock.calls).toEqual([
       [
-        {
+        expect.objectContaining({
           event_type: "sen_oppfolging_svar_submit_failed",
           error_code: "UPSTREAM_HTTP_ERROR",
           upstream_status: 503,
           operation: "submit_sen_oppfolging_svar",
           upstream: "meroppfolging-backend",
-        },
-        "Failed to submit registration",
+        }),
+        "Kunne ikke sende svar på sen oppfølging",
       ],
     ]);
     expect(JSON.stringify(vi.mocked(logger.error).mock.calls)).not.toContain(
@@ -156,18 +171,109 @@ describe("submitForm", () => {
 
       expect(vi.mocked(logger.error).mock.calls).toEqual([
         [
-          {
+          expect.objectContaining({
             event_type: "sen_oppfolging_svar_submit_failed",
             error_code: expectedErrorCode,
             operation: "submit_sen_oppfolging_svar",
             upstream: "meroppfolging-backend",
-          },
-          "Failed to submit registration",
+          }),
+          "Kunne ikke sende svar på sen oppfølging",
         ],
       ]);
       expect(JSON.stringify(vi.mocked(logger.error).mock.calls)).not.toContain(
         SYNTHETIC_CANARY,
       );
+    },
+  );
+  it.each(["ALREADY_RESPONDED", "NO_UTSENDT_VARSEL"])(
+    "logs the known %s domain conflict once without response data",
+    async (code) => {
+      vi.mocked(axios).mockRejectedValueOnce(
+        Object.assign(new Error(SYNTHETIC_CANARY), {
+          isAxiosError: true,
+          response: {
+            status: 409,
+            data: {
+              error_code: code,
+              reason: SYNTHETIC_CANARY,
+              token: SYNTHETIC_CANARY,
+            },
+          },
+          config: {
+            data: formRequest,
+            headers: { Authorization: SYNTHETIC_CANARY },
+          },
+        }),
+      );
+      await expect(submitForm(formRequest)).rejects.toThrow(
+        "Failed to submit registration",
+      );
+      expect(logger.error).not.toHaveBeenCalled();
+      expect(serializedLogLines).toHaveLength(1);
+      expect(JSON.parse(serializedLogLines[0])).toMatchObject({
+        level: "warn",
+        event_type: "api_request_rejected",
+        operation: "submit_sen_oppfolging_svar",
+        rejection_reason: code,
+        error_code: code,
+        failure_kind: "domain",
+        failure_stage: "response",
+        upstream_status: 409,
+        upstream: "meroppfolging-backend",
+        outcome: "rejected",
+      });
+      expect(serializedLogLines[0]).not.toContain(SYNTHETIC_CANARY);
+    },
+  );
+
+  it("keeps an unexplained 409 visible as a technical failure", async () => {
+    vi.mocked(axios).mockRejectedValueOnce(
+      Object.assign(new Error(SYNTHETIC_CANARY), {
+        isAxiosError: true,
+        response: { status: 409, data: { error_code: SYNTHETIC_CANARY } },
+      }),
+    );
+    await expect(submitForm(formRequest)).rejects.toThrow();
+    expect(logger.warn).not.toHaveBeenCalled();
+    expect(serializedLogLines).toHaveLength(1);
+    expect(JSON.parse(serializedLogLines[0])).toMatchObject({
+      level: "error",
+      error_code: "UPSTREAM_HTTP_ERROR",
+      failure_kind: "http",
+      upstream_status: 409,
+    });
+    expect(serializedLogLines[0]).not.toContain(SYNTHETIC_CANARY);
+  });
+
+  it.each([
+    ["ENOTFOUND", "dns", "UPSTREAM_DNS_FAILURE"],
+    ["ETIMEDOUT", "timeout", "UPSTREAM_TIMEOUT"],
+    ["ECONNREFUSED", "connection", "UPSTREAM_CONNECTION_FAILED"],
+    ["CERT_HAS_EXPIRED", "tls", "UPSTREAM_TLS_FAILED"],
+  ])(
+    "preserves %s diagnosis through Axios cause without logging its payload",
+    async (code, kind, errorCode) => {
+      vi.mocked(axios).mockRejectedValueOnce(
+        Object.assign(
+          new Error(SYNTHETIC_CANARY, {
+            cause: Object.assign(new Error(SYNTHETIC_CANARY), { code }),
+          }),
+          {
+            isAxiosError: true,
+            request: {},
+            config: { data: formRequest },
+          },
+        ),
+      );
+      await expect(submitForm(formRequest)).rejects.toThrow();
+      expect(serializedLogLines).toHaveLength(1);
+      expect(JSON.parse(serializedLogLines[0])).toMatchObject({
+        error_code: errorCode,
+        failure_kind: kind,
+        failure_stage: "request",
+        cause_type: "Error",
+      });
+      expect(serializedLogLines[0]).not.toContain(SYNTHETIC_CANARY);
     },
   );
 });

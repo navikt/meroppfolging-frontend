@@ -4,12 +4,7 @@ import {
   RuntimeErrorCode,
   type RuntimeFetchErrorContext,
 } from "@/constants/runtimeErrorContract";
-
-type RuntimeFetchErrorCode =
-  | typeof RuntimeErrorCode.UPSTREAM_HTTP_ERROR
-  | typeof RuntimeErrorCode.UPSTREAM_NETWORK_ERROR
-  | typeof RuntimeErrorCode.UPSTREAM_RESPONSE_PARSE_ERROR
-  | typeof RuntimeErrorCode.UPSTREAM_RESPONSE_SCHEMA_MISMATCH;
+import { transportFailureDiagnostics } from "@/server/observability/failureDiagnostics";
 
 type FetchValidatedJsonOptions<T> = {
   context: RuntimeFetchErrorContext;
@@ -30,17 +25,28 @@ function logFetchFailure({
   errorCode,
   errorMessage,
   upstreamStatus,
+  diagnostics,
+  validationErrors,
 }: {
   context: RuntimeFetchErrorContext;
-  errorCode: RuntimeFetchErrorCode;
+  errorCode: string;
   errorMessage: string;
   upstreamStatus?: number;
+  validationErrors?: { code: string; path: string }[];
+  diagnostics: {
+    failure_kind: string;
+    failure_stage: string;
+    cause_type?: string;
+  };
 }): void {
   logger.error(
     {
       ...context,
       error_code: errorCode,
+      ...diagnostics,
+      outcome: "failed",
       method: "GET",
+      ...(validationErrors ? { validation_errors: validationErrors } : {}),
       ...(upstreamStatus === undefined
         ? {}
         : optionalUpstreamStatus(upstreamStatus)),
@@ -64,10 +70,12 @@ export async function fetchValidatedJson<T>({
   let response: Response;
   try {
     response = await fetch(endpoint, { method: "GET", headers });
-  } catch {
+  } catch (error) {
+    const diagnostics = transportFailureDiagnostics(error);
     logFetchFailure({
       context,
-      errorCode: RuntimeErrorCode.UPSTREAM_NETWORK_ERROR,
+      diagnostics: { ...diagnostics, failure_stage: "request" },
+      errorCode: diagnostics.error_code,
       errorMessage,
     });
     throw new Error(errorMessage);
@@ -77,6 +85,7 @@ export async function fetchValidatedJson<T>({
     logFetchFailure({
       context,
       errorCode: RuntimeErrorCode.UPSTREAM_HTTP_ERROR,
+      diagnostics: { failure_kind: "http", failure_stage: "response" },
       errorMessage,
       upstreamStatus: response.status,
     });
@@ -90,6 +99,10 @@ export async function fetchValidatedJson<T>({
     logFetchFailure({
       context,
       errorCode: RuntimeErrorCode.UPSTREAM_RESPONSE_PARSE_ERROR,
+      diagnostics: {
+        failure_kind: "invalid_response",
+        failure_stage: "response_parse",
+      },
       errorMessage,
       upstreamStatus: response.status,
     });
@@ -101,6 +114,11 @@ export async function fetchValidatedJson<T>({
     logFetchFailure({
       context,
       errorCode: RuntimeErrorCode.UPSTREAM_RESPONSE_SCHEMA_MISMATCH,
+      validationErrors: schemaFailureDiagnostics(parsed.error, context),
+      diagnostics: {
+        failure_kind: "invalid_response",
+        failure_stage: "response_validation",
+      },
       errorMessage,
       upstreamStatus: response.status,
     });
@@ -108,4 +126,50 @@ export async function fetchValidatedJson<T>({
   }
 
   return parsed.data;
+}
+
+const validationPaths: Record<
+  RuntimeFetchErrorContext["operation"],
+  readonly string[]
+> = {
+  fetch_maksdato: ["$", "maxDate", "utbetaltTom", "gjenstaendeSykedager"],
+  fetch_sen_oppfolging_status: [
+    "$",
+    "response",
+    "responseDateTime",
+    "hasAccessToSenOppfolging",
+    ...[0, 1].flatMap((index) => [
+      `response.${index}`,
+      ...["questionType", "questionText", "answerType", "answerText"].map(
+        (field) => `response.${index}.${field}`,
+      ),
+    ]),
+  ],
+};
+const issueCodes = new Set([
+  "invalid_type",
+  "invalid_value",
+  "too_big",
+  "too_small",
+  "invalid_format",
+  "not_multiple_of",
+  "unrecognized_keys",
+  "invalid_union",
+  "invalid_key",
+  "invalid_element",
+  "custom",
+]);
+
+function schemaFailureDiagnostics(
+  error: z.ZodError,
+  context: RuntimeFetchErrorContext,
+): { code: string; path: string }[] {
+  const paths = validationPaths[context.operation];
+  return error.issues.slice(0, 20).map((issue) => {
+    const path = issue.path.length === 0 ? "$" : issue.path.join(".");
+    return {
+      code: issueCodes.has(issue.code) ? issue.code : "unknown",
+      path: paths.includes(path) ? path : "unknown",
+    };
+  });
 }
