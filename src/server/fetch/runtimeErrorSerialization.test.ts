@@ -198,7 +198,7 @@ describe("serialized runtime errors for server fetches", () => {
     expectPrivateDataAbsent(line, record);
   });
 
-  it("serializes one traced maksdato schema event without payload or Zod details", async () => {
+  it("serializes the schema issue code without payload, paths or raw Zod details", async () => {
     const traceId = "2234567890abcdef1234567890abcdef";
     fetchMock.mockResolvedValueOnce(
       new Response(
@@ -229,6 +229,27 @@ describe("serialized runtime errors for server fetches", () => {
       upstream_status: 200,
       trace_id: traceId,
       message: "Failed to fetch maksdato",
+      validation_issue_codes: "invalid_type",
+      validation_issue_count: 1,
+    });
+    expectPrivateDataAbsent(line, record);
+  });
+
+  it("identifies a status schema mismatch without logging form text", async () => {
+    fetchMock.mockResolvedValueOnce(
+      Response.json({
+        response: null,
+        responseDateTime: null,
+        hasAccessToSenOppfolging: PRIVATE_CANARY,
+      }),
+    );
+    await expect(senOppfolgingStatus()).rejects.toThrow(
+      "Failed to fetch sen oppfolging status",
+    );
+    const { line, record } = onlySerializedLog();
+    expect(record).toMatchObject({
+      validation_issue_codes: "invalid_type",
+      validation_issue_count: 1,
     });
     expectPrivateDataAbsent(line, record);
   });
@@ -244,8 +265,27 @@ describe("serialized runtime errors for server fetches", () => {
     expect(record).toMatchObject({
       event_type: "maksdato_fetch_failed",
       error_code: "UPSTREAM_NETWORK_ERROR",
+      failure_kind: "unknown",
+      failure_stage: "request",
     });
     expect(record).not.toHaveProperty("upstream_status");
+    expectPrivateDataAbsent(line, record);
+  });
+
+  it("classifies a fetch timeout from its error type without a derived code", async () => {
+    fetchMock.mockRejectedValueOnce(
+      new DOMException(`${PRIVATE_CANARY}-timeout`, "TimeoutError"),
+    );
+
+    await expect(getMaxDate()).rejects.toThrow("Failed to fetch maksdato");
+
+    const { line, record } = onlySerializedLog();
+    expect(record).toMatchObject({
+      error_code: "UPSTREAM_NETWORK_ERROR",
+      failure_kind: "timeout",
+      cause_type: "TimeoutError",
+      failure_stage: "request",
+    });
     expectPrivateDataAbsent(line, record);
   });
 

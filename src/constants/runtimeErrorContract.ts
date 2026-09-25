@@ -3,6 +3,7 @@ export const RuntimeErrorEvent = {
   SEN_OPPFOLGING_STATUS_FETCH_FAILED: "sen_oppfolging_status_fetch_failed",
   MAKSDATO_FETCH_FAILED: "maksdato_fetch_failed",
   ANALYTICS_EVENT_SEND_FAILED: "analytics_event_send_failed",
+  TOKENX_OBO_EXCHANGE_FAILED: "tokenx_obo_exchange_failed",
 } as const;
 
 export type RuntimeErrorEvent =
@@ -11,16 +12,37 @@ export type RuntimeErrorEvent =
 export const RuntimeErrorCode = {
   UNEXPECTED_ERROR: "UNEXPECTED_ERROR",
   UPSTREAM_HTTP_ERROR: "UPSTREAM_HTTP_ERROR",
-  UPSTREAM_TIMEOUT: "UPSTREAM_TIMEOUT",
   UPSTREAM_NETWORK_ERROR: "UPSTREAM_NETWORK_ERROR",
   UPSTREAM_REQUEST_ERROR: "UPSTREAM_REQUEST_ERROR",
   UPSTREAM_RESPONSE_PARSE_ERROR: "UPSTREAM_RESPONSE_PARSE_ERROR",
   UPSTREAM_RESPONSE_SCHEMA_MISMATCH: "UPSTREAM_RESPONSE_SCHEMA_MISMATCH",
   ANALYTICS_CLIENT_ERROR: "ANALYTICS_CLIENT_ERROR",
+  TOKENX_OBO_EXCHANGE_ERROR: "TOKENX_OBO_EXCHANGE_ERROR",
 } as const;
 
 export type RuntimeErrorCode =
   (typeof RuntimeErrorCode)[keyof typeof RuntimeErrorCode];
+
+/** Known domain rejections; see meroppfolging-backend#430. */
+export const RuntimeRejectionReason = {
+  ALREADY_RESPONDED: "ALREADY_RESPONDED",
+  NO_UTSENDT_VARSEL: "NO_UTSENDT_VARSEL",
+} as const;
+
+export type RuntimeRejectionReason =
+  (typeof RuntimeRejectionReason)[keyof typeof RuntimeRejectionReason];
+
+export const ApiRequestRejectedEvent = "api_request_rejected";
+
+export const TokenxOboExchangeContext = {
+  event_type: RuntimeErrorEvent.TOKENX_OBO_EXCHANGE_FAILED,
+  operation: "exchange_tokenx_obo",
+  dependency: "tokenx",
+} as const;
+
+export type TokenxTargetUpstream =
+  | "meroppfolging-backend"
+  | "sykepengedager-informasjon";
 
 export const RuntimeErrorContext = {
   SEN_OPPFOLGING_SVAR_SUBMIT: {
