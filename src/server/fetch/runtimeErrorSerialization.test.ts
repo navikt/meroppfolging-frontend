@@ -229,7 +229,8 @@ describe("serialized runtime errors for server fetches", () => {
       upstream_status: 200,
       trace_id: traceId,
       message: "Failed to fetch maksdato",
-      validation_errors: [{ code: "invalid_type" }],
+      validation_issue_codes: "invalid_type",
+      validation_issue_count: 1,
     });
     expectPrivateDataAbsent(line, record);
   });
@@ -246,7 +247,10 @@ describe("serialized runtime errors for server fetches", () => {
       "Failed to fetch sen oppfolging status",
     );
     const { line, record } = onlySerializedLog();
-    expect(record.validation_errors).toEqual([{ code: "invalid_type" }]);
+    expect(record).toMatchObject({
+      validation_issue_codes: "invalid_type",
+      validation_issue_count: 1,
+    });
     expectPrivateDataAbsent(line, record);
   });
 
@@ -261,8 +265,27 @@ describe("serialized runtime errors for server fetches", () => {
     expect(record).toMatchObject({
       event_type: "maksdato_fetch_failed",
       error_code: "UPSTREAM_NETWORK_ERROR",
+      failure_kind: "unknown",
+      failure_stage: "request",
     });
     expect(record).not.toHaveProperty("upstream_status");
+    expectPrivateDataAbsent(line, record);
+  });
+
+  it("classifies a fetch timeout from its error type without a derived code", async () => {
+    fetchMock.mockRejectedValueOnce(
+      new DOMException(`${PRIVATE_CANARY}-timeout`, "TimeoutError"),
+    );
+
+    await expect(getMaxDate()).rejects.toThrow("Failed to fetch maksdato");
+
+    const { line, record } = onlySerializedLog();
+    expect(record).toMatchObject({
+      error_code: "UPSTREAM_NETWORK_ERROR",
+      failure_kind: "timeout",
+      cause_type: "TimeoutError",
+      failure_stage: "request",
+    });
     expectPrivateDataAbsent(line, record);
   });
 

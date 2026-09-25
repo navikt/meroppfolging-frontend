@@ -245,9 +245,14 @@ describe("submitForm", () => {
     expect(serializedLogLines[0]).not.toContain(SYNTHETIC_CANARY);
   });
 
-  it.each(["ENOTFOUND", "ETIMEDOUT", "ECONNREFUSED", "CERT_HAS_EXPIRED"])(
+  it.each([
+    ["ENOTFOUND", "dns"],
+    ["ETIMEDOUT", "timeout"],
+    ["ECONNREFUSED", "connection"],
+    ["CERT_HAS_EXPIRED", "tls"],
+  ])(
     "preserves %s diagnosis through Axios cause without logging its payload",
-    async (code) => {
+    async (code, kind) => {
       vi.mocked(axios).mockRejectedValueOnce(
         Object.assign(
           new Error(SYNTHETIC_CANARY, {
@@ -264,6 +269,7 @@ describe("submitForm", () => {
       expect(serializedLogLines).toHaveLength(1);
       expect(JSON.parse(serializedLogLines[0])).toMatchObject({
         error_code: code,
+        failure_kind: kind,
         failure_stage: "request",
         cause_type: "Error",
       });

@@ -2,6 +2,11 @@ import { logger } from "@navikt/next-logger";
 import { requestOboToken } from "@navikt/oasis";
 import type { NextApiRequest } from "next";
 import { getServerEnv, isLocalOrDemo } from "@/constants/envs";
+import {
+  RuntimeErrorCode,
+  TokenxOboExchangeContext,
+  type TokenxTargetUpstream,
+} from "@/constants/runtimeErrorContract";
 import { transportFailureDiagnostics } from "@/server/observability/failureDiagnostics";
 
 export async function exchangeIdportenTokenForSykepengedagerInformasjonTokenx(
@@ -53,7 +58,7 @@ export async function getIdportenToken(req: NextApiRequest): Promise<string> {
 async function exchangeToken(
   token: string,
   audience: string,
-  upstream: "sykepengedager-informasjon" | "meroppfolging-backend",
+  upstream: TokenxTargetUpstream,
 ): Promise<string> {
   try {
     const grant = await requestOboToken(token, audience);
@@ -64,12 +69,11 @@ async function exchangeToken(
     logger.error(
       {
         ...diagnostics,
+        ...TokenxOboExchangeContext,
         failure_kind: "token",
-        event_type: "tokenx_obo_exchange_failed",
-        operation: "exchange_tokenx_obo",
-        error_code: diagnostics.error_code ?? "TOKENX_OBO_EXCHANGE_ERROR",
+        error_code:
+          diagnostics.error_code ?? RuntimeErrorCode.TOKENX_OBO_EXCHANGE_ERROR,
         failure_stage: "token_exchange",
-        dependency: "tokenx",
         upstream,
       },
       "Kunne ikke hente tilgangstoken til tjenesten",

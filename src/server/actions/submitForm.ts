@@ -9,36 +9,58 @@ import { navigateToLogin } from "@/auth/navigateToLogin";
 import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from "@/auth/tokenUtils";
 import { getServerEnv, isLocalOrDemo } from "@/constants/envs";
 import {
+  ApiRequestRejectedEvent,
   RuntimeErrorCode,
   RuntimeErrorContext,
+  RuntimeRejectionReason,
 } from "@/constants/runtimeErrorContract";
 import { serverRequest } from "@/libs/axios";
-import { transportFailureDiagnostics } from "@/server/observability/failureDiagnostics";
+import {
+  type FailureKind,
+  type FailureStage,
+  type TransportErrorCode,
+  transportFailureDiagnostics,
+} from "@/server/observability/failureDiagnostics";
 import type { FormRequest } from "@/server/schemas/formRequestSchema";
 
 const submitFormFailureContext = RuntimeErrorContext.SEN_OPPFOLGING_SVAR_SUBMIT;
 
-function getSubmitFormFailureDetails(error: unknown) {
+type SubmitFormFailureDetails = {
+  error_code: RuntimeErrorCode | TransportErrorCode | RuntimeRejectionReason;
+  failure_kind?: FailureKind;
+  failure_stage: FailureStage;
+  cause_type?: string;
+  rejection_reason?: RuntimeRejectionReason;
+  upstream_status?: number;
+};
+
+const rejectionReasons = new Set<unknown>(
+  Object.values(RuntimeRejectionReason),
+);
+
+function knownRejection(body: unknown): RuntimeRejectionReason | undefined {
+  return typeof body === "object" &&
+    body !== null &&
+    "error_code" in body &&
+    rejectionReasons.has(body.error_code)
+    ? (body.error_code as RuntimeRejectionReason)
+    : undefined;
+}
+
+function getSubmitFormFailureDetails(error: unknown): SubmitFormFailureDetails {
   if (!isAxiosError(error)) {
+    const diagnostics = transportFailureDiagnostics(error);
     return {
-      error_code: RuntimeErrorCode.UNEXPECTED_ERROR,
-      ...transportFailureDiagnostics(error),
+      ...diagnostics,
+      error_code: diagnostics.error_code ?? RuntimeErrorCode.UNEXPECTED_ERROR,
       failure_stage: "request",
-    } as const;
+    };
   }
 
   if (error.response) {
     const httpStatus = error.response.status;
-    const body: unknown = error.response.data;
     const rejection =
-      httpStatus === 409 &&
-      typeof body === "object" &&
-      body !== null &&
-      "error_code" in body &&
-      (body.error_code === "ALREADY_RESPONDED" ||
-        body.error_code === "NO_UTSENDT_VARSEL")
-        ? body.error_code
-        : undefined;
+      httpStatus === 409 ? knownRejection(error.response.data) : undefined;
     return {
       error_code: rejection ?? RuntimeErrorCode.UPSTREAM_HTTP_ERROR,
       failure_kind: rejection ? "domain" : "http",
@@ -48,7 +70,7 @@ function getSubmitFormFailureDetails(error: unknown) {
         Number.isInteger(httpStatus) &&
         httpStatus >= 100 &&
         httpStatus <= 599 && { upstream_status: httpStatus }),
-    } as const;
+    };
   }
 
   const diagnostics = transportFailureDiagnostics(error);
@@ -87,9 +109,7 @@ export async function submitForm(formRequest: FormRequest): Promise<void> {
     });
   } catch (error) {
     const diagnostics = getSubmitFormFailureDetails(error);
-    const rejected =
-      "rejection_reason" in diagnostics &&
-      diagnostics.rejection_reason !== undefined;
+    const rejected = diagnostics.rejection_reason !== undefined;
     const write = rejected
       ? logger.warn.bind(logger)
       : logger.error.bind(logger);
@@ -98,7 +118,7 @@ export async function submitForm(formRequest: FormRequest): Promise<void> {
         ...submitFormFailureContext,
         ...diagnostics,
         ...(rejected
-          ? { event_type: "api_request_rejected", outcome: "rejected" }
+          ? { event_type: ApiRequestRejectedEvent, outcome: "rejected" }
           : { outcome: "failed" }),
       },
       rejected

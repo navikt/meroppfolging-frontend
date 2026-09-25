@@ -4,7 +4,12 @@ import {
   RuntimeErrorCode,
   type RuntimeFetchErrorContext,
 } from "@/constants/runtimeErrorContract";
-import { transportFailureDiagnostics } from "@/server/observability/failureDiagnostics";
+import {
+  type FailureKind,
+  type FailureStage,
+  type TransportErrorCode,
+  transportFailureDiagnostics,
+} from "@/server/observability/failureDiagnostics";
 
 type FetchValidatedJsonOptions<T> = {
   context: RuntimeFetchErrorContext;
@@ -26,16 +31,16 @@ function logFetchFailure({
   errorMessage,
   upstreamStatus,
   diagnostics,
-  validationErrors,
+  validation,
 }: {
   context: RuntimeFetchErrorContext;
-  errorCode: string;
+  errorCode: RuntimeErrorCode | TransportErrorCode;
   errorMessage: string;
   upstreamStatus?: number;
-  validationErrors?: { code: string }[];
+  validation?: SchemaFailureDiagnostics;
   diagnostics: {
-    failure_kind?: string;
-    failure_stage: string;
+    failure_kind?: FailureKind;
+    failure_stage: FailureStage;
     cause_type?: string;
   };
 }): void {
@@ -46,7 +51,7 @@ function logFetchFailure({
       ...diagnostics,
       outcome: "failed",
       method: "GET",
-      ...(validationErrors ? { validation_errors: validationErrors } : {}),
+      ...validation,
       ...(upstreamStatus === undefined
         ? {}
         : optionalUpstreamStatus(upstreamStatus)),
@@ -115,7 +120,7 @@ export async function fetchValidatedJson<T>({
     logFetchFailure({
       context,
       errorCode: RuntimeErrorCode.UPSTREAM_RESPONSE_SCHEMA_MISMATCH,
-      validationErrors: schemaFailureDiagnostics(parsed.error),
+      validation: schemaFailureDiagnostics(parsed.error),
       diagnostics: {
         failure_kind: "invalid_response",
         failure_stage: "response_validation",
@@ -129,7 +134,7 @@ export async function fetchValidatedJson<T>({
   return parsed.data;
 }
 
-const issueCodes = new Set([
+const issueCodes = new Set<string>([
   "invalid_type",
   "invalid_value",
   "too_big",
@@ -143,8 +148,20 @@ const issueCodes = new Set([
   "custom",
 ]);
 
-function schemaFailureDiagnostics(error: z.ZodError): { code: string }[] {
-  return error.issues.slice(0, 20).map((issue) => ({
-    code: issueCodes.has(issue.code) ? issue.code : "unknown",
-  }));
+type SchemaFailureDiagnostics = {
+  validation_issue_codes: string;
+  validation_issue_count: number;
+};
+
+/** Primitive fields only: issue codes are a closed set, never paths or messages. */
+function schemaFailureDiagnostics(error: z.ZodError): SchemaFailureDiagnostics {
+  const codes = new Set(
+    error.issues.map((issue) =>
+      issueCodes.has(issue.code) ? issue.code : "unknown",
+    ),
+  );
+  return {
+    validation_issue_codes: [...codes].sort().join(","),
+    validation_issue_count: error.issues.length,
+  };
 }
