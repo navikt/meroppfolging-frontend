@@ -40,7 +40,7 @@ describe("StepHandler", () => {
       refresh: vi.fn(),
       replace: vi.fn(),
     });
-    vi.mocked(submitForm).mockResolvedValue();
+    vi.mocked(submitForm).mockResolvedValue({ ok: true });
   });
 
   it("navigates to a receipt without putting form answers in the URL", async () => {
@@ -88,4 +88,50 @@ describe("StepHandler", () => {
     expect(screen.getByText("Ja, jeg ønsker å be om oppfølging")).toBeVisible();
     expect(push.mock.calls).toEqual([]);
   });
+
+  it.each(["returned failure", "action rejection"])(
+    "keeps answers and allows retry after a %s",
+    async (failure) => {
+      if (failure === "returned failure") {
+        vi.mocked(submitForm).mockResolvedValueOnce({ ok: false });
+      } else {
+        vi.mocked(submitForm).mockRejectedValueOnce(new Error("Network error"));
+      }
+      const { user } = render(<StepHandler senOppfolgingStatus={IkkeSvart} />);
+
+      await user.click(
+        screen.getByRole("radio", { name: "Ingen av alternativene passer" }),
+      );
+      await user.click(screen.getByRole("button", { name: "Neste" }));
+      await user.click(screen.getByRole("button", { name: "Neste" }));
+      const answer = screen.getByRole("radio", {
+        name: "Ja, jeg ønsker å be om oppfølging",
+      });
+      await user.click(answer);
+      await user.click(
+        screen.getByRole("button", { name: "Send inn svarene" }),
+      );
+
+      expect(
+        await screen.findByRole("heading", { name: "Beklager, teknisk feil" }),
+      ).toBeVisible();
+      expect(answer).toBeChecked();
+      expect(push).not.toHaveBeenCalled();
+      const retry = screen.getByRole("button", { name: "Send inn svarene" });
+      expect(retry).toBeEnabled();
+
+      await user.click(retry);
+
+      await waitFor(() => {
+        expect(push).toHaveBeenCalledWith("/snart-slutt-pa-sykepengene");
+      });
+      expect(submitForm).toHaveBeenCalledTimes(2);
+      expect(vi.mocked(submitForm).mock.calls[1][0]).toEqual(
+        vi.mocked(submitForm).mock.calls[0][0],
+      );
+      expect(
+        screen.queryByRole("heading", { name: "Beklager, teknisk feil" }),
+      ).not.toBeInTheDocument();
+    },
+  );
 });

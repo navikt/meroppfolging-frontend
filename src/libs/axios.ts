@@ -1,9 +1,9 @@
 import axios from "axios";
-import { nanoid } from "nanoid";
 
 type AxiosServerRequstParams = {
   url: string;
   accessToken: string;
+  callId: string;
 } & (
   | { method?: "get" }
   | {
@@ -19,7 +19,7 @@ export async function serverRequest<T>(
     method: opt.method || "get",
     headers: {
       "Nav-Consumer-Id": "meroppfolging-frontend",
-      "Nav-Call-Id": nanoid(),
+      "Nav-Call-Id": opt.callId,
       "Content-Type": "application/json",
       Authorization: `Bearer ${opt.accessToken}`,
     },
