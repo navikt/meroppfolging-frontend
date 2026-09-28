@@ -111,7 +111,11 @@ export const StepHandler = ({
 
     setDisplayErrorMessage(false);
     try {
-      await submitForm(request);
+      const result = await submitForm(request);
+      if (!result.ok) {
+        setDisplayErrorMessage(true);
+        return;
+      }
       if (isLocalOrDemo) {
         setSubmittedAnswers(data);
         return;

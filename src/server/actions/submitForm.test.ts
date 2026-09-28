@@ -5,6 +5,7 @@ import type { FormRequest } from "@/server/schemas/formRequestSchema";
 import { submitForm } from "./submitForm";
 
 const serializedLogLines = vi.hoisted((): string[] => []);
+const runtime = vi.hoisted(() => ({ isLocalOrDemo: false }));
 vi.mock("@navikt/next-logger", async (importOriginal) => {
   const actual = await importOriginal<typeof import("@navikt/next-logger")>();
   const backend = actual.backendLogger(
@@ -55,7 +56,9 @@ vi.mock("@/constants/envs", () => ({
   getServerEnv: vi.fn(() => ({
     MEROPPFOLGING_BACKEND_URL: "http://meroppfolging-backend",
   })),
-  isLocalOrDemo: false,
+  get isLocalOrDemo() {
+    return runtime.isLocalOrDemo;
+  },
 }));
 
 const SYNTHETIC_CANARY = "synthetic-private-form-canary-7c96a4";
@@ -81,9 +84,28 @@ describe("submitForm", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     serializedLogLines.length = 0;
+    runtime.isLocalOrDemo = false;
   });
 
-  it("exposes only allowlisted diagnostics when submission fails", async () => {
+  it("returns success after submitting the answers", async () => {
+    vi.mocked(axios).mockResolvedValueOnce({ data: {} });
+
+    await expect(submitForm(formRequest)).resolves.toEqual({ ok: true });
+
+    expect(axios).toHaveBeenCalledOnce();
+    expect(serializedLogLines).toEqual([]);
+  });
+
+  it("returns success without submitting in local and demo environments", async () => {
+    runtime.isLocalOrDemo = true;
+
+    await expect(submitForm(formRequest)).resolves.toEqual({ ok: true });
+
+    expect(axios).not.toHaveBeenCalled();
+    expect(serializedLogLines).toEqual([]);
+  });
+
+  it("returns failure with one correlated log and only allowlisted diagnostics", async () => {
     vi.mocked(axios).mockRejectedValueOnce(
       Object.assign(new Error(`${SYNTHETIC_CANARY}-upstream-error`), {
         config: { data: formRequest },
@@ -92,17 +114,7 @@ describe("submitForm", () => {
       }),
     );
 
-    const rejection: unknown = await submitForm(formRequest).catch(
-      (error: unknown) => error,
-    );
-
-    expect(rejection).toBeInstanceOf(Error);
-    if (!(rejection instanceof Error)) {
-      throw new Error("Expected submission to reject with an Error");
-    }
-    expect(rejection.message).toBe("Failed to submit registration");
-    expect(rejection.message).not.toContain(SYNTHETIC_CANARY);
-    expect(rejection.cause).toBeUndefined();
+    await expect(submitForm(formRequest)).resolves.toEqual({ ok: false });
     expect(vi.mocked(logger.error).mock.calls).toEqual([
       [
         expect.objectContaining({
@@ -118,6 +130,16 @@ describe("submitForm", () => {
     expect(JSON.stringify(vi.mocked(logger.error).mock.calls)).not.toContain(
       SYNTHETIC_CANARY,
     );
+    expect(serializedLogLines).toHaveLength(1);
+    const record = JSON.parse(serializedLogLines[0]);
+    expect(record.call_id).toMatch(/^[\w-]{21}$/);
+    expect(axios).toHaveBeenCalledWith(
+      "http://meroppfolging-backend/api/v2/senoppfolging/submitform",
+      expect.objectContaining({
+        headers: expect.objectContaining({ "Nav-Call-Id": record.call_id }),
+      }),
+    );
+    expect(serializedLogLines[0]).not.toContain(SYNTHETIC_CANARY);
   });
 
   it.each([
@@ -165,9 +187,7 @@ describe("submitForm", () => {
     async ({ error, expectedErrorCode }) => {
       vi.mocked(axios).mockRejectedValueOnce(error);
 
-      await expect(submitForm(formRequest)).rejects.toThrow(
-        "Failed to submit registration",
-      );
+      await expect(submitForm(formRequest)).resolves.toEqual({ ok: false });
 
       expect(vi.mocked(logger.error).mock.calls).toEqual([
         [
@@ -205,9 +225,7 @@ describe("submitForm", () => {
           },
         }),
       );
-      await expect(submitForm(formRequest)).rejects.toThrow(
-        "Failed to submit registration",
-      );
+      await expect(submitForm(formRequest)).resolves.toEqual({ ok: false });
       expect(logger.error).not.toHaveBeenCalled();
       expect(serializedLogLines).toHaveLength(1);
       expect(JSON.parse(serializedLogLines[0])).toMatchObject({
@@ -233,7 +251,7 @@ describe("submitForm", () => {
         response: { status: 409, data: { error_code: SYNTHETIC_CANARY } },
       }),
     );
-    await expect(submitForm(formRequest)).rejects.toThrow();
+    await expect(submitForm(formRequest)).resolves.toEqual({ ok: false });
     expect(logger.warn).not.toHaveBeenCalled();
     expect(serializedLogLines).toHaveLength(1);
     expect(JSON.parse(serializedLogLines[0])).toMatchObject({
@@ -265,7 +283,7 @@ describe("submitForm", () => {
           },
         ),
       );
-      await expect(submitForm(formRequest)).rejects.toThrow();
+      await expect(submitForm(formRequest)).resolves.toEqual({ ok: false });
       expect(serializedLogLines).toHaveLength(1);
       expect(JSON.parse(serializedLogLines[0])).toMatchObject({
         error_code: code,

@@ -3,6 +3,7 @@
 import { logger } from "@navikt/next-logger";
 import { getToken } from "@navikt/oasis";
 import { isAxiosError } from "axios";
+import { nanoid } from "nanoid";
 import { headers } from "next/headers";
 import { validateIdPortenToken } from "@/auth/getIdPortenToken";
 import { navigateToLogin } from "@/auth/navigateToLogin";
@@ -85,9 +86,11 @@ function getSubmitFormFailureDetails(error: unknown): SubmitFormFailureDetails {
   };
 }
 
-export async function submitForm(formRequest: FormRequest): Promise<void> {
+export async function submitForm(
+  formRequest: FormRequest,
+): Promise<{ ok: boolean }> {
   if (isLocalOrDemo) {
-    return Promise.resolve();
+    return { ok: true };
   }
   const url = getServerEnv().MEROPPFOLGING_BACKEND_URL;
   const path = `${url}/api/v2/senoppfolging/submitform`;
@@ -99,14 +102,17 @@ export async function submitForm(formRequest: FormRequest): Promise<void> {
   const idportenToken = getToken(headersList);
   const exchangedToken =
     await exchangeIdportenTokenForMeroppfolgingBackendTokenx(idportenToken);
+  const callId = nanoid();
 
   try {
     await serverRequest({
       url: path,
       accessToken: exchangedToken,
+      callId,
       method: "post",
       data: formRequest,
     });
+    return { ok: true };
   } catch (error) {
     const diagnostics = getSubmitFormFailureDetails(error);
     const rejected = diagnostics.rejection_reason !== undefined;
@@ -117,6 +123,7 @@ export async function submitForm(formRequest: FormRequest): Promise<void> {
       {
         ...submitFormFailureContext,
         ...diagnostics,
+        call_id: callId,
         ...(rejected
           ? { event_type: ApiRequestRejectedEvent, outcome: "rejected" }
           : { outcome: "failed" }),
@@ -125,6 +132,6 @@ export async function submitForm(formRequest: FormRequest): Promise<void> {
         ? "Svar på sen oppfølging ble avvist av en kjent domeneregel"
         : "Kunne ikke sende svar på sen oppfølging",
     );
-    throw new Error("Failed to submit registration");
+    return { ok: false };
   }
 }
