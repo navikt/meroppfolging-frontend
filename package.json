@@ -28,7 +28,7 @@
     "@navikt/ds-tailwind": "^8.21.0",
     "@navikt/ds-tokens": "^8.21.0",
     "@navikt/nav-dekoratoren-moduler": "^4.6.0",
-    "@navikt/next-logger": "^5.0.1",
+    "@navikt/next-logger": "^5.0.2",
     "@navikt/oasis": "^4.2.2",
     "axios": "^1.21.0",
     "csp-header": "^6.4.0",
