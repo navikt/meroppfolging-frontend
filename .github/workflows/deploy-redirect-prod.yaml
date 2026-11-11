@@ -2,10 +2,10 @@ name: Deploy redirect ingress to prod
 on:
   push:
     paths:
-      - 'nais/redirect-prod.yaml'
-      - '.github/workflows/deploy-redirect**'
+      - "nais/redirect-prod.yaml"
+      - ".github/workflows/deploy-redirect**"
     branches:
-      - 'main'
+      - "main"
 jobs:
   deploy:
     name: deploy redirect ingress to prod
