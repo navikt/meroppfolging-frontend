@@ -2,10 +2,10 @@ name: Deploy redirect ingress to dev
 on:
   push:
     paths:
-      - 'nais/redirect-dev.yaml'
-      - '.github/workflows/deploy-redirect**'
+      - "nais/redirect-dev.yaml"
+      - ".github/workflows/deploy-redirect**"
     branches:
-      - '**'
+      - "**"
 jobs:
   deploy:
     name: deploy redirect ingress to dev
