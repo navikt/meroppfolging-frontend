@@ -72,8 +72,8 @@ importers:
         specifier: ^7.91.0
         version: 7.91.0(@types/react@19.3.0)(react@19.3.1)
       remeda:
-        specifier: ^2.58.0
-        version: 2.58.0
+        specifier: ^2.59.0
+        version: 2.59.0
       zod:
         specifier: ^4.6.7
         version: 4.6.7
@@ -1846,8 +1846,8 @@ packages:
     resolution: {integrity: sha512-tYkDkVVtYkSVhuQ4zBgfvciymHaeuel+zFKXShfDnFP5SyVEP7qo70Rf1jTOTCx3vGNAbnEi/xFkcfQVMIBWag==}
     engines: {node: '>=12'}
 
-  remeda@2.58.0:
-    resolution: {integrity: sha512-uCy/WL+c+IF/oAb+sjgZ4Y7XPsW58wP8EWiYpIcqWQZBnNEcb8RnLh9PHsERA97ONpkebGw4S6qNcOtFQ+HG7A==}
+  remeda@2.59.0:
+    resolution: {integrity: sha512-iDQVjRfBXmsSjU6MQILkPdRtLjUqmMLeOQP8T1/jzZSwkCeALDKIKUYpMR2DuOYlNs+DTR8GiXsl/r4+eDCObw==}
     engines: {node: '>=18.0.0'}
 
   require-from-string@2.0.2:
@@ -3551,7 +3551,7 @@ snapshots:
       indent-string: 5.0.0
       strip-indent: 4.1.1
 
-  remeda@2.58.0: {}
+  remeda@2.59.0: {}
 
   require-from-string@2.0.2: {}
 
