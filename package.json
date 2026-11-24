@@ -29,7 +29,7 @@
     "@navikt/ds-tokens": "^8.23.0",
     "@navikt/nav-dekoratoren-moduler": "^4.6.0",
     "@navikt/next-logger": "^5.0.2",
-    "@navikt/oasis": "^4.2.2",
+    "@navikt/oasis": "^4.2.3",
     "axios": "^1.21.1",
     "csp-header": "^6.4.0",
     "date-fns": "^4.4.0",
